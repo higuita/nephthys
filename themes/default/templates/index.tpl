@@ -12,23 +12,39 @@
    <input type="hidden" name="namebefore" value="{ $slot_name }" />
    <input type="hidden" name="slot_idx" value="{ $slot_idx }" />
   { /if }
-  <table style="width: 100%" class="withborder">
 
-   Slot: <input type="text" name="slot_name" size="30" />
-   <br />
-   Sender: <input type="text" name="slot_sender" size="30" />
-   <br />
-   Receiver: <input type="text" name="slot_receiver" size="30" />
-   <br />
-   Vadlid for:
-   <select name="slot_valid_till">
-
-   </select>
-   
-   <br />
-   Note: <textarea name="slot_note"></textarea>
-   <br />
-
+  <table class="withborder">
+   <tr>
+    <td>Slot:</td>
+    <td>
+     <input type="text" name="slot_name" size="30" value="{ $slot_name }" />
+    </td>
+   </tr>
+   <tr>
+    <td>Sender:</td>
+    <td>
+     <input type="text" name="slot_sender" size="30" value="{ $slot_sender }" />
+    </td>
+   </tr>
+   <tr>
+    <td>Receiver:</td>
+    <td>
+     <input type="text" name="slot_receiver" size="30" value="{ $slot_receiver }" />
+    </td>
+   </tr>
+   <tr>
+    <td>Vadlid for:</td>
+    <td>
+     <select name="slot_valid_till">
+     </select>
+    </td>
+   </tr>
+   <tr>
+    <td>Note:</td>
+    <td>
+     <textarea name="slot_note">{ $slot_note }</textarea>
+    </td>
+   </tr>
   </table>
 
 {include file="footer.tpl"}

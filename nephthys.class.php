@@ -30,11 +30,8 @@ class NEPHTHYS {
    var $db;
    var $cfg_db;
    var $tmpl;
-   var $tags;
-   var $avail_tags;
 
    private $runtime_error = false;
-   private $dbver;
 
    /**
     * class constructor
@@ -84,6 +81,13 @@ class NEPHTHYS {
       /* if session is not yet started, do it now */
       if(session_id() == "")
          session_start();
+
+      if(!isset($_SERVER['REMOTE_USER']) || empty($_SERVER['REMOTE_USER'])) {
+         print "It seems you are not authenticated through the server";
+         exit(1);
+      }
+
+      $_SESSION['user_name'] = $_SERVER['REMOTE_USER'];
 
    } // __construct()
 
@@ -302,6 +306,25 @@ class NEPHTHYS {
       return 'n/a';
 
    } // getuid()
+
+   /**
+    * returns the current logged-on user's email address
+    */
+   public function getUsersEmail()
+   {
+      $row = $this->db->db_fetchSingleRow("
+         SELECT user_email
+         FROM nephthys_users
+         WHERE user_name LIKE '". $_SESSION['user_name'] ."'
+      ");
+
+      if(isset($row->user_email)) {
+         return $row->user_email;
+      }
+
+      return "unkown user";
+
+   } // getUsersEmail()
 
 
 } // class NEPHTHYS
