@@ -52,7 +52,12 @@ class NEPHTHYS_RPC {
          $action = $_POST['action'];
 
       switch($action) {
-
+         case 'store':
+            print $nephthys->store();
+            break;
+         default:
+            print "unkown action";
+            break;
       }
 
    } // process_ajax_request();

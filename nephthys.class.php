@@ -32,6 +32,8 @@ class NEPHTHYS {
    public $current_user;
 
    private $runtime_error = false;
+   private $avail_slots = Array();
+   private $slots = Array();
 
    /**
     * class constructor
@@ -119,6 +121,21 @@ class NEPHTHYS {
       }
 
 */
+      $res_slots = $this->db->db_query("
+         SELECT *
+         FROM nephthys_slots
+         ORDER BY slot_name ASC
+      ");
+
+      $cnt_slots = 0;
+
+      while($slot = $res_slots->fetchrow()) {
+         $this->avail_slots[$cnt_slots] = $slot->slot_idx;
+         $this->slots[$slot->slot_idx] = $slot;
+         $cnt_slots++;
+      }
+
+      $this->tmpl->register_block("slot_list", array(&$this, "smarty_slot_list"));
       $this->tmpl->show("index.tpl");
 
    } // show()
@@ -326,6 +343,176 @@ class NEPHTHYS {
       return "unkown user";
 
    } // getUsersEmail()
+
+   public function store()
+   {
+      if(!$this->is_logged_in()) {
+         return;
+      }
+
+      if(isset($_POST['module'])) {
+         switch($_POST['module']) {
+            case 'slots':
+               return $this->slotModify();
+               break;
+         }
+      }
+
+   } // store()
+
+   /**
+    * returns true if a user is logged in, otherwise false
+    */
+   private function is_logged_in()
+   {
+      if(isset($_SESSION['user_name']) && !empty($_SESSION['user_name']))
+         return true;
+
+      return false;
+
+   } // is_logged_in()
+
+   private function slotModify()
+   {
+      isset($_POST['slot_new']) && $_POST['slot_new'] == 1 ? $new = 1 : $new = NULL;
+
+      if(!isset($_POST['slot_name']) || empty($_POST['slot_name'])) {
+         return _("Please enter a name for this slot!");
+      }
+      if(!isset($_POST['slot_sender']) || empty($_POST['slot_name'])) {
+         return _("Please enter a sender for this slot!");
+      }
+      if(!$this->checkEmail($_POST['slot_sender'])) {
+         return _("Please enter a valid sender email address!");
+      }
+      if(!isset($_POST['slot_receiver']) || empty($_POST['slot_name'])) {
+         return _("Please enter a receiver for this slot!");
+      }
+      if(!$this->checkEmail($_POST['slot_receiver'])) {
+         return _("Please enter a valid receiver email address!");
+      }
+
+      if(isset($new)) {
+
+         $this->db->db_query("
+            INSERT INTO nephthys_slots (
+               slot_name, slot_sender, slot_receiver, slot_expire, slot_note,
+               slot_hash, slot_active
+            ) VALUES (
+               '". $_POST['slot_name'] ."',
+               '". $_POST['slot_sender'] ."',
+               '". $_POST['slot_receiver'] ."',
+               '". $_POST['slot_expire'] ."',
+               '". $_POST['slot_note'] ."',
+               '". $this->getSHAHash($_POST['slot_sender'], $_POST['slot_receiver']) ."',
+               'Y')
+         ");
+      }
+      else {
+           $this->db->db_query("
+               UPDATE nephthys_slots
+               SET
+                  slot_name='". $_POST['slot_name'] ."',
+                  slot_sender='". $_POST['slot_sender'] ."',
+                  slot_receiver='". $_POST['slot_receiver'] ."',
+                  slot_expire='". $_POST['slot_expire'] ."',
+                  slot_note='". $_POST['slot_note'] ."',
+                  slot_active='Y'
+               WHERE
+                  slot_idx='". $_POST['slot_idx'] ."'
+            ");
+      }
+
+      return "ok";
+
+   } // slotModify()
+
+   /***
+    * verify email address
+    *
+    * found on: http://www.ilovejackdaniels.com/php/email-address-validation/
+   */
+   private function checkEmail($email)
+   {
+      //if php version < 5.2
+      if ( version_compare( phpversion(), "5.2","<" ) ) {
+         // First, we check that there's one @ symbol, and that the lengths are right
+         if (!ereg("^[^@]{1,64}@[^@]{1,255}$", $email)) {
+            // Email invalid because wrong number of characters in one section, or wrong number of @ symbols.
+            return false;
+         }
+         // Split it into sections to make life easier
+         $email_array = explode("@", $email);
+         $local_array = explode(".", $email_array[0]);
+         for ($i = 0; $i < sizeof($local_array); $i++) {
+            if (!ereg("^(([A-Za-z0-9!#$%&'*+/=?^_`{|}~-][A-Za-z0-9!#$%&'*+/=?^_`{|}~\.-]{0,63})|(\"[^(\\|\")]{0,62}\"))$", $local_array[$i])) {
+               return false;
+            }
+         }
+         if (!ereg("^\[?[0-9\.]+\]?$", $email_array[1])) { // Check if domain is IP. If not, it should be valid domain name
+            $domain_array = explode(".", trim($email_array[1]));
+            if (sizeof($domain_array) < 2) {
+               return false; // Not enough parts to domain
+            }
+            for ($i = 0; $i < sizeof($domain_array); $i++) {
+               if (!ereg("^(([A-Za-z0-9][A-Za-z0-9-]{0,61}[A-Za-z0-9])|([A-Za-z0-9]+))$", $domain_array[$i])) {
+                  return false;
+               }
+            }
+         } else {
+            //regular expression verifies that each component is a number from 1 to 3 characters in length
+            if (!ereg("^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$", $email_array[1])){
+               return false;
+            }
+         }
+      } else if ( filter_var( $email, FILTER_VALIDATE_EMAIL ) === false ){
+         return false;
+      }
+      return true;
+
+   } // checkEmail() 
+
+   /**
+    * template function which will be called from the slots listing template
+    */
+   public function smarty_slot_list($params, $content, &$smarty, &$repeat)
+   {
+      $index = $this->tmpl->get_template_vars('smarty.IB.slot_list.index');
+      if(!$index) {
+         $index = 0;
+      }
+
+      if($index < count($this->avail_slots)) {
+
+         $slot_idx = $this->avail_slots[$index];
+         $slot =  $this->slots[$slot_idx];
+
+         $this->tmpl->assign('slot_idx', $slot_idx);
+         $this->tmpl->assign('slot_name', $slot->slot_name);
+         $this->tmpl->assign('slot_sender', $slot->slot_sender);
+         $this->tmpl->assign('slot_receiver', $slot->slot_receiver);
+
+         $index++;
+         $this->tmpl->assign('smarty.IB.slot_list.index', $index);
+         $repeat = true;
+      }
+      else {
+         $repeat =  false;
+      }
+
+      return $content;
+
+   } // smarty_slot_list()
+
+   /**
+    * generates a SHA-1 hash from the provided parameters
+    * and some random stuff
+    */
+   private function getSHAHash($sender, $receiver)
+   {
+      return sha1($sender . $receiver . rand(0, 32768));
+
+   } // getSHA()
 
 } // class NEPHTHYS
 

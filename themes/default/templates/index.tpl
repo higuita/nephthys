@@ -1,8 +1,8 @@
 {include file="header.tpl"}
- <body onload="init_netphyths();">
+ <body onload="init_nephthys();">
  
   <form action="rpc.php?action=store" id="slots" onsubmit="saveForm(this, 'slots'); return false;" method="post">
-  <input type="hidden" name="action" value="modify" />
+   <input type="hidden" name="module" value="slots" />
   { if ! $slot_idx }
    {start_table icon=$icon_slots alt="slot icon" title="Create a new slot" }
    <input type="hidden" name="slot_new" value="1" />
@@ -33,9 +33,16 @@
     </td>
    </tr>
    <tr>
-    <td>Vadlid for:</td>
+    <td>Expire in:</td>
     <td>
-     <select name="slot_valid_till">
+     <select name="slot_expire">
+      <option value="1">1 Day</option>
+      <option value="3">3 Days</option>
+      <option value="7">1 Week</option>
+      <option value="31">1 Month</option>
+      <option value="186">6 Months</option>
+      <option value="365">1 Year</option>
+      <option value="-1">never</option>
      </select>
     </td>
    </tr>
@@ -45,6 +52,32 @@
      <textarea name="slot_note">{ $slot_note }</textarea>
     </td>
    </tr>
+   <tr>
+    <td>&nbsp;</td>
+    <td><input type="submit" value="Create" /></td>
+   </tr>
   </table>
+  </form>
+
+ <table>
+ <tr>
+  <td>Name:</td>
+  <td>Sender:</td>
+  <td>Receiver:</td>
+ </tr>
+ { slot_list }
+ <tr>
+  <td>
+   { $slot_name }
+  </td>
+  <td>
+   { $slot_sender }
+  </td>
+  <td>
+   { $slot_receiver }
+  </td>
+ </tr>
+{ /slot_list }
+ </table>
 
 {include file="footer.tpl"}
