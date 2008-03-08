@@ -1,0 +1,5 @@
+# only the .dist config will be maintained
+nephthys_cfg.php
+# some garbage
+.htaccess
+*.swp
