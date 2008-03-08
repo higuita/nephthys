@@ -23,11 +23,11 @@
 
 class NEPHTHYS_TMPL extends Smarty {
 
-   private $parent;
+   public $parent;
 
-   public function __construct(&$parent)
+   public function __construct($parent)
    {
-      $this->parent = $parent;
+      $this->parent = &$parent;
 
       if(!file_exists($parent->cfg->base_path .'/themes/'. $parent->cfg->theme_name .'/templates')) {
          print "No templates found in ". $parent->cfg->base_path .'/themes/'. $parent->cfg->theme_name .'/templates';
@@ -41,7 +41,6 @@ class NEPHTHYS_TMPL extends Smarty {
       $this->cache_dir    = $parent->cfg->base_path .'/smarty_cache';
 
       $this->assign('slot_sender', $this->parent->getUsersEmail());
-
       $this->register_function("start_table", array(&$this, "smarty_startTable"), false);
 
    } // __construct()

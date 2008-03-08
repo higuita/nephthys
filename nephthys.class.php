@@ -26,10 +26,10 @@ require_once "nephthys_db.php";
 
 class NEPHTHYS {
 
-   var $cfg;
-   var $db;
-   var $cfg_db;
-   var $tmpl;
+   public $cfg;
+   public $db;
+   public $tmpl;
+   public $current_user;
 
    private $runtime_error = false;
 
@@ -74,10 +74,6 @@ class NEPHTHYS {
          exit(1);
       }
 
-      /* overload Smarty class if our own template handler */
-      require_once "nephthys_tmpl.php";
-      $this->tmpl = new NEPHTHYS_TMPL($this);
-
       /* if session is not yet started, do it now */
       if(session_id() == "")
          session_start();
@@ -88,6 +84,10 @@ class NEPHTHYS {
       }
 
       $_SESSION['user_name'] = $_SERVER['REMOTE_USER'];
+
+      /* overload Smarty class if our own template handler */
+      require_once "nephthys_tmpl.php";
+      $this->tmpl = new NEPHTHYS_TMPL($this);
 
    } // __construct()
 
@@ -110,7 +110,7 @@ class NEPHTHYS {
       $this->tmpl->assign('page_title', $this->cfg->page_title);
       $this->tmpl->assign('template_path', 'themes/'. $this->cfg->theme_name);
 
-      if(isset($_GET['mode'])) {
+/*      if(isset($_GET['mode'])) {
 
          $_SESSION['start_action'] = $_GET['mode'];
 
@@ -118,6 +118,7 @@ class NEPHTHYS {
          }
       }
 
+*/
       $this->tmpl->show("index.tpl");
 
    } // show()
@@ -325,7 +326,6 @@ class NEPHTHYS {
       return "unkown user";
 
    } // getUsersEmail()
-
 
 } // class NEPHTHYS
 
