@@ -1,0 +1,219 @@
+body {
+   color:                  rgb(26,151,15);
+   font-family:            sans-serif;
+   font-style:             normal;
+   margin:                 0px 0px 0px 0px;
+   padding:                0px 0px 0px 0px;
+}
+
+body.slideshow {
+   color:                  rgb(26,151,15);
+   font-family:            sans-serif;
+   font-style:             normal;
+   border:                 none;
+   padding:                10px;
+   text-align:             center;
+}
+
+table, tr, td {
+   border-collapse:        collapse;
+   padding:                0px;
+   empty-cells:            show;
+   vertical-align:         top;
+}
+
+/* left column containg search and tag-selection */
+.options {
+   position:               absolute;
+   left:                   0px;
+   top:                    40px;
+   width:                  265px;
+   max-width:              265px;
+   min-width:              265px;
+   padding-top:            8px;
+   padding-bottom:         10px;
+   padding-left:           5px;
+   padding-right:          10px;
+   border-right:           solid 1px #000000;
+}
+
+/* main cell containing photo content */
+.content {
+   margin-top:             40px;
+   margin-left:            280px;
+   margin-right:           0px;
+   padding:                0px;
+}
+
+div.searchfor {
+   padding-top:            10px;
+   padding-right:          10px;
+   padding-bottom:          10px;
+   line-height:            21px;
+   font-size:              12px;
+   vertical-align:         middle;
+   border-bottom:          solid 1px #000000;
+}
+
+.menu {
+   position:               absolute;
+   left:                   0px;
+   top:                    0px;
+   height:                 30px;
+   width:                  100%;
+   margin:                 0px;
+   padding:                5px 0px;
+   border-bottom:          solid 1px #000000;
+}
+
+.icons {
+   float:                  left;
+}
+
+/* logo 'text' */
+.logo {
+   background-color:       #eeeeee;
+   font-weight:            bolder;
+}
+
+div.header {
+   background-color:       #eeeeee;
+   padding:                10px;
+   vertical-align:         middle;
+   white-space:            nowrap;
+}
+
+img {
+   border:                none;
+}
+
+a {
+   font-size:              14px;
+   color:                  #008200;
+   text-decoration:        none;
+}
+
+a:hover {
+   color:                  #00aa44;
+}
+
+a.tag {
+   color:                  #000000;
+   text-decoration:        underline;
+}
+
+a.tag:hover {
+   color:                  #00aa44;
+}
+
+a.smalltag {
+   font-size:              12px;
+   color:                  #000000;
+   text-decoration:        underline;
+   font-style:             italic;
+}
+
+a.smalltag:hover {
+   color:                  #00aa44;
+}
+
+a.calendar {
+   font-size:              10px;
+}
+
+div.thumb {
+   text-align:             center;
+   vertical-align:         top;
+   -moz-border-radius:     3px;
+   border-radius:          3px;
+   border:                 dashed 1px #888888;
+   margin:                 10px 0px 0px 10px;
+   background-color:       #eeeeee;
+   padding:                10px;
+   float:                  left;
+}
+
+div.thumb img.thumb {
+   border:                 0px;
+   padding:                0px;
+   margin:                 0px;
+}
+
+div.thumb a.thumblink {
+   font-size:              12px;
+   border:                 0px;
+}
+
+div.thumb a.thumblink:hover {
+   color:                  #4761ab;
+}
+
+.clearboth { clear: both; }
+
+#photo_details {
+   width:                  150px;
+   font-size:              12px;
+   padding:                10px;
+   -moz-border-radius:     1em;
+   border-radius:          1em;
+   border:                 dashed 1px #888888;
+   z-index:                100;
+   float:                  right;
+   margin-top:             20px;
+   margin-right:           20px;
+}
+
+#available_tags,#selected_tags {
+   clip:                   auto;
+   overflow:               auto;
+   border-bottom:          solid 1px #000000;
+   padding-top:            10px;
+   padding-bottom:         10px;
+   padding-right:          10px;
+   line-height:            21px;
+}
+
+table.calendar tr td {
+   border:                 solid 1px #ffffff;
+   padding:                1px;
+   text-align:             center;
+   font-size:              10px;
+}
+
+.prevMonth {
+    font-size: 10px;
+    text-align: left;
+}
+.nextMonth {
+    font-size: 10px;
+    text-align: right;
+}
+#calendar {
+   position: absolute;
+   width: 140px;
+   height: 200px;
+   background-color: #000000;
+   visibility: hidden;
+   z-index: 1000;
+}
+
+#slide_navigation {
+   text-align:             center;
+   padding:                5px;
+   -moz-border-radius:     5px;
+   border-radius:          5px;
+   border:                 dashed 1px #888888;
+   vertical-align:         middle;
+}
+
+input.submit,input.checkbox {
+   background-color:       transparent;
+   border:                 0px;
+}
+
+input, select, textarea {
+   background-color:       #eeeeee;
+   color:                  #333333;
+   border:                 1px solid #888888;
+   border-collapse:        collapse;
+}
