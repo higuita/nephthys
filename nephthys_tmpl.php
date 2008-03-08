@@ -38,6 +38,8 @@ class NEPHTHYS_TMPL extends Smarty {
       $this->config_dir   = $parent->cfg->base_path .'/smarty_config';
       $this->cache_dir    = $parent->cfg->base_path .'/smarty_cache';
 
+      $this->register_function("start_table", array(&$this, "smarty_startTable"), false);
+
    } // __construct()
 
    public function show($template)
@@ -45,6 +47,15 @@ class NEPHTHYS_TMPL extends Smarty {
       $this->display($template);
 
    } // show()
+
+   public function smarty_startTable($params, &$smarty)
+   {
+      $this->assign('title', $params['title']);
+      $this->assign('icon', $params['icon']);
+      $this->assign('alt', $params['alt']);
+      $this->show('start_table.tpl');
+
+   } // smarty_function_startTable()
 
 }
 
