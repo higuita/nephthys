@@ -1,0 +1,26 @@
+Nephthys install howto:
+
+* requirements
+ 
+ - apache/apache2 (in fact any webserver which supports php)
+ - php5
+   - the following extensions must be available
+     (compiled in or as shared object):
+     * MySQL support
+   - PEAR extensions (pear install %name%)
+     * HTML_AJAX
+ - Smarty (php template engine, http://smarty.php.net)
+  
+* installation
+
+ 1. copy the sample nephthys-config-file to your new config file
+
+    cp nephthys_cfg.php.dist nephthys_cfg.php
+
+ 2. Edit nephthys_cfg.php and edit the necessary configuration
+    parameters. This file also include explanation of each option.
+
+ 3. Open nephthys in our favourite browser. The URL depends what
+    you have specify as $webpath in the configuration var. But
+    usually it will be http://myserver/nephthys (where myserver
+    is your webservers IP, server name, virtual host name, ...).
