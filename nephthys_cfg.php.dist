@@ -1,0 +1,63 @@
+<?php
+
+/***************************************************************************
+ *
+ * Copyright (c) by Andreas Unterkircher, unki@netshadow.at
+ * All rights reserved
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ *
+ ***************************************************************************/
+
+class NEPHTHYS_CFG {
+
+   var $page_title = "nephthys - file sharing";
+
+   var $base_path = "/var/www/nephyths";
+
+   var $web_path = "/nephthys";
+
+   var $theme_name = "default";
+
+   var $mysql_host = "localhost";
+   var $mysql_db = "db_filer";
+   var $mysql_user = "filer";
+   var $mysql_pass = "filer";
+ 
+   /* path to Smarty (http://smarty.php.net) installation. this option
+      should directly point to the Smarty main directory containing the
+      sub directories 'libs', 'misc', 'unit_test', ...
+      the default value '/usr/share/php/smarty' is for Debian GNU/Linux
+      where Smarty is installed through as dpkg.
+   */
+   var $smarty_path = "/usr/share/php/smarty";
+
+   /* logging = display || errorlog || logfile */
+   var $logging = "display";
+
+   /* set this if you chose logging = logfile */
+   var $log_file = "nephthys_err.log";
+
+   /* no need to modified anything below this line */
+   var $error_found = 0;
+
+   public function __construct()
+   {
+
+   } // __construct()
+
+} // class NEPHTHYS_CFG
+
+?>
