@@ -55,6 +55,9 @@ class NEPHTHYS_RPC {
          case 'store':
             print $nephthys->store();
             break;
+         case 'notifyslot':
+            print $nephthys->notifySlot();
+            break;
          default:
             print "unkown action";
             break;

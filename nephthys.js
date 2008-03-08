@@ -53,6 +53,24 @@ function WSR_getElementsByClassName(oElm, strTagName, oClassNames){
    return (arrReturnElements)
 }
 
+function notifySlot(id)
+{
+   var objTemp = new Object();
+
+   objTemp['action'] = 'notifyslot';
+   objTemp['id'] = id;
+
+   var retr = HTML_AJAX.post('rpc.php', objTemp);
+   if(retr == "ok") {
+      refreshAvailableTags();
+      refreshSelectedTags();
+      refreshPhotoIndex();
+   }
+   else {
+      window.alert("Server message: "+ retr);
+   }
+}
+
 function saveForm(obj, target)
 {
    var retval = formSubmit(obj, null, {isAsync: false});
@@ -139,4 +157,4 @@ function formSubmit(form, target, options)
    else {
       return HTML_AJAX.makeRequest(request);
    }
-}
+} // formSubmit()

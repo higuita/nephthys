@@ -76,6 +76,9 @@
   <td>
    { $slot_receiver }
   </td>
+  <td>
+   <a href="javascript:notifySlot({ $slot_idx });">Notify</a>
+  </td>
  </tr>
 { /slot_list }
  </table>

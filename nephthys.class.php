@@ -23,6 +23,7 @@
 
 require_once "nephthys_cfg.php";
 require_once "nephthys_db.php";
+require_once "nephthys_slot.php";
 
 class NEPHTHYS {
 
@@ -160,6 +161,11 @@ class NEPHTHYS {
       @include_once 'MDB2/Driver/mysql.php';
       if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
          print "PEAR MDB2-mysql package is missing<br />\n";
+         $missing = true;
+      }
+      @include_once 'Mail.php';
+      if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
+         print "PEAR Mail package is missing<br />\n";
          $missing = true;
       }
       @include_once $this->cfg->smarty_path .'/libs/Smarty.class.php';
@@ -427,6 +433,22 @@ class NEPHTHYS {
 
    } // slotModify()
 
+   /**
+    * return slot details
+    */
+   public function getSlotDetails($idx)
+   {
+      if($row = $this->db->db_fetchSingleRow("
+            SELECT *
+            FROM nephthys_slots
+            WHERE slot_idx LIKE '". $idx ."'
+         ")) {
+
+         return $row;
+
+      }
+   } // getSlotDetails()
+
    /***
     * verify email address
     *
@@ -513,6 +535,13 @@ class NEPHTHYS {
       return sha1($sender . $receiver . rand(0, 32768));
 
    } // getSHA()
+
+   public function notifySlot()
+   {
+      $slot = new NEPHTHYS_SLOT($this, $_POST['id']);
+      $slot->notify();
+
+   } // notifySlot()
 
 } // class NEPHTHYS
 
