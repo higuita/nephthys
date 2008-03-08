@@ -77,11 +77,6 @@ class NEPHTHYS {
          exit(1);
       }
 
-      /* include Smarty template engine */
-      if(!$this->check_readable($this->cfg->smarty_path .'/libs/Smarty.class.php')) {
-         exit(1);
-      }
-      require $this->cfg->smarty_path .'/libs/Smarty.class.php';
       /* overload Smarty class if our own template handler */
       require_once "nephthys_tmpl.php";
       $this->tmpl = new NEPHTHYS_TMPL($this);
@@ -200,6 +195,11 @@ class NEPHTHYS {
       @include_once 'MDB2/Driver/mysql.php';
       if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
          print "PEAR MDB2-mysql package is missing<br />\n";
+         $missing = true;
+      }
+      @include_once $this->cfg->smarty_path .'/libs/Smarty.class.php';
+      if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
+         print "Smarty is missing<br />\n";
          $missing = true;
       }
       ini_restore('track_errors');
