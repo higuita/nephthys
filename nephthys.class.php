@@ -400,6 +400,8 @@ class NEPHTHYS {
 
       if(isset($new)) {
 
+         $hash = $this->getSHAHash($_POST['slot_sender'], $_POST['slot_receiver']);
+
          $this->db->db_query("
             INSERT INTO nephthys_slots (
                slot_name, slot_sender, slot_receiver, slot_expire, slot_note,
@@ -410,9 +412,14 @@ class NEPHTHYS {
                '". $_POST['slot_receiver'] ."',
                '". $_POST['slot_expire'] ."',
                '". $_POST['slot_note'] ."',
-               '". $this->getSHAHash($_POST['slot_sender'], $_POST['slot_receiver']) ."',
+               '". $hash ."',
                'Y')
          ");
+
+         if(!mkdir($this->cfg->data_path ."/". $hash)) {
+            return "There was a error creating the slot directory. Contact your administrator!";
+         }
+
       }
       else {
            $this->db->db_query("
