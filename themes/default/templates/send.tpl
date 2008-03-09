@@ -1,4 +1,4 @@
-  <form action="rpc.php?action=store" id="slots" onsubmit="saveForm(this, 'slots'); return false;" method="post">
+  <form action="rpc.php?action=store" id="slots" onsubmit="js_create_slot(this, 'slots'); return false;" method="post">
   <input type="hidden" name="module" value="slots" />
   <input type="hidden" name="slot_new" value="1" />
   <table class="withborder">
@@ -58,6 +58,9 @@
    </tr>
    <tr>
     <td><input type="submit" value="Create" /></td>
+   </tr>
+   <tr>
+    <td><div id="generalerror" style="visibility: hidden;"></div></td>
    </tr>
   </table>
   </form>

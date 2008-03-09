@@ -92,6 +92,21 @@ class NEPHTHYS {
       require_once "nephthys_tmpl.php";
       $this->tmpl = new NEPHTHYS_TMPL($this);
 
+      $res_slots = $this->db->db_query("
+         SELECT *
+         FROM nephthys_slots
+         ORDER BY slot_name ASC
+      ");
+
+      $cnt_slots = 0;
+
+      while($slot = $res_slots->fetchrow()) {
+         $this->avail_slots[$cnt_slots] = $slot->slot_idx;
+         $this->slots[$slot->slot_idx] = $slot;
+         $cnt_slots++;
+      }
+
+ 
    } // __construct()
 
    public function __destruct()
@@ -108,29 +123,19 @@ class NEPHTHYS {
     * (photo index, photo, tag search, date search) into
     * users session.
     */
-   public function show()
+   public function show($what = 'start')
    {
       $this->tmpl->assign('page_title', $this->cfg->page_title);
       $this->tmpl->assign('product', $this->cfg->product);
       $this->tmpl->assign('version', $this->cfg->version);
       $this->tmpl->assign('template_path', 'themes/'. $this->cfg->theme_name);
-
-      $res_slots = $this->db->db_query("
-         SELECT *
-         FROM nephthys_slots
-         ORDER BY slot_name ASC
-      ");
-
-      $cnt_slots = 0;
-
-      while($slot = $res_slots->fetchrow()) {
-         $this->avail_slots[$cnt_slots] = $slot->slot_idx;
-         $this->slots[$slot->slot_idx] = $slot;
-         $cnt_slots++;
-      }
-
       $this->tmpl->register_block("slot_list", array(&$this, "smarty_slot_list"));
-      $this->tmpl->show("index.tpl");
+
+     switch($what) {
+         default:
+         case 'start': $this->tmpl->show("index.tpl"); break;
+         case 'main': $this->tmpl->show("main.tpl"); break;
+      }
 
    } // show()
 
@@ -542,6 +547,19 @@ class NEPHTHYS {
       $slot->notify();
 
    } // notifySlot()
+
+   public function delete_slot()
+   {
+      if(isset($_POST['id']) && is_numeric($_POST['id'])) {
+         $this->db->db_query("
+            DELETE FROM nephthys_slots
+            WHERE slot_idx LIKE '". $_POST['id'] ."'
+         ");
+      }
+
+      print "ok";
+
+   } // delete_slot()
 
    public function receive()
    {

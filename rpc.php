@@ -52,6 +52,9 @@ class NEPHTHYS_RPC {
          $action = $_POST['action'];
 
       switch($action) {
+         case 'main':
+            $nephthys->show('main');
+            break;
          case 'receive':
             print $nephthys->receive();
             break;
@@ -63,6 +66,9 @@ class NEPHTHYS_RPC {
             break;
          case 'notifyslot':
             print $nephthys->notifySlot();
+            break;
+         case 'deleteslot':
+            print $nephthys->delete_slot();
             break;
          case 'validateemail':
             if(isset($_POST['address']) && !empty($_POST['address']) && $nephthys->validate_email($_POST['address']))

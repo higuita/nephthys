@@ -1,10 +1,10 @@
  <table>
   <tr>
    <td style="width: 50%; text-align: center;">
-    <a href="javascript:create_slot('send');">I want to share files with someone.</a>
+    <a href="javascript:ajax_show_content('send');">I want to share files with someone.</a>
    </td>
    <td style="width: 50%; text-align: center;">
-    <a href="javascript:create_slot('receive');">Someone wants to share some files with me.</a></td>
+    <a href="javascript:ajax_how_content('receive');">Someone wants to share some files with me.</a></td>
    </td>
   </tr>
  </table>
@@ -27,7 +27,8 @@
    { $slot_receiver }
   </td>
   <td>
-   <a href="javascript:notifySlot({ $slot_idx });">Notify</a>
+   <a href="javascript:ajax_delete_slot({ $slot_idx });">Delete</a>
+   <a href="javascript:ajax_notify_slot({ $slot_idx });">Notify</a>
   </td>
  </tr>
 { /slot_list }

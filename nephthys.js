@@ -53,7 +53,7 @@ function WSR_getElementsByClassName(oElm, strTagName, oClassNames){
    return (arrReturnElements)
 }
 
-function notifySlot(id)
+function ajax_notify_slot(id)
 {
    var objTemp = new Object();
 
@@ -61,44 +61,87 @@ function notifySlot(id)
    objTemp['id'] = id;
 
    var retr = HTML_AJAX.post('rpc.php', objTemp);
-   if(retr == "ok") {
-      refreshAvailableTags();
-      refreshSelectedTags();
-      refreshPhotoIndex();
-   }
-   else {
+   if(retr != "ok") {
       window.alert("Server message: "+ retr);
    }
 }
 
-function saveForm(obj, target)
+function ajax_delete_slot(id)
 {
-   var retval = formSubmit(obj, null, {isAsync: false});
-   if(retval != "ok") {
-      window.alert(retval);
+   var objTemp = new Object();
+
+   objTemp['action'] = 'deleteslot';
+   objTemp['id'] = id;
+
+   var retr = HTML_AJAX.post('rpc.php', objTemp);
+   if(retr == "ok") {
+      ajax_show_content('main');
+   }
+   else {
+      window.alert("Server message: "+ retr);
+   }
+} // ajax_delete_slot()
+
+function js_create_slot(obj, target)
+{
+   if(obj.slot_name.value == "") {
+      window.alert("Please enter a name for this slot!");
+      return false;
+   }
+   if(ajax_validate_email(obj.slot_sender.value) != "ok") {
+      window.alert("Please enter a valid sender email address!");
+      return false;
+   }
+   if(ajax_validate_email(obj.slot_receiver.value) != "ok") {
+      window.alert("Please enter a valid receiver email address!");
+      return false;
    }
 
-} // saveForm()
+   var retval = ajax_save_form(obj, target);
 
+   if(retval == "ok") {
+      ajax_show_content('main');
+   }
+   else {
+      var errortext = document.getElementById('generalerror');
+      errortext.style.visibility = 'visible';
+      errortext.innerHTML = retval;
+   }
 
-function create_slot(mode)
+} // js_create_slot()
+
+function ajax_save_form(obj, target)
+{
+   var content = document.getElementById("content");
+   return formSubmit(obj, null, {isAsync: false});
+
+} // ajax_saveForm()
+
+function ajax_show_content(mode)
 {
    var content = document.getElementById("content");
    var retval = HTML_AJAX.grab('rpc.php?action=' + mode);
    content.innerHTML = retval;
 
-} // create_slot()
+} // ajax_show_content()
+
+function ajax_validate_email(address)
+{
+   var objTemp = new Object();
+
+   objTemp['action'] = 'validateemail';
+   objTemp['address'] = address;
+
+   return HTML_AJAX.post('rpc.php', objTemp);
+
+} // ajax_validate_email()
 
 function js_validate_email(email, errorobj)
 {
    var errortext = document.getElementById(errorobj);
-   var objTemp = new Object();
-
-   objTemp['action'] = 'validateemail';
-   objTemp['address'] = email.value;
 
    if(email.value != "")
-      var retr = HTML_AJAX.post('rpc.php', objTemp);
+      var retr = ajax_validate_email(email.value);
 
    if(email.value == "" || retr == "ok") {
       errortext.style.visibility = 'hidden';
@@ -109,7 +152,8 @@ function js_validate_email(email, errorobj)
       errortext.innerHTML = 'Enter a valid email address!';
       email.focus();
    }
-} // validate_email()
+
+} // js_validate_email()
 
 var NetScape4 = (navigator.appName == "Netscape" && parseInt(navigator.appVersion) < 5);
 var autoload = undefined;
