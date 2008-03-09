@@ -1,7 +1,11 @@
  <table>
   <tr>
-   <td><a href="javascript:create_slot('send');">I want to share files with someone.</a></td>
-   <td><a href="javascript:create_slot('receive');">Someone wants to share some files with me.</a></td>
+   <td style="width: 50%; text-align: center;">
+    <a href="javascript:create_slot('send');">I want to share files with someone.</a>
+   </td>
+   <td style="width: 50%; text-align: center;">
+    <a href="javascript:create_slot('receive');">Someone wants to share some files with me.</a></td>
+   </td>
   </tr>
  </table>
  <br /><br /><br />

@@ -2,7 +2,7 @@
  <body onload="init_nephthys();">
   <div id="box">
    <div id="header">
-    { $product } { $version }
+    <a href="">{ $product } { $version }</a>
    </div>
  
    <div id="content">

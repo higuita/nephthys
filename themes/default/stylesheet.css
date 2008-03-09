@@ -33,11 +33,12 @@ table, tr, td {
    float:                  left;
 }
 
-div.header {
+#header {
    background-color:       #eeeeee;
    padding:                10px;
    vertical-align:         middle;
    white-space:            nowrap;
+   height:                 50px;
 }
 
 img {
