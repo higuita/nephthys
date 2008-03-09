@@ -13,6 +13,14 @@ table, tr, td {
    vertical-align:         top;
 }
 
+#box {
+   margin-top:             0px;
+   margin-left:            200px;
+   margin-right:           200px;
+   padding:                10px;
+   border:                 1px solid #aaaaaa;
+}
+
 /* main cell containing photo content */
 .content {
    margin-top:             40px;

@@ -80,6 +80,37 @@ function saveForm(obj, target)
 
 } // saveForm()
 
+
+function create_slot(mode)
+{
+   var content = document.getElementById("content");
+   var retval = HTML_AJAX.grab('rpc.php?action=' + mode);
+   content.innerHTML = retval;
+
+} // create_slot()
+
+function js_validate_email(email, errorobj)
+{
+   var errortext = document.getElementById(errorobj);
+   var objTemp = new Object();
+
+   objTemp['action'] = 'validateemail';
+   objTemp['address'] = email.value;
+
+   if(email.value != "")
+      var retr = HTML_AJAX.post('rpc.php', objTemp);
+
+   if(email.value == "" || retr == "ok") {
+      errortext.style.visibility = 'hidden';
+      errortext.innerHTML = '';
+   }
+   else {
+      errortext.style.visibility = 'visible';
+      errortext.innerHTML = 'Enter a valid email address!';
+      email.focus();
+   }
+} // validate_email()
+
 var NetScape4 = (navigator.appName == "Netscape" && parseInt(navigator.appVersion) < 5);
 var autoload = undefined;
 

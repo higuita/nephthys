@@ -52,11 +52,23 @@ class NEPHTHYS_RPC {
          $action = $_POST['action'];
 
       switch($action) {
+         case 'receive':
+            print $nephthys->receive();
+            break;
+         case 'send':
+            print $nephthys->send();
+            break;
          case 'store':
             print $nephthys->store();
             break;
          case 'notifyslot':
             print $nephthys->notifySlot();
+            break;
+         case 'validateemail':
+            if(isset($_POST['address']) && !empty($_POST['address']) && $nephthys->validate_email($_POST['address']))
+               print "ok";
+            else
+               print "failed";
             break;
          default:
             print "unkown action";

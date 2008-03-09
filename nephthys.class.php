@@ -53,7 +53,7 @@ class NEPHTHYS {
       }
 
       /* set application name and version information */
-      $this->cfg->product = "nephthys";
+      $this->cfg->product = "Nephthys";
       $this->cfg->version = "1.0";
 
       $this->sort_orders= array(
@@ -111,17 +111,10 @@ class NEPHTHYS {
    public function show()
    {
       $this->tmpl->assign('page_title', $this->cfg->page_title);
+      $this->tmpl->assign('product', $this->cfg->product);
+      $this->tmpl->assign('version', $this->cfg->version);
       $this->tmpl->assign('template_path', 'themes/'. $this->cfg->theme_name);
 
-/*      if(isset($_GET['mode'])) {
-
-         $_SESSION['start_action'] = $_GET['mode'];
-
-         switch($_GET['mode']) {
-         }
-      }
-
-*/
       $res_slots = $this->db->db_query("
          SELECT *
          FROM nephthys_slots
@@ -388,13 +381,13 @@ class NEPHTHYS {
       if(!isset($_POST['slot_sender']) || empty($_POST['slot_name'])) {
          return _("Please enter a sender for this slot!");
       }
-      if(!$this->checkEmail($_POST['slot_sender'])) {
+      if(!$this->validate_email($_POST['slot_sender'])) {
          return _("Please enter a valid sender email address!");
       }
       if(!isset($_POST['slot_receiver']) || empty($_POST['slot_name'])) {
          return _("Please enter a receiver for this slot!");
       }
-      if(!$this->checkEmail($_POST['slot_receiver'])) {
+      if(!$this->validate_email($_POST['slot_receiver'])) {
          return _("Please enter a valid receiver email address!");
       }
 
@@ -461,7 +454,7 @@ class NEPHTHYS {
     *
     * found on: http://www.ilovejackdaniels.com/php/email-address-validation/
    */
-   private function checkEmail($email)
+   public function validate_email($email)
    {
       //if php version < 5.2
       if ( version_compare( phpversion(), "5.2","<" ) ) {
@@ -499,7 +492,7 @@ class NEPHTHYS {
       }
       return true;
 
-   } // checkEmail() 
+   } // validate_email() 
 
    /**
     * template function which will be called from the slots listing template
@@ -549,6 +542,18 @@ class NEPHTHYS {
       $slot->notify();
 
    } // notifySlot()
+
+   public function receive()
+   {
+
+   } // receive()
+
+   public function send()
+   {
+      $tmpl = new NEPHTHYS_TMPL($this);
+      $tmpl->show('send.tpl');
+
+   }
 
 } // class NEPHTHYS
 
