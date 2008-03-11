@@ -4,7 +4,7 @@
     <a href="javascript:ajax_show_content('send');">I want to share files with someone.</a>
    </td>
    <td style="width: 50%; text-align: center;">
-    <a href="javascript:ajax_how_content('receive');">Someone wants to share some files with me.</a></td>
+    <a href="javascript:ajax_show_content('receive');">Someone wants to share some files with me.</a></td>
    </td>
   </tr>
  </table>
