@@ -669,13 +669,15 @@ class NEPHTHYS {
 
    public function receive()
    {
+      $tmpl = new NEPHTHYS_TMPL($this);
+      $tmpl->show('receive_form.tpl');
 
    } // receive()
 
    public function send()
    {
       $tmpl = new NEPHTHYS_TMPL($this);
-      $tmpl->show('send.tpl');
+      $tmpl->show('send_form.tpl');
 
    } // send()
 
