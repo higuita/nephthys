@@ -9,7 +9,7 @@
   </tr>
  </table>
  <br /><br /><br />
- <table>
+ <table class="withborder">
  <tr>
   <td>Name:</td>
   <td>Sender:</td>
