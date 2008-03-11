@@ -1,5 +1,6 @@
   <form action="rpc.php?action=store" id="slots" onsubmit="js_create_slot(this, 'slots'); return false;" method="post">
   <input type="hidden" name="module" value="slots" />
+  <input type="hidden" name="slotmode" value="send" />
   <input type="hidden" name="slot_new" value="1" />
   <table class="withborder">
    <tr>
@@ -19,17 +20,6 @@
     </td>
     <td>
      <div id="senderemail" style="visibility: hidden;"></div>
-    </td>
-   </tr>
-   <tr>
-    <td colspan="2">Enter the receiver email address:
-   </tr>
-   <tr>
-    <td>
-     <input type="text" name="slot_receiver" size="30" value="{ $slot_receiver }" onchange="js_validate_email(this, 'receiveremail');" />
-    </td>
-    <td>
-     <div id="receiveremail" style="visibility: hidden;"></div>
     </td>
    </tr>
    <tr>
