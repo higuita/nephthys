@@ -389,16 +389,23 @@ class NEPHTHYS {
       if(!$this->validate_email($_POST['slot_sender'])) {
          return _("Please enter a valid sender email address!");
       }
-      if(!isset($_POST['slot_receiver']) || empty($_POST['slot_name'])) {
+      if(isset($_POST['slotmode']) && $_POST['slotmode'] == "receive" &&
+         !isset($_POST['slot_receiver']) || empty($_POST['slot_name'])) {
          return _("Please enter a receiver for this slot!");
       }
-      if(!$this->validate_email($_POST['slot_receiver'])) {
+      if(isset($_POST['slotmode']) && $_POST['slotmode'] == "receive" &&
+         !$this->validate_email($_POST['slot_receiver'])) {
          return _("Please enter a valid receiver email address!");
       }
 
       if(isset($new)) {
 
-         $hash = $this->getSHAHash($_POST['slot_sender'], $_POST['slot_receiver']);
+         if(isset($_POST['slot_receiver']))
+            $hash = $this->get_sha_hash($_POST['slot_sender'], $_POST['slot_receiver']);
+         else {
+            $_POST['slot_receiver'] = "";
+            $hash = $this->get_sha_hash($_POST['slot_sender']);
+         }
 
          $this->db->db_query("
             INSERT INTO nephthys_slots (
@@ -535,11 +542,14 @@ class NEPHTHYS {
     * generates a SHA-1 hash from the provided parameters
     * and some random stuff
     */
-   private function getSHAHash($sender, $receiver)
+   private function get_sha_hash($sender, $receiver = false)
    {
+      if(!$receiver)
+         $receiver = mktime();
+
       return sha1($sender . $receiver . rand(0, 32768));
 
-   } // getSHA()
+   } // get_sha_hash()
 
    public function notifySlot()
    {
@@ -548,9 +558,43 @@ class NEPHTHYS {
 
    } // notifySlot()
 
+   /**
+    * return slot's SHA1 hash
+    *
+    * this function will return the SHA1 hash of the
+    * requested slot (by database primary key)
+    */
+   private function get_slot_hash($idx)
+   {
+      if($row = $this->db->db_fetchSingleRow("
+            SELECT slot_hash
+            FROM nephthys_slots
+            WHERE slot_idx LIKE '". $idx ."'
+         ")) {
+
+         if(isset($row->slot_hash))
+            return $row->slot_hash;
+
+      }
+
+      return 0;
+
+   } // get_slot_hash();
+
    public function delete_slot()
    {
       if(isset($_POST['id']) && is_numeric($_POST['id'])) {
+
+         $hash = $this->get_slot_hash($_POST['id']);
+
+         if(!$hash) {
+            return "Can't locate hash value of the slot that has to be deleted.";
+         }
+
+         if(!$this->del_data_directory($hash)) {
+            return "Removing the data directory ". $this->cfg->data_path ."/". $hash ." was not possible: ";
+         }
+
          $this->db->db_query("
             DELETE FROM nephthys_slots
             WHERE slot_idx LIKE '". $_POST['id'] ."'
@@ -560,6 +604,68 @@ class NEPHTHYS {
       print "ok";
 
    } // delete_slot()
+
+   private function del_data_directory($hash)
+   {
+      if($this->data_directory_exists($hash))
+         return $this->deltree($this->cfg->data_path ."/". $hash);
+
+      return false;
+
+   } // del_data_directory()
+
+   private function deltree($f)
+   {
+      if (is_dir($f)) {
+         foreach(glob($f.'/*') as $sf) {
+            print $sf;
+            if (is_dir($sf) && !is_link($sf)) {
+               $this->deltree($sf);
+               // rmdir($sf); <== old place with arg "$sf"
+            } else {
+               unlink($sf);
+            }
+         }
+         rmdir($f); // <== new place with new arg "$f"
+         return true;
+      }
+
+      return false;
+
+   } // deltree()
+
+   private function scan_full_dir($rootDir, $allowext, $allData=array()) {
+      $dirContent = scandir($rootDir);
+      foreach($dirContent as $key => $content) {
+         $path = $rootDir.'/'.$content;
+         $ext = substr($content, strrpos($content, '.') + 1);
+
+         if(in_array($ext, $allowext)) {
+            if(is_file($path) && is_readable($path)) {
+               $allData[] = $path;
+            }elseif(is_dir($path) && is_readable($path)) {
+               // recursive callback to open new directory
+               $allData = $this->scan_full_dir($path, $allData);
+            }
+         }
+      }
+      return $allData;
+   } // scan_full_dir()
+
+   /**
+    * check if data directory exists
+    *
+    * returns true, if the specified data-directory + hash-named
+    * directory really exists.
+    */
+   private function data_directory_exists($hash)
+   {
+      if(file_exists($this->cfg->data_path ."/". $hash))
+         return true;
+
+      return false;
+
+   } // data_directory_exists()
 
    public function receive()
    {
@@ -571,7 +677,7 @@ class NEPHTHYS {
       $tmpl = new NEPHTHYS_TMPL($this);
       $tmpl->show('send.tpl');
 
-   }
+   } // send()
 
 } // class NEPHTHYS
 

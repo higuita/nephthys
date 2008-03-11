@@ -92,7 +92,7 @@ function js_create_slot(obj, target)
       window.alert("Please enter a valid sender email address!");
       return false;
    }
-   if(ajax_validate_email(obj.slot_receiver.value) != "ok") {
+   if(obj.slotmode.value == "send" && ajax_validate_email(obj.slot_receiver.value) != "ok") {
       window.alert("Please enter a valid receiver email address!");
       return false;
    }
