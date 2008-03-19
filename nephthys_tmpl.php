@@ -42,6 +42,7 @@ class NEPHTHYS_TMPL extends Smarty {
 
       $this->assign('slot_sender', $this->parent->getUsersEmail());
       $this->register_function("start_table", array(&$this, "smarty_startTable"), false);
+      $this->register_function("page_end", array(&$this, "smarty_page_end"), false);
 
    } // __construct()
 
@@ -59,6 +60,17 @@ class NEPHTHYS_TMPL extends Smarty {
       $this->show('start_table.tpl');
 
    } // smarty_function_startTable()
+
+   public function smarty_page_end($params, &$smarty)
+   {
+      if(isset($params['focus_to'])) {
+         $this->assign('focus_to', $params['focus_to']);
+      }
+
+      $this->show('page_end.tpl');
+
+   } // smarty_function_startTable()
+
 
 }
 

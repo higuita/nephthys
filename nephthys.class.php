@@ -23,6 +23,7 @@
 
 require_once "nephthys_db.php";
 require_once "nephthys_slot.php";
+require_once "nephthys_users.php";
 
 class NEPHTHYS {
 
@@ -44,6 +45,8 @@ class NEPHTHYS {
     */
    public function __construct()
    {
+      $GLOBALS['nephthys'] =& $this;
+
       /* load config, exit if it fails */
       if(!$this->load_config()) {
          exit(1);
@@ -81,10 +84,17 @@ class NEPHTHYS {
       */
 
       $_SESSION['user_name'] = $_SERVER['REMOTE_USER'];
+      $_SESSION['user_name'] = "unki";
 
       /* overload Smarty class if our own template handler */
       require_once "nephthys_tmpl.php";
       $this->tmpl = new NEPHTHYS_TMPL($this);
+
+      $this->tmpl->assign('page_title', $this->cfg->page_title);
+      $this->tmpl->assign('product', $this->cfg->product);
+      $this->tmpl->assign('version', $this->cfg->version);
+      $this->tmpl->assign('template_path', 'themes/'. $this->cfg->theme_name);
+      $this->tmpl->register_block("slot_list", array(&$this, "smarty_slot_list"));
 
 /*      $res_slots = $this->db->db_query("
          SELECT *
@@ -118,21 +128,71 @@ class NEPHTHYS {
     * (photo index, photo, tag search, date search) into
     * users session.
     */
-   public function show($what = 'start')
+   public function init($what = 'start')
    {
-      $this->tmpl->assign('page_title', $this->cfg->page_title);
-      $this->tmpl->assign('product', $this->cfg->product);
-      $this->tmpl->assign('version', $this->cfg->version);
-      $this->tmpl->assign('template_path', 'themes/'. $this->cfg->theme_name);
-      $this->tmpl->register_block("slot_list", array(&$this, "smarty_slot_list"));
+      $this->tmpl->show("index.tpl");
 
-     switch($what) {
-         default:
-         case 'start': $this->tmpl->show("index.tpl"); break;
-         case 'main': $this->tmpl->show("main.tpl"); break;
+   } // init()
+
+   public function show()
+   {
+      $this->tmpl->show("main.tpl");
+   } // show()
+
+   /**
+    * return main content
+    */
+   public function get_content()
+   {
+      if(!$this->is_logged_in()) {
+         return $this->tmpl->fetch("login_box.tpl");
       }
 
-   } // show()
+      if(isset($_GET['id']) && is_string($_GET['id']))
+         $request = $_GET['id'];
+      if(isset($_POST['id']) && is_string($_POST['id']))
+         $request = $_POST['id'];
+
+      switch($request) {
+         case 'main':
+            $obj = $this;
+            break;
+         case 'users':
+            $obj = new NEPHTHYS_USERS($this);
+            break;
+         case 'groups':
+            $obj = new NEPHTHYS_GROUPS($this);
+            break;
+      }
+
+      if(isset($obj))
+         return $obj->show();
+
+   } // get_content()
+
+   public function store()
+   {
+      if(!$this->is_logged_in()) {
+         return;
+      }
+
+      if(isset($_POST['module'])) {
+         switch($_POST['module']) {
+            case 'users':
+               $obj = new NEPHTHYS_USERS($this);
+               break;
+         }
+
+         if(isset($obj)) {
+            switch($_POST['action']) {
+               case 'modify': return $obj->store(); break;
+               case 'delete': return $obj->delete(); break;
+               case 'toggle': return $obj->toggleStatus(); break;
+            }
+         }
+      }
+
+   } // store()
 
    /**
     * check if all requirements are met
@@ -343,26 +403,10 @@ class NEPHTHYS {
 
    } // getUsersEmail()
 
-   public function store()
-   {
-      if(!$this->is_logged_in()) {
-         return;
-      }
-
-      if(isset($_POST['module'])) {
-         switch($_POST['module']) {
-            case 'slots':
-               return $this->slotModify();
-               break;
-         }
-      }
-
-   } // store()
-
    /**
     * returns true if a user is logged in, otherwise false
     */
-   private function is_logged_in()
+   public function is_logged_in()
    {
       if(isset($_SESSION['user_name']) && !empty($_SESSION['user_name']))
          return true;

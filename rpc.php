@@ -52,8 +52,8 @@ class NEPHTHYS_RPC {
          $action = $_POST['action'];
 
       switch($action) {
-         case 'main':
-            $nephthys->show('main');
+         case 'get_content':
+            $nephthys->get_content();
             break;
          case 'receive':
             print $nephthys->receive();

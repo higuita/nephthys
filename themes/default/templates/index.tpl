@@ -6,9 +6,9 @@
    </div>
  
    <ul id="menutabs" class="shadetabs">
-   <li><a href="rpc.php?action=main" class="selected" rel="buckets">Buckets</a></li>
-   <li><a href="rpc.php?action=users" rel="users">Users</a></li>
-   <li><a href="rpc.php?action=groups" rel="groups">Groups</a></li>
+   <li><a href="rpc.php?action=get_content&id=main" class="selected" rel="buckets">Buckets</a></li>
+   <li><a href="rpc.php?action=get_content&id=users" rel="users">Users</a></li>
+   <li><a href="rpc.php?action=get_content&id=groups" rel="groups">Groups</a></li>
    </ul>
    <div id="content">
     hier ist der content

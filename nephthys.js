@@ -117,13 +117,21 @@ function ajax_save_form(obj, target)
 
 } // ajax_saveForm()
 
-function ajax_show_content(mode)
+function ajax_show_content(req_content, options)
 {
+   if(req_content == undefined)
+      req_content = "";
+
    var content = document.getElementById("content");
-   var retval = HTML_AJAX.grab('rpc.php?action=' + mode);
-   content.innerHTML = retval;
+   content.innerHTML = "Loading...";
+   var url = 'rpc.php?action=get_content&id=' + req_content;
+   if(options != undefined) {
+      url = url+options;
+   }
+   content.innerHTML = HTML_AJAX.grab(encodeURI(url));
 
 } // ajax_show_content()
+
 
 function ajax_validate_email(address)
 {
@@ -233,3 +241,20 @@ function formSubmit(form, target, options)
       return HTML_AJAX.makeRequest(request);
    }
 } // formSubmit()
+
+/**
+ * set focus to specified object
+ *
+ * this function will search for the first matching
+ * object and if possible, set the focus to it.
+ */
+function setFocus(obj) {
+   if(el = document.getElementsByName(obj)) {
+      if(el.item(0)) {
+         if(el.item(0).focus) {
+            el.item(0).focus();
+         }
+      }
+   }
+} // setFocus()
+

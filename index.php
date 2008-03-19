@@ -24,6 +24,6 @@
 require_once "nephthys.class.php";
 
 $nephthys = new NEPHTHYS;
-$nephthys->show();
+$nephthys->init();
 
 ?>
