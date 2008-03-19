@@ -5,8 +5,14 @@
     <a href="javascript:ajax_show_content('main');">{ $product } { $version }</a>
    </div>
  
+   <ul id="menutabs" class="shadetabs">
+   <li><a href="rpc.php?action=main" class="selected" rel="buckets">Buckets</a></li>
+   <li><a href="rpc.php?action=users" rel="users">Users</a></li>
+   <li><a href="rpc.php?action=groups" rel="groups">Groups</a></li>
+   </ul>
    <div id="content">
-    {include file="main.tpl"}
+    hier ist der content
+    {* include file="main.tpl" *}
    </div>
   </div>
 

@@ -74,10 +74,11 @@ class NEPHTHYS {
       if(session_id() == "")
          session_start();
 
-      if(!isset($_SERVER['REMOTE_USER']) || empty($_SERVER['REMOTE_USER'])) {
+      /*if(!isset($_SERVER['REMOTE_USER']) || empty($_SERVER['REMOTE_USER'])) {
          print "It seems you are not authenticated through the server";
          exit(1);
       }
+      */
 
       $_SESSION['user_name'] = $_SERVER['REMOTE_USER'];
 
@@ -85,7 +86,7 @@ class NEPHTHYS {
       require_once "nephthys_tmpl.php";
       $this->tmpl = new NEPHTHYS_TMPL($this);
 
-      $res_slots = $this->db->db_query("
+/*      $res_slots = $this->db->db_query("
          SELECT *
          FROM nephthys_slots
          ORDER BY slot_name ASC
@@ -99,6 +100,7 @@ class NEPHTHYS {
          $cnt_slots++;
       }
 
+*/
  
    } // __construct()
 
