@@ -21,7 +21,6 @@
  *
  ***************************************************************************/
 
-require_once "nephthys_cfg.php";
 require_once "nephthys_db.php";
 require_once "nephthys_slot.php";
 
@@ -45,16 +44,10 @@ class NEPHTHYS {
     */
    public function __construct()
    {
-      $this->cfg = new NEPHTHYS_CFG;
-
-      /* verify config settings */
-      if($this->check_config_options()) {
+      /* load config, exit if it fails */
+      if(!$this->load_config()) {
          exit(1);
       }
-
-      /* set application name and version information */
-      $this->cfg->product = "Nephthys";
-      $this->cfg->version = "1.0";
 
       $this->sort_orders= array(
          'date_asc' => 'Date &uarr;',
@@ -73,7 +66,7 @@ class NEPHTHYS {
       $this->db  = new NEPHTHYS_DB($this);
 
       if(!is_writeable($this->cfg->base_path ."/templates_c")) {
-         print $this->cfg->base_path ."/templates_c: directory is not writeable for user ". $this->getuid() ."\n";
+         print "[". $this->cfg->base_path ."/templates_c] directory is not writeable for user ". $this->getuid() ."\n";
          exit(1);
       }
 
@@ -680,6 +673,36 @@ class NEPHTHYS {
       $tmpl->show('send_form.tpl');
 
    } // send()
+
+   /**
+    * load Nephthys configuration file
+    */
+   private function load_config()
+   {
+      ini_set('track_errors', 1);
+      @include_once "nephthys_cfg.php";
+      if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
+         print "Can't read nephthys_cfg.php or have no permission to do it. Follow the documentation\n";
+         print "create nephthys_cfg.php from nephthys_cfg.php.dist<br />\n";
+         return false;
+      }
+      ini_restore('track_errors');
+
+      $this->cfg = new NEPHTHYS_CFG;
+
+      /* verify config settings */
+      if($this->check_config_options()) {
+         return false;
+      }
+
+      /* set application name and version information */
+      $this->cfg->product = "Nephthys";
+      $this->cfg->version = "1.0";
+
+      return true;
+
+   } // load_config()
+
 
 } // class NEPHTHYS
 
