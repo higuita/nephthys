@@ -23,40 +23,51 @@
 
 class NEPHTHYS_CFG {
 
-   var $page_title = "nephthys - file sharing";
+   // Change the page title shown in browsers title bar.
+   // Default:
+   //   var $page_title = "Nephthys - file sharing";
 
-   var $base_path = "/var/www/nephyths";
+   // Path where you have installed Nephthys in the filesystem.
+   // Default:
+   //   var $base_path = "/var/www/nephyths";
 
-   var $web_path = "/nephthys";
+   // Webpath with which Nephthys is addressed.
+   // Default:
+   //   var $web_path = "/nephthys";
 
-   var $theme_name = "default";
+   // Specify alternate theme name
+   // Default:
+   //   var $theme_name = "default";
 
-   var $mysql_host = "localhost";
-   var $mysql_db = "db_filer";
-   var $mysql_user = "filer";
-   var $mysql_pass = "filer";
+   // MySQL paramters
+   // Default:
+   //  var $mysql_host = "localhost";
+   //  var $mysql_db   = "nephthys";
+   //  var $mysql_user = "user";
+   //  var $mysql_pass = "password";
  
    /* path to Smarty (http://smarty.php.net) installation. this option
       should directly point to the Smarty main directory containing the
       sub directories 'libs', 'misc', 'unit_test', ...
-      the default value '/usr/share/php/smarty' is for Debian GNU/Linux
-      where Smarty is installed through as dpkg.
+      Default: (like for Debian GNU/Linux Etch)
+        var $smarty_path = "/usr/share/php/smarty";
    */
-   var $smarty_path = "/usr/share/php/smarty";
 
-   /* logging = display || errorlog || logfile */
-   var $logging = "display";
+   // Select logging type:
+   //    display - show message in HTML output
+   //    errorlog - log error messages to webserver's error log
+   //    logfile - log error message to $log_file
+   // Default:
+   //   var $logging = "display";
 
-   /* set this if you chose logging = logfile */
-   var $log_file = "nephthys_err.log";
+   // Error messages will appear in, when logging = logfile
+   // Default:
+   //   var $log_file = "nephthys_err.log";
 
-   /* no need to modified anything below this line */
-   var $error_found = 0;
-
-   public function __construct()
-   {
-
-   } // __construct()
+   // Auto-create users which have been authenticated by the webserver
+   // ($_SERVER['REMOTE_USER'] is present).
+   // Default:
+   //   var $user_auto_create = false;
 
 } // class NEPHTHYS_CFG
 

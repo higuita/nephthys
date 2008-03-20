@@ -164,6 +164,9 @@ class NEPHTHYS {
          case 'groups':
             $obj = new NEPHTHYS_GROUPS($this);
             break;
+         case 'buckets':
+            $obj = new NEPHTHYS_BUCKET($this);
+            break;
       }
 
       if(isset($obj))
@@ -593,8 +596,8 @@ class NEPHTHYS {
 
    public function notifybucket()
    {
-      $bucket = new NEPHTHYS_BUCKET($this, $_POST['id']);
-      $bucket->notify();
+      $bucket = new NEPHTHYS_BUCKET($this);
+      $bucket->notify($_POST['id']);
 
    } // notifybucket()
 
@@ -707,20 +710,6 @@ class NEPHTHYS {
 
    } // data_directory_exists()
 
-   public function receive()
-   {
-      $tmpl = new NEPHTHYS_TMPL($this);
-      $tmpl->show('receive_form.tpl');
-
-   } // receive()
-
-   public function send()
-   {
-      $tmpl = new NEPHTHYS_TMPL($this);
-      $tmpl->show('send_form.tpl');
-
-   } // send()
-
    /**
     * load Nephthys configuration file
     */
@@ -750,7 +739,31 @@ class NEPHTHYS {
 
    } // load_config()
 
-
 } // class NEPHTHYS
+
+/***************************************************************************
+ *
+ * NEPHTHYS_DEFAULTS class, inerhites by nephthys_cfg.php
+ *
+ ***************************************************************************/
+
+class NEPHTHYS_DEFAULT_CFG {
+
+   var $page_title  = "Nephthys - file sharing";
+   var $base_path   = "/var/www/htdocs/nephthys";
+   var $data_path   = "/srv/www/nephthys_data";
+   var $web_path    = "/nephthys";
+   var $theme_name  = "default";
+   var $mysql_host  = "localhost";
+   var $mysql_db    = "nephthys";
+   var $mysql_user  = "user";
+   var $mysql_pass  = "password";
+   var $smarty_path = "/usr/share/php/smarty";
+   var $logging     = "display";
+   var $log_file    = "nephthys_err.log";
+
+   var $user_auto_create = false;
+
+} // class NEPHTHYS_DEFAULT_CFG
 
 ?>
