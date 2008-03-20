@@ -53,11 +53,11 @@ function WSR_getElementsByClassName(oElm, strTagName, oClassNames){
    return (arrReturnElements)
 }
 
-function ajax_notify_slot(id)
+function ajax_notify_bucket(id)
 {
    var objTemp = new Object();
 
-   objTemp['action'] = 'notifyslot';
+   objTemp['action'] = 'notifybucket';
    objTemp['id'] = id;
 
    var retr = HTML_AJAX.post('rpc.php', objTemp);
@@ -66,11 +66,11 @@ function ajax_notify_slot(id)
    }
 }
 
-function ajax_delete_slot(id)
+function ajax_delete_bucket(id)
 {
    var objTemp = new Object();
 
-   objTemp['action'] = 'deleteslot';
+   objTemp['action'] = 'deletebucket';
    objTemp['id'] = id;
 
    var retr = HTML_AJAX.post('rpc.php', objTemp);
@@ -80,19 +80,19 @@ function ajax_delete_slot(id)
    else {
       window.alert("Server message: "+ retr);
    }
-} // ajax_delete_slot()
+} // ajax_delete_bucket()
 
-function js_create_slot(obj, target)
+function js_create_bucket(obj, target)
 {
-   if(obj.slot_name.value == "") {
-      window.alert("Please enter a name for this slot!");
+   if(obj.bucket_name.value == "") {
+      window.alert("Please enter a name for this bucket!");
       return false;
    }
-   if(ajax_validate_email(obj.slot_sender.value) != "ok") {
+   if(ajax_validate_email(obj.bucket_sender.value) != "ok") {
       window.alert("Please enter a valid sender email address!");
       return false;
    }
-   if(obj.slotmode.value == "send" && ajax_validate_email(obj.slot_receiver.value) != "ok") {
+   if(obj.bucketmode.value == "send" && ajax_validate_email(obj.bucket_receiver.value) != "ok") {
       window.alert("Please enter a valid receiver email address!");
       return false;
    }
@@ -108,7 +108,7 @@ function js_create_slot(obj, target)
       errortext.innerHTML = retval;
    }
 
-} // js_create_slot()
+} // js_create_bucket()
 
 function js_submit_form(obj, target)
 {

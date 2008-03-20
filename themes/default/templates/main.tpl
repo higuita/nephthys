@@ -1,35 +1,36 @@
  <table>
   <tr>
    <td style="width: 50%; text-align: center;">
-    <a href="javascript:ajax_show_content('send');">I want to share some files.</a>
+    <a href="javascript:ajax_show_content('send');"><img src="icons/files_from_user.png" />I want to share some files.</a>
    </td>
    <td style="width: 50%; text-align: center;">
-    <a href="javascript:ajax_show_content('receive');">Someone wants to send me files.</a></td>
+    <a href="javascript:ajax_show_content('receive');"><img src="icons/files_to_user.png" />Someone wants to send me files.</a></td>
    </td>
   </tr>
  </table>
  <br /><br /><br />
  <table class="withborder">
  <tr>
-  <td>Name:</td>
-  <td>Sender:</td>
-  <td>Receiver:</td>
+  <td>Bucket</td>
+  <td>Created on</td>
+  <td>&nbsp;</td>
  </tr>
- { slot_list }
+ { bucket_list }
  <tr>
   <td>
-   { $slot_name }
+   { $bucket_name }
   </td>
   <td>
-   { $slot_sender }
+   { $bucket_creation_time }
   </td>
   <td>
-   { $slot_receiver }
-  </td>
-  <td>
-   <a href="javascript:ajax_delete_slot({ $slot_idx });">Delete</a>
-   <a href="javascript:ajax_notify_slot({ $slot_idx });">Notify</a>
+   <a href="javascript:ajax_delete_bucket({ $bucket_idx });"><img src="icons/delete.png" /></a>
+   <a href="javascript:ajax_notify_bucket({ $bucket_idx });"><img src="icons/mail.png" /></a>
+   <span style="behavior: url(#default#httpFolder);" onclick="this.navigate('{ $bucket_webdav_path }');">
+    <img src="icons/webdav.png" />
+   </span>
+   <a href="{ $bucket_ftp_path }"><img src="icons/ftp.png" /></a>
   </td>
  </tr>
-{ /slot_list }
+{ /bucket_list }
  </table>

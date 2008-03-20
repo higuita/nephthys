@@ -22,7 +22,7 @@
  ***************************************************************************/
 
 require_once "nephthys_db.php";
-require_once "nephthys_slot.php";
+require_once "nephthys_bucket.php";
 require_once "nephthys_users.php";
 
 class NEPHTHYS {
@@ -33,8 +33,8 @@ class NEPHTHYS {
    public $current_user;
 
    private $runtime_error = false;
-   private $avail_slots = Array();
-   private $slots = Array();
+   private $avail_buckets = Array();
+   private $buckets = Array();
 
    /**
     * class constructor
@@ -94,20 +94,21 @@ class NEPHTHYS {
       $this->tmpl->assign('product', $this->cfg->product);
       $this->tmpl->assign('version', $this->cfg->version);
       $this->tmpl->assign('template_path', 'themes/'. $this->cfg->theme_name);
-      $this->tmpl->register_block("slot_list", array(&$this, "smarty_slot_list"));
+      $this->tmpl->register_block("bucket_list", array(&$this, "smarty_bucket_list"));
 
-/*      $res_slots = $this->db->db_query("
+
+/*      $res_buckets = $this->db->db_query("
          SELECT *
-         FROM nephthys_slots
-         ORDER BY slot_name ASC
+         FROM nephthys_buckets
+         ORDER BY bucket_name ASC
       ");
 
-      $cnt_slots = 0;
+      $cnt_buckets = 0;
 
-      while($slot = $res_slots->fetchrow()) {
-         $this->avail_slots[$cnt_slots] = $slot->slot_idx;
-         $this->slots[$slot->slot_idx] = $slot;
-         $cnt_slots++;
+      while($bucket = $res_buckets->fetchrow()) {
+         $this->avail_buckets[$cnt_buckets] = $bucket->bucket_idx;
+         $this->buckets[$bucket->bucket_idx] = $bucket;
+         $cnt_buckets++;
       }
 
 */
@@ -415,90 +416,90 @@ class NEPHTHYS {
 
    } // is_logged_in()
 
-   private function slotModify()
+   private function bucketModify()
    {
-      isset($_POST['slot_new']) && $_POST['slot_new'] == 1 ? $new = 1 : $new = NULL;
+      isset($_POST['bucket_new']) && $_POST['bucket_new'] == 1 ? $new = 1 : $new = NULL;
 
-      if(!isset($_POST['slot_name']) || empty($_POST['slot_name'])) {
-         return _("Please enter a name for this slot!");
+      if(!isset($_POST['bucket_name']) || empty($_POST['bucket_name'])) {
+         return _("Please enter a name for this bucket!");
       }
-      if(!isset($_POST['slot_sender']) || empty($_POST['slot_name'])) {
-         return _("Please enter a sender for this slot!");
+      if(!isset($_POST['bucket_sender']) || empty($_POST['bucket_name'])) {
+         return _("Please enter a sender for this bucket!");
       }
-      if(!$this->validate_email($_POST['slot_sender'])) {
+      if(!$this->validate_email($_POST['bucket_sender'])) {
          return _("Please enter a valid sender email address!");
       }
-      if(isset($_POST['slotmode']) && $_POST['slotmode'] == "receive" &&
-         !isset($_POST['slot_receiver']) || empty($_POST['slot_name'])) {
-         return _("Please enter a receiver for this slot!");
+      if(isset($_POST['bucketmode']) && $_POST['bucketmode'] == "receive" &&
+         !isset($_POST['bucket_receiver']) || empty($_POST['bucket_name'])) {
+         return _("Please enter a receiver for this bucket!");
       }
-      if(isset($_POST['slotmode']) && $_POST['slotmode'] == "receive" &&
-         !$this->validate_email($_POST['slot_receiver'])) {
+      if(isset($_POST['bucketmode']) && $_POST['bucketmode'] == "receive" &&
+         !$this->validate_email($_POST['bucket_receiver'])) {
          return _("Please enter a valid receiver email address!");
       }
 
       if(isset($new)) {
 
-         if(isset($_POST['slot_receiver']))
-            $hash = $this->get_sha_hash($_POST['slot_sender'], $_POST['slot_receiver']);
+         if(isset($_POST['bucket_receiver']))
+            $hash = $this->get_sha_hash($_POST['bucket_sender'], $_POST['bucket_receiver']);
          else {
-            $_POST['slot_receiver'] = "";
-            $hash = $this->get_sha_hash($_POST['slot_sender']);
+            $_POST['bucket_receiver'] = "";
+            $hash = $this->get_sha_hash($_POST['bucket_sender']);
          }
 
          $this->db->db_query("
-            INSERT INTO nephthys_slots (
-               slot_name, slot_sender, slot_receiver, slot_expire, slot_note,
-               slot_hash, slot_active
+            INSERT INTO nephthys_buckets (
+               bucket_name, bucket_sender, bucket_receiver, bucket_expire, bucket_note,
+               bucket_hash, bucket_active
             ) VALUES (
-               '". $_POST['slot_name'] ."',
-               '". $_POST['slot_sender'] ."',
-               '". $_POST['slot_receiver'] ."',
-               '". $_POST['slot_expire'] ."',
-               '". $_POST['slot_note'] ."',
+               '". $_POST['bucket_name'] ."',
+               '". $_POST['bucket_sender'] ."',
+               '". $_POST['bucket_receiver'] ."',
+               '". $_POST['bucket_expire'] ."',
+               '". $_POST['bucket_note'] ."',
                '". $hash ."',
                'Y')
          ");
 
          if(!mkdir($this->cfg->data_path ."/". $hash)) {
-            return "There was a error creating the slot directory. Contact your administrator!";
+            return "There was a error creating the bucket directory. Contact your administrator!";
          }
 
       }
       else {
            $this->db->db_query("
-               UPDATE nephthys_slots
+               UPDATE nephthys_buckets
                SET
-                  slot_name='". $_POST['slot_name'] ."',
-                  slot_sender='". $_POST['slot_sender'] ."',
-                  slot_receiver='". $_POST['slot_receiver'] ."',
-                  slot_expire='". $_POST['slot_expire'] ."',
-                  slot_note='". $_POST['slot_note'] ."',
-                  slot_active='Y'
+                  bucket_name='". $_POST['bucket_name'] ."',
+                  bucket_sender='". $_POST['bucket_sender'] ."',
+                  bucket_receiver='". $_POST['bucket_receiver'] ."',
+                  bucket_expire='". $_POST['bucket_expire'] ."',
+                  bucket_note='". $_POST['bucket_note'] ."',
+                  bucket_active='Y'
                WHERE
-                  slot_idx='". $_POST['slot_idx'] ."'
+                  bucket_idx='". $_POST['bucket_idx'] ."'
             ");
       }
 
       return "ok";
 
-   } // slotModify()
+   } // bucketModify()
 
    /**
-    * return slot details
+    * return bucket details
     */
-   public function getSlotDetails($idx)
+   public function getbucketDetails($idx)
    {
       if($row = $this->db->db_fetchSingleRow("
             SELECT *
-            FROM nephthys_slots
-            WHERE slot_idx LIKE '". $idx ."'
+            FROM nephthys_buckets
+            WHERE bucket_idx LIKE '". $idx ."'
          ")) {
 
          return $row;
 
       }
-   } // getSlotDetails()
+   } // getbucketDetails()
 
    /***
     * verify email address
@@ -546,27 +547,27 @@ class NEPHTHYS {
    } // validate_email() 
 
    /**
-    * template function which will be called from the slots listing template
+    * template function which will be called from the buckets listing template
     */
-   public function smarty_slot_list($params, $content, &$smarty, &$repeat)
+   public function smarty_bucket_list($params, $content, &$smarty, &$repeat)
    {
-      $index = $this->tmpl->get_template_vars('smarty.IB.slot_list.index');
+      $index = $this->tmpl->get_template_vars('smarty.IB.bucket_list.index');
       if(!$index) {
          $index = 0;
       }
 
-      if($index < count($this->avail_slots)) {
+      if($index < count($this->avail_buckets)) {
 
-         $slot_idx = $this->avail_slots[$index];
-         $slot =  $this->slots[$slot_idx];
+         $bucket_idx = $this->avail_buckets[$index];
+         $bucket =  $this->buckets[$bucket_idx];
 
-         $this->tmpl->assign('slot_idx', $slot_idx);
-         $this->tmpl->assign('slot_name', $slot->slot_name);
-         $this->tmpl->assign('slot_sender', $slot->slot_sender);
-         $this->tmpl->assign('slot_receiver', $slot->slot_receiver);
+         $this->tmpl->assign('bucket_idx', $bucket_idx);
+         $this->tmpl->assign('bucket_name', $bucket->bucket_name);
+         $this->tmpl->assign('bucket_sender', $bucket->bucket_sender);
+         $this->tmpl->assign('bucket_receiver', $bucket->bucket_receiver);
 
          $index++;
-         $this->tmpl->assign('smarty.IB.slot_list.index', $index);
+         $this->tmpl->assign('smarty.IB.bucket_list.index', $index);
          $repeat = true;
       }
       else {
@@ -575,7 +576,7 @@ class NEPHTHYS {
 
       return $content;
 
-   } // smarty_slot_list()
+   } // smarty_bucket_list()
 
    /**
     * generates a SHA-1 hash from the provided parameters
@@ -590,44 +591,44 @@ class NEPHTHYS {
 
    } // get_sha_hash()
 
-   public function notifySlot()
+   public function notifybucket()
    {
-      $slot = new NEPHTHYS_SLOT($this, $_POST['id']);
-      $slot->notify();
+      $bucket = new NEPHTHYS_BUCKET($this, $_POST['id']);
+      $bucket->notify();
 
-   } // notifySlot()
+   } // notifybucket()
 
    /**
-    * return slot's SHA1 hash
+    * return bucket's SHA1 hash
     *
     * this function will return the SHA1 hash of the
-    * requested slot (by database primary key)
+    * requested bucket (by database primary key)
     */
-   private function get_slot_hash($idx)
+   private function get_bucket_hash($idx)
    {
       if($row = $this->db->db_fetchSingleRow("
-            SELECT slot_hash
-            FROM nephthys_slots
-            WHERE slot_idx LIKE '". $idx ."'
+            SELECT bucket_hash
+            FROM nephthys_buckets
+            WHERE bucket_idx LIKE '". $idx ."'
          ")) {
 
-         if(isset($row->slot_hash))
-            return $row->slot_hash;
+         if(isset($row->bucket_hash))
+            return $row->bucket_hash;
 
       }
 
       return 0;
 
-   } // get_slot_hash();
+   } // get_bucket_hash();
 
-   public function delete_slot()
+   public function delete_bucket()
    {
       if(isset($_POST['id']) && is_numeric($_POST['id'])) {
 
-         $hash = $this->get_slot_hash($_POST['id']);
+         $hash = $this->get_bucket_hash($_POST['id']);
 
          if(!$hash) {
-            return "Can't locate hash value of the slot that has to be deleted.";
+            return "Can't locate hash value of the bucket that has to be deleted.";
          }
 
          if(!$this->del_data_directory($hash)) {
@@ -635,14 +636,14 @@ class NEPHTHYS {
          }
 
          $this->db->db_query("
-            DELETE FROM nephthys_slots
-            WHERE slot_idx LIKE '". $_POST['id'] ."'
+            DELETE FROM nephthys_buckets
+            WHERE bucket_idx LIKE '". $_POST['id'] ."'
          ");
       }
 
       print "ok";
 
-   } // delete_slot()
+   } // delete_bucket()
 
    private function del_data_directory($hash)
    {

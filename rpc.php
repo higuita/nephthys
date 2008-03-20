@@ -64,11 +64,11 @@ class NEPHTHYS_RPC {
          case 'store':
             print $nephthys->store();
             break;
-         case 'notifyslot':
-            print $nephthys->notifySlot();
+         case 'notifybucket':
+            print $nephthys->notifybucket();
             break;
-         case 'deleteslot':
-            print $nephthys->delete_slot();
+         case 'deletebucket':
+            print $nephthys->delete_bucket();
             break;
          case 'validateemail':
             if(isset($_POST['address']) && !empty($_POST['address']) && $nephthys->validate_email($_POST['address']))

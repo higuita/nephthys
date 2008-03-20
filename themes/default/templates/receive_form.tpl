@@ -1,14 +1,14 @@
-  <form action="rpc.php?action=store" id="slots" onsubmit="js_create_slot(this, 'slots'); return false;" method="post">
-  <input type="hidden" name="module" value="slots" />
-  <input type="hidden" name="slotmode" value="receive" />
-  <input type="hidden" name="slot_new" value="1" />
+  <form action="rpc.php?action=store" id="buckets" onsubmit="js_create_bucket(this, 'buckets'); return false;" method="post">
+  <input type="hidden" name="module" value="buckets" />
+  <input type="hidden" name="bucketmode" value="receive" />
+  <input type="hidden" name="bucket_new" value="1" />
   <table class="withborder">
    <tr>
     <td colspan="2">Enter a short description, so the receiver knows what he receives:</td>
    </tr>
    <tr>
     <td>
-     <input type="text" name="slot_name" size="30" value="{ $slot_name }" />
+     <input type="text" name="bucket_name" size="30" value="{ $bucket_name }" />
     </td>
    </tr>
    <tr>
@@ -16,7 +16,7 @@
    </tr>
    <tr>
     <td>
-     <input type="text" name="slot_sender" size="30" value="{ $slot_sender }" onchange="js_validate_email(this, 'senderemail');" />
+     <input type="text" name="bucket_sender" size="30" value="{ $bucket_sender }" onchange="js_validate_email(this, 'senderemail');" />
     </td>
     <td>
      <div id="senderemail" style="visibility: hidden;"></div>
@@ -27,18 +27,18 @@
    </tr>
    <tr>
     <td>
-     <input type="text" name="slot_receiver" size="30" value="{ $slot_receiver }" onchange="js_validate_email(this, 'receiveremail');" />
+     <input type="text" name="bucket_receiver" size="30" value="{ $bucket_receiver }" onchange="js_validate_email(this, 'receiveremail');" />
     </td>
     <td>
      <div id="receiveremail" style="visibility: hidden;"></div>
     </td>
    </tr>
    <tr>
-    <td colspan="2">When should this slot expire?</td>
+    <td colspan="2">When should this bucket expire?</td>
    </tr>
    <tr>
     <td>
-     <select name="slot_expire">
+     <select name="bucket_expire">
       <option value="1">1 Day</option>
       <option value="3">3 Days</option>
       <option value="7">1 Week</option>
@@ -54,7 +54,7 @@
    </tr>
    <tr>
     <td>
-     <textarea name="slot_note">{ $slot_note }</textarea>
+     <textarea name="bucket_note">{ $bucket_note }</textarea>
     </td>
    </tr>
    <tr>

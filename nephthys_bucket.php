@@ -21,7 +21,7 @@
  *
  ***************************************************************************/
 
-class NEPHTHYS_SLOT {
+class NEPHTHYS_BUCKET {
 
    private $db;
    private $parent;
@@ -29,9 +29,9 @@ class NEPHTHYS_SLOT {
    private $id;
 
    /**
-    * NEPHTHYS_SLOT constructor
+    * NEPHTHYS_BUCKET constructor
     *
-    * Initialize the NEPHTHYS_SLOT class
+    * Initialize the NEPHTHYS_BUCKET class
     */
    public function __construct($parent, $id)
    {
@@ -44,25 +44,30 @@ class NEPHTHYS_SLOT {
 
    public function notify()
    {
-      if(!($slot = $this->parent->getSlotDetails($this->id)))
+      if(!($bucket = $this->parent->getbucketDetails($this->id)))
          return;
 
-      $header['From'] = $slot->slot_sender;
-      $header['To'] = $slot->slot_receiver;
+      $header['From'] = $bucket->bucket_sender;
+      $header['To'] = $bucket->bucket_receiver;
       $header['Subject'] = "File sharing information";
 
       $text = new NEPHTHYS_TMPL($this->parent);
-      $text->assign('slot_sender', $slot->slot_sender);
-      $text->assign('slot_receiver', $slot->slot_receiver);
-      $text->assign('slot_hash', $slot->slot_hash);
-      $text->assign('slot_servername', "www.orf.at");
+      $text->assign('bucket_sender', $bucket->bucket_sender);
+      $text->assign('bucket_receiver', $bucket->bucket_receiver);
+      $text->assign('bucket_hash', $bucket->bucket_hash);
+      $text->assign('bucket_servername', "www.orf.at");
       $body = $text->fetch('notify.tpl');
 
-      $mailer = Mail::factory('mail');
-      $mailer->send($slot->slot_receiver, $header, $body);
+      $mailer =& Mail::factory('mail');
+      $status = $mailer->send($bucket->bucket_receiver, $header, $body);
+      if(PEAR::isError($status)) {
+         return $status->getMessage();
+      }
+
+      return "ok";
 
    } // notify()
 
-} // class NEPHTHYS_SLOT
+} // class NEPHTHYS_BUCKET
 
 ?>
