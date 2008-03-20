@@ -55,12 +55,6 @@ class NEPHTHYS_RPC {
          case 'get_content':
             $nephthys->get_content();
             break;
-         case 'receive':
-            print $nephthys->receive();
-            break;
-         case 'send':
-            print $nephthys->send();
-            break;
          case 'store':
             print $nephthys->store();
             break;

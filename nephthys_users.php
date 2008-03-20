@@ -44,7 +44,6 @@ class NEPHTHYS_USERS {
    /* interface output */
    public function show()
    {
-      print_r($nephthys);
       if(!$this->parent->is_logged_in()) {
          $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". _("Manage Users"), _("You do not have enough permissions to access this module!"));
          return 0;

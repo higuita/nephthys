@@ -33,14 +33,39 @@ class NEPHTHYS_BUCKET {
     *
     * Initialize the NEPHTHYS_BUCKET class
     */
-   public function __construct($parent, $id)
+   public function __construct()
    {
-      $this->parent = &$parent;
-      $this->db = &$parent->db;
-      $this->tmpl = &$parent->tmpl;
-      $this->id = $id;
+      global $nephthys;
+      $this->parent =& $nephthys;
+      $this->db =& $nephthys->db;
+      $this->tmpl =& $nephthys->tmpl;
 
    } // __construct()
+
+   /* interface output */
+   public function show()
+   {
+      if(!$this->parent->is_logged_in()) {
+         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". _("Manage Users"), _("You do not have enough permissions to access this module!"));
+         return 0;
+      }
+       if(!isset($_GET['mode']))
+         $_GET['mode'] = "show";
+      if(!isset($_GET['idx']) ||
+         (isset($_GET['idx']) && !is_numeric($_GET['idx'])))
+         $_GET['idx'] = 0;
+
+      switch($_GET['mode']) {
+         case 'receive':
+            return $this->tmpl->show('receive_form.tpl');
+         case 'send':
+            return $this->tmpl->show('send_form.tpl');
+         case 'notify':
+            $this->notify();
+            break;
+      }
+
+   } // show()
 
    public function notify()
    {
