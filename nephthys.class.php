@@ -184,7 +184,7 @@ class NEPHTHYS {
          }
 
          if(isset($obj)) {
-            switch($_POST['action']) {
+            switch($_POST['mode']) {
                case 'modify': return $obj->store(); break;
                case 'delete': return $obj->delete(); break;
                case 'toggle': return $obj->toggleStatus(); break;

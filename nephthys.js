@@ -110,9 +110,58 @@ function js_create_slot(obj, target)
 
 } // js_create_slot()
 
-function ajax_save_form(obj, target)
+function js_submit_form(obj, target)
 {
-   var content = document.getElementById("content");
+   var retval = ajax_save_form(obj)
+
+   if(retval == "ok") {
+      ajax_show_content('users');
+   }
+   else {
+      window.alert(retval);
+      /*var errortext = document.getElementById('generalerror');
+      errortext.style.visibility = 'visible';
+      errortext.innerHTML = retval;
+      */
+   }
+
+} // js_submit_form()
+
+function js_delete_obj(module, target, idx)
+{
+   // Create object with values of the form
+   var objTemp = new Object();
+   objTemp['module'] = module;
+   objTemp['mode'] = 'delete';
+   objTemp['idx'] = idx;
+   var retr = HTML_AJAX.post('rpc.php?action=store', objTemp);
+   if(retr == "ok") {
+      ajax_show_content(target);
+   }
+   else {
+      window.alert(retr);
+   }
+} // js_delete_obj()
+
+function js_toggle_status(module, target, idx, to)
+{
+   // Create object with values of the form
+   var objTemp = new Object();
+   objTemp['module'] = module;
+   objTemp['mode'] = 'toggle';
+   objTemp['idx'] = idx;
+   objTemp['to'] = to;
+   var retr = HTML_AJAX.post('rpc.php?action=store', objTemp);
+   if(retr == "ok") {
+      ajax_show_content(target);
+   }
+   else {
+      window.alert(retr);
+   }
+} // js_toggle_status()
+
+function ajax_save_form(obj)
+{
    return formSubmit(obj, null, {isAsync: false});
 
 } // ajax_saveForm()
@@ -257,4 +306,14 @@ function setFocus(obj) {
       }
    }
 } // setFocus()
+
+function setBackGrdColor(item, color)
+{
+   if(color == 'mouseover')
+      item.style.backgroundColor='#c6e9ff';
+   if(color == 'mouseout')
+      item.style.backgroundColor='transparent';
+   if(color == 'mouseclick')
+      item.style.backgroundColor='#93A8CA';
+}
 

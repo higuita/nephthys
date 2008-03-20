@@ -1,7 +1,7 @@
 <pre id="target"></pre>
-<form action="rpc.php?action=store" id="users" onsubmit="saveForm(this, 'users'); return false;" method="post">
-<input type="hidden" name="module" value="user" />
-<input type="hidden" name="action" value="modify" />
+<form action="rpc.php?action=store" id="users" onsubmit="js_submit_form(this, 'users'); return false;" method="post">
+<input type="hidden" name="module" value="users" />
+<input type="hidden" name="mode" value="modify" />
 { if ! $user_idx }
  {start_table icon=$icon_users alt="user icon" title="Create a new User" }
  <input type="hidden" name="user_new" value="1" />
@@ -34,7 +34,7 @@
    Password:
   </td>
   <td>
-   <input type="password" name="user_pass1" size="30" value="{ if ! $new } nochangeMS { /if }" />
+   <input type="password" name="user_pass1" size="30" value="{ if $user_idx } nochangeMS { /if }" />
   </td>
   <td>
    Enter password of the user.
@@ -45,7 +45,7 @@
    again
   </td>
   <td>
-   <input type="password" name="user_pass2" size="30" value="{ if ! $new } nochangeMS { /if }" />
+   <input type="password" name="user_pass2" size="30" value="{ if $user_idx } nochangeMS { /if }" />
   </td>
   <td>
    &nbsp;
@@ -76,7 +76,7 @@
   </td>
  </tr>
  <tr>
-  <td style="text-align: center;"><a href="javascript:refreshContent('users');" title="Back"><img src="{ $icon_arrow_left }" alt="arrow left icon" /></a></td>
+  <td style="text-align: center;"><a href="javascript:ajax_show_content('users');" title="Back"><img src="{ $icon_arrow_left }" alt="arrow left icon" /></a></td>
   <td><input type="submit" value="Save" /></td>
   <td>Save your settings.</td>
  </tr>

@@ -77,7 +77,7 @@ class NEPHTHYS_RPC {
                print "failed";
             break;
          default:
-            print "unkown action";
+            print "unkown action ". $action;
             break;
       }
 

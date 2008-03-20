@@ -114,8 +114,12 @@ class NEPHTHYS_USERS {
 
          $this->tmpl->assign('user_idx', $idx);
          $this->tmpl->assign('user_name', $user->user_name);
+         $this->tmpl->assign('user_email', $user->user_email);
          $this->tmpl->assign('user_active', $user->user_active);
 
+      }
+      else {
+         $this->tmpl->assign('user_active', 'Y');
       }
    
       $this->tmpl->show("users_edit.tpl");
@@ -141,7 +145,13 @@ class NEPHTHYS_USERS {
       if($_POST['user_pass1'] != $_POST['user_pass2']) {
          return _("The two entered passwords do not match!");
       }	       
-
+      if(!isset($_POST['user_email']) || $_POST['user_email'] == "") {
+         return _("Please enter a email address!");
+      }
+      if(!$this->parent->validate_email($_POST['user_email'])) {
+         return _("Please enter a valid email address!");
+      }
+ 
       if(isset($new)) {
 
          $this->db->db_query("
