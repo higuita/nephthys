@@ -91,29 +91,6 @@ class NEPHTHYS {
       require_once "nephthys_tmpl.php";
       $this->tmpl = new NEPHTHYS_TMPL();
 
-      $this->tmpl->assign('page_title', $this->cfg->page_title);
-      $this->tmpl->assign('product', $this->cfg->product);
-      $this->tmpl->assign('version', $this->cfg->version);
-      $this->tmpl->assign('template_path', 'themes/'. $this->cfg->theme_name);
-      $this->tmpl->register_block("bucket_list", array(&$this, "smarty_bucket_list"));
-
-
-/*      $res_buckets = $this->db->db_query("
-         SELECT *
-         FROM nephthys_buckets
-         ORDER BY bucket_name ASC
-      ");
-
-      $cnt_buckets = 0;
-
-      while($bucket = $res_buckets->fetchrow()) {
-         $this->avail_buckets[$cnt_buckets] = $bucket->bucket_idx;
-         $this->buckets[$bucket->bucket_idx] = $bucket;
-         $cnt_buckets++;
-      }
-
-*/
- 
    } // __construct()
 
    public function __destruct()
@@ -642,38 +619,6 @@ class NEPHTHYS {
       return true;
 
    } // validate_email() 
-
-   /**
-    * template function which will be called from the buckets listing template
-    */
-   public function smarty_bucket_list($params, $content, &$smarty, &$repeat)
-   {
-      $index = $this->tmpl->get_template_vars('smarty.IB.bucket_list.index');
-      if(!$index) {
-         $index = 0;
-      }
-
-      if($index < count($this->avail_buckets)) {
-
-         $bucket_idx = $this->avail_buckets[$index];
-         $bucket =  $this->buckets[$bucket_idx];
-
-         $this->tmpl->assign('bucket_idx', $bucket_idx);
-         $this->tmpl->assign('bucket_name', $bucket->bucket_name);
-         $this->tmpl->assign('bucket_sender', $bucket->bucket_sender);
-         $this->tmpl->assign('bucket_receiver', $bucket->bucket_receiver);
-
-         $index++;
-         $this->tmpl->assign('smarty.IB.bucket_list.index', $index);
-         $repeat = true;
-      }
-      else {
-         $repeat =  false;
-      }
-
-      return $content;
-
-   } // smarty_bucket_list()
 
    /**
     * generates a SHA-1 hash from the provided parameters
