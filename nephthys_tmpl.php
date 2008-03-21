@@ -23,24 +23,27 @@
 
 class NEPHTHYS_TMPL extends Smarty {
 
-   public $parent;
+   private $parent;
 
-   public function __construct($parent)
+   public function __construct()
    {
-      $this->parent = &$parent;
+      global $nephthys;
 
-      if(!file_exists($parent->cfg->base_path .'/themes/'. $parent->cfg->theme_name .'/templates')) {
-         print "No templates found in ". $parent->cfg->base_path .'/themes/'. $parent->cfg->theme_name .'/templates';
+      $this->parent =& $nephthys;
+
+      if(!file_exists($nephthys->cfg->base_path .'/themes/'. $nephthys->cfg->theme_name .'/templates')) {
+         print "No templates found in ". $nephthys->cfg->base_path .'/themes/'. $nephthys->cfg->theme_name .'/templates';
          exit(1);
       }
 
       $this->Smarty();
-      $this->template_dir = $parent->cfg->base_path .'/themes/'. $parent->cfg->theme_name .'/templates';
-      $this->compile_dir  = $parent->cfg->base_path .'/templates_c';
-      $this->config_dir   = $parent->cfg->base_path .'/smarty_config';
-      $this->cache_dir    = $parent->cfg->base_path .'/smarty_cache';
+      $this->template_dir = $nephthys->cfg->base_path .'/themes/'. $nephthys->cfg->theme_name .'/templates';
+      $this->compile_dir  = $nephthys->cfg->base_path .'/templates_c';
+      $this->config_dir   = $nephthys->cfg->base_path .'/smarty_config';
+      $this->cache_dir    = $nephthys->cfg->base_path .'/smarty_cache';
 
-      $this->assign('user_name', $_SESSION['user_name']);
+      $this->assign('user_name', $this->parent->get_user_name($_SESSION['user_idx']));
+      $this->assign('user_priv', $this->parent->get_user_priv($_SESSION['user_idx']));
       $this->assign('bucket_sender', $this->parent->getUsersEmail());
       $this->register_function("start_table", array(&$this, "smarty_startTable"), false);
       $this->register_function("page_end", array(&$this, "smarty_page_end"), false);

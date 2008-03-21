@@ -89,7 +89,7 @@ class NEPHTHYS {
 
       /* overload Smarty class if our own template handler */
       require_once "nephthys_tmpl.php";
-      $this->tmpl = new NEPHTHYS_TMPL($this);
+      $this->tmpl = new NEPHTHYS_TMPL();
 
       $this->tmpl->assign('page_title', $this->cfg->page_title);
       $this->tmpl->assign('product', $this->cfg->product);
@@ -413,7 +413,7 @@ class NEPHTHYS {
    /**
     * return all user details for the provided user_name
     */
-   private function get_user_details($user_name)
+   private function get_user_details_by_name($user_name)
    {
       if($user = $this->db->db_fetchSingleRow("
          SELECT *
@@ -428,7 +428,55 @@ class NEPHTHYS {
 
       return NULL;
 
+   } // get_user_detail_by_name()
+
+   /**
+    * return all user details for the provided user_idx
+    */
+   private function get_user_details_by_idx($user_idx)
+   {
+      if($user = $this->db->db_fetchSingleRow("
+         SELECT *
+         FROM nephthys_users
+         WHERE
+            user_idx LIKE '". $user_idx ."'
+         AND
+            user_active='Y'")) {
+
+         return $user;
+      }
+
+      return NULL;
+
    } // get_user_details()
+
+   /**
+    * returns user name
+    */
+   public function get_user_name($user_idx)
+   {
+      if($user = $this->get_user_details_by_idx($user_idx)) {
+
+         return $user->user_name;
+
+      }
+
+      return "unkown user";
+   }
+
+   /**
+    * returns user privilege
+    */
+   public function get_user_priv($user_idx)
+   {
+      if($user = $this->get_user_details_by_idx($user_idx)) {
+
+         return $user->user_priv;
+
+      }
+
+      return NULL;
+   }
 
    /**
     * returns true if a user is logged in, otherwise false
@@ -793,7 +841,7 @@ class NEPHTHYS {
       if(isset($_POST['user_name']) && $_POST['user_name'] != "" &&
          isset($_POST['user_pass']) && $_POST['user_pass'] != "") {
 
-         if($user = $this->get_user_details($_POST['user_name'])) {
+         if($user = $this->get_user_details_by_name($_POST['user_name'])) {
             if($user->user_pass == sha1($_POST['user_pass'])) {
                $_SESSION['user_name'] = $_POST['user_name'];
                $_SESSION['user_idx'] = $user->user_idx;
