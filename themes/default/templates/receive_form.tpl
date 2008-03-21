@@ -11,6 +11,7 @@
      <input type="text" name="bucket_name" size="30" value="{ $bucket_name }" />
     </td>
    </tr>
+   { if $user_priv == "manager" || $user_priv == "admin" }
    <tr>
     <td colspan="2">Enter your or the senders email address:
    </tr>
@@ -22,6 +23,7 @@
      <div id="senderemail" style="visibility: hidden;"></div>
     </td>
    </tr>
+   { /if }
    <tr>
     <td colspan="2">Enter the receiver email address:
    </tr>

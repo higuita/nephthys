@@ -17,6 +17,7 @@
    <tr>
     <td colspan="2">&nbsp;</td>
    </tr>
+   { if $user_priv == "manager" || $user_priv == "admin" }
    <tr>
     <td colspan="2">Enter the senders email address:
    </tr>
@@ -31,6 +32,7 @@
    <tr>
     <td colspan="2">&nbsp;</td>
    </tr>
+   { /if }
    <tr>
     <td colspan="2">Should this bucket expire after it has been created?</td>
    </tr>
