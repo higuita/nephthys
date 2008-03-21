@@ -40,6 +40,7 @@ class NEPHTHYS_TMPL extends Smarty {
       $this->config_dir   = $parent->cfg->base_path .'/smarty_config';
       $this->cache_dir    = $parent->cfg->base_path .'/smarty_cache';
 
+      $this->assign('user_name', $_SESSION['user_name']);
       $this->assign('bucket_sender', $this->parent->getUsersEmail());
       $this->register_function("start_table", array(&$this, "smarty_startTable"), false);
       $this->register_function("page_end", array(&$this, "smarty_page_end"), false);

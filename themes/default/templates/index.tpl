@@ -2,7 +2,10 @@
  <body onload="init_nephthys();">
   <div id="box">
    <div id="header">
-    <a href="javascript:ajax_show_content('main');">{ $product } { $version }</a>
+    <a href="javascript:ajax_show_content('main');">{ $product } { $version }</a><br>
+    { if $user_name }
+     Hello { $user_name}, <a href="javascript:js_logout()">click to logout</a>
+    { /if }
    </div>
  
    <ul id="menutabs" class="shadetabs">

@@ -83,8 +83,9 @@ class NEPHTHYS {
       }
       */
 
-      $_SESSION['user_name'] = $_SERVER['REMOTE_USER'];
-      $_SESSION['user_name'] = "unki";
+      if(isset($this->cfg->allow_server_auth) && $this->cfg->allow_server_auth == true) {
+         $_SESSION['user_name'] = $_SERVER['REMOTE_USER'];
+      }
 
       /* overload Smarty class if our own template handler */
       require_once "nephthys_tmpl.php";
@@ -129,7 +130,7 @@ class NEPHTHYS {
     * (photo index, photo, tag search, date search) into
     * users session.
     */
-   public function init($what = 'start')
+   public function init()
    {
       $this->tmpl->show("index.tpl");
 
@@ -138,6 +139,7 @@ class NEPHTHYS {
    public function show()
    {
       $this->tmpl->show("main.tpl");
+
    } // show()
 
    /**
@@ -146,7 +148,8 @@ class NEPHTHYS {
    public function get_content()
    {
       if(!$this->is_logged_in()) {
-         return $this->tmpl->fetch("login_box.tpl");
+         $this->tmpl->show("login_box.tpl");
+         return;
       }
 
       if(isset($_GET['id']) && is_string($_GET['id']))
@@ -408,16 +411,59 @@ class NEPHTHYS {
    } // getUsersEmail()
 
    /**
+    * return all user details for the provided user_name
+    */
+   private function get_user_details($user_name)
+   {
+      if($user = $this->db->db_fetchSingleRow("
+         SELECT *
+         FROM nephthys_users
+         WHERE
+            user_name LIKE '". $user_name ."'
+         AND
+            user_active='Y'")) {
+
+         return $user;
+      }
+
+      return NULL;
+
+   } // get_user_details()
+
+   /**
     * returns true if a user is logged in, otherwise false
     */
    public function is_logged_in()
    {
-      if(isset($_SESSION['user_name']) && !empty($_SESSION['user_name']))
+      if(isset($_SESSION['user_name']) && !empty($_SESSION['user_name']) &&
+         $this->is_valid_user($_SESSION['user_name'])) {
+
          return true;
+
+      }
 
       return false;
 
    } // is_logged_in()
+
+   /**
+    * return true if the user exists
+    */
+   private function is_valid_user($user_name)
+   {
+      if($this->db->db_fetchSingleRow("
+            SELECT user_idx
+            FROM nephthys_users
+            WHERE user_name LIKE '". $user_name ."'
+         ")) {
+
+         return true;
+
+      }
+
+      return false;
+
+   } // is_valid_user()
 
    private function bucketModify()
    {
@@ -738,6 +784,49 @@ class NEPHTHYS {
       return true;
 
    } // load_config()
+
+   /**
+    * check login
+    */
+   public function check_login()
+   {
+      if(isset($_POST['user_name']) && $_POST['user_name'] != "" &&
+         isset($_POST['user_pass']) && $_POST['user_pass'] != "") {
+
+         if($user = $this->get_user_details($_POST['user_name'])) {
+            if($user->user_pass == sha1($_POST['user_pass'])) {
+               $_SESSION['user_name'] = $_POST['user_name'];
+               $_SESSION['user_idx'] = $user->user_idx;
+
+               return "ok";
+            }
+            else {
+               return _("Invalid Password.");
+            }
+         }
+         else {
+            return _("Invalid or inactive User.");
+         }
+      }
+      else {
+         return _("Please enter Username and Password.");
+      }
+
+   } // check_login()
+
+   /**
+    * destroy the current user session to force logout
+    */
+   public function destroySession()
+   {
+      foreach($_SESSION as $k => $v) {
+         unset($_SESSION[$k]);
+      }
+
+      session_destroy();
+
+   } // destroySession()
+
 
 } // class NEPHTHYS
 

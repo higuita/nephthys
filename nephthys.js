@@ -317,3 +317,37 @@ function setBackGrdColor(item, color)
       item.style.backgroundColor='#93A8CA';
 }
 
+function check_login()
+{
+   if(document.forms['login'].user_name.value == "") {
+      window.alert("Please enter a username");
+      return;
+   }
+   if(document.forms['login'].user_pass.value == "") {
+      window.alert("Please enter a password");
+      return;
+   }
+
+   // Create object with values of the form
+   var objTemp = new Object();
+   objTemp['user_name'] = document.forms['login'].user_name.value;
+   objTemp['user_pass'] = document.forms['login'].user_pass.value;
+
+   var retr = HTML_AJAX.post('rpc.php?action=check_login', objTemp);
+
+   if(retr == "ok") {
+      ajax_show_content('main');
+   }
+   else {
+      window.alert(retr);
+   }
+
+}
+
+function js_logout()
+{
+   HTML_AJAX.grab(encodeURI('rpc.php?action=logout'));
+   ajax_show_content('main');
+
+} // js_logout()
+

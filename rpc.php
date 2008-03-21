@@ -58,6 +58,12 @@ class NEPHTHYS_RPC {
          case 'store':
             print $nephthys->store();
             break;
+         case 'check_login':
+            print $nephthys->check_login();
+            break;
+         case 'logout':
+            $nephthys->destroySession();
+            break;
          case 'notifybucket':
             print $nephthys->notifybucket();
             break;
