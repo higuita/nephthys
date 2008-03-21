@@ -114,6 +114,7 @@ class NEPHTHYS_USERS {
          $this->tmpl->assign('user_idx', $idx);
          $this->tmpl->assign('user_name', $user->user_name);
          $this->tmpl->assign('user_email', $user->user_email);
+         $this->tmpl->assign('user_priv', $user->user_priv);
          $this->tmpl->assign('user_active', $user->user_active);
 
       }
@@ -155,11 +156,13 @@ class NEPHTHYS_USERS {
 
          $this->db->db_query("
             INSERT INTO nephthys_users (
-               user_name, user_pass, user_email, user_active
+               user_name, user_pass, user_email, user_priv,
+               user_active
             ) VALUES (
                '". $_POST['user_name'] ."',
                '". sha1($_POST['user_pass1']) ."',
                '". $_POST['user_email'] ."',
+               '". $_POST['user_priv'] ."',
                '". $_POST['user_active'] ."'
             )
          ");
@@ -170,6 +173,7 @@ class NEPHTHYS_USERS {
             SET
                user_name='". $_POST['user_name'] ."',
                user_email='". $_POST['user_email'] ."',
+               user_priv='". $_POST['user_priv'] ."',
                user_active='". $_POST['user_active'] ."'
             WHERE
                user_idx='". $_POST['user_idx'] ."'

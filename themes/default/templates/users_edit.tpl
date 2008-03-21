@@ -62,6 +62,18 @@
    &nbsp;
   </td>
  </tr>
+ <tr>
+  <td>
+   Privileges
+  </td>
+  <td>
+   <select name="user_priv">
+    <option value="user" { if $user_priv == "user" } selected="selected" { /if }>User</option>
+    <option value="manager" { if $user_priv == "manager" } selected="selected" { /if }>Manager</option>
+    <option value="admin" { if $user_priv == "admin" } selected="selected" { /if }>Administrator</option>
+   </select>
+  </td>
+ </tr>
 
  <tr>
   <td>
