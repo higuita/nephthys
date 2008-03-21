@@ -177,7 +177,7 @@ class NEPHTHYS {
    public function store()
    {
       if(!$this->is_logged_in()) {
-         return;
+         return "login first";
       }
 
       if(isset($_POST['module'])) {
@@ -762,6 +762,7 @@ class NEPHTHYS_DEFAULT_CFG {
    var $logging     = "display";
    var $log_file    = "nephthys_err.log";
 
+   var $allow_server_auth = false;
    var $user_auto_create = false;
 
 } // class NEPHTHYS_DEFAULT_CFG

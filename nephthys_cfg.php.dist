@@ -64,6 +64,12 @@ class NEPHTHYS_CFG {
    // Default:
    //   var $log_file = "nephthys_err.log";
 
+   // Allow server authentication
+   // If the server has already authenticated the client, take over the
+   // login credentials.
+   // Default:
+   //   var allow_server_auth = false;
+
    // Auto-create users which have been authenticated by the webserver
    // ($_SERVER['REMOTE_USER'] is present).
    // Default:
