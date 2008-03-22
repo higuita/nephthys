@@ -58,9 +58,11 @@
       <option value="3">3 Days</option>
       <option value="7">1 Week</option>
       <option value="31">1 Month</option>
+      { if $user_priv == "manager" || $user_priv == "admin" }
       <option value="186">6 Months</option>
       <option value="365">1 Year</option>
       <option value="-1">never</option>
+      { /if }
      </select>
     </td>
    </tr>
