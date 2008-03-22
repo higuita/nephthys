@@ -31,6 +31,7 @@ class NEPHTHYS {
    public $db;
    public $tmpl;
    public $current_user;
+   public $browser_info;
 
    private $runtime_error = false;
 
@@ -66,6 +67,14 @@ class NEPHTHYS {
       /* Check necessary requirements */
       if(!$this->checkRequirements()) {
          exit(1);
+      }
+
+      $this->browser_info = new Net_UserAgent_Detect();
+
+      if($this->browser_info->hasFeature('dom') != 'Yes') {
+         print "It seems your browser is not capable of supporting JavaScript or it has been disabled.<br />\n";
+         print "Nephthys will not correctly work without JavaScript!<br />\n";
+         exit;
       }
 
       $this->db  = new NEPHTHYS_DB($this);
@@ -223,6 +232,11 @@ class NEPHTHYS {
       @include_once 'Mail.php';
       if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
          print "PEAR Mail package is missing<br />\n";
+         $missing = true;
+      }
+      @include_once 'Net/UserAgent/Detect.php';
+      if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
+         print "PEAR Net_UserAgent_Detect package is missing<br />\n";
          $missing = true;
       }
       @include_once $this->cfg->smarty_path .'/libs/Smarty.class.php';
