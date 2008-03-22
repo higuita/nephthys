@@ -114,6 +114,11 @@ class NEPHTHYS_BUCKETS {
 
    public function store()
    {
+      /* if not a privileged user, then set the email address from his profile */
+      if($this->parent->has_user_priv()) {
+         $_POST['bucket_sender'] = $this->parent->get_users_email();
+      }
+
       isset($_POST['bucket_new']) && $_POST['bucket_new'] == 1 ? $new = 1 : $new = NULL;
 
       if(!isset($_POST['bucket_name']) || empty($_POST['bucket_name'])) {
@@ -146,7 +151,8 @@ class NEPHTHYS_BUCKETS {
          $this->db->db_query("
             INSERT INTO nephthys_buckets (
                bucket_name, bucket_sender, bucket_receiver, bucket_created,
-               bucket_expire, bucket_note, bucket_hash, bucket_active
+               bucket_expire, bucket_note, bucket_hash, bucket_owner,
+               bucket_active
             ) VALUES (
                '". $_POST['bucket_name'] ."',
                '". $_POST['bucket_sender'] ."',
@@ -155,6 +161,7 @@ class NEPHTHYS_BUCKETS {
                '". $_POST['bucket_expire'] ."',
                '". $_POST['bucket_note'] ."',
                '". $hash ."',
+               '". $_POST['bucket_owner'] ."',
                'Y')
          ");
 
@@ -172,6 +179,7 @@ class NEPHTHYS_BUCKETS {
                   bucket_receiver='". $_POST['bucket_receiver'] ."',
                   bucket_expire='". $_POST['bucket_expire'] ."',
                   bucket_note='". $_POST['bucket_note'] ."',
+                  bucket_owner='". $_POST['bucket_owner'] ."',
                   bucket_active='Y'
                WHERE
                   bucket_idx='". $_POST['bucket_idx'] ."'
@@ -180,7 +188,7 @@ class NEPHTHYS_BUCKETS {
 
       return "ok";
 
-   } // bucketModify()
+   } // store()
 
    public function showList()
    {
@@ -203,12 +211,22 @@ class NEPHTHYS_BUCKETS {
          $bucket_idx = $this->avail_buckets[$index];
          $bucket =  $this->buckets[$bucket_idx];
 
+         $user_priv = $this->parent->get_user_priv($_SESSION['user_idx']);
+
+         if($bucket->bucket_owner != $_SESSION['user_idx'] &&
+            !in_array($user_priv, Array("admin", "manager"))) {
+            $repeat = true;
+            return;
+         }
+
          $bucket_expire = $bucket->bucket_created + ($bucket->bucket_expire*86400);
+         $bucket_owner = $this->parent->get_user_name($bucket->bucket_owner);
 
          $this->tmpl->assign('bucket_idx', $bucket_idx);
          $this->tmpl->assign('bucket_name', $bucket->bucket_name);
          $this->tmpl->assign('bucket_created', strftime("%Y-%m-%d", $bucket->bucket_created));
          $this->tmpl->assign('bucket_expire', strftime("%Y-%m-%d", $bucket_expire));
+         $this->tmpl->assign('bucket_owner', $bucket_owner);
          $this->tmpl->assign('bucket_receiver', $bucket->bucket_receiver);
 
          $index++;

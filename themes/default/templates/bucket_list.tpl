@@ -1,15 +1,23 @@
 <table class="withborder">
  <tr>
   <td>Bucket</td>
+  { if $user_priv == "manager" || $user_priv == "admin" }
+  <td>Owner</td>
+  { /if }
   <td>Created on</td>
   <td>Expire on</td>
-  <td>&nbsp;</td>
+  <td>Options</td>
  </tr>
 { bucket_list }
  <tr>
   <td>
    { $bucket_name }
   </td>
+  { if $user_priv == "manager" || $user_priv == "admin" }
+  <td>
+   { $bucket_owner }
+  </td>
+  { /if }
   <td>
    { $bucket_created }
   </td>

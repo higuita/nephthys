@@ -73,7 +73,8 @@ function js_create_bucket(obj, target)
       window.alert("Please enter a name for this bucket!");
       return false;
    }
-   if(ajax_validate_email(obj.bucket_sender.value) != "ok") {
+   if(obj.bucket_sender != undefined &&
+      ajax_validate_email(obj.bucket_sender.value) != "ok") {
       window.alert("Please enter a valid sender email address!");
       return false;
    }
@@ -93,6 +94,8 @@ function js_create_bucket(obj, target)
       errortext.style.visibility = 'visible';
       errortext.innerHTML = retval;
    }
+
+   return false;
 
 } // js_create_bucket()
 

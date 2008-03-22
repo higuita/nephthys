@@ -387,7 +387,7 @@ class NEPHTHYS {
    /**
     * returns the current logged-on user's email address
     */
-   public function getUsersEmail()
+   public function get_users_email()
    {
       $row = $this->db->db_fetchSingleRow("
          SELECT user_email
@@ -401,7 +401,7 @@ class NEPHTHYS {
 
       return NULL;
 
-   } // getUsersEmail()
+   } // get_users_email()
 
    /**
     * return all user details for the provided user_name
@@ -660,6 +660,19 @@ class NEPHTHYS {
 
    } // destroySession()
 
+   /**
+    * returns true if user has only "user" privileges
+    */
+   public function has_user_priv()
+   {
+      if($user = $this->get_user_details_by_idx($_SESSION['user_idx'])) {
+         if($user->user_priv == "user")
+            return true;
+      }
+
+      return false;
+
+   } // has_user_priv()
 
 } // class NEPHTHYS
 
