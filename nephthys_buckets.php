@@ -227,6 +227,7 @@ class NEPHTHYS_BUCKETS {
          $this->tmpl->assign('bucket_created', strftime("%Y-%m-%d", $bucket->bucket_created));
          $this->tmpl->assign('bucket_expire', strftime("%Y-%m-%d", $bucket_expire));
          $this->tmpl->assign('bucket_owner', $bucket_owner);
+         $this->tmpl->assign('bucket_owner_idx', $bucket->bucket_owner);
          $this->tmpl->assign('bucket_receiver', $bucket->bucket_receiver);
 
          $index++;

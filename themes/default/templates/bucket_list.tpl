@@ -15,7 +15,7 @@
   </td>
   { if $user_priv == "manager" || $user_priv == "admin" }
   <td>
-   { $bucket_owner }
+   <a href="javascript:ajax_show_content('users', '&mode=edit&idx={ $bucket_owner_idx }');">{ $bucket_owner }</a>
   </td>
   { /if }
   <td>
