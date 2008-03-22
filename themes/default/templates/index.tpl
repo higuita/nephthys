@@ -3,23 +3,12 @@
   <div id="box">
    <div id="header">
     <a href="javascript:ajax_show_content('main');">{ $product } { $version }</a><br>
-    { if $user_name }
-     Hello { $user_name}, <a href="javascript:js_logout()">click to logout</a>
-    { /if }
    </div>
- 
-   <ul id="menutabs" class="shadetabs">
-   <li><a href="rpc.php?action=get_content&id=main" class="selected" rel="buckets">Buckets</a></li>
-   { if $user_priv == "admin" }
-   <li><a href="rpc.php?action=get_content&id=users" rel="users">Users</a></li>
-   <li><a href="rpc.php?action=get_content&id=groups" rel="groups">Groups</a></li>
-   { /if }
-   <li><a href="rpc.php?action=get_content&id=credits" rel="credits">Credits</a></li>
-   </ul>
-   <div id="content">
-    hier ist der content
-    {* include file="main.tpl" *}
+   <div id="menu">
+    { include file="menu.tpl" }
    </div>
+
+   <div id="content" style="clear: both;"></div>
   </div>
 
 {include file="footer.tpl"}

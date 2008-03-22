@@ -99,7 +99,7 @@ class NEPHTHYS {
    } // __destruct()
 
    /**
-    * show - generate html output
+    * init - generate html output
     *
     * this function can be called after the constructor has
     * prepared everyhing. it will load the index.tpl smarty
@@ -113,11 +113,23 @@ class NEPHTHYS {
 
    } // init()
 
+   /**
+    * outputs the main content template
+    */
    public function show()
    {
       $this->tmpl->show("main.tpl");
 
    } // show()
+
+   /**
+    * outputs the menu template()
+    */
+   public function get_menu()
+   {
+      $this->tmpl->show("menu.tpl");
+
+   } // get_menu()
 
    /**
     * return main content
@@ -383,7 +395,7 @@ class NEPHTHYS {
          return $row->user_email;
       }
 
-      return "unkown user";
+      return NULL;
 
    } // getUsersEmail()
 
@@ -438,7 +450,7 @@ class NEPHTHYS {
 
       }
 
-      return "unkown user";
+      return NULL;
    }
 
    /**
@@ -781,7 +793,7 @@ class NEPHTHYS {
    /**
     * check login
     */
-   public function check_login()
+   public function login()
    {
       if(isset($_POST['user_name']) && $_POST['user_name'] != "" &&
          isset($_POST['user_pass']) && $_POST['user_pass'] != "") {
@@ -810,13 +822,15 @@ class NEPHTHYS {
    /**
     * destroy the current user session to force logout
     */
-   public function destroySession()
+   public function logout()
    {
       foreach($_SESSION as $k => $v) {
          unset($_SESSION[$k]);
       }
 
       session_destroy();
+
+      return "ok";
 
    } // destroySession()
 

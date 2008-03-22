@@ -181,6 +181,13 @@ function ajax_show_content(req_content, options)
 
 } // ajax_show_content()
 
+function refreshMenu()
+{
+   var menu = document.getElementById("menu");
+   menu.innerHTML = "Loading...";
+   menu.innerHTML = HTML_AJAX.grab(encodeURI('rpc.php?action=get_menu'));
+
+} // refreshMenu()
 
 function ajax_validate_email(address)
 {
@@ -333,10 +340,13 @@ function check_login()
    objTemp['user_name'] = document.forms['login'].user_name.value;
    objTemp['user_pass'] = document.forms['login'].user_pass.value;
 
-   var retr = HTML_AJAX.post('rpc.php?action=check_login', objTemp);
+   var retr = HTML_AJAX.post('rpc.php?action=login', objTemp);
 
    if(retr == "ok") {
+      refreshMenu();
       ajax_show_content('main');
+      tabs = document.getElementById("tabs");
+      tabs.style.visibility = 'visible';
    }
    else {
       window.alert(retr);
@@ -346,8 +356,17 @@ function check_login()
 
 function js_logout()
 {
-   HTML_AJAX.grab(encodeURI('rpc.php?action=logout'));
-   ajax_show_content('main');
+   var retr = HTML_AJAX.grab(encodeURI('rpc.php?action=logout'));
+
+   if(retr == "ok") {
+      refreshMenu();
+      ajax_show_content('main');
+      tabs = document.getElementById("tabs");
+      tabs.style.visibility = 'hidden';
+   }
+   else {
+      window.alert(retr);
+   }
 
 } // js_logout()
 
