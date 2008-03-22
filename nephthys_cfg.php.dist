@@ -75,6 +75,10 @@ class NEPHTHYS_CFG {
    // Default:
    //   var $user_auto_create = false;
 
+   // Servername - hostname which will be sent out in email.
+   // Default:
+   //   var $servername = Auto-detect-from-Apache
+
 } // class NEPHTHYS_CFG
 
 ?>

@@ -35,12 +35,15 @@ class NEPHTHYS_BUCKETS {
     *
     * Initialize the NEPHTHYS_BUCKET class
     */
-   public function __construct()
+   public function __construct($id = NULL)
    {
       global $nephthys;
       $this->parent =& $nephthys;
       $this->db =& $nephthys->db;
       $this->tmpl =& $nephthys->tmpl;
+
+      if(!empty($id))
+         $this->id = $id;
 
       $this->tmpl->register_block("bucket_list", array(&$this, "smarty_bucket_list"));
 
@@ -111,7 +114,7 @@ class NEPHTHYS_BUCKETS {
       $text->assign('bucket_sender', $bucket->bucket_sender);
       $text->assign('bucket_receiver', $bucket->bucket_receiver);
       $text->assign('bucket_hash', $bucket->bucket_hash);
-      $text->assign('bucket_servername', "www.orf.at");
+      $text->assign('bucket_servername', $this->parent->cfg->servername);
       $body = $text->fetch('notify.tpl');
 
       $mailer =& Mail::factory('mail');

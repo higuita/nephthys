@@ -50,6 +50,10 @@ class NEPHTHYS {
          exit(1);
       }
 
+      if(!isset($this->cfg->servername)) {
+         $this->cfg->servername = $_SERVER['SERVER_NAME'];
+      }
+
       $this->sort_orders= array(
          'date_asc' => 'Date &uarr;',
          'date_desc' => 'Date &darr;',
@@ -582,8 +586,10 @@ class NEPHTHYS {
 
    public function notifybucket()
    {
-      $bucket = new NEPHTHYS_BUCKETS($this);
-      $bucket->notify($_POST['id']);
+      if(isset($_POST['id']) && is_numeric($_POST['id'])) {
+         $bucket = new NEPHTHYS_BUCKETS($_POST['id']);
+         $bucket->notify();
+      }
 
    } // notifybucket()
 
