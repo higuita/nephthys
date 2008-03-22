@@ -2,18 +2,18 @@
   <input type="hidden" name="module" value="buckets" />
   <input type="hidden" name="mode" value="modify" />
   <input type="hidden" name="bucket_owner" value="{ $user_idx }" />
-  <input type="hidden" name="bucketmode" value="send" />
-  <input type="hidden" name="bucket_new" value="1" />
+  <input type="hidden" name="bucket_idx" value="{ $bucket_idx }" />
+  <input type="hidden" name="bucket_new" value="0" />
   <table>
    <tr>
     <td colspan="2">&nbsp;</td>
    </tr>
    <tr>
-    <td colspan="2">Give the bucket a name:</td>
+    <td colspan="2">Bucket name:</td>
    </tr>
    <tr>
     <td>
-     <input type="text" name="bucket_name" style="width: 400px;" maxlength="250" value="{ $bucket_name }" />
+     <input type="text" name="bucket_name" style="width: 400px" maxlength="250" value="{ $bucket_name }" />
     </td>
    </tr>
    <tr>
@@ -21,7 +21,7 @@
    </tr>
    { if $user_priv == "manager" || $user_priv == "admin" }
    <tr>
-    <td colspan="2">Enter the senders email address:
+    <td colspan="2">Enter your or the senders email address:
    </tr>
    <tr>
     <td>
@@ -34,13 +34,29 @@
    <tr>
     <td colspan="2">&nbsp;</td>
    </tr>
+   { else }
+    { $bucket_sender }
    { /if }
+   <tr>
+    <td colspan="2">Enter the receiver email address:
+   </tr>
+   <tr>
+    <td>
+     <input type="text" name="bucket_receiver" style="width: 400px" maxlength="250" value="{ $bucket_receiver }" onchange="js_validate_email(this, 'receiveremail');" />
+    </td>
+    <td>
+     <div id="receiveremail" style="visibility: hidden;"></div>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="2">&nbsp;</td>
+   </tr>
    <tr>
     <td colspan="2">Should this bucket expire after it has been created?</td>
    </tr>
    <tr>
     <td>
-     { expiration_list name="bucket_expire" }
+     { expiration_list name="bucket_expire" current=$bucket_expire }
     </td>
    </tr>
    <tr>
@@ -78,5 +94,3 @@
    </tr>
   </table>
   </form>
-  <!-- set focus to the first input field -->
-  <img src="icons/1x1.png" onload="document.forms[0].bucket_name.focus();" />

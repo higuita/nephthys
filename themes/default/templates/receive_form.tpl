@@ -60,6 +60,19 @@
    <tr>
     <td colspan="2">&nbsp;</td>
    </tr>
+   { if $user_priv == "manager" || $user_priv == "admin" }
+   <tr>
+    <td>Owner:</td>
+   </tr>
+   <tr>
+    <td>
+     { owner_list name="bucket_owner" current=$bucket_owner }
+    </td>
+   </tr>
+   <tr>
+    <td colspan="2">&nbsp;</td>
+   </tr>
+   { /if }
    <tr>
     <td colspan="2">Notes which should be sent with instructions:</td>
    </tr>

@@ -78,7 +78,7 @@ function js_create_bucket(obj, target)
       window.alert("Please enter a valid sender email address!");
       return false;
    }
-   if(obj.bucketmode.value == "receive" &&
+   if(obj.bucketmode != undefined && obj.bucketmode.value == "receive" &&
       ajax_validate_email(obj.bucket_receiver.value) != "ok") {
       window.alert("Please enter a valid receiver email address!");
       return false;

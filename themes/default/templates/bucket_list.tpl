@@ -11,7 +11,7 @@
 { bucket_list }
  <tr>
   <td>
-   { $bucket_name }
+   <a href="javascript:ajax_show_content('buckets', '&mode=edit&idx={ $bucket_idx }');">{ $bucket_name }</a>
   </td>
   { if $user_priv == "manager" || $user_priv == "admin" }
   <td>

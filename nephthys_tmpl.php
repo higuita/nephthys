@@ -54,6 +54,7 @@ class NEPHTHYS_TMPL extends Smarty {
       $this->register_function("page_end", array(&$this, "smarty_page_end"), false);
       $this->register_function("import_bucket_list", array(&$this, "smarty_import_bucket_list"), false);
       $this->register_function("expiration_list", array(&$this, "smarty_expiration_list"), false);
+      $this->register_function("owner_list", array(&$this, "smarty_owner_list"), false);
 
    } // __construct()
 
@@ -111,6 +112,31 @@ class NEPHTHYS_TMPL extends Smarty {
       print $select;
 
    } //smarty_expiration_list()
+
+   public function smarty_owner_list($params, &$smarty)
+   {
+      $users = $this->parent->db->db_query("
+         SELECT *
+         FROM nephthys_users
+         WHERE user_active='Y'
+         ORDER BY user_name ASC
+      ");
+
+      $select = "<select name=\"". $params['name'] ."\">\n";
+
+      while($user = $users->fetchRow()) {
+
+         $select.= "<option value=\"". $user->user_idx ."\"";
+         if(isset($params['current']) && $params['current'] == $user->user_idx)
+            $select.= " selected=\"selected\"";
+         $select.= ">". $user->user_name."</option>\n";
+      }
+
+      $select.= "</select>\n";
+      print $select;
+
+   } //smarty_expiration_list()
+
 
 }
 

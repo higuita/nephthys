@@ -44,11 +44,18 @@ class NEPHTHYS_BUCKETS {
 
       $this->tmpl->register_block("bucket_list", array(&$this, "smarty_bucket_list"));
 
-      $res_buckets = $nephthys->db->db_query("
+      $query_str = "
          SELECT *
          FROM nephthys_buckets
-         ORDER BY bucket_name ASC
-      ");
+      ";
+
+      if($this->parent->has_user_priv()) {
+         $query_str.= "WHERE bucket_owner LIKE '". $_SESSION['user_idx'] ."'";
+      }
+
+      $query_str.= "ORDER BY bucket_name ASC";
+
+      $res_buckets = $nephthys->db->db_query($query_str);
 
       $cnt_buckets = 0;
 
@@ -76,9 +83,14 @@ class NEPHTHYS_BUCKETS {
 
       switch($_GET['mode']) {
          case 'receive':
+            $this->tmpl->assign('bucket_owner', $_SESSION['user_idx']);
             return $this->tmpl->show('receive_form.tpl');
          case 'send':
+            $this->tmpl->assign('bucket_owner', $_SESSION['user_idx']);
             return $this->tmpl->show('send_form.tpl');
+         case 'edit':
+            $this->showEdit($_GET['idx']);
+            break;
          case 'notify':
             $this->notify();
             break;
@@ -117,6 +129,10 @@ class NEPHTHYS_BUCKETS {
       /* if not a privileged user, then set the email address from his profile */
       if($this->parent->has_user_priv()) {
          $_POST['bucket_sender'] = $this->parent->get_users_email();
+      }
+      /* if not a privilged user, then set the owner to his id */
+      if($this->parent->has_user_priv()) {
+         $_POST['bucket_owner'] = $_SESSION['user_idx'];
       }
 
       isset($_POST['bucket_new']) && $_POST['bucket_new'] == 1 ? $new = 1 : $new = NULL;
@@ -212,12 +228,6 @@ class NEPHTHYS_BUCKETS {
          $bucket =  $this->buckets[$bucket_idx];
 
          $user_priv = $this->parent->get_user_priv($_SESSION['user_idx']);
-
-         if($bucket->bucket_owner != $_SESSION['user_idx'] &&
-            !in_array($user_priv, Array("admin", "manager"))) {
-            $repeat = true;
-            return;
-         }
 
          $bucket_expire = $bucket->bucket_created + ($bucket->bucket_expire*86400);
          $bucket_owner = $this->parent->get_user_name($bucket->bucket_owner);
@@ -363,7 +373,39 @@ class NEPHTHYS_BUCKETS {
 
    } // data_directory_exists()
 
+   /**
+    * display interface to create or edit users
+    */
+   private function showEdit($idx)
+   {
+      /* If authentication is enabled, check permissions */
+      if(!$this->parent->is_logged_in()) {
+         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". _("Manage Users"), _("You do not have enough permissions to access this module!"));
+         return 0;
+      }
 
+      if($idx != 0) {
+         $bucket = $this->db->db_fetchSingleRow("
+            SELECT *
+            FROM nephthys_buckets
+            WHERE
+               bucket_idx LIKE '". $idx ."'
+         ");
+
+         $this->tmpl->assign('bucket_idx', $idx);
+         $this->tmpl->assign('bucket_name', $bucket->bucket_name);
+         $this->tmpl->assign('bucket_sender', $bucket->bucket_sender);
+         $this->tmpl->assign('bucket_receiver', $bucket->bucket_receiver);
+         $this->tmpl->assign('bucket_expire', $bucket->bucket_expire);
+         $this->tmpl->assign('bucket_note', $bucket->bucket_note);
+         $this->tmpl->assign('bucket_owner', $bucket->bucket_owner);
+         $this->tmpl->assign('bucket_active', $bucket->bucket_active);
+
+      }
+
+      $this->tmpl->show("bucket_edit.tpl");
+
+   } // showEdit()
 
 } // class NEPHTHYS_BUCKETS
 
