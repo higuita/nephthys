@@ -718,6 +718,15 @@ class NEPHTHYS_DEFAULT_CFG {
 
    var $allow_server_auth = false;
    var $user_auto_create = false;
+   var $expirations  = Array(
+      "1;1 Day;user",
+      "3;3 Days;user",
+      "7;1 Week;user",
+      "30;1 Month;user",
+      "186;6 Months;manager",
+      "365;1 Year; manager",
+      "-1;1 Year; manager",
+   );
 
 } // class NEPHTHYS_DEFAULT_CFG
 

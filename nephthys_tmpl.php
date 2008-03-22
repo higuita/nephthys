@@ -53,6 +53,7 @@ class NEPHTHYS_TMPL extends Smarty {
       $this->register_function("start_table", array(&$this, "smarty_startTable"), false);
       $this->register_function("page_end", array(&$this, "smarty_page_end"), false);
       $this->register_function("import_bucket_list", array(&$this, "smarty_import_bucket_list"), false);
+      $this->register_function("expiration_list", array(&$this, "smarty_expiration_list"), false);
 
    } // __construct()
 
@@ -87,6 +88,29 @@ class NEPHTHYS_TMPL extends Smarty {
       $bucket->showList();
 
    } // smarty_import_bucket_list()
+
+   public function smarty_expiration_list($params, &$smarty)
+   {
+      $select = "<select name=\"". $params['name'] ."\">\n";
+
+      foreach($this->parent->cfg->expirations as $expire) {
+
+         list($days, $name, $require_priv) = split(";", $expire);
+
+         if($require_priv == "user" ||
+            ($require_priv != "user" && !$this->parent->has_user_priv())) {
+
+            $select.= "<option value=\"". $days ."\"";
+            if(isset($params['current']) && $params['current'] == $days)
+               $select.= " selected=\"selected\"";
+            $select.= ">". $name."</option>\n";
+         }
+      }
+
+      $select.= "</select>\n";
+      print $select;
+
+   } //smarty_expiration_list()
 
 }
 
