@@ -159,6 +159,9 @@ class NEPHTHYS {
          case 'buckets':
             $obj = new NEPHTHYS_BUCKET($this);
             break;
+         case 'credits':
+            return $this->tmpl->show("credits.tpl");
+            break;
       }
 
       if(isset($obj))
