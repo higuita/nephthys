@@ -229,13 +229,17 @@ class NEPHTHYS_BUCKETS {
 
          $user_priv = $this->parent->get_user_priv($_SESSION['user_idx']);
 
-         $bucket_expire = $bucket->bucket_created + ($bucket->bucket_expire*86400);
+         if($bucket->bucket_expire != "-1")
+            $bucket_expire = $bucket->bucket_created + ($bucket->bucket_expire*86400);
          $bucket_owner = $this->parent->get_user_name($bucket->bucket_owner);
 
          $this->tmpl->assign('bucket_idx', $bucket_idx);
          $this->tmpl->assign('bucket_name', $bucket->bucket_name);
          $this->tmpl->assign('bucket_created', strftime("%Y-%m-%d", $bucket->bucket_created));
-         $this->tmpl->assign('bucket_expire', strftime("%Y-%m-%d", $bucket_expire));
+         if($bucket->bucket_expire != "-1")
+            $this->tmpl->assign('bucket_expire', strftime("%Y-%m-%d", $bucket_expire));
+         else
+            $this->tmpl->assign('bucket_expire', 'never');
          $this->tmpl->assign('bucket_owner', $bucket_owner);
          $this->tmpl->assign('bucket_owner_idx', $bucket->bucket_owner);
          $this->tmpl->assign('bucket_receiver', $bucket->bucket_receiver);

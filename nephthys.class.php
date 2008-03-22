@@ -725,7 +725,7 @@ class NEPHTHYS_DEFAULT_CFG {
       "30;1 Month;user",
       "186;6 Months;manager",
       "365;1 Year; manager",
-      "-1;1 Year; manager",
+      "-1;never; manager",
    );
 
 } // class NEPHTHYS_DEFAULT_CFG
