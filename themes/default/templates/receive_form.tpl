@@ -85,6 +85,15 @@
     <td colspan="2">&nbsp;</td>
    </tr>
    <tr>
+    <td colspan="2">
+     <input type="checkbox" name="notifybucket" value="true" checked=\"checked\">&nbsp;
+     Send email notification to receiver immediately after creating bucket.
+    </td>
+   </tr>
+   <tr>
+    <td colspan="2">&nbsp;</td>
+   </tr>
+   <tr>
     <td><input type="submit" value="Create" /></td>
    </tr>
    <tr>

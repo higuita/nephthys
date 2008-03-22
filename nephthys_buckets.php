@@ -181,10 +181,18 @@ class NEPHTHYS_BUCKETS {
                'Y')
          ");
 
+         $this->id = $this->db->db_getid();
+
          if(!mkdir($this->parent->cfg->data_path ."/". $hash)) {
             return "There was a error creating the bucket directory. Contact your administrator!";
          }
 
+         if(isset($_POST['bucketmode']) && $_POST['bucketmode'] == "receive" &&
+            isset($_POST['notifybucket']) && $_POST['notifybucket'] == "true") {
+
+            $this->notify();
+
+         }
       }
       else {
            $this->db->db_query("
