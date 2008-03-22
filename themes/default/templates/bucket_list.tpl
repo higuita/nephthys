@@ -2,6 +2,7 @@
  <tr>
   <td>Bucket</td>
   <td>Created on</td>
+  <td>Expire on</td>
   <td>&nbsp;</td>
  </tr>
 { bucket_list }
@@ -10,7 +11,10 @@
    { $bucket_name }
   </td>
   <td>
-   { $bucket_creation_time }
+   { $bucket_created }
+  </td>
+  <td>
+   { $bucket_expire }
   </td>
   <td>
    <a href="javascript:js_delete_obj('buckets', 'main', '{ $bucket_idx }');"><img src="icons/delete.png" /></a>

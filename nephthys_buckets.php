@@ -203,9 +203,12 @@ class NEPHTHYS_BUCKETS {
          $bucket_idx = $this->avail_buckets[$index];
          $bucket =  $this->buckets[$bucket_idx];
 
+         $bucket_expire = $bucket->bucket_created + ($bucket->bucket_expire*86400);
+
          $this->tmpl->assign('bucket_idx', $bucket_idx);
          $this->tmpl->assign('bucket_name', $bucket->bucket_name);
-         $this->tmpl->assign('bucket_sender', $bucket->bucket_sender);
+         $this->tmpl->assign('bucket_created', strftime("%Y-%m-%d", $bucket->bucket_created));
+         $this->tmpl->assign('bucket_expire', strftime("%Y-%m-%d", $bucket_expire));
          $this->tmpl->assign('bucket_receiver', $bucket->bucket_receiver);
 
          $index++;
