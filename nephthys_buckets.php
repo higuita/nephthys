@@ -246,6 +246,11 @@ class NEPHTHYS_BUCKETS {
    {
       if(isset($_POST['idx']) && is_numeric($_POST['idx'])) {
 
+         /* ensure unprivileged users can only delete their own buckets */
+         if($this->parent->has_user_priv() && !$this->parent->is_bucket_owner($_SESSION['user_idx'])) {
+            return "You are only allowed to delete buckets you own!";
+         }
+
          $hash = $this->get_bucket_hash($_POST['idx']);
 
          if(!$hash) {

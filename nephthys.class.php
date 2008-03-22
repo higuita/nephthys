@@ -674,6 +674,25 @@ class NEPHTHYS {
 
    } // has_user_priv()
 
+   /**
+    * returns true, if user is owner of the supplied bucket
+    */
+   public function is_bucket_owner($bucket_idx)
+   {
+      if($bucket = $this->db->db_fetchSingleRow("
+            SELECT *
+            FROM nephthys_buckets
+            WHERE bucket_idx LIKE '". $bucket_idx ."'
+         ")) {
+
+         if($bucket->bucket_owner == $_SESSION['user_idx'])
+            return true;
+      }
+
+      return false;
+
+   } // is_bucket_owner()
+
 } // class NEPHTHYS
 
 /***************************************************************************
