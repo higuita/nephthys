@@ -130,7 +130,7 @@ class NEPHTHYS_BUCKETS {
          return _("Please enter a receiver for this bucket!");
       }
       if(isset($_POST['bucketmode']) && $_POST['bucketmode'] == "receive" &&
-         !$this->validate_email($_POST['bucket_receiver'])) {
+         !$this->parent->validate_email($_POST['bucket_receiver'])) {
          return _("Please enter a valid receiver email address!");
       }
 
@@ -219,6 +219,123 @@ class NEPHTHYS_BUCKETS {
       return $content;
 
    } // smarty_bucket_list()
+
+   public function delete()
+   {
+      if(isset($_POST['idx']) && is_numeric($_POST['idx'])) {
+
+         $hash = $this->get_bucket_hash($_POST['idx']);
+
+         if(!$hash) {
+            return "Can't locate hash value of the bucket that has to be deleted.";
+         }
+
+         if(!$this->del_data_directory($hash)) {
+            return "Removing bucket directory ". $this->parent->cfg->data_path ."/". $hash ." not possible";
+         }
+
+         $this->db->db_query("
+            DELETE FROM nephthys_buckets
+            WHERE bucket_idx LIKE '". $_POST['idx'] ."'
+         ");
+      }
+
+      print "ok";
+
+   } // delete()
+
+   /**
+    * return bucket's SHA1 hash
+    *
+    * this function will return the SHA1 hash of the
+    * requested bucket (by database primary key)
+    */
+   private function get_bucket_hash($idx)
+   {
+      if($row = $this->db->db_fetchSingleRow("
+            SELECT bucket_hash
+            FROM nephthys_buckets
+            WHERE bucket_idx LIKE '". $idx ."'
+         ")) {
+
+         if(isset($row->bucket_hash))
+            return $row->bucket_hash;
+
+      }
+
+      return 0;
+
+   } // get_bucket_hash();
+
+   private function del_data_directory($hash)
+   {
+      $invalid_path = Array("/", "/usr", "/var", "/home", "/boot");
+      /*
+       * ensure that this function can not malfunction
+       */
+      if(in_array($this->parent->cfg->data_path, $invalid_path))
+         die;
+
+      if($this->data_directory_exists($hash))
+         return $this->deltree($this->parent->cfg->data_path ."/". $hash);
+
+      return false;
+
+   } // del_data_directory()
+
+   private function deltree($f)
+   {
+      if (is_dir($f)) {
+         foreach(glob($f.'/*') as $sf) {
+            print $sf;
+            if (is_dir($sf) && !is_link($sf)) {
+               $this->deltree($sf);
+               // rmdir($sf); <== old place with arg "$sf"
+            } else {
+               unlink($sf);
+            }
+         }
+         rmdir($f); // <== new place with new arg "$f"
+         return true;
+      }
+
+      return false;
+
+   } // deltree()
+
+   private function scan_full_dir($rootDir, $allowext, $allData=array()) {
+      $dirContent = scandir($rootDir);
+      foreach($dirContent as $key => $content) {
+         $path = $rootDir.'/'.$content;
+         $ext = substr($content, strrpos($content, '.') + 1);
+
+         if(in_array($ext, $allowext)) {
+            if(is_file($path) && is_readable($path)) {
+               $allData[] = $path;
+            }elseif(is_dir($path) && is_readable($path)) {
+               // recursive callback to open new directory
+               $allData = $this->scan_full_dir($path, $allData);
+            }
+         }
+      }
+      return $allData;
+   } // scan_full_dir()
+
+   /**
+    * check if data directory exists
+    *
+    * returns true, if the specified data-directory + hash-named
+    * directory really exists.
+    */
+   private function data_directory_exists($hash)
+   {
+      if(file_exists($this->parent->cfg->data_path ."/". $hash))
+         return true;
+
+      return false;
+
+   } // data_directory_exists()
+
 
 
 } // class NEPHTHYS_BUCKETS

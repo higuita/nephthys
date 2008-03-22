@@ -65,23 +65,7 @@ function ajax_notify_bucket(id)
    if(retr != "ok") {
       window.alert("Server message: "+ retr);
    }
-}
-
-function ajax_delete_bucket(id)
-{
-   var objTemp = new Object();
-
-   objTemp['action'] = 'deletebucket';
-   objTemp['id'] = id;
-
-   var retr = HTML_AJAX.post('rpc.php', objTemp);
-   if(retr == "ok") {
-      ajax_show_content('main');
-   }
-   else {
-      window.alert("Server message: "+ retr);
-   }
-} // ajax_delete_bucket()
+} // ajax_notify_bucket()
 
 function js_create_bucket(obj, target)
 {
@@ -93,7 +77,8 @@ function js_create_bucket(obj, target)
       window.alert("Please enter a valid sender email address!");
       return false;
    }
-   if(obj.bucketmode.value == "recv" && ajax_validate_email(obj.bucket_receiver.value) != "ok") {
+   if(obj.bucketmode.value == "receive" &&
+      ajax_validate_email(obj.bucket_receiver.value) != "ok") {
       window.alert("Please enter a valid receiver email address!");
       return false;
    }
@@ -140,7 +125,7 @@ function js_delete_obj(module, target, idx)
       ajax_show_content(target);
    }
    else {
-      window.alert(retr);
+      window.alert("Server returned: " + retr);
    }
 } // js_delete_obj()
 
