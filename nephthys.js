@@ -19,7 +19,8 @@ function AskServerWhatToDo()
 function init_nephthys(mode)
 {
    /* ask the server what we are currently displaying */
-   whattodo = AskServerWhatToDo();
+   //whattodo = AskServerWhatToDo();
+   init_ajaxtabs();
 
 } // init_nephthys()
 
@@ -345,6 +346,7 @@ function check_login()
    if(retr == "ok") {
       refreshMenu();
       ajax_show_content('main');
+      init_ajaxtabs();
       tabs = document.getElementById("tabs");
       tabs.style.visibility = 'visible';
    }
@@ -369,4 +371,13 @@ function js_logout()
    }
 
 } // js_logout()
+
+function init_ajaxtabs()
+{
+   var menutabs=new ddajaxtabs("menutabs", "content")
+   menutabs.setpersist(true)
+   menutabs.setselectedClassTarget("link") //"link" or "linkparent"
+   menutabs.init()
+
+} // init_ajaxtabs()
 
