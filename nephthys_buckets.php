@@ -244,6 +244,9 @@ class NEPHTHYS_BUCKETS {
             $bucket_expire = $bucket->bucket_created + ($bucket->bucket_expire*86400);
          $bucket_owner = $this->parent->get_user_name($bucket->bucket_owner);
 
+         $bucket_webdav = "http://". $this->parent->cfg->servername ."/". $bucket->bucket_hash ."/";
+         $bucket_ftp = "ftp://". $this->parent->cfg->servername ."/". $bucket->bucket_hash ."/";
+
          $this->tmpl->assign('bucket_idx', $bucket_idx);
          $this->tmpl->assign('bucket_name', $bucket->bucket_name);
          $this->tmpl->assign('bucket_created', strftime("%Y-%m-%d", $bucket->bucket_created));
@@ -254,6 +257,8 @@ class NEPHTHYS_BUCKETS {
          $this->tmpl->assign('bucket_owner', $bucket_owner);
          $this->tmpl->assign('bucket_owner_idx', $bucket->bucket_owner);
          $this->tmpl->assign('bucket_receiver', $bucket->bucket_receiver);
+         $this->tmpl->assign('bucket_webdav_path', $bucket_webdav);
+         $this->tmpl->assign('bucket_ftp_path', $bucket_ftp);
 
          $index++;
          $this->tmpl->assign('smarty.IB.bucket_list.index', $index);
