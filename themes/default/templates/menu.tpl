@@ -3,7 +3,7 @@
      <li><a href="rpc.php?action=get_content&id=main" class="selected" rel="buckets">Buckets</a></li>
      { if $user_priv == "admin" }
      <li><a href="rpc.php?action=get_content&id=users" rel="users">Users</a></li>
-     <li><a href="rpc.php?action=get_content&id=groups" rel="groups">Groups</a></li>
+     <li><a href="rpc.php?action=get_content&id=config" rel="config">Config</a></li>
      { /if }
      <li><a href="rpc.php?action=get_content&id=credits" rel="credits">Credits</a></li>
      </ul>
