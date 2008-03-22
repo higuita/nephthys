@@ -145,12 +145,13 @@ class NEPHTHYS_BUCKETS {
 
          $this->db->db_query("
             INSERT INTO nephthys_buckets (
-               bucket_name, bucket_sender, bucket_receiver, bucket_expire, bucket_note,
-               bucket_hash, bucket_active
+               bucket_name, bucket_sender, bucket_receiver, bucket_created,
+               bucket_expire, bucket_note, bucket_hash, bucket_active
             ) VALUES (
                '". $_POST['bucket_name'] ."',
                '". $_POST['bucket_sender'] ."',
                '". $_POST['bucket_receiver'] ."',
+               '". mktime() ."',
                '". $_POST['bucket_expire'] ."',
                '". $_POST['bucket_note'] ."',
                '". $hash ."',
