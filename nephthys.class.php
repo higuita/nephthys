@@ -588,8 +588,10 @@ class NEPHTHYS {
    {
       if(isset($_POST['id']) && is_numeric($_POST['id'])) {
          $bucket = new NEPHTHYS_BUCKETS($_POST['id']);
-         $bucket->notify();
+         return $bucket->notify();
       }
+
+      return "unkown bucket";
 
    } // notifybucket()
 

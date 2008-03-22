@@ -95,7 +95,7 @@ class NEPHTHYS_BUCKETS {
             $this->showEdit($_GET['idx']);
             break;
          case 'notify':
-            $this->notify();
+            return $this->notify();
             break;
       }
 
