@@ -22,7 +22,7 @@
  ***************************************************************************/
 
 require_once "nephthys_db.php";
-require_once "nephthys_bucket.php";
+require_once "nephthys_buckets.php";
 require_once "nephthys_users.php";
 
 class NEPHTHYS {
@@ -33,8 +33,6 @@ class NEPHTHYS {
    public $current_user;
 
    private $runtime_error = false;
-   private $avail_buckets = Array();
-   private $buckets = Array();
 
    /**
     * class constructor
@@ -157,7 +155,7 @@ class NEPHTHYS {
             $obj = new NEPHTHYS_GROUPS($this);
             break;
          case 'buckets':
-            $obj = new NEPHTHYS_BUCKET($this);
+            $obj = new NEPHTHYS_BUCKETS($this);
             break;
          case 'credits':
             return $this->tmpl->show("credits.tpl");
@@ -179,6 +177,9 @@ class NEPHTHYS {
          switch($_POST['module']) {
             case 'users':
                $obj = new NEPHTHYS_USERS($this);
+               break;
+            case 'buckets':
+               $obj = new NEPHTHYS_BUCKETS;
                break;
          }
 
@@ -505,75 +506,6 @@ class NEPHTHYS {
 
    } // is_valid_user()
 
-   private function bucketModify()
-   {
-      isset($_POST['bucket_new']) && $_POST['bucket_new'] == 1 ? $new = 1 : $new = NULL;
-
-      if(!isset($_POST['bucket_name']) || empty($_POST['bucket_name'])) {
-         return _("Please enter a name for this bucket!");
-      }
-      if(!isset($_POST['bucket_sender']) || empty($_POST['bucket_name'])) {
-         return _("Please enter a sender for this bucket!");
-      }
-      if(!$this->validate_email($_POST['bucket_sender'])) {
-         return _("Please enter a valid sender email address!");
-      }
-      if(isset($_POST['bucketmode']) && $_POST['bucketmode'] == "receive" &&
-         !isset($_POST['bucket_receiver']) || empty($_POST['bucket_name'])) {
-         return _("Please enter a receiver for this bucket!");
-      }
-      if(isset($_POST['bucketmode']) && $_POST['bucketmode'] == "receive" &&
-         !$this->validate_email($_POST['bucket_receiver'])) {
-         return _("Please enter a valid receiver email address!");
-      }
-
-      if(isset($new)) {
-
-         if(isset($_POST['bucket_receiver']))
-            $hash = $this->get_sha_hash($_POST['bucket_sender'], $_POST['bucket_receiver']);
-         else {
-            $_POST['bucket_receiver'] = "";
-            $hash = $this->get_sha_hash($_POST['bucket_sender']);
-         }
-
-         $this->db->db_query("
-            INSERT INTO nephthys_buckets (
-               bucket_name, bucket_sender, bucket_receiver, bucket_expire, bucket_note,
-               bucket_hash, bucket_active
-            ) VALUES (
-               '". $_POST['bucket_name'] ."',
-               '". $_POST['bucket_sender'] ."',
-               '". $_POST['bucket_receiver'] ."',
-               '". $_POST['bucket_expire'] ."',
-               '". $_POST['bucket_note'] ."',
-               '". $hash ."',
-               'Y')
-         ");
-
-         if(!mkdir($this->cfg->data_path ."/". $hash)) {
-            return "There was a error creating the bucket directory. Contact your administrator!";
-         }
-
-      }
-      else {
-           $this->db->db_query("
-               UPDATE nephthys_buckets
-               SET
-                  bucket_name='". $_POST['bucket_name'] ."',
-                  bucket_sender='". $_POST['bucket_sender'] ."',
-                  bucket_receiver='". $_POST['bucket_receiver'] ."',
-                  bucket_expire='". $_POST['bucket_expire'] ."',
-                  bucket_note='". $_POST['bucket_note'] ."',
-                  bucket_active='Y'
-               WHERE
-                  bucket_idx='". $_POST['bucket_idx'] ."'
-            ");
-      }
-
-      return "ok";
-
-   } // bucketModify()
-
    /**
     * return bucket details
     */
@@ -639,7 +571,7 @@ class NEPHTHYS {
     * generates a SHA-1 hash from the provided parameters
     * and some random stuff
     */
-   private function get_sha_hash($sender, $receiver = false)
+   public function get_sha_hash($sender, $receiver = false)
    {
       if(!$receiver)
          $receiver = mktime();
@@ -650,7 +582,7 @@ class NEPHTHYS {
 
    public function notifybucket()
    {
-      $bucket = new NEPHTHYS_BUCKET($this);
+      $bucket = new NEPHTHYS_BUCKETS($this);
       $bucket->notify($_POST['id']);
 
    } // notifybucket()

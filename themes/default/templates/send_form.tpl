@@ -1,5 +1,6 @@
   <form action="rpc.php?action=store" id="buckets" onsubmit="js_create_bucket(this, 'buckets'); return false;" method="post">
   <input type="hidden" name="module" value="buckets" />
+  <input type="hidden" name="mode" value="modify" />
   <input type="hidden" name="bucketmode" value="send" />
   <input type="hidden" name="bucket_new" value="1" />
   <table>

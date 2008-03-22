@@ -51,21 +51,7 @@ class NEPHTHYS_TMPL extends Smarty {
       $this->assign('template_path', 'themes/'. $nephthys->cfg->theme_name);
       $this->register_function("start_table", array(&$this, "smarty_startTable"), false);
       $this->register_function("page_end", array(&$this, "smarty_page_end"), false);
-      $this->register_block("bucket_list", array(&$this, "smarty_bucket_list"));
-
-      $res_buckets = $nephthys->db->db_query("
-         SELECT *
-         FROM nephthys_buckets
-         ORDER BY bucket_name ASC
-      ");
-
-      $cnt_buckets = 0;
-
-      while($bucket = $res_buckets->fetchrow()) {
-         $nephthys->avail_buckets[$cnt_buckets] = $bucket->bucket_idx;
-         $nephthys->buckets[$bucket->bucket_idx] = $bucket;
-         $cnt_buckets++;
-      }
+      $this->register_function("import_bucket_list", array(&$this, "smarty_import_bucket_list"), false);
 
    } // __construct()
 
@@ -94,37 +80,12 @@ class NEPHTHYS_TMPL extends Smarty {
 
    } // smarty_function_startTable()
 
-   /**
-    * template function which will be called from the buckets listing template
-    */
-   public function smarty_bucket_list($params, $content, &$smarty, &$repeat)
+   public function smarty_import_bucket_list()
    {
-      $index = $this->get_template_vars('smarty.IB.bucket_list.index');
-      if(!$index) {
-         $index = 0;
-      }
+      $bucket = new NEPHTHYS_BUCKETS();
+      $bucket->showList();
 
-      if($index < count($this->avail_buckets)) {
-
-         $bucket_idx = $this->avail_buckets[$index];
-         $bucket =  $this->buckets[$bucket_idx];
-
-         $this->tmpl->assign('bucket_idx', $bucket_idx);
-         $this->tmpl->assign('bucket_name', $bucket->bucket_name);
-         $this->tmpl->assign('bucket_sender', $bucket->bucket_sender);
-         $this->tmpl->assign('bucket_receiver', $bucket->bucket_receiver);
-
-         $index++;
-         $this->tmpl->assign('smarty.IB.bucket_list.index', $index);
-         $repeat = true;
-      }
-      else {
-         $repeat =  false;
-      }
-
-      return $content;
-
-   } // smarty_bucket_list()
+   } // smarty_import_bucket_list()
 
 }
 
