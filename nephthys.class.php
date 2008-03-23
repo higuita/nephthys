@@ -71,7 +71,7 @@ class NEPHTHYS {
 
       $this->browser_info = new Net_UserAgent_Detect();
 
-      if($this->browser_info->hasFeature('dom') != 'Yes') {
+      if(!$this->browser_info->hasFeature('javascript')) {
          print "It seems your browser is not capable of supporting JavaScript or it has been disabled.<br />\n";
          print "Nephthys will not correctly work without JavaScript!<br />\n";
          exit;
