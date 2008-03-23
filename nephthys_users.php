@@ -136,7 +136,7 @@ class NEPHTHYS_USERS {
       if(!isset($_POST['user_name']) || $_POST['user_name'] == "") {
          return _("Please enter a user name!");
       }
-      if(isset($new) && $this->checkUserExists($_POST['user_name'])) {
+      if(isset($new) && $this->parent->check_user_exists($_POST['user_name'])) {
          return _("A user with such a user name already exist!");
       }
       if($_POST['user_pass1'] == "") {
@@ -270,24 +270,6 @@ class NEPHTHYS_USERS {
       return $content;
 
    } // smarty_user_list()
-
-   /**
-    * checks if provided user name already exists
-    * and will return true if so.
-    */
-   private function checkUserExists($user_name)
-   {
-      if($this->db->db_fetchSingleRow("
-         SELECT user_idx
-         FROM nephthys_users
-         WHERE
-            user_name LIKE BINARY '". $user_name ."'
-         ")) {
-         return true;
-      }
-
-      return false;
-   } // checkTargetExists()
 
 } // class NEPHTHYS_USERS
 
