@@ -24,6 +24,7 @@
 require_once "nephthys_db.php";
 require_once "nephthys_buckets.php";
 require_once "nephthys_users.php";
+require_once "nephthys_profile.php";
 
 class NEPHTHYS {
 
@@ -162,13 +163,13 @@ class NEPHTHYS {
             $obj = $this;
             break;
          case 'users':
-            $obj = new NEPHTHYS_USERS($this);
-            break;
-         case 'groups':
-            $obj = new NEPHTHYS_GROUPS($this);
+            $obj = new NEPHTHYS_USERS();
             break;
          case 'buckets':
-            $obj = new NEPHTHYS_BUCKETS($this);
+            $obj = new NEPHTHYS_BUCKETS();
+            break;
+         case 'profile':
+            $obj = new NEPHTHYS_PROFILE();
             break;
          case 'credits':
             return $this->tmpl->show("credits.tpl");
@@ -189,10 +190,13 @@ class NEPHTHYS {
       if(isset($_POST['module'])) {
          switch($_POST['module']) {
             case 'users':
-               $obj = new NEPHTHYS_USERS($this);
+               $obj = new NEPHTHYS_USERS;
                break;
             case 'buckets':
                $obj = new NEPHTHYS_BUCKETS;
+               break;
+            case 'profile':
+               $obj = new NEPHTHYS_PROFILE;
                break;
          }
 
@@ -714,6 +718,25 @@ class NEPHTHYS {
       return false;
 
    } // is_bucket_owner()
+
+   /**
+    * returns true if the requested user exists
+    */
+   public function check_user_exists($user_name)
+   {
+      if($this->db->db_fetchSingleRow("
+         SELECT user_idx
+         FROM nephthys_users
+         WHERE
+            user_name LIKE BINARY '". $user_name ."'
+         ")) {
+         return true;
+      }
+
+      return false;
+
+   } // check_user_exists()
+
 
 } // class NEPHTHYS
 

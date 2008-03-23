@@ -1,6 +1,7 @@
    <div id="tabs" style="{ if ! $user_name } visibility: hidden; { /if } float: left;">
     <ul id="menutabs" class="shadetabs">
      <li><a href="rpc.php?action=get_content&id=main" class="selected" rel="buckets">Buckets</a></li>
+     <li><a href="rpc.php?action=get_content&id=profile&mode=edit" rel="users">My Profile</a></li>
      { if $user_priv == "admin" }
      <li><a href="rpc.php?action=get_content&id=users" rel="users">Users</a></li>
      <li><a href="rpc.php?action=get_content&id=config" rel="config">Config</a></li>

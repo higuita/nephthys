@@ -112,6 +112,7 @@ function js_submit_form(obj, target)
       errortext.style.visibility = 'visible';
       errortext.innerHTML = retval;
       */
+      return false;
    }
 
 } // js_submit_form()
