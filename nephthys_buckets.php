@@ -52,7 +52,7 @@ class NEPHTHYS_BUCKETS {
          FROM nephthys_buckets
       ";
 
-      if($this->parent->has_user_priv()) {
+      if($this->parent->check_privileges('user')) {
          $query_str.= "WHERE bucket_owner LIKE '". $_SESSION['user_idx'] ."'";
       }
 
@@ -130,11 +130,11 @@ class NEPHTHYS_BUCKETS {
    public function store()
    {
       /* if not a privileged user, then set the email address from his profile */
-      if($this->parent->has_user_priv()) {
+      if($this->parent->check_privileges('user')) {
          $_POST['bucket_sender'] = $this->parent->get_users_email();
       }
       /* if not a privilged user, then set the owner to his id */
-      if($this->parent->has_user_priv()) {
+      if($this->parent->check_privileges('user')) {
          $_POST['bucket_owner'] = $_SESSION['user_idx'];
       }
 
@@ -277,7 +277,7 @@ class NEPHTHYS_BUCKETS {
       if(isset($_POST['idx']) && is_numeric($_POST['idx'])) {
 
          /* ensure unprivileged users can only delete their own buckets */
-         if($this->parent->has_user_priv() && !$this->parent->is_bucket_owner($_POST['idx'])) {
+         if($this->parent->check_privileges('user') && !$this->parent->is_bucket_owner($_POST['idx'])) {
             return "You are only allowed to delete buckets you own!";
          }
 

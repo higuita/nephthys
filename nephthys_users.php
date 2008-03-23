@@ -183,7 +183,7 @@ class NEPHTHYS_USERS {
                user_idx='". $_POST['user_idx'] ."'
          ");
 
-         if($_POST['user_pass1'] != "nochangeMS") {
+         if($_POST['user_pass1'] != " nochangeMS ") {
             $this->db->db_query("
                UPDATE nephthys_users
                SET

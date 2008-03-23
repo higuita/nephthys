@@ -687,20 +687,6 @@ class NEPHTHYS {
    } // destroySession()
 
    /**
-    * returns true if user has only "user" privileges
-    */
-   public function has_user_priv()
-   {
-      if($user = $this->get_user_details_by_idx($_SESSION['user_idx'])) {
-         if($user->user_priv == "user")
-            return true;
-      }
-
-      return false;
-
-   } // has_user_priv()
-
-   /**
     * returns true if the requests user privilege is matching
     * with the actually user privileges
     */

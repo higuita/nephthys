@@ -92,14 +92,14 @@ class NEPHTHYS_PROFILE {
     */
    public function store()
    {
-      if($this->parent->has_user_priv() && isset($_POST['user_name'])) {
+      if($this->parent->check_privileges('user') && isset($_POST['user_name'])) {
          return _("You are not allowed to change your login name!");
       }
-      if($this->parent->has_user_priv() && isset($_POST['user_email'])) {
+      if($this->parent->check_privileges('user') && isset($_POST['user_email'])) {
          return _("You are not allowed to change your email address!");
       }
 
-      if(!$this->parent->has_user_priv() && (!isset($_POST['user_name']) ||
+      if(!$this->parent->check_privileges('user') && (!isset($_POST['user_name']) ||
          empty($_POST['user_name']))) {
          return _("Please enter a user name!");
       }
@@ -109,21 +109,21 @@ class NEPHTHYS_PROFILE {
       if($_POST['user_pass1'] != $_POST['user_pass2']) {
          return _("The two entered passwords do not match!");
       }	       
-      if(!$this->parent->has_user_priv() && (!isset($_POST['user_email']) ||
+      if(!$this->parent->check_privileges('user') && (!isset($_POST['user_email']) ||
          empty($_POST['user_email']))) {
          return _("Please enter a email address!");
       }
-      if(!$this->parent->has_user_priv() &&
+      if(!$this->parent->check_privileges('user') &&
          !$this->parent->validate_email($_POST['user_email'])) {
          return _("Please enter a valid email address!");
       }
 
-      if(!$this->parent->has_user_priv()) {
+      if(!$this->parent->check_privileges('user')) {
          $this->db->db_query("
             UPDATE nephthys_users
             SET
                user_name='". $_POST['user_name'] ."',
-               user_email='". $_POST['user_email'] ."',
+               user_email='". $_POST['user_email'] ."'
             WHERE
                user_idx='". $_POST['user_idx'] ."'
          ");
@@ -137,7 +137,7 @@ class NEPHTHYS_PROFILE {
             user_idx='". $_POST['user_idx'] ."'
       ");
 
-      if($_POST['user_pass1'] != "nochangeMS") {
+      if($_POST['user_pass1'] != " nochangeMS ") {
          $this->db->db_query("
             UPDATE nephthys_users
             SET
