@@ -44,8 +44,8 @@ class NEPHTHYS_USERS {
    /* interface output */
    public function show()
    {
-      if(!$this->parent->is_logged_in()) {
-         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". _("Manage Users"), _("You do not have enough permissions to access this module!"));
+      if(!$this->parent->is_logged_in() || $this->parent->check_privileges('user')) {
+         print _("You do not have enough permissions to access this module!");
          return 0;
       }
 
@@ -98,8 +98,8 @@ class NEPHTHYS_USERS {
    private function showEdit($idx)
    {
       /* If authentication is enabled, check permissions */
-      if(!$this->parent->is_logged_in()) {
-         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". _("Manage Users"), _("You do not have enough permissions to access this module!"));
+      if(!$this->parent->is_logged_in() || $this->parent->check_privileges('user')) {
+         print _("You do not have enough permissions to access this module!");
          return 0;
       }
 
@@ -131,6 +131,10 @@ class NEPHTHYS_USERS {
     */
    public function store()
    {
+      if(!$this->parent->is_logged_in() || $this->parent->check_privileges('user')) {
+         return _("You do not have enough permissions to access this module!");
+      }
+
       isset($_POST['user_new']) && $_POST['user_new'] == 1 ? $new = 1 : $new = NULL;
 
       if(!isset($_POST['user_name']) || $_POST['user_name'] == "") {
@@ -199,6 +203,10 @@ class NEPHTHYS_USERS {
     */
    public function delete()
    {
+      if(!$this->parent->is_logged_in() || $this->parent->check_privileges('user')) {
+         return _("You do not have enough permissions to access this module!");
+      }
+
       if(isset($_POST['idx']) && is_numeric($_POST['idx'])) {
          $idx = $_POST['idx'];
 
@@ -220,6 +228,10 @@ class NEPHTHYS_USERS {
     */
    public function toggleStatus()
    {
+      if(!$this->parent->is_logged_in() || $this->parent->check_privileges('user')) {
+         return _("You do not have enough permissions to access this module!");
+      }
+
       if(isset($_POST['idx']) && is_numeric($_POST['idx'])) {
          if($_POST['to'] == 1)
             $new_status='Y';
