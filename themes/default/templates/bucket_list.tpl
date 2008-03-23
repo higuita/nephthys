@@ -1,4 +1,4 @@
-<table class="withborder">
+<table class="withborder" style="width: 100%;">
  <tr>
   <td>Bucket</td>
   { if $user_priv == "manager" || $user_priv == "admin" }

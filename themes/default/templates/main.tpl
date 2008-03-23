@@ -8,5 +8,5 @@
    </td>
   </tr>
  </table>
- <br /><br /><br />
+ <hr />
  { import_bucket_list }
