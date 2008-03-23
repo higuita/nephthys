@@ -99,7 +99,7 @@ class NEPHTHYS_TMPL extends Smarty {
          list($days, $name, $require_priv) = split(";", $expire);
 
          if($require_priv == "user" ||
-            ($require_priv != "user" && !$this->parent->has_user_priv())) {
+            ($require_priv != "user" && !$this->parent->check_privileges('user'))) {
 
             $select.= "<option value=\"". $days ."\"";
             if(isset($params['current']) && $params['current'] == $days)

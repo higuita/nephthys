@@ -701,6 +701,20 @@ class NEPHTHYS {
    } // has_user_priv()
 
    /**
+    * returns true if the requests user privilege is matching
+    * with the actually user privileges
+    */
+   public function check_privileges($priv)
+   {
+      if($user = $this->get_user_details_by_idx($_SESSION['user_idx'])) {
+         if($user->user_priv == $priv)
+            return true;
+      }
+      return false;
+
+   } // check_privileges()
+
+   /**
     * returns true, if user is owner of the supplied bucket
     */
    public function is_bucket_owner($bucket_idx)
