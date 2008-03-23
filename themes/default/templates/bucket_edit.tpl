@@ -1,7 +1,7 @@
   <form action="rpc.php?action=store" id="buckets" onsubmit="return js_create_bucket(this, 'buckets'); return false;" method="post">
   <input type="hidden" name="module" value="buckets" />
   <input type="hidden" name="mode" value="modify" />
-  <input type="hidden" name="bucket_owner" value="{ $user_idx }" />
+  <input type="hidden" name="bucket_owner" value="{ $login_idx }" />
   <input type="hidden" name="bucket_idx" value="{ $bucket_idx }" />
   <input type="hidden" name="bucket_new" value="0" />
   <table>
@@ -19,7 +19,7 @@
    <tr>
     <td colspan="2">&nbsp;</td>
    </tr>
-   { if $user_priv == "manager" || $user_priv == "admin" }
+   { if $login_priv == "manager" || $login_priv == "admin" }
    <tr>
     <td colspan="2">Enter your or the senders email address:
    </tr>
@@ -62,7 +62,7 @@
    <tr>
     <td colspan="2">&nbsp;</td>
    </tr>
-   { if $user_priv == "manager" || $user_priv == "admin" }
+   { if $login_priv == "manager" || $login_priv == "admin" }
    <tr>
     <td>Owner:</td>
    </tr>

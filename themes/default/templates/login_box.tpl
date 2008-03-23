@@ -8,7 +8,7 @@
        User:
       </td>
       <td>
-       <input type="text" name="user_name" size="15" />
+       <input type="text" name="login_name" size="15" />
       </td>
      </tr>
      <tr>
@@ -16,7 +16,7 @@
        Password:
       </td>
       <td>
-       <input type="password" name="user_pass" size="15" />
+       <input type="password" name="login_pass" size="15" />
       </td>
      </tr>
      <tr>
@@ -32,4 +32,4 @@
   </tr>
  </table>
 </form>
-{ page_end focus_to='user_name' }
+{ page_end focus_to='login_name' }

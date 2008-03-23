@@ -53,7 +53,7 @@ class NEPHTHYS_BUCKETS {
       ";
 
       if($this->parent->check_privileges('user')) {
-         $query_str.= "WHERE bucket_owner LIKE '". $_SESSION['user_idx'] ."'";
+         $query_str.= "WHERE bucket_owner LIKE '". $_SESSION['login_idx'] ."'";
       }
 
       $query_str.= "ORDER BY bucket_name ASC";
@@ -86,10 +86,10 @@ class NEPHTHYS_BUCKETS {
 
       switch($_GET['mode']) {
          case 'receive':
-            $this->tmpl->assign('bucket_owner', $_SESSION['user_idx']);
+            $this->tmpl->assign('bucket_owner', $_SESSION['login_idx']);
             return $this->tmpl->show('receive_form.tpl');
          case 'send':
-            $this->tmpl->assign('bucket_owner', $_SESSION['user_idx']);
+            $this->tmpl->assign('bucket_owner', $_SESSION['login_idx']);
             return $this->tmpl->show('send_form.tpl');
          case 'edit':
             $this->showEdit($_GET['idx']);
@@ -135,7 +135,7 @@ class NEPHTHYS_BUCKETS {
       }
       /* if not a privilged user, then set the owner to his id */
       if($this->parent->check_privileges('user')) {
-         $_POST['bucket_owner'] = $_SESSION['user_idx'];
+         $_POST['bucket_owner'] = $_SESSION['login_idx'];
       }
 
       isset($_POST['bucket_new']) && $_POST['bucket_new'] == 1 ? $new = 1 : $new = NULL;
@@ -238,7 +238,7 @@ class NEPHTHYS_BUCKETS {
          $bucket_idx = $this->avail_buckets[$index];
          $bucket =  $this->buckets[$bucket_idx];
 
-         $user_priv = $this->parent->get_user_priv($_SESSION['user_idx']);
+         $user_priv = $this->parent->get_user_priv($_SESSION['login_idx']);
 
          if($bucket->bucket_expire != "-1")
             $bucket_expire = $bucket->bucket_created + ($bucket->bucket_expire*86400);

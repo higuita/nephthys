@@ -96,7 +96,7 @@ class NEPHTHYS {
       */
 
       if(isset($this->cfg->allow_server_auth) && $this->cfg->allow_server_auth == true) {
-         $_SESSION['user_name'] = $_SERVER['REMOTE_USER'];
+         $_SESSION['login_name'] = $_SERVER['REMOTE_USER'];
       }
 
       /* overload Smarty class if our own template handler */
@@ -414,7 +414,7 @@ class NEPHTHYS {
       $row = $this->db->db_fetchSingleRow("
          SELECT user_email
          FROM nephthys_users
-         WHERE user_name LIKE '". $_SESSION['user_name'] ."'
+         WHERE user_name LIKE '". $_SESSION['login_name'] ."'
       ");
 
       if(isset($row->user_email)) {
@@ -498,8 +498,8 @@ class NEPHTHYS {
     */
    public function is_logged_in()
    {
-      if(isset($_SESSION['user_name']) && !empty($_SESSION['user_name']) &&
-         $this->is_valid_user($_SESSION['user_name'])) {
+      if(isset($_SESSION['login_name']) && !empty($_SESSION['login_name']) &&
+         $this->is_valid_user($_SESSION['login_name'])) {
 
          return true;
 
@@ -647,13 +647,13 @@ class NEPHTHYS {
     */
    public function login()
    {
-      if(isset($_POST['user_name']) && $_POST['user_name'] != "" &&
-         isset($_POST['user_pass']) && $_POST['user_pass'] != "") {
+      if(isset($_POST['login_name']) && !empty($_POST['login_name']) &&
+         isset($_POST['login_pass']) && !empty($_POST['login_pass'])) {
 
-         if($user = $this->get_user_details_by_name($_POST['user_name'])) {
-            if($user->user_pass == sha1($_POST['user_pass'])) {
-               $_SESSION['user_name'] = $_POST['user_name'];
-               $_SESSION['user_idx'] = $user->user_idx;
+         if($user = $this->get_user_details_by_name($_POST['login_name'])) {
+            if($user->user_pass == sha1($_POST['login_pass'])) {
+               $_SESSION['login_name'] = $_POST['login_name'];
+               $_SESSION['login_idx'] = $user->user_idx;
 
                return "ok";
             }
@@ -692,7 +692,7 @@ class NEPHTHYS {
     */
    public function check_privileges($priv)
    {
-      if($user = $this->get_user_details_by_idx($_SESSION['user_idx'])) {
+      if($user = $this->get_user_details_by_idx($_SESSION['login_idx'])) {
          if($user->user_priv == $priv)
             return true;
       }
@@ -711,7 +711,7 @@ class NEPHTHYS {
             WHERE bucket_idx LIKE '". $bucket_idx ."'
          ")) {
 
-         if($bucket->bucket_owner == $_SESSION['user_idx'])
+         if($bucket->bucket_owner == $_SESSION['login_idx'])
             return true;
       }
 

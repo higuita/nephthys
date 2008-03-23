@@ -19,7 +19,7 @@
    <tr>
     <td colspan="2">&nbsp;</td>
    </tr>
-   { if $user_priv == "manager" || $user_priv == "admin" }
+   { if $login_priv == "manager" || $login_priv == "admin" }
    <tr>
     <td colspan="2">Enter the senders email address:
    </tr>
@@ -46,7 +46,7 @@
    <tr>
     <td colspan="2">&nbsp;</td>
    </tr>
-   { if $user_priv == "manager" || $user_priv == "admin" }
+   { if $login_priv == "manager" || $login_priv == "admin" }
    <tr>
     <td>Owner:</td>
    </tr>

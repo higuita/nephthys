@@ -1,7 +1,7 @@
 <table class="withborder" style="width: 100%;">
  <tr>
   <td>Bucket</td>
-  { if $user_priv == "manager" || $user_priv == "admin" }
+  { if $login_priv == "manager" || $login_priv == "admin" }
   <td>Owner</td>
   { /if }
   <td>Created on</td>
@@ -13,7 +13,7 @@
   <td>
    <a href="javascript:ajax_show_content('buckets', '&mode=edit&idx={ $bucket_idx }');">{ $bucket_name }</a>
   </td>
-  { if $user_priv == "manager" || $user_priv == "admin" }
+  { if $login_priv == "manager" || $login_priv == "admin" }
   <td>
    <a href="javascript:ajax_show_content('users', '&mode=edit&idx={ $bucket_owner_idx }');">{ $bucket_owner }</a>
   </td>

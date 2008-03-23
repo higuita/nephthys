@@ -75,10 +75,10 @@ class NEPHTHYS_PROFILE {
          SELECT *
          FROM nephthys_users
          WHERE
-            user_idx='". $_SESSION['user_idx'] ."'
+            user_idx='". $_SESSION['login_idx'] ."'
       ");
 
-      $this->tmpl->assign('user_idx', $_SESSION['user_idx']);
+      $this->tmpl->assign('user_idx', $_SESSION['login_idx']);
       $this->tmpl->assign('user_name', $user->user_name);
       $this->tmpl->assign('user_full_name', $user->user_full_name);
       $this->tmpl->assign('user_email', $user->user_email);

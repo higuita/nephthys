@@ -11,7 +11,7 @@
    </tr>
    <tr>
     <td>
-     { if $user_priv == "manager" || $user_priv == "admin" }
+     { if $login_priv == "manager" || $login_priv == "admin" }
      <input type="text" name="user_name" style="width: 400px" maxlength="250" value="{ $user_name }" />
      { else }
      { $user_name }
@@ -37,7 +37,7 @@
    </tr>
    <tr>
     <td>
-     { if $user_priv == "manager" || $user_priv == "admin" }
+     { if $login_priv == "manager" || $login_priv == "admin" }
      <input type="text" name="user_email" style="width: 400px" maxlength="250" value="{ $user_email }" onchange="js_validate_email(this, 'user_email');" />
      { else }
      { $user_email }

@@ -316,19 +316,19 @@ function setBackGrdColor(item, color)
 
 function check_login()
 {
-   if(document.forms['login'].user_name.value == "") {
+   if(document.forms['login'].login_name.value == "") {
       window.alert("Please enter a username");
       return;
    }
-   if(document.forms['login'].user_pass.value == "") {
+   if(document.forms['login'].login_pass.value == "") {
       window.alert("Please enter a password");
       return;
    }
 
    // Create object with values of the form
    var objTemp = new Object();
-   objTemp['user_name'] = document.forms['login'].user_name.value;
-   objTemp['user_pass'] = document.forms['login'].user_pass.value;
+   objTemp['login_name'] = document.forms['login'].login_name.value;
+   objTemp['login_pass'] = document.forms['login'].login_pass.value;
 
    var retr = HTML_AJAX.post('rpc.php?action=login', objTemp);
 
