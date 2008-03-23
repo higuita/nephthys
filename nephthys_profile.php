@@ -82,6 +82,7 @@ class NEPHTHYS_PROFILE {
       $this->tmpl->assign('user_name', $user->user_name);
       $this->tmpl->assign('user_full_name', $user->user_full_name);
       $this->tmpl->assign('user_email', $user->user_email);
+      $this->tmpl->assign('user_default_expire', $user->user_default_expire);
 
       $this->tmpl->show("profile.tpl");
 
@@ -132,7 +133,8 @@ class NEPHTHYS_PROFILE {
       $this->db->db_query("
          UPDATE nephthys_users
          SET
-            user_full_name='". $_POST['user_full_name'] ."'
+            user_full_name='". $_POST['user_full_name'] ."',
+            user_default_expire='". $_POST['user_default_expire'] ."'
          WHERE
             user_idx='". $_POST['user_idx'] ."'
       ");

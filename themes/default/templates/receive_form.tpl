@@ -54,7 +54,7 @@
    </tr>
    <tr>
     <td>
-     { expiration_list name="bucket_expire" }
+     { expiration_list name="bucket_expire" current=$bucket_expire }
     </td>
    </tr>
    <tr>

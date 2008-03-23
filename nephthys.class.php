@@ -494,6 +494,18 @@ class NEPHTHYS {
    }
 
    /**
+    * returns users default expiration time
+    */
+   public function get_user_expire($user_idx)
+   {
+      if($user = $this->get_user_details_by_idx($user_idx)) {
+         return $user->user_default_expire;
+      }
+      return NULL;
+
+   } // get_user_expire()
+
+   /**
     * returns true if a user is logged in, otherwise false
     */
    public function is_logged_in()

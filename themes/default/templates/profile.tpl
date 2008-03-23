@@ -74,6 +74,17 @@
     <td colspan="2">&nbsp;</td>
    </tr>
    <tr>
+    <td colspan="2">Default expiration time used for buckets:</td>
+   </tr>
+   <tr>
+    <td>
+     { expiration_list name="user_default_expire" current=$user_default_expire }
+    </td>
+   </tr>
+   <tr>
+    <td colspan="2">&nbsp;</td>
+   </tr>
+   <tr>
     <td><input type="submit" value="Save" /></td>
    </tr>
    <tr>
