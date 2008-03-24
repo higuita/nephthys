@@ -16,6 +16,14 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Current Database: `db_nephthys`
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `db_nephthys` /*!40100 DEFAULT CHARACTER SET utf8 */;
+
+USE `db_nephthys`;
+
+--
 -- Table structure for table `nephthys_buckets`
 --
 
@@ -32,7 +40,7 @@ CREATE TABLE `nephthys_buckets` (
   `bucket_owner` int(11) default NULL,
   `bucket_active` varchar(1) default NULL,
   PRIMARY KEY  (`bucket_idx`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `nephthys_groups`
@@ -44,7 +52,7 @@ CREATE TABLE `nephthys_groups` (
   `group_name` varchar(255) default NULL,
   `group_active` varchar(1) default NULL,
   PRIMARY KEY  (`group_idx`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `nephthys_user_to_groups`
@@ -54,7 +62,7 @@ DROP TABLE IF EXISTS `nephthys_user_to_groups`;
 CREATE TABLE `nephthys_user_to_groups` (
   `ug_user_idx` int(11) default NULL,
   `ug_group_idx` int(11) default NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `nephthys_users`
@@ -73,7 +81,7 @@ CREATE TABLE `nephthys_users` (
   `user_default_expire` int(11) default NULL,
   `user_auto_created` varchar(1) default NULL,
   PRIMARY KEY  (`user_idx`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
