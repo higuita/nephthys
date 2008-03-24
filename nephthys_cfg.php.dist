@@ -21,7 +21,7 @@
  *
  ***************************************************************************/
 
-class NEPHTHYS_CFG {
+class NEPHTHYS_CFG extends NEPHTHYS_DEFAULT_CFG {
 
    // Change the page title shown in browsers title bar.
    // Default:
