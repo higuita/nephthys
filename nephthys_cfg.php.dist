@@ -31,6 +31,10 @@ class NEPHTHYS_CFG extends NEPHTHYS_DEFAULT_CFG {
    // Default:
    //   var $base_path = "/var/www/nephyths";
 
+   // Path where file transfer will happen
+   // Default:
+   //   var $data_path = "/var/www/nephyths_transfer";
+
    // Webpath with which Nephthys is addressed.
    // Default:
    //   var $web_path = "/nephthys";
