@@ -108,19 +108,26 @@ class NEPHTHYS_BUCKETS {
       if(!($bucket = $this->parent->getbucketDetails($this->id)))
          return;
 
-      $header['From'] = $bucket->bucket_sender;
-      $header['To'] = $bucket->bucket_receiver;
+      $sender = $bucket->bucket_sender;
+      if(isset($bucket->bucket_receiver) && !empty($bucket->bucket_receiver))
+         $receiver = $bucket->bucket_receiver;
+      else
+         $receiver = $bucket->bucket_sender;
+
+      $header['From'] = $sender;
+      $header['To'] = $receiver;
       $header['Subject'] = "File sharing information";
 
       $text = new NEPHTHYS_TMPL($this->parent);
-      $text->assign('bucket_sender', $bucket->bucket_sender);
-      $text->assign('bucket_receiver', $bucket->bucket_receiver);
+      $text->assign('bucket_sender', $sender);
+      $text->assign('bucket_receiver', $receiver);
+
       $text->assign('bucket_hash', $bucket->bucket_hash);
       $text->assign('bucket_servername', $this->parent->cfg->servername);
       $body = $text->fetch('notify.tpl');
 
       $mailer =& Mail::factory('mail');
-      $status = $mailer->send($bucket->bucket_receiver, $header, $body);
+      $status = $mailer->send($receiver, $header, $body);
       if(PEAR::isError($status)) {
          return $status->getMessage();
       }
