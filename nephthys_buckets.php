@@ -92,7 +92,6 @@ class NEPHTHYS_BUCKETS {
          case 'send':
             $this->tmpl->assign('bucket_owner', $_SESSION['login_idx']);
             $this->tmpl->assign('bucket_expire', $this->parent->get_user_expire($_SESSION['login_idx']));
-            return $this->tmpl->show('receive_form.tpl');
             return $this->tmpl->show('send_form.tpl');
          case 'edit':
             $this->showEdit($_GET['idx']);
