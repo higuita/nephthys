@@ -749,6 +749,24 @@ class NEPHTHYS {
 
    } // check_user_exists()
 
+   public function _error($text)
+   {
+      switch($this->cfg->logging) {
+         default:
+         case 'display':
+            print $text ."<br />\n";
+            break;
+         case 'errorlog':
+            error_log($text);
+            break;
+         case 'logfile':
+            error_log($text, 3, $his->cfg->log_file);
+            break;
+      }
+
+      $this->runtime_error = true;
+
+   } // _error()
 
 } // class NEPHTHYS
 
