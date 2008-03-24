@@ -30,7 +30,7 @@
    <span style="behavior: url(#default#httpFolder);" onclick="this.navigate('{ $bucket_webdav_path }');">
     <img src="icons/webdav.png" />
    </span>
-   <a href="{ $bucket_ftp_path }"><img src="icons/ftp.png" /></a>
+   <a href="{ $bucket_ftp_path }" taget="_blank"><img src="icons/ftp.png" /></a>
   </td>
  </tr>
 { /bucket_list }
