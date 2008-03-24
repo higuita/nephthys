@@ -40,7 +40,6 @@ class NEPHTHYS_CFG extends NEPHTHYS_DEFAULT_CFG {
    //   var $theme_name = "default";
 
    // MySQL paramters
-   // Default:
    //  var $mysql_host = "localhost";
    //  var $mysql_db   = "nephthys";
    //  var $mysql_user = "user";
