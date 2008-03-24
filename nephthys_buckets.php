@@ -346,7 +346,6 @@ class NEPHTHYS_BUCKETS {
    {
       if (is_dir($f)) {
          foreach(glob($f.'/*') as $sf) {
-            print $sf;
             if (is_dir($sf) && !is_link($sf)) {
                $this->deltree($sf);
                // rmdir($sf); <== old place with arg "$sf"
