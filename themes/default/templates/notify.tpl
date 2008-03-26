@@ -1,7 +1,15 @@
 Dear { $bucket_receiver },
 
 { $bucket_sender} has requested an filesharing bucket for you.
-Follow the instructions below on how you can use it:
+Follow the instructions below on how you can use it.
+
+Afterwards please reply to this email to notify the sender that
+you have transfered all files.
+
+Best Regards,
+Nephthys
+
+
 
 * FTP access
 
@@ -13,16 +21,16 @@ server with the following parameters:
   - Pass: Your-email-address
   - Directory: /{ $bucket_hash }
 
- alternativley you can click on the link below.
+Alternativley, if supported by your E-mail application, you can
+click on the link below.
 
- ftp://{ $bucket_servername }/{ $bucket_hash }
+ { $bucket_ftp_url }
+
 
 * WebDAV access
 
-If you are using a WebDAV compatible browser, you can also upload
-files via the HTTP protocol.
+If you are using a WebDAV compatible browser, you can also
+upload files via the HTTP protocol.
 
- http://{ $bucket_servername }/{ $bucket_hash }
+ { $bucket_http_url }
 
-Best Regards,
-Nephthys

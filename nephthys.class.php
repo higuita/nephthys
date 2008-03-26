@@ -768,6 +768,39 @@ class NEPHTHYS {
 
    } // _error()
 
+   /**
+    * returns the requested WebDAV or FTP url for
+    * the Nephthys installation.
+    */
+   public function get_url($type, $hash)
+   {
+      switch($type) {
+         case 'ftp':
+            $url = "ftp://";
+            break;
+         case 'dav':
+            $url = "http://";
+            break;
+      }
+
+      $url.= $this->cfg->servername;
+
+      switch($type) {
+         case 'ftp':
+            $url.= $this->cfg->ftp_path;
+            break;
+         case 'dav':
+            $url.= $this->cfg->dav_path;
+            break;
+      }
+
+      $url.= "/". $hash ."/";
+
+      return $url;
+
+   } // get_url()
+
+
 } // class NEPHTHYS
 
 /***************************************************************************
@@ -782,6 +815,9 @@ class NEPHTHYS_DEFAULT_CFG {
    var $base_path   = "/var/www/htdocs/nephthys";
    var $data_path   = "/srv/www/nephthys_data";
    var $web_path    = "/nephthys";
+   var $ftp_path    = "";
+   var $dav_path    = "/transfer";
+
    var $theme_name  = "default";
    var $mysql_host  = "localhost";
    var $mysql_db    = "nephthys";

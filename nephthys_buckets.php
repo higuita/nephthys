@@ -114,6 +114,10 @@ class NEPHTHYS_BUCKETS {
       else
          $receiver = $bucket->bucket_sender;
 
+
+      $ftp_url = $this->parent->get_url('ftp', $bucket->bucket_hash);
+      $http_url = $this->parent->get_url('dav', $bucket->bucket_hash);
+
       $header['From'] = $sender;
       $header['To'] = $receiver;
       $header['Subject'] = "File sharing information";
@@ -122,8 +126,8 @@ class NEPHTHYS_BUCKETS {
       $text->assign('bucket_sender', $sender);
       $text->assign('bucket_receiver', $receiver);
 
-      $text->assign('bucket_hash', $bucket->bucket_hash);
-      $text->assign('bucket_servername', $this->parent->cfg->servername);
+      $text->assign('bucket_ftp_url', $ftp_url);
+      $text->assign('bucket_http_url', $http_url);
       $body = $text->fetch('notify.tpl');
 
       $mailer =& Mail::factory('mail');
@@ -253,8 +257,8 @@ class NEPHTHYS_BUCKETS {
             $bucket_expire = $bucket->bucket_created + ($bucket->bucket_expire*86400);
          $bucket_owner = $this->parent->get_user_name($bucket->bucket_owner);
 
-         $bucket_webdav = "http://". $this->parent->cfg->servername ."/". $bucket->bucket_hash ."/";
-         $bucket_ftp = "ftp://". $this->parent->cfg->servername ."/". $bucket->bucket_hash ."/";
+         $bucket_ftp = $this->parent->get_url('ftp', $bucket->bucket_hash);
+         $bucket_webdav = $this->parent->get_url('dav', $bucket->bucket_hash);
 
          $this->tmpl->assign('bucket_idx', $bucket_idx);
          $this->tmpl->assign('bucket_name', $bucket->bucket_name);

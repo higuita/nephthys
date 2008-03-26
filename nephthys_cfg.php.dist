@@ -39,6 +39,14 @@ class NEPHTHYS_CFG extends NEPHTHYS_DEFAULT_CFG {
    // Default:
    //   var $web_path = "/nephthys";
 
+   // Subdirectory to address the WebDAV folder:
+   // Default:
+   //   var $dav_path = "/transfer";
+
+   // Subdirectory to address the FTP server:
+   // Default:
+   //   var $ftp_path = "";
+
    // Specify alternate theme name
    // Default:
    //   var $theme_name = "default";
