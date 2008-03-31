@@ -245,7 +245,7 @@ class NEPHTHYS {
       }
       @include_once $this->cfg->smarty_path .'/libs/Smarty.class.php';
       if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
-         print "Smarty is missing<br />\n";
+         print "Smarty template engine can not be found in ". $this->cfg->smarty_path ."/libs/Smarty.class.php<br />\n";
          $missing = true;
       }
       ini_restore('track_errors');
