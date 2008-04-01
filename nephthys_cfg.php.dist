@@ -71,7 +71,7 @@ class NEPHTHYS_CFG extends NEPHTHYS_DEFAULT_CFG {
    // If the server has already authenticated the client, take over the
    // login credentials.
    // Default:
-   //   var allow_server_auth = false;
+   //   var $allow_server_auth = false;
 
    // Auto-create users which have been authenticated by the webserver
    // ($_SERVER['REMOTE_USER'] is present).
