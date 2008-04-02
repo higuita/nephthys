@@ -97,7 +97,10 @@ class NEPHTHYS {
       */
 
       if(isset($this->cfg->allow_server_auth) && $this->cfg->allow_server_auth == true) {
-         $_SESSION['login_name'] = $_SERVER['REMOTE_USER'];
+         if($user = $this->get_user_details_by_name($_SERVER['REMOTE_USER'])) {
+            $_SESSION['login_name'] = $user->user_name;
+            $_SESSION['login_idx'] = $user->user_idx;
+         }
       }
 
       /* overload Smarty class if our own template handler */
