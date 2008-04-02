@@ -49,6 +49,7 @@ class NEPHTHYS {
 
       /* load config, exit if it fails */
       if(!$this->load_config()) {
+         print "Error during load_config()<br />\n";
          exit(1);
       }
 
