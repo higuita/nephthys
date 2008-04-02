@@ -25,12 +25,12 @@
    { $bucket_expire }
   </td>
   <td>
-   <a href="javascript:js_delete_obj('buckets', 'main', '{ $bucket_idx }');"><img src="icons/delete.png" /></a>
-   <a href="javascript:ajax_notify_bucket({ $bucket_idx });"><img src="icons/mail.png" /></a>
+   <a href="javascript:js_delete_obj('buckets', 'main', '{ $bucket_idx }');"><img src="images/delete.png" /></a>
+   <a href="javascript:ajax_notify_bucket({ $bucket_idx });"><img src="images/mail.png" /></a>
    <span style="behavior: url(#default#httpFolder);" onclick="this.navigate('{ $bucket_webdav_path }');">
-    <img src="icons/webdav.png" />
+    <img src="images/webdav.png" />
    </span>
-   <a href="{ $bucket_ftp_path }" taget="_blank"><img src="icons/ftp.png" /></a>
+   <a href="{ $bucket_ftp_path }" taget="_blank"><img src="images/ftp.png" /></a>
   </td>
  </tr>
 { /bucket_list }

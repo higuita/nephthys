@@ -49,6 +49,7 @@ class NEPHTHYS {
 
       /* load config, exit if it fails */
       if(!$this->load_config()) {
+         print "Error during load_config()<br />\n";
          exit(1);
       }
 
@@ -227,26 +228,31 @@ class NEPHTHYS {
       if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
          print "PEAR MDB2 package is missing<br />\n";
          $missing = true;
+         unset($php_errormsg);
       }
       @include_once 'MDB2/Driver/mysql.php';
       if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
          print "PEAR MDB2-mysql package is missing<br />\n";
          $missing = true;
+         unset($php_errormsg);
       }
       @include_once 'Mail.php';
       if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
          print "PEAR Mail package is missing<br />\n";
          $missing = true;
+         unset($php_errormsg);
       }
       @include_once 'Net/UserAgent/Detect.php';
       if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
          print "PEAR Net_UserAgent_Detect package is missing<br />\n";
          $missing = true;
+         unset($php_errormsg);
       }
       @include_once $this->cfg->smarty_path .'/libs/Smarty.class.php';
       if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
-         print "Smarty is missing<br />\n";
+         print "Smarty template engine can not be found in ". $this->cfg->smarty_path ."/libs/Smarty.class.php<br />\n";
          $missing = true;
+         unset($php_errormsg);
       }
       ini_restore('track_errors');
 
@@ -477,7 +483,8 @@ class NEPHTHYS {
       }
 
       return NULL;
-   }
+
+   } // get_user_name()
 
    /**
     * returns user privilege
@@ -491,7 +498,8 @@ class NEPHTHYS {
       }
 
       return NULL;
-   }
+
+   } // get_user_priv()
 
    /**
     * returns users default expiration time
