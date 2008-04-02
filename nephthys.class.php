@@ -483,7 +483,8 @@ class NEPHTHYS {
       }
 
       return NULL;
-   }
+
+   } // get_user_name()
 
    /**
     * returns user privilege
@@ -497,7 +498,8 @@ class NEPHTHYS {
       }
 
       return NULL;
-   }
+
+   } // get_user_priv()
 
    /**
     * returns users default expiration time
