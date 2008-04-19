@@ -53,18 +53,13 @@ class NEPHTHYS {
          exit(1);
       }
 
+      // if servername has not been set in the configuration
+      // get it from the webserver.
       if(!isset($this->cfg->servername)) {
+         if(!isset($_SERVER['SERVER_NAME']))
+            die("Can't get server name out of \$_SERVER['SERVER_NAME']");
          $this->cfg->servername = $_SERVER['SERVER_NAME'];
       }
-
-      $this->sort_orders= array(
-         'date_asc' => 'Date &uarr;',
-         'date_desc' => 'Date &darr;',
-         'name_asc' => 'Name &uarr;',
-         'name_desc' => 'Name &darr;',
-         'tags_asc' => 'Tags &uarr;',
-         'tags_desc' => 'Tags &darr;',
-      );
 
       /* Check necessary requirements */
       if(!$this->checkRequirements()) {
@@ -96,10 +91,26 @@ class NEPHTHYS {
       }
       */
 
+      /* if server-authentication is allowed... */
       if(isset($this->cfg->allow_server_auth) && $this->cfg->allow_server_auth == true) {
+         /* if the user exists in Nephthys user table ... */
          if($user = $this->get_user_details_by_name($_SERVER['REMOTE_USER'])) {
             $_SESSION['login_name'] = $user->user_name;
             $_SESSION['login_idx'] = $user->user_idx;
+         }
+         /* otherwise, if auto-creation is enabled, create it... */
+         else {
+
+            /* is user-auto-creation enabled? */
+            if(isset($this->cfg->user_auto_create) && $this->cfg->user_auto_create == true) {
+
+               if($user = $this->create_user($_SERVER['REMOTE_USER'])) {
+                  if($user = $this->get_user_details_by_name($_SERVER['REMOTE_USER'])) {
+                     $_SESSION['login_name'] = $user->user_name;
+                     $_SESSION['login_idx'] = $user->user_idx;
+                  }
+               }
+            }
          }
       }
 
@@ -674,7 +685,8 @@ class NEPHTHYS {
          isset($_POST['login_pass']) && !empty($_POST['login_pass'])) {
 
          if($user = $this->get_user_details_by_name($_POST['login_name'])) {
-            if($user->user_pass == sha1($_POST['login_pass'])) {
+            if($user->user_auto_create != 'Y' &&
+               $user->user_pass == sha1($_POST['login_pass'])) {
                $_SESSION['login_name'] = $_POST['login_name'];
                $_SESSION['login_idx'] = $user->user_idx;
 
@@ -811,6 +823,49 @@ class NEPHTHYS {
 
    } // get_url()
 
+   /**
+    * create user
+    * @param string $username
+    * @return object
+    */
+   private function create_user($username)
+   {
+      $this->db->db_query("
+         INSERT INTO nephthys_users (
+            user_name, user_priv, user_active,
+            user_auto_created
+         ) VALUES (
+            '". $username ."',
+            'user',
+            'Y',
+            'Y'
+         )
+      ");
+
+   } // create_user()
+
+   /**
+    * return true if user is auto-created
+    * @param integer $idx
+    * @return boolean
+    */
+   public function is_auto_created($user_idx)
+   {
+      if($user = $this->db->db_fetchSingleRow("
+         SELECT user_auto_created
+         FROM nephthys_users
+         WHERE
+            user_idx LIKE '". $user_idx ."'
+         ")) {
+
+         if(isset($user->user_auto_created) && $user->user_auto_created == 'Y')
+            return true;
+
+      }
+
+      return flase;
+
+   } // is_auto_created()
 
 } // class NEPHTHYS
 

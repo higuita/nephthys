@@ -104,7 +104,7 @@ function js_submit_form(obj, target)
    var retval = ajax_save_form(obj)
 
    if(retval == "ok") {
-      ajax_show_content('users');
+      ajax_show_content(target);
    }
    else {
       window.alert(retval);
