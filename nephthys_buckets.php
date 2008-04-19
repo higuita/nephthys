@@ -69,6 +69,7 @@ class NEPHTHYS_BUCKETS {
          $cnt_buckets++;
       }
 
+      $this->tmpl->assign('user_has_buckets', $cnt_buckets);
 
    } // __construct()
 

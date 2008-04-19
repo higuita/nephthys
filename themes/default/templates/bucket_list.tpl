@@ -8,6 +8,8 @@
   <td>Expire on</td>
   <td>Options</td>
  </tr>
+{ if $user_has_buckets }
+
 { bucket_list }
  <tr>
   <td>
@@ -34,4 +36,13 @@
   </td>
  </tr>
 { /bucket_list }
+{ else }
+ <tr>
+  <td colspan="4">
+   <br />
+   You have no buckets currently. Create one by choosing one of the above ways you want to share files!
+   <br />
+  </td>
+ </tr>
+{ /if }
 </table>
