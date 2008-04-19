@@ -84,6 +84,7 @@ class NEPHTHYS_PROFILE {
       $this->tmpl->assign('user_full_name', $user->user_full_name);
       $this->tmpl->assign('user_email', $user->user_email);
       $this->tmpl->assign('user_default_expire', $user->user_default_expire);
+      $this->tmpl->assign('user_auto_created', $user->user_auto_created);
 
       $this->tmpl->show("profile.tpl");
 
@@ -97,7 +98,9 @@ class NEPHTHYS_PROFILE {
       if($this->parent->check_privileges('user') && isset($_POST['user_name'])) {
          return _("You are not allowed to change your login name!");
       }
-      if($this->parent->check_privileges('user') && isset($_POST['user_email'])) {
+      if($this->parent->check_privileges('user') &&
+         !$this->parent->is_auto_created($_SESSION['login_idx'])
+         && isset($_POST['user_email'])) {
          return _("You are not allowed to change your email address!");
       }
 
@@ -120,11 +123,23 @@ class NEPHTHYS_PROFILE {
          return _("Please enter a valid email address!");
       }
 
+      /* user-privileged are not allowed to change their user-names */
       if(!$this->parent->check_privileges('user')) {
          $this->db->db_query("
             UPDATE nephthys_users
-            SET
                user_name='". $_POST['user_name'] ."',
+            WHERE
+               user_idx='". $_POST['user_idx'] ."'
+         ");
+      }
+
+      // user-privileged are not allowed to change their email address.
+      // Only if they are auto-created.
+      if(!$this->parent->check_privileges('user') ||
+         $this->parent->is_auto_created($_SESSION['login_idx'])) {
+         $this->db->db_query("
+            UPDATE nephthys_users
+            SET
                user_email='". $_POST['user_email'] ."'
             WHERE
                user_idx='". $_POST['user_idx'] ."'

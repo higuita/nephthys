@@ -37,7 +37,7 @@
    </tr>
    <tr>
     <td>
-     { if $login_priv == "manager" || $login_priv == "admin" }
+     { if $login_priv == "manager" || $login_priv == "admin" || $user_auto_created == 'Y' }
      <input type="text" name="user_email" style="width: 400px" maxlength="250" value="{ $user_email }" onchange="js_validate_email(this, 'user_email');" />
      { else }
      { $user_email }
