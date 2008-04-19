@@ -52,7 +52,8 @@ class NEPHTHYS_BUCKETS {
          FROM nephthys_buckets
       ";
 
-      if($this->parent->check_privileges('user')) {
+      if(!$this->parent->check_privileges('admin') &&
+         !$this->parent->check_privileges('manager')) {
          $query_str.= "WHERE bucket_owner LIKE '". $_SESSION['login_idx'] ."'";
       }
 
