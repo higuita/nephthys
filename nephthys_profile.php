@@ -53,6 +53,7 @@ class NEPHTHYS_PROFILE {
          $_GET['mode'] = "show";
 
       switch($_GET['mode']) {
+         default:
          case 'edit':
             $this->showEdit($_GET['idx']);
             break;
