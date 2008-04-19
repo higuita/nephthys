@@ -844,6 +844,29 @@ class NEPHTHYS {
 
    } // create_user()
 
+   /**
+    * return true if user is auto-created
+    * @param integer $idx
+    * @return boolean
+    */
+   public function is_auto_created($user_idx)
+   {
+      if($user = $this->db->db_fetchSingleRow("
+         SELECT user_auto_created
+         FROM nephthys_users
+         WHERE
+            user_idx LIKE '". $user_idx ."'
+         ")) {
+
+         if(isset($user->user_auto_created) && $user->user_auto_created == 'Y')
+            return true;
+
+      }
+
+      return flase;
+
+   } // is_auto_created()
+
 } // class NEPHTHYS
 
 /***************************************************************************
