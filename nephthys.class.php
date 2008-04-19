@@ -91,10 +91,26 @@ class NEPHTHYS {
       }
       */
 
+      /* if server-authentication is allowed... */
       if(isset($this->cfg->allow_server_auth) && $this->cfg->allow_server_auth == true) {
+         /* if the user exists in Nephthys user table ... */
          if($user = $this->get_user_details_by_name($_SERVER['REMOTE_USER'])) {
             $_SESSION['login_name'] = $user->user_name;
             $_SESSION['login_idx'] = $user->user_idx;
+         }
+         /* otherwise, if auto-creation is enabled, create it... */
+         else {
+
+            /* is user-auto-creation enabled? */
+            if(isset($this->cfg->user_auto_create) && $this->cfg->user_auto_create == true) {
+
+               if($user = $this->create_user($_SERVER['REMOTE_USER'])) {
+                  if($user = $this->get_user_details_by_name($_SERVER['REMOTE_USER'])) {
+                     $_SESSION['login_name'] = $user->user_name;
+                     $_SESSION['login_idx'] = $user->user_idx;
+                  }
+               }
+            }
          }
       }
 
@@ -669,7 +685,8 @@ class NEPHTHYS {
          isset($_POST['login_pass']) && !empty($_POST['login_pass'])) {
 
          if($user = $this->get_user_details_by_name($_POST['login_name'])) {
-            if($user->user_pass == sha1($_POST['login_pass'])) {
+            if($user->user_auto_create != 'Y' &&
+               $user->user_pass == sha1($_POST['login_pass'])) {
                $_SESSION['login_name'] = $_POST['login_name'];
                $_SESSION['login_idx'] = $user->user_idx;
 
@@ -806,6 +823,26 @@ class NEPHTHYS {
 
    } // get_url()
 
+   /**
+    * create user
+    * @param string $username
+    * @return object
+    */
+   private function create_user($username)
+   {
+      $this->db->db_query("
+         INSERT INTO nephthys_users (
+            user_name, user_priv, user_active,
+            user_auto_created
+         ) VALUES (
+            '". $username ."',
+            'user',
+            'Y',
+            'Y'
+         )
+      ");
+
+   } // create_user()
 
 } // class NEPHTHYS
 
