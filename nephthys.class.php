@@ -53,18 +53,13 @@ class NEPHTHYS {
          exit(1);
       }
 
+      // if servername has not been set in the configuration
+      // get it from the webserver.
       if(!isset($this->cfg->servername)) {
+         if(!isset($_SERVER['SERVER_NAME']))
+            die("Can't get server name out of \$_SERVER['SERVER_NAME']");
          $this->cfg->servername = $_SERVER['SERVER_NAME'];
       }
-
-      $this->sort_orders= array(
-         'date_asc' => 'Date &uarr;',
-         'date_desc' => 'Date &darr;',
-         'name_asc' => 'Name &uarr;',
-         'name_desc' => 'Name &darr;',
-         'tags_asc' => 'Tags &uarr;',
-         'tags_desc' => 'Tags &darr;',
-      );
 
       /* Check necessary requirements */
       if(!$this->checkRequirements()) {
