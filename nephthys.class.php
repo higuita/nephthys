@@ -54,8 +54,9 @@ class NEPHTHYS {
       }
 
       // if servername has not been set in the configuration
-      // get it from the webserver.
-      if(!isset($this->cfg->servername)) {
+      // get it from the webserver. Only necessary if not
+      // called from command line.
+      if(!isset($this->cfg->servername) && !$this->is_cmdline()) {
          if(!isset($_SERVER['SERVER_NAME']))
             die("Can't get server name out of \$_SERVER['SERVER_NAME']");
          $this->cfg->servername = $_SERVER['SERVER_NAME'];
@@ -66,12 +67,14 @@ class NEPHTHYS {
          exit(1);
       }
 
-      $this->browser_info = new Net_UserAgent_Detect();
+      if(!$this->is_cmdline()) {
+         $this->browser_info = new Net_UserAgent_Detect();
 
-      if(!$this->browser_info->hasFeature('javascript')) {
-         print "It seems your browser is not capable of supporting JavaScript or it has been disabled.<br />\n";
-         print "Nephthys will not correctly work without JavaScript!<br />\n";
-         exit;
+         if(!$this->browser_info->hasFeature('javascript')) {
+            print "It seems your browser is not capable of supporting JavaScript or it has been disabled.<br />\n";
+            print "Nephthys will not correctly work without JavaScript!<br />\n";
+            exit;
+         }
       }
 
       $this->db  = new NEPHTHYS_DB($this);
@@ -881,6 +884,22 @@ class NEPHTHYS {
       return flase;
 
    } // is_auto_created()
+
+   /**
+    * check if called from command line
+    *
+    * this function will return true, if called from command line
+    * otherwise false.
+    * @return boolean
+    */
+   private function is_cmdline()
+   {
+      if(isset($_SERVER['argv']))
+         return true;
+
+      return false;
+
+   } // is_cmdline()
 
 } // class NEPHTHYS
 
