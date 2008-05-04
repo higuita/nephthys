@@ -118,6 +118,9 @@ class NEPHTHYS {
       require_once "nephthys_tmpl.php";
       $this->tmpl = new NEPHTHYS_TMPL();
 
+      if(isset($user->user_email) && !empty($user->user_email))
+         $this->tmpl->assign('user_email', $user->user_email);
+
    } // __construct()
 
    public function __destruct()

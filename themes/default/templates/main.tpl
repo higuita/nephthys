@@ -1,3 +1,8 @@
+{ if !$user_email }
+ <br />
+ <font style='color: #ff0000;'>Your E-Mail address is not set. You can do this in the "My Profile" tab.</font>
+ <br />
+{ /if }
  <table>
   <tr>
    <td style="width: 50%; text-align: center;">
