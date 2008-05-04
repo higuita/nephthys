@@ -340,7 +340,7 @@ class NEPHTHYS_BUCKETS {
 
    } // get_bucket_hash();
 
-   private function del_data_directory($hash)
+   public function del_data_directory($hash)
    {
       $invalid_path = Array("/", "/usr", "/var", "/home", "/boot");
       /*
@@ -362,36 +362,18 @@ class NEPHTHYS_BUCKETS {
          foreach(glob($f.'/*') as $sf) {
             if (is_dir($sf) && !is_link($sf)) {
                $this->deltree($sf);
-               // rmdir($sf); <== old place with arg "$sf"
             } else {
                unlink($sf);
             }
          }
-         rmdir($f); // <== new place with new arg "$f"
+         print $f ."\n";
+         rmdir($f);
          return true;
       }
 
       return false;
 
    } // deltree()
-
-   private function scan_full_dir($rootDir, $allowext, $allData=array()) {
-      $dirContent = scandir($rootDir);
-      foreach($dirContent as $key => $content) {
-         $path = $rootDir.'/'.$content;
-         $ext = substr($content, strrpos($content, '.') + 1);
-
-         if(in_array($ext, $allowext)) {
-            if(is_file($path) && is_readable($path)) {
-               $allData[] = $path;
-            }elseif(is_dir($path) && is_readable($path)) {
-               // recursive callback to open new directory
-               $allData = $this->scan_full_dir($path, $allData);
-            }
-         }
-      }
-      return $allData;
-   } // scan_full_dir()
 
    /**
     * check if data directory exists
