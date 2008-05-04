@@ -91,6 +91,15 @@ class NEPHTHYS {
       }
       */
 
+      if(!$this->is_cmdline() &&
+         isset($this->cfg->allow_server_auth) && $this->cfg->allow_server_auth == true
+         && (!isset($_SERVER['REMOTE_USER']) || empty($_SERVER['REMOTE_USER']))) {
+         print "Server authentication is enabled in Nephthys config but server does not "
+            ."provide details in REMOTE_USER variable.\n";
+
+         exit(1);
+      }
+
       /* if server-authentication is allowed... */
       if(isset($this->cfg->allow_server_auth) && $this->cfg->allow_server_auth == true) {
          /* if the user exists in Nephthys user table ... */
