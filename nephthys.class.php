@@ -116,7 +116,8 @@ class NEPHTHYS {
             /* is user-auto-creation enabled? */
             if(isset($this->cfg->user_auto_create) && $this->cfg->user_auto_create == true) {
 
-               if($idx = $this->create_user($_SERVER['REMOTE_USER'])) {
+               if(isset($_SERVER['REMOTE_USER']) &&
+                  $idx = $this->create_user($_SERVER['REMOTE_USER'])) {
                   if($user = $this->get_user_details_by_idx($idx)) {
                      $_SESSION['login_name'] = $user->user_name;
                      $_SESSION['login_idx'] = $user->user_idx;
