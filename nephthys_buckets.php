@@ -128,6 +128,7 @@ class NEPHTHYS_BUCKETS {
       $text->assign('bucket_sender', $sender);
       $text->assign('bucket_receiver', $receiver);
 
+      $text->assign('bucket_hash', $bucket->bucket_hash);
       $text->assign('bucket_ftp_url', $ftp_url);
       $text->assign('bucket_http_url', $http_url);
       $body = $text->fetch('notify.tpl');
