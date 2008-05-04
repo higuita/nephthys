@@ -359,14 +359,18 @@ class NEPHTHYS_BUCKETS {
    private function deltree($f)
    {
       if (is_dir($f)) {
-         foreach(glob($f.'/*') as $sf) {
-            if (is_dir($sf) && !is_link($sf)) {
-               $this->deltree($sf);
-            } else {
-               unlink($sf);
+         $handle = opendir($f); while (false !== ($file = readdir($handle))) {
+            if ($file != "." && $file != "..") {
+               if (is_dir($file) && !is_link($file)) {
+                  $this->deltree($file);
+               } else {
+                  //print $file ."\n";
+                  unlink($sf);
+               }
             }
          }
-         print $f ."\n";
+         closedir($handle);
+         //print $f ."\n";
          rmdir($f);
          return true;
       }

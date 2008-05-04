@@ -60,18 +60,18 @@ while($bucket = $buckets->fetchRow()) {
                print "Can't delete bucket directory ". $this->cfg->data_path ."/". $bucket->bucket_hash .".";
                $found_error = true;
             }
+         }
 
+         if(!$found_error) {
             $db->db_query("
                DELETE FROM nephthys_buckets
                WHERE bucket_idx LIKE '". $bucket->bucket_idx ."'
             ");
 
-            if(!$found_error)
-               print "deleted\n";
-            else
-               print "\n";
-
-            break;
+            print "deleted\n";
+         }
+         else {
+            print "\n";
          }
       }
    }
