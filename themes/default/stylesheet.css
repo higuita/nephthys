@@ -21,8 +21,8 @@ table.withborder tr td {
 
 #box {
    margin-top:             0px;
-   margin-left:            200px;
-   margin-right:           200px;
+   margin-left:            50px;
+   margin-right:           50px;
    padding:                10px;
    border:                 1px solid #aaaaaa;
 }
