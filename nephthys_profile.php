@@ -127,7 +127,7 @@ class NEPHTHYS_PROFILE {
       if(!$this->parent->check_privileges('user')) {
          $this->db->db_query("
             UPDATE nephthys_users
-               user_name='". $_POST['user_name'] ."',
+               user_name='". $_POST['user_name'] ."'
             WHERE
                user_idx='". $_POST['user_idx'] ."'
          ");
