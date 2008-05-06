@@ -894,7 +894,7 @@ class NEPHTHYS {
     */
    private function is_cmdline()
    {
-      if(isset($_SERVER['argv']))
+      if(isset($_SERVER['argc']) && !empty($_SERVER['argc']))
          return true;
 
       return false;
