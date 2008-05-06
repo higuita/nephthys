@@ -212,6 +212,17 @@ class NEPHTHYS_BUCKETS {
             $this->notify();
 
          }
+
+         // Create IE WebDAV-open-HTML file
+         $bucket_webdav = $this->parent->get_url('dav', $hash);
+         $this->tmpl->assign('bucket_webdav_path', $bucket_webdav);
+         $html_file = $this->tmpl->fetch("ie_webdav.tpl");
+
+         if($fileh = fopen($this->parent->cfg->data_path ."/". $hash ."/ie_webdav.html", 'w')) {
+            fwrite($fileh, $html_file);
+            fclose($fileh);
+         }
+
       }
       else {
            $this->db->db_query("
