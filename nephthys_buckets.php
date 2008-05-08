@@ -218,7 +218,7 @@ class NEPHTHYS_BUCKETS {
          $this->tmpl->assign('bucket_webdav_path', $bucket_webdav);
          $html_file = $this->tmpl->fetch("ie_webdav.tpl");
 
-         if($fileh = fopen($this->parent->cfg->data_path ."/". $hash ."/ie_webdav.html", 'w')) {
+         if($fileh = fopen($this->parent->cfg->data_path ."/". $hash ."/webdav.html", 'w')) {
             fwrite($fileh, $html_file);
             fclose($fileh);
          }
@@ -376,7 +376,7 @@ class NEPHTHYS_BUCKETS {
                   $this->deltree($file);
                } else {
                   //print $file ."\n";
-                  unlink($sf);
+                  unlink($f ."/". $file);
                }
             }
          }

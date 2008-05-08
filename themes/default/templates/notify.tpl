@@ -34,3 +34,8 @@ upload files via the HTTP protocol.
 
  { $bucket_http_url }
 
+If you are using Microsoft's Internet Explorer, you can use the
+following link to directly open the WebDAV folder in your browser.
+
+ { $bucket_http_url }/webdav.html
+
