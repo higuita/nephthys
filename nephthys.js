@@ -64,7 +64,11 @@ function ajax_notify_bucket(id)
    var retr = HTML_AJAX.post('rpc.php', objTemp);
    if(retr != "ok") {
       window.alert("Server message: "+ retr);
+      return;
    }
+
+   ajax_show_content('main');
+
 } // ajax_notify_bucket()
 
 function js_create_bucket(obj, target)

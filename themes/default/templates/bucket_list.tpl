@@ -6,6 +6,7 @@
   { /if }
   <td>Created on</td>
   <td>Expires on</td>
+  <td>Notified</td>
   <td>Options</td>
  </tr>
 { if $user_has_buckets }
@@ -26,6 +27,9 @@
   <td>
    { $bucket_expire }
   </td>
+  <td>
+   { $bucket_notified }
+  </td>
   <td style="vertical-align: middle;">
    <a href="javascript:js_delete_obj('buckets', 'main', '{ $bucket_idx }');"><img src="images/delete.png" />&nbsp;Delete</a>
    <a href="javascript:ajax_notify_bucket({ $bucket_idx });"><img src="images/mail.png" />&nbsp;Notify</a>
@@ -38,7 +42,7 @@
 { /bucket_list }
 { else }
  <tr>
-  <td colspan="4">
+  <td colspan="5">
    <br />
    You have no buckets currently. Create one by choosing one of the above ways you want to share files!
    <br />

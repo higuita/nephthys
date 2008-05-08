@@ -139,6 +139,15 @@ class NEPHTHYS_BUCKETS {
          return $status->getMessage();
       }
 
+      /* set a flag in the database, that the bucket has been notified */
+      $this->db->db_query("
+         UPDATE nephthys_buckets
+         SET
+            bucket_notified='Y'
+         WHERE
+            bucket_idx LIKE '". $this->id ."'
+      ");
+
       return "ok";
 
    } // notify()
@@ -286,6 +295,11 @@ class NEPHTHYS_BUCKETS {
          $this->tmpl->assign('bucket_receiver', $bucket->bucket_receiver);
          $this->tmpl->assign('bucket_webdav_path', $bucket_webdav);
          $this->tmpl->assign('bucket_ftp_path', $bucket_ftp);
+
+         if($bucket->bucket_notified == 'Y')
+            $this->tmpl->assign('bucket_notified', 'Yes');
+         else
+            $this->tmpl->assign('bucket_notified', 'No');
 
          $index++;
          $this->tmpl->assign('smarty.IB.bucket_list.index', $index);
