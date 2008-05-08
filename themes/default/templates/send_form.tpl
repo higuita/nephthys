@@ -78,4 +78,4 @@
   </table>
   </form>
   <!-- set focus to the first input field -->
-  <img src="images/1x1.png" onload="document.forms[0].bucket_name.focus();" />
+  { page_end focus_to='bucket_name' }

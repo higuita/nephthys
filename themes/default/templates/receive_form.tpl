@@ -100,3 +100,5 @@
    </tr>
   </table>
   </form>
+  <!-- set focus to the first input field -->
+  { page_end focus_to='bucket_name' }
