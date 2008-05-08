@@ -12,7 +12,7 @@
 { if $user_has_buckets }
 
 { bucket_list }
- <tr>
+ <tr onmouseover="setBackGrdColor(this, 'mouseover');" onmouseout="setBackGrdColor(this, 'mouseout');">
   <td>
    <a href="javascript:ajax_show_content('buckets', '&mode=edit&idx={ $bucket_idx }');">{ $bucket_name }</a>
   </td>
@@ -33,7 +33,7 @@
   <td style="vertical-align: middle;">
    <a href="javascript:js_delete_obj('buckets', 'main', '{ $bucket_idx }');"><img src="images/delete.png" />&nbsp;Delete</a>
    <a href="javascript:ajax_notify_bucket({ $bucket_idx });"><img src="images/mail.png" />&nbsp;Notify</a>
-   <span style="behavior: url(#default#httpFolder);" onclick="this.navigate('{ $bucket_webdav_path }');">
+   <span style="behavior: url(#default#httpFolder); cursor: pointer; font-size: 14px; color: #000000;" onclick="this.navigate('{ $bucket_webdav_path }');">
     <img src="images/webdav.png" />&nbsp;WebDAV
    </span>
    <a href="{ $bucket_ftp_path }" taget="_blank"><img src="images/ftp.png" />&nbsp;FTP</a>
