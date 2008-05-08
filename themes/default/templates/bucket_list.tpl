@@ -5,7 +5,7 @@
   <td>Owner</td>
   { /if }
   <td>Created on</td>
-  <td>Expire on</td>
+  <td>Expires on</td>
   <td>Options</td>
  </tr>
 { if $user_has_buckets }
