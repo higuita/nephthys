@@ -114,14 +114,6 @@ class NEPHTHYS_PROFILE {
       if($_POST['user_pass1'] != $_POST['user_pass2']) {
          return _("The two entered passwords do not match!");
       }	       
-      if(!$this->parent->check_privileges('user') && (!isset($_POST['user_email']) ||
-         empty($_POST['user_email']))) {
-         return _("Please enter a email address!");
-      }
-      if(!$this->parent->check_privileges('user') &&
-         !$this->parent->validate_email($_POST['user_email'])) {
-         return _("Please enter a valid email address!");
-      }
 
       /* user-privileged are not allowed to change their user-names */
       if(!$this->parent->check_privileges('user')) {
@@ -134,10 +126,20 @@ class NEPHTHYS_PROFILE {
          ");
       }
 
-      // user-privileged are not allowed to change their email address.
-      // Only if they are auto-created.
+      /* handling email-address update. only privileged- or auto-created users
+         are allowed to change their email address. Manually created users are
+         not permitted to change their email address.
+      */
       if(!$this->parent->check_privileges('user') ||
          $this->parent->is_auto_created($_SESSION['login_idx'])) {
+
+         if(!isset($_POST['user_email']) || empty($_POST['user_email'])) {
+            return _("Please enter a email address!");
+         }
+         if(!$this->parent->validate_email($_POST['user_email'])) {
+            return _("Please enter a valid email address!");
+         }
+
          $this->db->db_query("
             UPDATE nephthys_users
             SET
@@ -147,6 +149,7 @@ class NEPHTHYS_PROFILE {
          ");
       }
 
+      /* update user's full name and default-expiry time */
       $this->db->db_query("
          UPDATE nephthys_users
          SET
@@ -156,6 +159,7 @@ class NEPHTHYS_PROFILE {
             user_idx='". $_POST['user_idx'] ."'
       ");
 
+      /* if a password change was requested, change it here. */
       if($_POST['user_pass1'] != " nochangeMS ") {
          $this->db->db_query("
             UPDATE nephthys_users
