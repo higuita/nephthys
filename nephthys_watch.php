@@ -42,7 +42,6 @@ $buckets = $db->db_query("
          b.bucket_owner=u.user_idx
 ");
 
-
 while($bucket = $buckets->fetchRow()) {
 
    /* check if the bucket can expire. -1 means it never expires */
@@ -50,7 +49,7 @@ while($bucket = $buckets->fetchRow()) {
 
       $found_error = false;
 
-      if(($bucket->bucket_create + ($bucket->bucket_expire * 86400)) <= mktime()) {
+      if(($bucket->bucket_created + ($bucket->bucket_expire * 86400)) <= mktime()) {
 
          print "Owner: ". $bucket->user_name .", Bucket: ". $bucket->bucket_name ." has expired: ";
 
