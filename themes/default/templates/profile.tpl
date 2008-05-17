@@ -1,4 +1,4 @@
-  <form action="rpc.php?action=store" id="profile" onsubmit="return js_submit_form(this, 'profile'); return false;" method="post">
+  <form action="rpc.php?action=store" id="profile" onsubmit="return js_submit_form(this, 'main'); return false;" method="post">
   <input type="hidden" name="module" value="profile" />
   <input type="hidden" name="mode" value="modify" />
   <input type="hidden" name="user_idx" value="{ $user_idx }" />
@@ -85,7 +85,7 @@
     <td colspan="2">&nbsp;</td>
    </tr>
    <tr>
-    <td><input type="submit" value="Save" /></td>
+    <td><input type="submit" value="Save and go back to start-page" /></td>
    </tr>
    <tr>
     <td><div id="generalerror" style="visibility: hidden;"></div></td>
