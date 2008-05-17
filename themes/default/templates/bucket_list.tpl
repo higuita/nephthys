@@ -34,7 +34,7 @@
    <a href="javascript:js_delete_obj('buckets', 'main', '{ $bucket_idx }');"><img src="images/delete.png" />&nbsp;Delete</a>
    <a href="javascript:ajax_notify_bucket({ $bucket_idx });"><img src="images/mail.png" />&nbsp;Notify</a>
    <span style="behavior: url(#default#httpFolder); cursor: pointer; font-size: 14px; color: #000000;" onclick="this.navigate('{ $bucket_webdav_path }');">
-    <img src="images/webdav.png" />&nbsp;WebDAV
+    <a href="{ $bucket_webdav_path }" onclick="return false;"><img src="images/webdav.png" />&nbsp;WebDAV</a>
    </span>
    <a href="{ $bucket_ftp_path }" taget="_blank"><img src="images/ftp.png" />&nbsp;FTP</a>
   </td>
