@@ -325,11 +325,11 @@ class NEPHTHYS_BUCKETS {
          $hash = $this->get_bucket_hash($_POST['idx']);
 
          if(!$hash) {
-            return "Can't locate hash value of the bucket that has to be deleted.";
+            return "Can't locate hash value of the bucket that was requested to be deleted.";
          }
 
          if(!$this->del_data_directory($hash)) {
-            return "Removing bucket directory ". $this->parent->cfg->data_path ."/". $hash ." not possible";
+            print "Removing bucket directory ". $this->parent->cfg->data_path ."/". $hash ." not possible\n";
          }
 
          $this->db->db_query("
@@ -381,22 +381,34 @@ class NEPHTHYS_BUCKETS {
 
    } // del_data_directory()
 
-   private function deltree($f)
+   private function deltree($directory)
    {
-      if (is_dir($f)) {
-         $handle = opendir($f); while (false !== ($file = readdir($handle))) {
-            if ($file != "." && $file != "..") {
-               if (is_dir($file) && !is_link($file)) {
-                  $this->deltree($file);
+      /* verify that $directory is really a directory */
+      if (is_dir($directory)) {
+
+         /* open the directory and start reading all entries within */
+         $handle = opendir($directory);
+         while (false !== ($obj = readdir($handle))) {
+
+            $fq_obj = $directory ."/". $obj;
+
+            /* check if valid object */
+            if ($obj != "." && $obj != "..") {
+
+               /* if object is a directory, call deltree for this directory. */
+               if (is_dir($fq_obj) && !is_link($fq_obj)) {
+                  $this->deltree($fq_obj);
                } else {
-                  //print $file ."\n";
-                  unlink($f ."/". $file);
+                  /* ordinary file will be deleted here */
+                  unlink($fq_obj);
                }
             }
          }
          closedir($handle);
-         //print $f ."\n";
-         rmdir($f);
+
+         /* now remove the - hopefully empty - directory */
+         rmdir($directory);
+
          return true;
       }
 
