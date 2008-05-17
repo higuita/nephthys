@@ -38,13 +38,13 @@
    <tr>
     <td>
      { if $login_priv == "manager" || $login_priv == "admin" || $user_auto_created == 'Y' }
-     <input type="text" name="user_email" style="width: 400px" maxlength="250" value="{ $user_email }" onchange="js_validate_email(this, 'user_email');" />
+     <input type="text" name="user_email" style="width: 400px" maxlength="250" value="{ $user_email }" onchange="js_validate_email(this, 'user_email_error');" />
      { else }
      { $user_email }
      { /if }
     </td>
     <td>
-     <div id="user_email" style="visibility: hidden;"></div>
+     <div id="user_email_error" style="visibility: hidden; padding-left: 10px; color: #aa0000;"></div>
     </td>
    </tr>
    <tr>

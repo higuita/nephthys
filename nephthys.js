@@ -201,7 +201,10 @@ function js_validate_email(email, errorobj)
    if(email.value != "")
       var retr = ajax_validate_email(email.value);
 
-   if(email.value == "" || retr == "ok") {
+   if(email.value == "")
+      return;
+
+   if(retr == "ok") {
       errortext.style.visibility = 'hidden';
       errortext.innerHTML = '';
    }
