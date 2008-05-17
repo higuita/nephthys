@@ -41,10 +41,6 @@
    <a href="javascript:js_delete_obj('buckets', 'main', '{ $bucket_idx }');"><img src="images/delete.png" />&nbsp;Delete</a>
    <a href="javascript:ajax_notify_bucket({ $bucket_idx });"><img src="images/mail.png" />&nbsp;Notify</a>
   </td>
-  <td>
-   <a href="javascript:js_delete_obj('buckets', 'main', '{ $bucket_idx }');"><img src="images/delete.png" />&nbsp;Delete</a>
-   <a href="javascript:ajax_notify_bucket({ $bucket_idx });"><img src="images/mail.png" />&nbsp;Notify</a>
-  </td>
  </tr>
 { /bucket_list }
 { else }
