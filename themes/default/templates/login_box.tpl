@@ -1,4 +1,4 @@
-<form id="login" onsubmit="check_login(); return false;">
+<form id="login" onsubmit="js_login(); return false;">
  <table style="width: 100%;">
   <tr>
    <td>

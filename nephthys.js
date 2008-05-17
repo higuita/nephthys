@@ -321,7 +321,7 @@ function setBackGrdColor(item, color)
       item.style.backgroundColor='#93A8CA';
 }
 
-function check_login()
+function js_login()
 {
    if(document.forms['login'].login_name.value == "") {
       window.alert("Please enter a username");
@@ -352,7 +352,7 @@ function check_login()
       window.alert(retr);
    }
 
-}
+} // js_login()
 
 function js_logout()
 {
