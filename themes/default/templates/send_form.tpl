@@ -70,7 +70,7 @@
     <td colspan="2">&nbsp;</td>
    </tr>
    <tr>
-    <td><input type="submit" value="Create" /></td>
+    <td><input type="submit" value="Save bucket and return to start-page" /></td>
    </tr>
    <tr>
     <td><div id="generalerror" style="visibility: hidden;"></div></td>
