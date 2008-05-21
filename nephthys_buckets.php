@@ -133,8 +133,19 @@ class NEPHTHYS_BUCKETS {
       $text->assign('bucket_http_url', $http_url);
       $body = $text->fetch('notify.tpl');
 
-      $mailer =& Mail::factory('mail');
+      // if you want to use php's own mail() function, remove the
+      // comment from the next two lines and wipe out the sendmail
+      // lines below.
+      // $mailer =& Mail::factory('mail');
+      // $status = $mailer->send($receiver, $header, $body);
+
+      // usually this do not need to be set.
+      // $params['sendmail_path'] = '/usr/bin/sendmail';
+      $params['sendmail_arg'] = '-f'. $sender;
+
+      $mailer =& Mail::factory('sendmail', $params);
       $status = $mailer->send($receiver, $header, $body);
+
       if(PEAR::isError($status)) {
          return $status->getMessage();
       }
