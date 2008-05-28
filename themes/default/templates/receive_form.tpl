@@ -20,7 +20,7 @@
    </tr>
    { if $login_priv == "manager" || $login_priv == "admin" }
    <tr>
-    <td colspan="2">Enter your or the senders email address:
+    <td colspan="2">Yours or senders email:
    </tr>
    <tr>
     <td>
@@ -35,7 +35,7 @@
    </tr>
    { /if }
    <tr>
-    <td colspan="2">Enter the receiver email address:
+    <td colspan="2">Receivers email:
    </tr>
    <tr>
     <td>
