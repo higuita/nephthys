@@ -90,6 +90,10 @@ class NEPHTHYS_CFG extends NEPHTHYS_DEFAULT_CFG {
    // Default:
    //   var $servername = Auto-detect-from-Apache
 
+   // Ignore JavaScript check
+   // Default:
+   //   var $ignore_js = false;
+
 } // class NEPHTHYS_CFG
 
 ?>

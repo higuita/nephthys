@@ -67,7 +67,7 @@ class NEPHTHYS {
          exit(1);
       }
 
-      if(!$this->is_cmdline()) {
+      if(!$this->is_cmdline() && (!isset($this->cfg->ignore_js) || empty($this->cfg->ignore_js))) {
          $this->browser_info = new Net_UserAgent_Detect();
 
          if(!$this->browser_info->hasFeature('javascript')) {
