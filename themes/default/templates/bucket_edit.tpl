@@ -52,7 +52,7 @@
     <td colspan="2">&nbsp;</td>
    </tr>
    <tr>
-    <td colspan="2">Should this bucket expire after it has been created?</td>
+    <td colspan="2">When will this bucket expire?</td>
    </tr>
    <tr>
     <td>
@@ -76,7 +76,7 @@
    </tr>
    { /if }
    <tr>
-    <td colspan="2">Notes which should be sent with instructions:</td>
+    <td colspan="2">Note which will be added to notification email (optional):</td>
    </tr>
    <tr>
     <td>
