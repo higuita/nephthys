@@ -129,6 +129,7 @@ class NEPHTHYS_BUCKETS {
       $ftp_url = $this->parent->get_url('ftp', $bucket->bucket_hash);
       $http_url = $this->parent->get_url('dav', $bucket->bucket_hash);
 
+      /* prepare the mail headers */
       $header['From'] = $sender_text;
       $header['To'] = $receiver_text;
       $header['Subject'] = "File sharing information";
@@ -138,9 +139,15 @@ class NEPHTHYS_BUCKETS {
       if(isset($bucket->bucket_receiver) && !empty($bucket->bucket_receiver))
          $header['CC'] = $bucket->bucket_sender;
 
+
+      /* prepare the notification text out of the smarty template */
       $text = new NEPHTHYS_TMPL($this->parent);
       $text->assign('bucket_sender', $sender_text);
       $text->assign('bucket_receiver', $receiver_text);
+
+      /* if the user has updated his profile with the full name, use it, otherwise
+         take the login name instead.
+      */
       if($this->parent->get_user_fullname($bucket->bucket_owner))
          $text->assign('bucket_sender_name', $this->parent->get_user_fullname($bucket->bucket_owner));
       else
@@ -149,6 +156,12 @@ class NEPHTHYS_BUCKETS {
       $text->assign('bucket_hash', $bucket->bucket_hash);
       $text->assign('bucket_ftp_url', $ftp_url);
       $text->assign('bucket_http_url', $http_url);
+
+      /* if a bucket description has been specified, assign it to the template */
+      if(isset($bucket->bucket_note) && !empty($bucket->bucket_note))
+         $text->assign('bucket_note', $bucket->bucket_note);
+
+      /* now translate the template and return the result as a string */
       $body = $text->fetch('notify.tpl');
 
       // if you want to use php's own mail() function, remove the

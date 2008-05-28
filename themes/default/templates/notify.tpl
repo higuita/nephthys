@@ -10,6 +10,14 @@ Best Regards,
 Nephthys
 
 
+{ if $bucket_note }
+----------------------------------------------------------------------
+{ $bucket_sender_name} added the following text:
+
+{ $bucket_note }
+
+
+{ /if }
 ----------------------------------------------------------------------
 
 
