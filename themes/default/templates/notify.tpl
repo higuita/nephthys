@@ -50,5 +50,5 @@ via HTTP. Open the following URL in your WebDAV client.
 If you are using Microsoft's Internet Explorer, you can use the following
 link to directly open the WebDAV folder in your browser.
 
-{ $bucket_http_url }/webdav.html
+{ $bucket_http_url }webdav.html
 
