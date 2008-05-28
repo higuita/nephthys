@@ -110,23 +110,41 @@ class NEPHTHYS_BUCKETS {
       if(!($bucket = $this->parent->getbucketDetails($this->id)))
          return;
 
+      /* the bucket sender */
       $sender = $bucket->bucket_sender;
-      if(isset($bucket->bucket_receiver) && !empty($bucket->bucket_receiver))
-         $receiver = $bucket->bucket_receiver;
-      else
-         $receiver = $bucket->bucket_sender;
+      $sender_text = $bucket->bucket_sender;
 
+      /* if a bucket receiver has been specified, send mail to the receiver
+         and in CC also to the sender
+      */
+      if(isset($bucket->bucket_receiver) && !empty($bucket->bucket_receiver)) {
+         $receiver = Array($bucket->bucket_receiver, $bucket->bucket_sender);
+         $receiver_text = $bucket->bucket_receiver;
+      }
+      else {
+         $receiver = Array($bucket->bucket_sender);
+         $receiver_text = $bucket->bucket_sender;
+      }
 
       $ftp_url = $this->parent->get_url('ftp', $bucket->bucket_hash);
       $http_url = $this->parent->get_url('dav', $bucket->bucket_hash);
 
-      $header['From'] = $sender;
-      $header['To'] = $receiver;
+      $header['From'] = $sender_text;
+      $header['To'] = $receiver_text;
       $header['Subject'] = "File sharing information";
+      /* if a bucket receiver has been specified, send mail to the receiver
+         and in CC also to the sender
+      */
+      if(isset($bucket->bucket_receiver) && !empty($bucket->bucket_receiver))
+         $header['CC'] = $bucket->bucket_sender;
 
       $text = new NEPHTHYS_TMPL($this->parent);
-      $text->assign('bucket_sender', $sender);
-      $text->assign('bucket_receiver', $receiver);
+      $text->assign('bucket_sender', $sender_text);
+      $text->assign('bucket_receiver', $receiver_text);
+      if($this->parent->get_user_fullname($bucket->bucket_owner))
+         $text->assign('bucket_sender_name', $this->parent->get_user_fullname($bucket->bucket_owner));
+      else
+         $text->assign('bucket_sender_name', $this->parent->get_user_name($bucket->bucket_owner));
 
       $text->assign('bucket_hash', $bucket->bucket_hash);
       $text->assign('bucket_ftp_url', $ftp_url);
@@ -190,6 +208,14 @@ class NEPHTHYS_BUCKETS {
          return _("Please enter a receiver for this bucket!");
       }
       if(isset($_POST['bucketmode']) && $_POST['bucketmode'] == "receive" &&
+         !$this->parent->validate_email($_POST['bucket_receiver'])) {
+         return _("Please enter a valid receiver email address!");
+      }
+      /* for "send" it's not a must to specify a receiver, anyway, if one is there
+         validate it...
+      */
+      if(isset($_POST['bucketmode']) && $_POST['bucketmode'] == "send" &&
+         isset($_POST['bucket_receiver']) &&
          !$this->parent->validate_email($_POST['bucket_receiver'])) {
          return _("Please enter a valid receiver email address!");
       }

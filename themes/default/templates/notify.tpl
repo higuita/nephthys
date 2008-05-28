@@ -1,6 +1,6 @@
 Dear { $bucket_receiver },
 
-{ $bucket_sender} has requested an filesharing bucket for you.
+{ $bucket_sender_name} has requested an filesharing bucket for you.
 Follow the instructions below on how you can use it.
 
 Afterwards please reply to this email to notify the sender that

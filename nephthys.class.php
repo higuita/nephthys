@@ -319,6 +319,7 @@ class NEPHTHYS {
    private function get_nephthys_url()
    {
       return $this->get_web_protocol() ."://". $this->get_server_name() . $this->cfg->web_path;
+
    } // get_nephthys_url()
    
    /**
@@ -503,6 +504,8 @@ class NEPHTHYS {
 
    /**
     * returns user name
+    *
+    * @return string
     */
    public function get_user_name($user_idx)
    {
@@ -515,6 +518,23 @@ class NEPHTHYS {
       return NULL;
 
    } // get_user_name()
+
+   /**
+    * return the specified users full name
+    *
+    * @return string
+    */
+   public function get_user_fullname($user_idx)
+   {
+      if($user = $this->get_user_details_by_idx($user_idx)) {
+
+         return $user->user_full_name;
+
+      }
+
+      return NULL;
+
+   } // get_user_fullname()
 
    /**
     * returns user privilege
