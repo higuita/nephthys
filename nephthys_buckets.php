@@ -228,7 +228,7 @@ class NEPHTHYS_BUCKETS {
          validate it...
       */
       if(isset($_POST['bucketmode']) && $_POST['bucketmode'] == "send" &&
-         isset($_POST['bucket_receiver']) &&
+         isset($_POST['bucket_receiver']) && !empty($_POST['bucket_receiver']) &&
          !$this->parent->validate_email($_POST['bucket_receiver'])) {
          return _("Please enter a valid receiver email address!");
       }
