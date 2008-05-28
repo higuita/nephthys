@@ -18,9 +18,9 @@
    <tr>
     <td colspan="2">&nbsp;</td>
    </tr>
-   { if $login_priv == "manager" || $login_priv == "admin" }
-   <tr>
-    <td colspan="2">Enter the senders email address:
+  { if $login_priv == "manager" || $login_priv == "admin" }
+  <tr>
+    <td colspan="2">Senders email:
    </tr>
    <tr>
     <td>
@@ -34,6 +34,20 @@
     <td colspan="2">&nbsp;</td>
    </tr>
    { /if }
+   <tr>
+    <td colspan="2">Receivers email (optional, to notify out of Nephthys):
+   </tr>
+   <tr>
+    <td>
+     <input type="text" name="bucket_receiver" style="width: 400px" maxlength="250" value="{ $bucket_receiver }" onchange="js_validate_email(this, 'receiveremail');" />
+    </td>
+    <td>
+     <div id="receiveremail" style="visibility: hidden;"></div>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="2">&nbsp;</td>
+   </tr>
    <tr>
     <td colspan="2">Should this bucket expire after it has been created?</td>
    </tr>
