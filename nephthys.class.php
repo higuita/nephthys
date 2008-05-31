@@ -126,6 +126,10 @@ class NEPHTHYS {
             }
          }
       }
+      else {
+         /* local authentication */
+         $user = $this->get_user_details_by_idx($_SESSION['login_idx']);
+      }
 
       /* overload Smarty class if our own template handler */
       require_once "nephthys_tmpl.php";
