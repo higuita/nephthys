@@ -8,6 +8,12 @@
     <td colspan="2">&nbsp;</td>
    </tr>
    <tr>
+    <td colspan="2" class="tablehead">Someone wants to send me files.</td>
+   </tr>
+   <tr>
+    <td colspan="2">&nbsp;</td>
+   </tr>
+   <tr>
     <td colspan="2">Give the bucket a name:</td>
    </tr>
    <tr>
