@@ -5,7 +5,7 @@
   <div id="box">
 
    <div id="header">
-    <a href="javascript:ajax_show_content('main');">{ $product } { $version }</a><br>
+    <a href="javascript:ajax_show_content('main');"><img src="images/nephthys.png" />&nbsp;{ $product } { $version }</a><br>
    </div>
 
    <div id="menu">
