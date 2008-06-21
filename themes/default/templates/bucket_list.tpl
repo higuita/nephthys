@@ -1,6 +1,6 @@
 <table class="withborder" style="width: 100%;">
  <tr>
-  <td>Bucket</td>
+  <td><img src="images/bucket_small.png" />&nbsp;Bucket</td>
   { if $login_priv == "manager" || $login_priv == "admin" }
   <td>Owner</td>
   { /if }
@@ -15,7 +15,7 @@
 { bucket_list }
  <tr onmouseover="setBackGrdColor(this, 'mouseover');" onmouseout="setBackGrdColor(this, 'mouseout');">
   <td>
-   <a href="javascript:ajax_show_content('buckets', '&mode=edit&idx={ $bucket_idx }');">{ $bucket_name }</a>
+   <a href="javascript:ajax_show_content('buckets', '&mode=edit&idx={ $bucket_idx }');"><img src="images/bucket_small.png" />&nbsp;{ $bucket_name }</a>
   </td>
   { if $login_priv == "manager" || $login_priv == "admin" }
   <td>
