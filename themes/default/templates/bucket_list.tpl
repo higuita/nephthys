@@ -4,8 +4,8 @@
   { if $login_priv == "manager" || $login_priv == "admin" }
   <td>Owner</td>
   { /if }
-  <td>Created on</td>
-  <td>Expires on</td>
+  <td>Created</td>
+  <td>Expires</td>
   <td>Notified</td>
   <td>Open Bucket</td>
   <td>Actions</td>
@@ -15,22 +15,16 @@
 { bucket_list }
  <tr onmouseover="setBackGrdColor(this, 'mouseover');" onmouseout="setBackGrdColor(this, 'mouseout');">
   <td>
-   <a href="javascript:ajax_show_content('buckets', '&mode=edit&idx={ $bucket_idx }');"><img src="images/bucket_small.png" />&nbsp;{ $bucket_name }</a>
+   <a href="javascript:ajax_show_content('buckets', '&mode=edit&idx={ $bucket_idx }');" title="Click to edit this bucket"><img src="images/bucket_small.png" />&nbsp;{ $bucket_name }</a>
   </td>
   { if $login_priv == "manager" || $login_priv == "admin" }
   <td>
    <a href="javascript:ajax_show_content('users', '&mode=edit&idx={ $bucket_owner_idx }');">{ $bucket_owner }</a>
   </td>
   { /if }
-  <td>
-   { $bucket_created }
-  </td>
-  <td>
-   { $bucket_expire }
-  </td>
-  <td>
-   { $bucket_notified }
-  </td>
+  <td>{ $bucket_created }</td>
+  <td>{ $bucket_expire }</td>
+  <td>{ $bucket_notified }</td>
   <td style="vertical-align: middle;">
    <span style="behavior: url(#default#httpFolder); cursor: pointer; font-size: 14px; color: #000000;" onclick="this.navigate('{ $bucket_webdav_path }');">
     <a href="{ $bucket_webdav_path }" onclick="return false;" title="Open bucket via WebDAV"><img src="images/webdav.png" />&nbsp;WebDAV</a>

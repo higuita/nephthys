@@ -79,7 +79,7 @@
    </tr>
    { /if }
    <tr>
-    <td colspan="2">Note which will be added to notification email (optional):</td>
+    <td colspan="2">Text to be added to notification email (optional):</td>
    </tr>
    <tr>
     <td>
