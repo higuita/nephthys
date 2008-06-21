@@ -33,13 +33,13 @@
   </td>
   <td style="vertical-align: middle;">
    <span style="behavior: url(#default#httpFolder); cursor: pointer; font-size: 14px; color: #000000;" onclick="this.navigate('{ $bucket_webdav_path }');">
-    <a href="{ $bucket_webdav_path }" onclick="return false;"><img src="images/webdav.png" />&nbsp;WebDAV</a>
+    <a href="{ $bucket_webdav_path }" onclick="return false;" title="Open bucket via WebDAV"><img src="images/webdav.png" />&nbsp;WebDAV</a>
    </span>
-   &nbsp;<a href="{ $bucket_ftp_path }" target="_blank"><img src="images/ftp.png" />&nbsp;FTP</a>
+   &nbsp;<a href="{ $bucket_ftp_path }" target="_blank" title="Open bucket via FTP"><img src="images/ftp.png" />&nbsp;FTP</a>
   </td>
   <td>
-   <a href="javascript:js_delete_obj('buckets', 'main', '{ $bucket_idx }');"><img src="images/delete.png" />&nbsp;Delete</a>
-   <a href="javascript:ajax_notify_bucket({ $bucket_idx });"><img src="images/mail.png" />&nbsp;Notify</a>
+   <a href="javascript:js_delete_obj('buckets', 'main', '{ $bucket_idx }');" title="Delete bucket"><img src="images/delete.png" />&nbsp;Delete</a>
+   <a href="javascript:ajax_notify_bucket({ $bucket_idx });" title="Send notification e-mails"><img src="images/mail.png" />&nbsp;Notify</a>
   </td>
  </tr>
 { /bucket_list }
