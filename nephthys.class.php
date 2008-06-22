@@ -945,6 +945,8 @@ class NEPHTHYS_DEFAULT_CFG {
    var $log_file    = "nephthys_err.log";
    var $ignore_js   = false;
    var $use_https   = false;
+   var $bucket_via_dav = true;
+   var $bucket_via_ftp = true;
 
    var $allow_server_auth = false;
    var $user_auto_create = false;

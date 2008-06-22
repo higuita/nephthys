@@ -1,10 +1,10 @@
 Dear { $bucket_receiver },
 
 { $bucket_sender_name} has requested a file-sharing bucket for you.
-Please follow the instructions below on how you can use it.
+Please follow the instructions below on how you can access it.
 
-Afterwards reply to this email, so you can notify the sender that
-you have transfered all files.
+Afterwards reply to this email, to notify the sender that you have
+transfered all files.
 
 Best Regards,
 Nephthys
@@ -18,6 +18,7 @@ Nephthys
 
 
 { /if }
+{ if $bucket_via_ftp }
 ----------------------------------------------------------------------
 
 
@@ -37,6 +38,8 @@ link below to establish a connection to the FTP server:
 { $bucket_ftp_url }
 
 
+{ /if }
+{ if $bucket_via_dav }
 ----------------------------------------------------------------------
 
 
@@ -52,3 +55,4 @@ link to directly open the WebDAV folder in your browser.
 
 { $bucket_http_url }webdav.html
 
+{ /if }

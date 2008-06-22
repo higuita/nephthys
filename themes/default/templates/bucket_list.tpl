@@ -26,10 +26,15 @@
   <td>{ $bucket_expire }</td>
   <td>{ $bucket_notified }</td>
   <td style="vertical-align: middle;">
+   { if $bucket_via_dav }
    <span style="behavior: url(#default#httpFolder); cursor: pointer; font-size: 14px; color: #000000;" onclick="this.navigateFrame('{ $bucket_webdav_path }', '_blank');">
     <a href="{ $bucket_webdav_path }" onclick="return false;" title="Open bucket via WebDAV"><img src="images/webdav.png" />&nbsp;WebDAV</a>
    </span>
-   &nbsp;<a href="{ $bucket_ftp_path }" target="_blank" title="Open bucket via FTP"><img src="images/ftp.png" />&nbsp;FTP</a>
+   &nbsp;
+   { /if }
+   { if $bucket_via_ftp }
+   <a href="{ $bucket_ftp_path }" target="_blank" title="Open bucket via FTP"><img src="images/ftp.png" />&nbsp;FTP</a>
+   { /if }
   </td>
   <td>
    <a href="javascript:js_delete_obj('buckets', 'main', '{ $bucket_idx }');" title="Delete bucket"><img src="images/delete.png" />&nbsp;Delete</a>

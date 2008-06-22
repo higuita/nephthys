@@ -49,6 +49,8 @@ class NEPHTHYS_TMPL extends Smarty {
       $this->assign('page_title', $nephthys->cfg->page_title);
       $this->assign('product', $nephthys->cfg->product);
       $this->assign('version', $nephthys->cfg->version);
+      $this->assign('bucket_via_dav', $nephthys->cfg->bucket_via_dav);
+      $this->assign('bucket_via_ftp', $nephthys->cfg->bucket_via_ftp);
       $this->assign('template_path', 'themes/'. $nephthys->cfg->theme_name);
       $this->register_function("start_table", array(&$this, "smarty_startTable"), false);
       $this->register_function("page_end", array(&$this, "smarty_page_end"), false);
