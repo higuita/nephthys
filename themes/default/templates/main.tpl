@@ -1,4 +1,4 @@
-{ if !$user_email }
+{ if !$login_email }
  <br />
  <font style='color: #ff0000;'>Your E-Mail address is not set. You can do this in the "My Profile" tab.</font>
  <br />

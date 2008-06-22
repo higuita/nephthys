@@ -136,7 +136,7 @@ class NEPHTHYS {
       $this->tmpl = new NEPHTHYS_TMPL();
 
       if(isset($user->user_email) && !empty($user->user_email))
-         $this->tmpl->assign('user_email', $user->user_email);
+         $this->tmpl->assign('login_email', $user->user_email);
 
    } // __construct()
 
