@@ -306,8 +306,12 @@ class NEPHTHYS {
    } // _debug()
 
    /**
-    * returns type of webprotocol which is
-    * currently used
+    * return the type of protocol used
+    *
+    * this function returns wether HTTP or HTTPS
+    * is used for the client connection.
+    *
+    * @return string
     */
    private function get_web_protocol()
    {
@@ -315,10 +319,13 @@ class NEPHTHYS {
          return "http";
       else
          return "https";
+
    } // get_web_protocol()
 
    /**
     * return url to this installation
+    *
+    * @return string
     */
    private function get_nephthys_url()
    {
