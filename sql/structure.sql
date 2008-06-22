@@ -16,14 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Current Database: `db_nephthys`
---
-
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `db_nephthys` /*!40100 DEFAULT CHARACTER SET utf8 */;
-
-USE `db_nephthys`;
-
---
 -- Table structure for table `nephthys_buckets`
 --
 
