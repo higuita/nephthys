@@ -359,31 +359,6 @@ class NEPHTHYS {
    } // check_readable()
 
    /**
-    * parse the provided URI and will returned the
-    * requested chunk
-    */
-   public function parse_uri($uri, $mode)
-   {
-      if(($components = parse_url($uri)) !== false) {
-
-         switch($mode) {
-            case 'filename':
-               return basename($components['path']);
-               break;
-            case 'dirname':
-               return dirname($components['path']);
-               break;
-            case 'fullpath':
-               return $components['path'];
-               break;
-         }
-      }
-
-      return $uri;
-
-   } // parse_uri()
-
-   /**
     * validate config options
     *
     * this function checks if all necessary configuration options are
