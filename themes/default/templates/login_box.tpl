@@ -1,11 +1,17 @@
 <form id="login" onsubmit="js_login(); return false;">
- <table style="width: 100%;">
+ <table>
+  <tr>
+   <td class="tablehead">
+    Login to Nephthys
+   </td>
+  </tr>
+  <tr><td>&nbsp;</td></tr>
   <tr>
    <td>
-    <table class="withborder2" style="margin-left:auto; margin-right:auto; text-align: center;">
+    <table class="withborder2" style="margin-left:auto; margin-right:auto; text-align: right;">
      <tr>
       <td>
-       User:
+       Username:&nbsp;
       </td>
       <td>
        <input type="text" name="login_name" size="15" />
@@ -13,17 +19,18 @@
      </tr>
      <tr>
       <td>
-       Password:
+       Password:&nbsp;
       </td>
       <td>
        <input type="password" name="login_pass" size="15" />
       </td>
      </tr>
+     <tr><td colspan="2">&nbsp;</td>
      <tr>
       <td>
        &nbsp;
       </td>
-      <td>
+      <td style="text-align: left;">
        <input type="submit" value="Login" />
       </td>
      </tr>
