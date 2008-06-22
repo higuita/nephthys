@@ -814,8 +814,15 @@ class NEPHTHYS {
    } // _error()
 
    /**
-    * returns the requested WebDAV or FTP url for
-    * the Nephthys installation.
+    * generate complete bucket URL
+    *
+    * This function generates a complete URL to a specified
+    * bucket provided via its hash value. It will either
+    * return a WebDAV or FTP URL (specified by type).
+    *
+    * @param string $type
+    * @param string $hash
+    * @return string
     */
    public function get_url($type, $hash)
    {
@@ -824,7 +831,11 @@ class NEPHTHYS {
             $url = "ftp://";
             break;
          case 'dav':
-            $url = "http://";
+            /* should a HTTPS URL be generated? */
+            if(isset($this->cfg->use_https) && !empty($this->cfg->use_https))
+               $url = "https://";
+            else
+               $url = "http://";
             break;
       }
 
@@ -932,6 +943,8 @@ class NEPHTHYS_DEFAULT_CFG {
    var $smarty_path = "/usr/share/php/smarty";
    var $logging     = "display";
    var $log_file    = "nephthys_err.log";
+   var $ignore_js   = false;
+   var $use_https   = false;
 
    var $allow_server_auth = false;
    var $user_auto_create = false;

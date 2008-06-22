@@ -94,6 +94,11 @@ class NEPHTHYS_CFG extends NEPHTHYS_DEFAULT_CFG {
    // Default:
    //   var $ignore_js = false;
 
+   // Use HTTPS WebDAV URLs - if supported by your webserver, Nephthys
+   // will return WebDAV URLs starting with https://
+   // Default:
+   //   var $use_https = false;
+
 } // class NEPHTHYS_CFG
 
 ?>
