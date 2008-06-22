@@ -31,6 +31,7 @@ CREATE TABLE `nephthys_buckets` (
   `bucket_note` text,
   `bucket_owner` int(11) default NULL,
   `bucket_active` varchar(1) default NULL,
+  `bucket_notified` varchar(1) default NULL,
   PRIMARY KEY  (`bucket_idx`)
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
