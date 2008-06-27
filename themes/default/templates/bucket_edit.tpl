@@ -9,6 +9,12 @@
     <td colspan="2">&nbsp;</td>
    </tr>
    <tr>
+    <td colspan="2" class="tablehead">Edit bucket { $bucket_name }:</td>
+   </tr>
+   <tr>
+    <td colspan="2">&nbsp;</td>
+   </tr>
+   <tr>
     <td colspan="2">Bucket name:</td>
    </tr>
    <tr>
@@ -35,7 +41,17 @@
     <td colspan="2">&nbsp;</td>
    </tr>
    { else }
+   <tr>
+    <td colspan="2">Yours or senders email (you can not modify this entry):
+   </tr>
+   <tr>
+    <td colspan="2">
     { $bucket_sender }
+    </td>
+   </tr>
+   <tr>
+    <td colspan="2">&nbsp;</td>
+   </tr>
    { /if }
    <tr>
     <td colspan="2">Receivers email:
@@ -76,7 +92,7 @@
    </tr>
    { /if }
    <tr>
-    <td colspan="2">Note which will be added to notification email (optional):</td>
+    <td colspan="2">Text to be added to notification email (optional):</td>
    </tr>
    <tr>
     <td>

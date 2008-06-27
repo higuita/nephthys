@@ -6,6 +6,11 @@ body {
    padding:                0px 0px 0px 0px;
 }
 
+td.tablehead {
+   font-size:              16px;
+   font-weight:            bold;
+}
+
 table, tr, td {
    border-collapse:        collapse;
    padding:                0px;
@@ -56,7 +61,9 @@ a {
    color:                  #000000;
    text-decoration:        none;
 }
-
+a:visited {
+   color:                  #333333;
+}
 a:hover {
    color:                  #00aa44;
 }

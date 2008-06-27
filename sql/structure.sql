@@ -16,14 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Current Database: `db_nephthys`
---
-
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `db_nephthys` /*!40100 DEFAULT CHARACTER SET utf8 */;
-
-USE `db_nephthys`;
-
---
 -- Table structure for table `nephthys_buckets`
 --
 
@@ -39,6 +31,7 @@ CREATE TABLE `nephthys_buckets` (
   `bucket_note` text,
   `bucket_owner` int(11) default NULL,
   `bucket_active` varchar(1) default NULL,
+  `bucket_notified` varchar(1) default NULL,
   PRIMARY KEY  (`bucket_idx`)
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 

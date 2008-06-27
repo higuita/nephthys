@@ -8,6 +8,12 @@
     <td colspan="2">&nbsp;</td>
    </tr>
    <tr>
+    <td colspan="2" class="tablehead">I want to share some files.</td>
+   </tr>
+   <tr>
+    <td colspan="2">&nbsp;</td>
+   </tr>
+   <tr>
     <td colspan="2">Give the bucket a name:</td>
    </tr>
    <tr>
@@ -73,7 +79,7 @@
    </tr>
    { /if }
    <tr>
-    <td colspan="2">Note which will be added to notification email (optional):</td>
+    <td colspan="2">Text to be added to notification email (optional):</td>
    </tr>
    <tr>
     <td>

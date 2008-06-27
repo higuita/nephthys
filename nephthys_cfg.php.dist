@@ -94,6 +94,19 @@ class NEPHTHYS_CFG extends NEPHTHYS_DEFAULT_CFG {
    // Default:
    //   var $ignore_js = false;
 
+   // Use HTTPS WebDAV URLs - if supported by your webserver, Nephthys
+   // will return WebDAV URLs starting with https://
+   // Default:
+   //   var $use_https = false;
+
+   // Bucket access method - here you can control in which way buckets
+   // can be accessed. This has nothing to do with the security settings
+   // of the webserver or ftpserver. It only tells Nephthys what kind of
+   // links it should provide to the user to access some buckets.
+   // Default:
+   //   var $bucket_via_dav = true;
+   //   var $bucket_via_ftp = true;
+
 } // class NEPHTHYS_CFG
 
 ?>

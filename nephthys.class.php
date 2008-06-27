@@ -136,7 +136,7 @@ class NEPHTHYS {
       $this->tmpl = new NEPHTHYS_TMPL();
 
       if(isset($user->user_email) && !empty($user->user_email))
-         $this->tmpl->assign('user_email', $user->user_email);
+         $this->tmpl->assign('login_email', $user->user_email);
 
    } // __construct()
 
@@ -306,8 +306,12 @@ class NEPHTHYS {
    } // _debug()
 
    /**
-    * returns type of webprotocol which is
-    * currently used
+    * return the type of protocol used
+    *
+    * this function returns wether HTTP or HTTPS
+    * is used for the client connection.
+    *
+    * @return string
     */
    private function get_web_protocol()
    {
@@ -315,10 +319,13 @@ class NEPHTHYS {
          return "http";
       else
          return "https";
+
    } // get_web_protocol()
 
    /**
     * return url to this installation
+    *
+    * @return string
     */
    private function get_nephthys_url()
    {
@@ -350,31 +357,6 @@ class NEPHTHYS {
       return true;
 
    } // check_readable()
-
-   /**
-    * parse the provided URI and will returned the
-    * requested chunk
-    */
-   public function parse_uri($uri, $mode)
-   {
-      if(($components = parse_url($uri)) !== false) {
-
-         switch($mode) {
-            case 'filename':
-               return basename($components['path']);
-               break;
-            case 'dirname':
-               return dirname($components['path']);
-               break;
-            case 'fullpath':
-               return $components['path'];
-               break;
-         }
-      }
-
-      return $uri;
-
-   } // parse_uri()
 
    /**
     * validate config options
@@ -832,8 +814,15 @@ class NEPHTHYS {
    } // _error()
 
    /**
-    * returns the requested WebDAV or FTP url for
-    * the Nephthys installation.
+    * generate complete bucket URL
+    *
+    * This function generates a complete URL to a specified
+    * bucket provided via its hash value. It will either
+    * return a WebDAV or FTP URL (specified by type).
+    *
+    * @param string $type
+    * @param string $hash
+    * @return string
     */
    public function get_url($type, $hash)
    {
@@ -842,7 +831,11 @@ class NEPHTHYS {
             $url = "ftp://";
             break;
          case 'dav':
-            $url = "http://";
+            /* should a HTTPS URL be generated? */
+            if(isset($this->cfg->use_https) && !empty($this->cfg->use_https))
+               $url = "https://";
+            else
+               $url = "http://";
             break;
       }
 
@@ -950,6 +943,10 @@ class NEPHTHYS_DEFAULT_CFG {
    var $smarty_path = "/usr/share/php/smarty";
    var $logging     = "display";
    var $log_file    = "nephthys_err.log";
+   var $ignore_js   = false;
+   var $use_https   = false;
+   var $bucket_via_dav = true;
+   var $bucket_via_ftp = true;
 
    var $allow_server_auth = false;
    var $user_auto_create = false;
