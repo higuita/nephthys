@@ -25,24 +25,6 @@ LOCK TABLES `nephthys_buckets` WRITE;
 UNLOCK TABLES;
 
 --
--- Dumping data for table `nephthys_groups`
---
-
-LOCK TABLES `nephthys_groups` WRITE;
-/*!40000 ALTER TABLE `nephthys_groups` DISABLE KEYS */;
-/*!40000 ALTER TABLE `nephthys_groups` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `nephthys_user_to_groups`
---
-
-LOCK TABLES `nephthys_user_to_groups` WRITE;
-/*!40000 ALTER TABLE `nephthys_user_to_groups` DISABLE KEYS */;
-/*!40000 ALTER TABLE `nephthys_user_to_groups` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Dumping data for table `nephthys_users`
 --
 

@@ -36,28 +36,6 @@ CREATE TABLE `nephthys_buckets` (
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 --
--- Table structure for table `nephthys_groups`
---
-
-DROP TABLE IF EXISTS `nephthys_groups`;
-CREATE TABLE `nephthys_groups` (
-  `group_idx` int(11) NOT NULL auto_increment,
-  `group_name` varchar(255) default NULL,
-  `group_active` varchar(1) default NULL,
-  PRIMARY KEY  (`group_idx`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Table structure for table `nephthys_user_to_groups`
---
-
-DROP TABLE IF EXISTS `nephthys_user_to_groups`;
-CREATE TABLE `nephthys_user_to_groups` (
-  `ug_user_idx` int(11) default NULL,
-  `ug_group_idx` int(11) default NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
 -- Table structure for table `nephthys_users`
 --
 
