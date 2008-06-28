@@ -51,11 +51,19 @@ class NEPHTHYS_CFG extends NEPHTHYS_DEFAULT_CFG {
    // Default:
    //   var $theme_name = "default";
 
+   // Database type (mysql, sqlite)
+   // Default:
+   //   var $db_type = "mysql";
+
    // MySQL paramters
    //  var $mysql_host = "localhost";
    //  var $mysql_db   = "nephthys";
    //  var $mysql_user = "user";
    //  var $mysql_pass = "password";
+
+   // SQLite paramters
+   // Default:
+   //  var $sqlite_path = "/var/www/nephthys/nephthys.db";
  
    /* path to Smarty (http://smarty.php.net) installation. this option
       should directly point to the Smarty main directory containing the

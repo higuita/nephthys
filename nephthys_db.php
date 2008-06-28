@@ -71,7 +71,22 @@ class NEPHTHYS_DB {
          'portability' => 'DB_PORTABILITY_ALL'
       );
 
-      $dsn = "mysql://". $this->cfg->mysql_user .":". $this->cfg->mysql_pass ."@". $this->cfg->mysql_host ."/". $this->cfg->mysql_db;
+      switch($this->cfg->db_type) {
+         default:
+         case 'mysql':
+            $dsn = "mysql://"
+               . $this->cfg->mysql_user .":"
+               . $this->cfg->mysql_pass ."@"
+               . $this->cfg->mysql_host ."/"
+               . $this->cfg->mysql_db;
+            break;
+         case 'sqlite':
+            $dsn = "sqlite:///"
+               . $this->cfg->sqlite_path;
+            break;
+
+      }
+
       $this->db = MDB2::connect($dsn, $options);
 
       if(PEAR::isError($this->db)) {
@@ -127,6 +142,27 @@ class NEPHTHYS_DB {
    } // db_query()
 
    /**
+    * NEPHTHYS_DB database query & execute
+    *
+    * This function will execute a SQL query and return nothing.
+    */
+   public function db_exec($query = "")
+   {
+      if(!$this->getConnStatus())
+         return false;
+
+      $affected =& $this->db->exec($query);
+
+      if(PEAR::isError($affected)) {
+         $this->ThrowError($affected->getMessage());
+         return false;
+      }
+
+      return true;
+
+   } // db_exec()
+
+   /**
     * NEPHTHYS_DB fetch ONE row
     *
     * This function will execute the given but only return the
@@ -177,10 +213,15 @@ class NEPHTHYS_DB {
     * This function returns the primary key of the last
     * operated insert SQL query.
     */
-   public function db_getid()
+   public function db_getid($table_name = null)
    {
       /* Get the last primary key ID from execute query */
-      return mysql_insert_id($this->db->connection);
+      $id = $this->db->lastInsertID($table_name);
+      if (PEAR::isError($id)) {
+          $this->throwError($id->getMessage());
+      }
+
+      return $id;
       
    } // db_getid()
 
@@ -194,18 +235,29 @@ class NEPHTHYS_DB {
     */
    public function db_check_table_exists($table_name = "")
    {
-      if($this->getConnStatus()) {
-         $result = $this->db_query("SHOW TABLES");
-         $tables_in = "Tables_in_". MYSQL_DB;
-	
-         while($row = $result->fetchRow()) {
-            if($row->$tables_in == $table_name)
-               return true;
-         }
+      if(!$this->getConnStatus())
          return false;
+
+      switch($this->cfg->db_type) {
+         default:
+         case 'mysql':
+            $result = $this->db_query("SHOW TABLES");
+            $tables_in = "Tables_in_". $this->cfg->mysql_db;
+            while($row = $result->fetchRow()) {
+               if($row->$tables_in == $table_name)
+                  return true;
+            }
+            break;
+         case 'sqlite':
+            $result = $this->db_query("SELECT name FROM sqlite_master WHERE type='table'");
+            while($row = $result->fetchRow()) {
+               if($row->name == $table_name)
+                  return true;
+            }
+            break;
       }
-      else
-         $this->ThrowError("Can't check table - we are not connected!");
+
+      return false;
 	 
    } // db_check_table_exists()
 

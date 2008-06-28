@@ -160,9 +160,10 @@ class NEPHTHYS_USERS {
 
          $this->db->db_query("
             INSERT INTO nephthys_users (
-               user_name, user_pass, user_email, user_priv,
-               user_active
+               user_idx, user_name, user_pass,
+               user_email, user_priv, user_active
             ) VALUES (
+               NULL,
                '". $_POST['user_name'] ."',
                '". sha1($_POST['user_pass1']) ."',
                '". $_POST['user_email'] ."',

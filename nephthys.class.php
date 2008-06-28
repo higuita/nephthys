@@ -77,9 +77,41 @@ class NEPHTHYS {
          }
       }
 
+      /* if database type is set to sqlite, database exists
+         but is not readable ...
+      */
+      if($this->cfg->db_type == "sqlite" &&
+         file_exists($this->cfg->sqlite_path) &&
+         !is_readable($this->cfg->sqlite_path)) {
+         print "[". $this->cfg->sqlite_path ."] SQLite database is not readable for user ". $this->getuid() ."\n";
+         exit(1);
+      }
+
+      /* if database type is set to sqlite, database exists
+         but is not writeable ...
+      */
+      if($this->cfg->db_type == "sqlite" &&
+         file_exists($this->cfg->sqlite_path) &&
+         !is_writable($this->cfg->sqlite_path)) {
+         print "[". $this->cfg->sqlite_path ."] SQLite database is not writeable for user ". $this->getuid() ."\n";
+         exit(1);
+      }
+
+      /* if database type is set to sqlite, database does not exist
+         yet and directory to store database is not writeable...
+      */
+      if($this->cfg->db_type == "sqlite" &&
+         !file_exists($this->cfg->sqlite_path) &&
+         !is_writable(dirname($this->cfg->sqlite_path))) {
+         print "[". $this->cfg->sqlite_path ."] SQLite database can not be created in directory by user ". $this->getuid() ."\n";
+         exit(1);
+      }
+
       $this->db  = new NEPHTHYS_DB($this);
 
-      if(!is_writeable($this->cfg->base_path ."/templates_c")) {
+      $this->check_db_tables();
+
+      if(!is_writable($this->cfg->base_path ."/templates_c")) {
          print "[". $this->cfg->base_path ."/templates_c] directory is not writeable for user ". $this->getuid() ."\n";
          exit(1);
       }
@@ -264,11 +296,23 @@ class NEPHTHYS {
          $missing = true;
          unset($php_errormsg);
       }
-      @include_once 'MDB2/Driver/mysql.php';
-      if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
-         print "PEAR MDB2-mysql package is missing<br />\n";
-         $missing = true;
-         unset($php_errormsg);
+      // If database type is set to MySQL
+      if($this->cfg->db_type == "mysql") {
+         @include_once 'MDB2/Driver/mysql.php';
+         if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
+            print "PEAR MDB2-mysql package is missing<br />\n";
+            $missing = true;
+            unset($php_errormsg);
+         }
+      }
+      // If database type is set to SQLite
+      if($this->cfg->db_type == "sqlite") {
+          @include_once 'MDB2/Driver/sqlite.php';
+         if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
+            print "PEAR MDB2-sqlite package is missing<br />\n";
+            $missing = true;
+            unset($php_errormsg);
+         }
       }
       @include_once 'Mail.php';
       if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
@@ -401,7 +445,7 @@ class NEPHTHYS {
          if(!isset($this->cfg->log_file))
             $this->_error("Please set \$log_file because you set logging = log_file in nephthys_cfg");
 
-         if(!is_writeable($this->cfg->log_file))
+         if(!is_writable($this->cfg->log_file))
             $this->_error("The specified \$log_file ". $log_file ." is not writeable!");
 
       }
@@ -781,13 +825,29 @@ class NEPHTHYS {
     */
    public function check_user_exists($user_name)
    {
-      if($this->db->db_fetchSingleRow("
-         SELECT user_idx
-         FROM nephthys_users
-         WHERE
-            user_name LIKE BINARY '". $user_name ."'
-         ")) {
-         return true;
+      switch($this->cfg->db_type) {
+         default:
+         case 'mysql':
+            /* MySQL does case-censetive search by adding BINARY... */
+            if($this->db->db_fetchSingleRow("
+               SELECT user_idx
+               FROM nephthys_users
+               WHERE
+                  user_name LIKE BINARY '". $user_name ."'
+               ")) {
+               return true;
+            }
+            break;
+         case 'sqlite':
+            if($this->db->db_fetchSingleRow("
+               SELECT user_idx
+               FROM nephthys_users
+               WHERE
+                  user_name LIKE '". $user_name ."'
+               ")) {
+               return true;
+            }
+            break;
       }
 
       return false;
@@ -865,9 +925,10 @@ class NEPHTHYS {
    {
       $this->db->db_query("
          INSERT INTO nephthys_users (
-            user_name, user_priv, user_active,
-            user_auto_created
+            user_idx, user_name, user_priv,
+            user_active, user_auto_created
          ) VALUES (
+            NULL,
             '". $username ."',
             'user',
             'Y',
@@ -918,6 +979,109 @@ class NEPHTHYS {
 
    } // is_cmdline()
 
+   private function check_db_tables()
+   {
+      if(!$this->db->db_check_table_exists("nephthys_buckets")) {
+         switch($this->cfg->db_type) {
+            default:
+            case 'mysql':
+               $db_create = "CREATE TABLE `nephthys_buckets` (
+                  `bucket_idx` int(11) NOT NULL auto_increment,
+                  `bucket_name` varchar(255) default NULL,
+                  `bucket_sender` varchar(255) default NULL,
+                  `bucket_receiver` varchar(255) default NULL,
+                  `bucket_hash` varchar(64) default NULL,
+                  `bucket_created` int(11) default NULL,
+                  `bucket_expire` int(11) default NULL,
+                  `bucket_note` text,
+                  `bucket_owner` int(11) default NULL,
+                  `bucket_active` varchar(1) default NULL,
+                  `bucket_notified` varchar(1) default NULL,
+                  PRIMARY KEY  (`bucket_idx`)
+                  ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+               ";
+               break;
+            case 'sqlite':
+               $db_create = "CREATE TABLE nephthys_buckets (
+                  bucket_idx INTEGER PRIMARY KEY,
+                  bucket_name varchar(255),
+                  bucket_sender varchar(255),
+                  bucket_receiver varchar(255),
+                  bucket_hash varchar(64),
+                  bucket_created int,
+                  bucket_expire int,
+                  bucket_note text,
+                  bucket_owner int,
+                  bucket_active varchar(1),
+                  bucket_notified varchar(1)
+               )";
+               break;
+         }
+
+         if(!$this->db->db_exec($db_create)) {
+            die("Can't create table nephthys_buckets");
+         }
+      }
+
+      if(!$this->db->db_check_table_exists("nephthys_users")) {
+         switch($this->cfg->db_type) {
+            default:
+            case 'mysql':
+               $db_create = "CREATE TABLE `nephthys_users` (
+                  `user_idx` int(11) NOT NULL auto_increment,
+                  `user_name` varchar(255) default NULL,
+                  `user_full_name` varchar(255) default NULL,
+                  `user_pass` varchar(255) default NULL,
+                  `user_email` varchar(255) default NULL,
+                  `user_priv` varchar(16) default NULL,
+                  `user_active` varchar(1) default NULL,
+                  `user_last_login` int(11) default NULL,
+                  `user_default_expire` int(11) default NULL,
+                  `user_auto_created` varchar(1) default NULL,
+                  PRIMARY KEY  (`user_idx`)
+                  ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+               ";
+               break;
+            case 'sqlite':
+               $db_create = "CREATE TABLE nephthys_users (
+                  user_idx INTEGER PRIMARY KEY,
+                  user_name varchar(255),
+                  user_full_name varchar(255),
+                  user_pass varchar(255),
+                  user_email varchar(255),
+                  user_priv varchar(16),
+                  user_active varchar(1),
+                  user_last_login int,
+                  user_default_expire int,
+                  user_auto_created varchar(1)
+                  )
+               ";
+               break;
+         }
+
+         if(!$this->db->db_exec($db_create)) {
+            die("Can't create table nephthys_users");
+         }
+
+         $this->db->db_exec("
+            INSERT INTO nephthys_users
+            VALUES (
+               NULL,
+               'admin',
+               '',
+               'd033e22ae348aeb5660fc2140aec35850c4da997',
+               '',
+               'admin',
+               'Y',
+               NULL,
+               7,
+               NULL)
+         ");
+
+      }
+
+   } // check_db_tables()
+
 } // class NEPHTHYS
 
 /***************************************************************************
@@ -936,10 +1100,12 @@ class NEPHTHYS_DEFAULT_CFG {
    var $dav_path    = "/transfer";
 
    var $theme_name  = "default";
+   var $db_type     = "mysql";
    var $mysql_host  = "localhost";
    var $mysql_db    = "nephthys";
    var $mysql_user  = "user";
    var $mysql_pass  = "password";
+   var $sqlite_path = "/var/www/nephthys/nephthys.db";
    var $smarty_path = "/usr/share/php/smarty";
    var $logging     = "display";
    var $log_file    = "nephthys_err.log";
