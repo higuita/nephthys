@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class NEPHTHYS_DB</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name"><img src="../media/images/Class_logo.png"
+														alt=" Class"
+														title=" Class"
+														style="vertical-align: middle"> NEPHTHYS_DB</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">*************************************************************************</p>
+<p class="description"><p>Copyright (c) by Andreas Unterkircher, unki@netshadow.at  All rights reserved</p><p>This program is free software; you can redistribute it and/or modify   it under the terms of the GNU General Public License as published by   the Free Software Foundation; either version 2 of the License, or   (at your option) any later version.</p><p>This program is distributed in the hope that it will be useful,   but WITHOUT ANY WARRANTY; without even the implied warranty of   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the   GNU General Public License for more details.</p><p>You should have received a copy of the GNU General Public License   along with this program; if not, write to the Free Software   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.</p><p>*************************************************************************</p></p>
+		<p class="notes">
+			Located in <a class="field" href="_nephthys_db.php.html">/nephthys_db.php</a> (line <span class="field">27</span>)
+		</p>
+		
+				
+		<pre></pre>
+	
+			</div>
+</div>
+
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																																																																																<div class="method-definition">
+					<img src="../media/images/Constructor.png" alt=" "/>
+											<span class="method-result">NEPHTHYS_DB</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">&$parent</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../media/images/Destructor.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#__destruct" title="details" class="method-name">__destruct</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#db_alter_table" title="details" class="method-name">db_alter_table</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$table_name</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$option</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$column</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$param1</span> = <span class="var-default">&quot;&quot;</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$param2</span> = <span class="var-default">&quot;&quot;</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#db_check_column_exists" title="details" class="method-name">db_check_column_exists</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$table_name</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$column</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#db_check_index_exists" title="details" class="method-name">db_check_index_exists</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$table_name</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$index_name</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../media/images/Method.png" alt=" "/>
+											<span class="method-result">true</span>
+										<a href="#db_check_table_exists" title="details" class="method-name">db_check_table_exists</a>
+											([<span class="var-type">string,</span>&nbsp;<span class="var-name">$table_name</span> = <span class="var-default">&quot;&quot;</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#db_drop_table" title="details" class="method-name">db_drop_table</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$table_name</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#db_exec" title="details" class="method-name">db_exec</a>
+											([<span class="var-type"></span>&nbsp;<span class="var-name">$query</span> = <span class="var-default">&quot;&quot;</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#db_fetchSingleRow" title="details" class="method-name">db_fetchSingleRow</a>
+											([<span class="var-type"></span>&nbsp;<span class="var-name">$query</span> = <span class="var-default">&quot;&quot;</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$mode</span> = <span class="var-default">MDB2_FETCHMODE_OBJECT</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#db_getid" title="details" class="method-name">db_getid</a>
+											([<span class="var-type"></span>&nbsp;<span class="var-name">$table_name</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#db_getNumRows" title="details" class="method-name">db_getNumRows</a>
+											([<span class="var-type"></span>&nbsp;<span class="var-name">$query</span> = <span class="var-default">&quot;&quot;</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#db_query" title="details" class="method-name">db_query</a>
+											([<span class="var-type"></span>&nbsp;<span class="var-name">$query</span> = <span class="var-default">&quot;&quot;</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$mode</span> = <span class="var-default">MDB2_FETCHMODE_OBJECT</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#db_rename_table" title="details" class="method-name">db_rename_table</a>
+											(<span class="var-type">old_name,</span>&nbsp;<span class="var-name">$old</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$new</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#db_truncate_table" title="details" class="method-name">db_truncate_table</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$table_name</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#getVersion" title="details" class="method-name">getVersion</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#setVersion" title="details" class="method-name">setVersion</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$version</span>)
+									</div>
+											</div>
+		</div>
+	</div>		
+
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+													<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../media/images/Constructor.png" />
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">39</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">NEPHTHYS_DB class constructor</p>
+<p class="description"><p>This constructor initially connect to the database.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">NEPHTHYS_DB</span>
+		<span class="method-name">
+			__construct
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">&$parent</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">&$parent</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method__destruct" id="__destruct"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../media/images/Destructor.png" />
+		<span class="method-title">Destructor __destruct</span> (line <span class="line-number">56</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">NEPHTHYS_DB class deconstructor</p>
+<p class="description"><p>This destructor will close the current database connection.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			__destruct
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methoddb_alter_table" id="db_alter_table"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../media/images/Method.png" />
+		<span class="method-title">db_alter_table</span> (line <span class="line-number">348</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">NEPHTHYS_DB alter table</p>
+<p class="description"><p>This function offers multiple methods to alter a table.  * add/modify/delete columns  * drop index</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			db_alter_table
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$table_name</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$option</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$column</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$param1</span> = <span class="var-default">&quot;&quot;</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$param2</span> = <span class="var-default">&quot;&quot;</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$table_name</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$option</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$column</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$param1</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$param2</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methoddb_check_column_exists" id="db_check_column_exists"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../media/images/Method.png" />
+		<span class="method-title">db_check_column_exists</span> (line <span class="line-number">311</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">NEPHTHYS_DB check column exist</p>
+<p class="description"><p>This function checks if the given column exists within  the specified table.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			db_check_column_exists
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$table_name</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$column</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$table_name</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$column</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methoddb_check_index_exists" id="db_check_index_exists"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../media/images/Method.png" />
+		<span class="method-title">db_check_index_exists</span> (line <span class="line-number">328</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">NEPHTHYS_DB check index exists</p>
+<p class="description"><p>This function checks if the given index can be found  within the specified table.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			db_check_index_exists
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$table_name</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$index_name</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$table_name</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$index_name</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methoddb_check_table_exists" id="db_check_table_exists"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../media/images/Method.png" />
+		<span class="method-title">db_check_table_exists</span> (line <span class="line-number">236</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">NEPHTHYS_DB check table exists</p>
+<p class="description"><p>This function checks if the given table exists in the  database</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> if table found otherwise false</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">true</span>
+		<span class="method-name">
+			db_check_table_exists
+		</span>
+					([<span class="var-type">string,</span>&nbsp;<span class="var-name">$table_name</span> = <span class="var-default">&quot;&quot;</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string,</span>
+				<span class="var-name">$table_name</span><span class="var-description">: table name</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methoddb_drop_table" id="db_drop_table"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../media/images/Method.png" />
+		<span class="method-title">db_drop_table</span> (line <span class="line-number">286</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">NEPHTHYS_DB drop table</p>
+<p class="description"><p>This function will delete the given table from database</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			db_drop_table
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$table_name</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$table_name</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methoddb_exec" id="db_exec"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../media/images/Method.png" />
+		<span class="method-title">db_exec</span> (line <span class="line-number">149</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">NEPHTHYS_DB database query &amp; execute</p>
+<p class="description"><p>This function will execute a SQL query and return nothing.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			db_exec
+		</span>
+					([<span class="var-type"></span>&nbsp;<span class="var-name">$query</span> = <span class="var-default">&quot;&quot;</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$query</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methoddb_fetchSingleRow" id="db_fetchSingleRow"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../media/images/Method.png" />
+		<span class="method-title">db_fetchSingleRow</span> (line <span class="line-number">171</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">NEPHTHYS_DB fetch ONE row</p>
+<p class="description"><p>This function will execute the given but only return the  first result.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			db_fetchSingleRow
+		</span>
+					([<span class="var-type"></span>&nbsp;<span class="var-name">$query</span> = <span class="var-default">&quot;&quot;</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$mode</span> = <span class="var-default">MDB2_FETCHMODE_OBJECT</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$query</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$mode</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methoddb_getid" id="db_getid"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../media/images/Method.png" />
+		<span class="method-title">db_getid</span> (line <span class="line-number">216</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">NEPHTHYS_DB get primary key</p>
+<p class="description"><p>This function returns the primary key of the last  operated insert SQL query.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			db_getid
+		</span>
+					([<span class="var-type"></span>&nbsp;<span class="var-name">$table_name</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$table_name</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methoddb_getNumRows" id="db_getNumRows"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../media/images/Method.png" />
+		<span class="method-title">db_getNumRows</span> (line <span class="line-number">197</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">NEPHTHYS_DB number of affected rows</p>
+<p class="description"><p>This functions returns the number of affected rows but the  given SQL query.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			db_getNumRows
+		</span>
+					([<span class="var-type"></span>&nbsp;<span class="var-name">$query</span> = <span class="var-default">&quot;&quot;</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$query</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methoddb_query" id="db_query"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../media/images/Method.png" />
+		<span class="method-title">db_query</span> (line <span class="line-number">118</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">NEPHTHYS_DB database query</p>
+<p class="description"><p>This function will execute a SQL query and return the result as  object.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			db_query
+		</span>
+					([<span class="var-type"></span>&nbsp;<span class="var-name">$query</span> = <span class="var-default">&quot;&quot;</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$mode</span> = <span class="var-default">MDB2_FETCHMODE_OBJECT</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$query</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$mode</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methoddb_rename_table" id="db_rename_table"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../media/images/Method.png" />
+		<span class="method-title">db_rename_table</span> (line <span class="line-number">270</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">NEPHTHYS_DB rename table</p>
+<p class="description"><p>This function will rename an database table</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			db_rename_table
+		</span>
+					(<span class="var-type">old_name,</span>&nbsp;<span class="var-name">$old</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$new</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">old_name,</span>
+				<span class="var-name">$old</span><span class="var-description">: new_name</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$new</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methoddb_truncate_table" id="db_truncate_table"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../media/images/Method.png" />
+		<span class="method-title">db_truncate_table</span> (line <span class="line-number">298</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">NEPHTHYS_DB truncate table</p>
+<p class="description"><p>This function will truncate (reset) the given table</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			db_truncate_table
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$table_name</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$table_name</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetVersion" id="getVersion"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../media/images/Method.png" />
+		<span class="method-title">getVersion</span> (line <span class="line-number">387</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">NEPHTHYS_DB get MasterShaper Version</p>
+<p class="description"><p>This functions returns the current MasterShaper (DB) version</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			getVersion
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodsetVersion" id="setVersion"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../media/images/Method.png" />
+		<span class="method-title">setVersion</span> (line <span class="line-number">407</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">NEPHTHYS_DB set version</p>
+<p class="description"><p>This function sets the version name of MasterShaper (DB)</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setVersion
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$version</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$version</span>			</li>
+				</ul>
+		
+			
+	</div>
+						
+		</div>
+	</div>
+
+	
+	<p class="notes" id="credit">
+		Documentation generated on Sun, 29 Jun 2008 09:25:46 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.2</a>
+	</p>
+	</div></body>
+</html>
