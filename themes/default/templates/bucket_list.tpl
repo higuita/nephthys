@@ -27,12 +27,26 @@
   <td><img src="images/clock_red.png" />&nbsp;{ $bucket_expire }</td>
   <td><img src="images/email.png" />&nbsp;{ $bucket_notified }</td>
   <td style="vertical-align: middle;">
+
+   <!-- WebDAV support is enabled -->
    { if $bucket_via_dav }
-   <span style="behavior: url(#default#httpFolder); cursor: pointer; font-size: 14px; color: #000000;" onclick="this.navigateFrame('{ $bucket_webdav_path }', '_blank');">
-    <a href="{ $bucket_webdav_path }" onclick="return false;" title="Open bucket via WebDAV"><img src="images/webdav.png" />&nbsp;WebDAV</a>
-   </span>
-   &nbsp;
+
+    <!-- Browser is Internet Explorer -->
+    { if $is_ie }
+     <span style="behavior: url(#default#httpFolder); cursor: pointer; font-size: 14px; color: #000000;" onclick="this.navigateFrame('{ $bucket_webdav_path }', '_blank');">
+    { /if }
+
+      <a href="{ $bucket_webdav_path }" onclick="return false;" title="Open bucket via WebDAV"><img src="images/webdav.png" />&nbsp;WebDAV</a>
+
+    { if $is_ie }
+     </span>
+    { /if }
+
+    &nbsp;
+
    { /if }
+
+   <!-- FTP support is enabled -->
    { if $bucket_via_ftp }
    <a href="{ $bucket_ftp_path }" target="_blank" title="Open bucket via FTP"><img src="images/ftp.png" />&nbsp;FTP</a>
    { /if }
