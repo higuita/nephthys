@@ -83,7 +83,7 @@
   <td>&nbsp;</td>
  </tr>
  <tr>
-  <td><input type="submit" value="Save" /></td>
+  <td>{ save_button text="Save user and return to user-list" }</td>
  </tr>
 </table>
 </form>

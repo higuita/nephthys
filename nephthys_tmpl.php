@@ -55,6 +55,7 @@ class NEPHTHYS_TMPL extends Smarty {
       $this->assign('template_path', 'themes/'. $nephthys->cfg->theme_name);
       $this->register_function("page_start", array(&$this, "smarty_page_start"), false);
       $this->register_function("page_end", array(&$this, "smarty_page_end"), false);
+      $this->register_function("save_button", array(&$this, "smarty_save_button"), false);
       $this->register_function("import_bucket_list", array(&$this, "smarty_import_bucket_list"), false);
       $this->register_function("expiration_list", array(&$this, "smarty_expiration_list"), false);
       $this->register_function("owner_list", array(&$this, "smarty_owner_list"), false);
@@ -85,6 +86,16 @@ class NEPHTHYS_TMPL extends Smarty {
       }
 
       $this->show('page_end.tpl');
+
+   } // smarty_function_startTable()
+
+   public function smarty_save_button($params, &$smarty)
+   {
+      if(isset($params['text'])) {
+         $this->assign('text', $params['text']);
+      }
+
+      $this->show('save_button.tpl');
 
    } // smarty_function_startTable()
 
