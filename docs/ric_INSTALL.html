@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title></title>
+			<link rel="stylesheet" href="media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+						<div align="center"><h1>INSTALL</h1></div>
+<pre>
+Nephthys install howto:
+
+* requirements
+ 
+ - apache/apache2 (in fact any webserver which supports php)
+ - php5
+   - the following extensions must be available
+     (compiled in or as shared object):
+     * MySQL support
+   - PEAR extensions (pear install %name%)
+     * HTML_AJAX
+ - Smarty (php template engine, http://smarty.php.net)
+  
+* installation
+
+ 1. copy the sample nephthys-config-file to your new config file
+
+    cp nephthys_cfg.php.dist nephthys_cfg.php
+
+ 2. Edit nephthys_cfg.php and edit the necessary configuration
+    parameters. This file also include explanation of each option.
+
+ 3. Open nephthys in our favourite browser. The URL depends what
+    you have specify as $webpath in the configuration var. But
+    usually it will be http://myserver/nephthys (where myserver
+    is your webservers IP, server name, virtual host name, ...).
+
+</pre>
+	<p class="notes" id="credit">
+		Documentation generated on Sun, 29 Jun 2008 09:25:45 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.2</a>
+	</p>
+	</body>
+</html>
