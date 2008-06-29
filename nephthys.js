@@ -344,10 +344,6 @@ function js_login()
       refreshMenu();
       ajax_show_content('main');
       init_ajaxtabs();
-      var tabs = document.getElementById("tabs");
-      if(tabs != undefined) {
-         tabs.style.visibility = 'visible';
-      }
    }
    else {
       window.alert(retr);
@@ -360,14 +356,8 @@ function js_logout()
    var retr = HTML_AJAX.grab(encodeURI('rpc.php?action=logout'));
 
    if(retr == "ok") {
-
       refreshMenu();
       ajax_show_content('main');
-
-      var tabs = document.getElementById("tabs");
-      if(tabs != undefined) {
-         tabs.style.visibility = 'hidden';
-      }
    }
    else {
       window.alert(retr);

@@ -21,7 +21,7 @@ position: relative;
 z-index: 1;
 padding: 3px 7px;
 margin-right: 3px;
-border: 1px solid #778;
+border: 1px solid #cccccc;
 color: #2d2b2b;
 background: white url(shade.gif) top left repeat-x;
 }

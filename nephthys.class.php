@@ -238,8 +238,8 @@ class NEPHTHYS {
          case 'profile':
             $obj = new NEPHTHYS_PROFILE();
             break;
-         case 'credits':
-            return $this->tmpl->show("credits.tpl");
+         case 'about':
+            return $this->tmpl->show("about.tpl");
             break;
       }
 

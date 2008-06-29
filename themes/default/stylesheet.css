@@ -6,9 +6,22 @@ body {
    padding:                0px 0px 0px 0px;
 }
 
-td.tablehead {
+.cb {
+   clear:                  both;
+}
+
+#tablehead {
    font-size:              16px;
    font-weight:            bold;
+}
+
+#chooser {
+   width:                  50%;
+   text-align:             center;
+}
+
+tr.subhead {
+   font-style:             italic;
 }
 
 table, tr, td {
@@ -18,30 +31,42 @@ table, tr, td {
    vertical-align:         top;
 }
 
+table.fullwidth {
+   width:                  100%;
+}
+
+/* a table with border grid */
 table.withborder tr td {
    border:                 1px solid #aaaaaa;
    border-collapse:        separate;
    padding:                2px;
 }
+/* the table itself has a max. width */
+table.withborder {
+   width:                  100%;
+}
 
+/* overall surrounding box */
 #box {
    margin-top:             0px;
    margin-left:            50px;
    margin-right:           50px;
-   padding:                10px;
+   padding:                15px;
+   padding-top:            10px;
    border:                 1px solid #aaaaaa;
+   border-top:             0px;
+}
+
+/* distance between header-bar and menu-tabs */
+#menu {
+   padding-top:            20px;
 }
 
 /* main cell containing photo content */
-.content {
-   margin-top:             40px;
-   margin-left:            280px;
-   margin-right:           0px;
-   padding:                0px;
-}
-
-.icons {
-   float:                  left;
+#content {
+   padding:                15px;
+   padding-top:            20px;
+   border:                 1px solid #cccccc;
 }
 
 #header {
@@ -50,12 +75,19 @@ table.withborder tr td {
    vertical-align:         middle;
    white-space:            nowrap;
    height:                 50px;
+   font-weight:            bold;
 }
 
+/* in general images do not have borders */
 img {
-   border:                none;
+   border:                 none;
 }
 
+img.imgborder {
+   border:                 1px solid #cccccc;
+}
+
+/* common links */
 a {
    font-size:              14px;
    color:                  #000000;
@@ -65,7 +97,21 @@ a:visited {
    color:                  #333333;
 }
 a:hover {
-   color:                  #00aa44;
+   color:                  #008844;
+   text-decoration:        underline;
+}
+
+/* input fields */
+input, select, textarea {
+   background-color:       #eeeeee;
+   color:                  #333333;
+   border:                 1px solid #888888;
+   border-collapse:        collapse;
+}
+
+textarea.notearea {
+   width:                  400px;
+   height:                 50px;
 }
 
 input.submit,input.checkbox {
@@ -73,9 +119,10 @@ input.submit,input.checkbox {
    border:                 0px;
 }
 
-input, select, textarea {
-   background-color:       #eeeeee;
-   color:                  #333333;
-   border:                 1px solid #888888;
-   border-collapse:        collapse;
+input.inputedit {
+   width:                  400px;
+}
+
+input.inputlogin {
+   width:                  150px;
 }

@@ -1,15 +1,16 @@
-<table class="withborder" style="width: 100%;">
- <tr>
+<table class="withborder">
+ <tr class="subhead">
   <td><img src="images/bucket_small.png" />&nbsp;Bucket</td>
   { if $login_priv == "manager" || $login_priv == "admin" }
-  <td>Owner</td>
+  <td><img src="images/user.png" />&nbsp;Owner</td>
   { /if }
-  <td>Created</td>
-  <td>Expires</td>
-  <td>Notified</td>
+  <td><img src="images/clock.png" />&nbsp;Created</td>
+  <td><img src="images/clock_red.png" />&nbsp;Expires</td>
+  <td><img src="images/email.png" />&nbsp;Notified</td>
   <td>Open Bucket</td>
   <td>Actions</td>
  </tr>
+
 { if $user_has_buckets }
 
 { bucket_list }
@@ -19,12 +20,12 @@
   </td>
   { if $login_priv == "manager" || $login_priv == "admin" }
   <td>
-   <a href="javascript:ajax_show_content('users', '&mode=edit&idx={ $bucket_owner_idx }');">{ $bucket_owner }</a>
+   <a href="javascript:ajax_show_content('users', '&mode=edit&idx={ $bucket_owner_idx }');"><img src="images/user.png" />&nbsp;{ $bucket_owner }</a>
   </td>
   { /if }
-  <td>{ $bucket_created }</td>
-  <td>{ $bucket_expire }</td>
-  <td>{ $bucket_notified }</td>
+  <td><img src="images/clock.png" />&nbsp;{ $bucket_created }</td>
+  <td><img src="images/clock_red.png" />&nbsp;{ $bucket_expire }</td>
+  <td><img src="images/email.png" />&nbsp;{ $bucket_notified }</td>
   <td style="vertical-align: middle;">
    { if $bucket_via_dav }
    <span style="behavior: url(#default#httpFolder); cursor: pointer; font-size: 14px; color: #000000;" onclick="this.navigateFrame('{ $bucket_webdav_path }', '_blank');">
@@ -42,7 +43,9 @@
   </td>
  </tr>
 { /bucket_list }
+
 { else }
+
  <tr>
   { if $login_priv == "manager" || $login_priv == "admin" }
   <td colspan="7">
