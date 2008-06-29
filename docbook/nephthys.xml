@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//FR"
+"/usr/share/sgml/docbook/dtd/4.2/docbookx.dtd" [
+<!ENTITY intro SYSTEM "introduction.xml">
+<!ENTITY def SYSTEM "definition.xml">
+<!ENTITY usage SYSTEM "usage.xml">
+<!ENTITY lic SYSTEM "license.xml">
+]>
+<!-- juste un commentaire -->
+<book lang="en">
+  <title>Nephthys Documentation 1.x</title>
+  <subtitle>File sharing via WebDAV and FTP</subtitle>
+  <bookinfo>
+    <authorgroup>
+      <author>
+       <firstname>Andreas</firstname>
+       <surname>Unterkircher</surname>
+	    <email>unki@netshadow.at</email>
+      </author>
+    </authorgroup>
+
+    <revhistory>
+     <revision>
+       <revnumber>0.1</revnumber>
+       <date>2008-06-28</date>
+  	    <authorinitials>au</authorinitials>
+      </revision>
+      <revision>
+       <revnumber>0.2</revnumber>
+       <date>2008-07-05</date>
+  	    <authorinitials>au</authorinitials>
+      </revision>
+    </revhistory>
+    <pubdate>2008-2008</pubdate>
+  </bookinfo>
+  &intro;
+  &def;
+  &usage;
+  &lic;
+</book>
