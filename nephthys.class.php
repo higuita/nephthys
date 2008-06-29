@@ -744,6 +744,7 @@ class NEPHTHYS {
       /* set application name and version information */
       $this->cfg->product = "Nephthys";
       $this->cfg->version = "1.0";
+      $this->cfg->db_version = 1;
 
       return true;
 
@@ -1085,6 +1086,41 @@ class NEPHTHYS {
                NULL)
          ");
 
+      }
+
+      if(!$this->db->db_check_table_exists("nephthys_meta")) {
+         switch($this->cfg->db_type) {
+            default:
+            case 'mysql':
+               $db_create = "CREATE TABLE `nephthys_meta` (
+                  `meta_idx` int(11) NOT NULL auto_increment,
+                  `meta_key` varchar(255) default NULL,
+                  `meta_value` varchar(255) default NULL,
+                  PRIMARY KEY  (`meta_idx`)
+                  ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+               ";
+               break;
+            case 'sqlite':
+               $db_create = "CREATE TABLE nephthys_meta (
+                  meta_idx INTEGER PRIMARY KEY,
+                  meta_key varchar(255),
+                  meta_value varchar(255)
+               )";
+               break;
+         }
+
+         if(!$this->db->db_exec($db_create)) {
+            die("Can't create table nephthys_meta");
+         }
+
+         $this->db->db_exec("
+            INSERT INTO nephthys_meta
+            VALUES (
+               NULL,
+               'Nephthys Database Version',
+               '". $this->cfg->db_version ."'
+            )
+         ");
       }
 
    } // check_db_tables()
