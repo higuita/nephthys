@@ -75,7 +75,8 @@ class NEPHTHYS {
             print "Nephthys will not correctly work without JavaScript!<br />\n";
             exit;
          }
-      }
+
+     }
 
       /* if database type is set to sqlite, database exists
          but is not readable ...
@@ -170,6 +171,12 @@ class NEPHTHYS {
       if(isset($user->user_email) && !empty($user->user_email))
          $this->tmpl->assign('login_email', $user->user_email);
 
+      /* if browser is type Internet Explorer set a template variable to
+         inidicate to templates that browser is IE.
+      */
+      if(isset($this->browser_info) && $this->browser_info->isIE())
+         $this->tmpl->assign('is_ie', true);
+
    } // __construct()
 
    public function __destruct()
@@ -238,8 +245,8 @@ class NEPHTHYS {
          case 'profile':
             $obj = new NEPHTHYS_PROFILE();
             break;
-         case 'credits':
-            return $this->tmpl->show("credits.tpl");
+         case 'about':
+            return $this->tmpl->show("about.tpl");
             break;
       }
 

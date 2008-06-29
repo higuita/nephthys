@@ -49,10 +49,11 @@ class NEPHTHYS_TMPL extends Smarty {
       $this->assign('page_title', $nephthys->cfg->page_title);
       $this->assign('product', $nephthys->cfg->product);
       $this->assign('version', $nephthys->cfg->version);
+      $this->assign('db_version', $nephthys->cfg->db_version);
       $this->assign('bucket_via_dav', $nephthys->cfg->bucket_via_dav);
       $this->assign('bucket_via_ftp', $nephthys->cfg->bucket_via_ftp);
       $this->assign('template_path', 'themes/'. $nephthys->cfg->theme_name);
-      $this->register_function("start_table", array(&$this, "smarty_startTable"), false);
+      $this->register_function("page_start", array(&$this, "smarty_page_start"), false);
       $this->register_function("page_end", array(&$this, "smarty_page_end"), false);
       $this->register_function("import_bucket_list", array(&$this, "smarty_import_bucket_list"), false);
       $this->register_function("expiration_list", array(&$this, "smarty_expiration_list"), false);
@@ -66,14 +67,16 @@ class NEPHTHYS_TMPL extends Smarty {
 
    } // show()
 
-   public function smarty_startTable($params, &$smarty)
+   public function smarty_page_start($params, &$smarty)
    {
-      $this->assign('title', $params['title']);
-      $this->assign('icon', $params['icon']);
-      $this->assign('alt', $params['alt']);
-      $this->show('start_table.tpl');
+      if(isset($params['header']))
+         $this->assign('header', $params['header']);
+      if(isset($params['subheader']))
+         $this->assign('subheader', $params['subheader']);
 
-   } // smarty_function_startTable()
+      $this->show('page_start.tpl');
+
+   } // smarty_function_page_start()
 
    public function smarty_page_end($params, &$smarty)
    {

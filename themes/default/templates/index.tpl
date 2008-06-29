@@ -1,7 +1,7 @@
 {include file="header.tpl"}
  <body onload="init_nephthys();">
 
-  <!-- overall box -->
+  <!-- surrounding box -->
   <div id="box">
 
    <div id="header">
@@ -15,6 +15,6 @@
    <div id="content" style="clear: both;"></div>
 
   </div>
-  <!-- /overall box -->
+  <!-- /surrounding box -->
 
 {include file="footer.tpl"}
