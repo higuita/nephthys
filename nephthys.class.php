@@ -67,8 +67,9 @@ class NEPHTHYS {
          exit(1);
       }
 
+      $this->browser_info = new Net_UserAgent_Detect();
+
       if(!$this->is_cmdline() && (!isset($this->cfg->ignore_js) || empty($this->cfg->ignore_js))) {
-         $this->browser_info = new Net_UserAgent_Detect();
 
          if(!$this->browser_info->hasFeature('javascript')) {
             print "It seems your browser is not capable of supporting JavaScript or it has been disabled.<br />\n";
