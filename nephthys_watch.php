@@ -35,7 +35,13 @@ $nephthys_buckets = new NEPHTHYS_BUCKETS;
 
 /* get all buckets */
 $buckets = $db->db_query("
-   SELECT *
+   SELECT
+      b.bucket_idx as bucket_idx,
+      b.bucket_name as bucket_name,
+      b.bucket_expire as bucket_expire,
+      b.bucket_created as bucket_created,
+      b.bucket_hash as bucket_hash,
+      u.user_name as user_name
    FROM nephthys_buckets b
    INNER JOIN nephthys_users u
       ON
