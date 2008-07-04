@@ -653,6 +653,30 @@ class NEPHTHYS {
    } // getbucketDetails()
 
    /***
+    * validates all provided email addresses.
+    * multiple email addresses are seperated by comma
+    *
+    * @param string $email
+    * @return boolean
+    */
+   public function is_valid_email($email)
+   {
+      /* only one email address? */
+      if(strstr($email, ',') === false)
+         return $this->validate_email($email);
+
+      /* multiple email addresses */
+      $emails = split(",", $email);
+      foreach($emails as $email_addr) {
+         /* return as soon as an invalid address has been found */
+         if(!$this->validate_email($email_addr))
+            return false;
+      }
+      return true;
+
+   } // is_valid_email()
+
+   /***
     * verify email address
     *
     * found on: http://www.ilovejackdaniels.com/php/email-address-validation/

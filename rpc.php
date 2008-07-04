@@ -74,7 +74,7 @@ class NEPHTHYS_RPC {
             print $nephthys->delete_bucket();
             break;
          case 'validateemail':
-            if(isset($_POST['address']) && !empty($_POST['address']) && $nephthys->validate_email($_POST['address']))
+            if(isset($_POST['address']) && !empty($_POST['address']) && $nephthys->is_valid_email($_POST['address']))
                print "ok";
             else
                print "failed";
