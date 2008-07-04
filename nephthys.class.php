@@ -138,17 +138,23 @@ class NEPHTHYS {
       }
 
       /* if server-authentication is allowed... */
-      if(isset($this->cfg->allow_server_auth) && $this->cfg->allow_server_auth == true) {
+      if(isset($this->cfg->allow_server_auth) &&
+         $this->cfg->allow_server_auth == true) {
+
          /* if the user exists in Nephthys user table ... */
          if($user = $this->get_user_details_by_name($_SERVER['REMOTE_USER'])) {
-            $_SESSION['login_name'] = $user->user_name;
-            $_SESSION['login_idx'] = $user->user_idx;
+            /* if user is active, register informations to session */
+            if($user->user_active == 'Y') {
+               $_SESSION['login_name'] = $user->user_name;
+               $_SESSION['login_idx'] = $user->user_idx;
+            }
          }
          /* otherwise, if auto-creation is enabled, create it... */
          else {
 
             /* is user-auto-creation enabled? */
-            if(isset($this->cfg->user_auto_create) && $this->cfg->user_auto_create == true) {
+            if(isset($this->cfg->user_auto_create) &&
+               $this->cfg->user_auto_create == true) {
 
                if(isset($_SERVER['REMOTE_USER']) &&
                   $idx = $this->create_user($_SERVER['REMOTE_USER'])) {
@@ -509,9 +515,7 @@ class NEPHTHYS {
          SELECT *
          FROM nephthys_users
          WHERE
-            user_name LIKE '". $user_name ."'
-         AND
-            user_active='Y'")) {
+            user_name LIKE '". $user_name ."'")) {
 
          return $user;
       }
@@ -529,9 +533,7 @@ class NEPHTHYS {
          SELECT *
          FROM nephthys_users
          WHERE
-            user_idx LIKE '". $user_idx ."'
-         AND
-            user_active='Y'")) {
+            user_idx LIKE '". $user_idx ."'")) {
 
          return $user;
       }
@@ -783,13 +785,21 @@ class NEPHTHYS {
       if(isset($_POST['login_name']) && !empty($_POST['login_name']) &&
          isset($_POST['login_pass']) && !empty($_POST['login_pass'])) {
 
+         /* get user details */
          if($user = $this->get_user_details_by_name($_POST['login_name'])) {
+
+            /* reject inactive users */
+            if($user->user_active != 'Y')
+               return _("Invalid or inactive User.");
+
+            /* do not allow auto-created users to login (they have no password set...) */
             if($user->user_auto_create != 'Y' &&
                $user->user_pass == sha1($_POST['login_pass'])) {
+
                $_SESSION['login_name'] = $_POST['login_name'];
                $_SESSION['login_idx'] = $user->user_idx;
 
-               return "ok";
+               return _("ok");
             }
             else {
                return _("Invalid Password.");
