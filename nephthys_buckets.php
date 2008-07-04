@@ -214,7 +214,7 @@ class NEPHTHYS_BUCKETS {
       if(!isset($_POST['bucket_sender']) || empty($_POST['bucket_name'])) {
          return _("Please enter a sender for this bucket!");
       }
-      if(!$this->parent->validate_email($_POST['bucket_sender'])) {
+      if(!$this->parent->is_valid_email($_POST['bucket_sender'])) {
          return _("Please enter a valid sender email address! test" . $_POST['bucket_sender']);
       }
       if(isset($_POST['bucketmode']) && $_POST['bucketmode'] == "receive" &&
@@ -222,7 +222,7 @@ class NEPHTHYS_BUCKETS {
          return _("Please enter a receiver for this bucket!");
       }
       if(isset($_POST['bucketmode']) && $_POST['bucketmode'] == "receive" &&
-         !$this->parent->validate_email($_POST['bucket_receiver'])) {
+         !$this->parent->is_valid_email($_POST['bucket_receiver'])) {
          return _("Please enter a valid receiver email address!");
       }
       /* for "send" it's not a must to specify a receiver, anyway, if one is there
@@ -230,7 +230,7 @@ class NEPHTHYS_BUCKETS {
       */
       if(isset($_POST['bucketmode']) && $_POST['bucketmode'] == "send" &&
          isset($_POST['bucket_receiver']) && !empty($_POST['bucket_receiver']) &&
-         !$this->parent->validate_email($_POST['bucket_receiver'])) {
+         !$this->parent->is_valid_email($_POST['bucket_receiver'])) {
          return _("Please enter a valid receiver email address!");
       }
 
