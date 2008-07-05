@@ -1,0 +1,3 @@
+following Debian packages are required to generate the documentation:
+
+sudo aptitude install xsltproc docbook-xsl docbook docbook-utils

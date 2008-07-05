@@ -1,0 +1,35 @@
+<?xml version="1.0"  encoding="ISO-8859-1"?>
+<chapter id="definition" lang="en">
+ <title>Definitions and Terms</title>
+ <para>Nephthys uses some terms in its web interface which will be explained here.</para>
+ <sect1>
+  <title>Bucket</title>
+  <para>
+   A bucket (as the name says) is a virtual pot where files and directories can be thrown in or fished out. Usually the bucket has lifetime - when reached, it will be removed automatically including all data within.
+  </para>
+ </sect1>
+ <sect1>
+  <title>User</title>
+  <para>
+   A user is necessary to login to Nephthys. This user can have different privilege levels. Standard users can maintain their profiles and buckets. Users quipped with the "Manager" privilege can also modify other's buckets. "Admin"'s have the same rights as "Manager"'s but in addition can maintain the Nephthys user database.
+  </para>
+ </sect1>
+ <sect1>
+  <title>WebDAV</title>
+  <para>
+   The "Web-based Distributed Authoring and Versioning" is an extension to the HTTP protocol to transfer files. For more information see <ulink url="http://en.wikipedia.org/wiki/WebDAV">http://en.wikipedia.org/wiki/WebDAV</ulink>.
+  </para>
+ </sect1>
+ <sect1>
+  <title>FTP</title>
+  <para>
+   The "File Transfer Protocol" is a widley used file sharing protocol. For more information see <ulink url="http://en.wikipedia.org/wiki/File_Transfer_Protocol">http://en.wikipedia.org/wiki/File_Transfer_Protocol</ulink>.
+  </para>
+ </sect1>
+</chapter>
+<!-- Keep this comment at the end of the file
+Local Variables:
+mode: xml
+sgml-parent-document: ("./nephthys.xml" "legalnotice")
+End:
+-->

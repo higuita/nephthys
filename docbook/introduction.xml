@@ -1,0 +1,47 @@
+<?xml version="1.0"  encoding="ISO-8859-1"?>
+<chapter id="introduction" lang="en">
+ <title>Introduction</title>
+ <sect1>
+  <title>Nephthys</title>
+  <para>
+   Nephthys is a administration tool for file sharing with common file transfer methods like WebDAV and FTP. In general Nephthys provides a web interface for handling file sharing slots (so called 'buckets') and the necessary directory structure on the server. Nephthys it self does not provide any functionallity for WebDAV or FTP - it relys on well known projects like Apache, proftpd and others.
+  </para>
+  <para>
+   The interface has been designed to be simple and esay to handle so that everybody can use it to share files.
+  </para>
+ </sect1>
+ <sect1>
+  <title>How does Nephthys its job?</title>
+  <para>
+   Via the Nephthys web interface a user can create buckets. These buckets stand for directories in the webserver's file system. Each of the buckets has a corresponding directory in the filesystem which get identified by a SHA1-hash.
+  </para>
+  <para>
+   The idea behind is, that no authentication for the access protocol (WebDAV, FTP, ...) is necessary. Instead the access protocol only needs to ensure, that no directory-listing is possible in the root directory. Otherwise it would be possible to find out which buckets are there. Because of the SHA1-named (40 characters long) directories it is difficult to locate them without the possibility of directory-listing.
+  </para>
+ </sect1>
+ <sect1>
+  <title>Requirements</title>
+  <para>
+   <itemizedlist>
+    <listitem><para>On client side - a web browser that supports JavaScript (like all modern browsers)</para></listitem>
+    <listitem><para>Linux-based operating system</para></listitem>
+    <listitem><para>Apache HTTP webserver (<ulink url="http://httpd.apache.org/">http://httpd.apache.org/</ulink>)</para></listitem>
+    <listitem><para>PHP5 (<ulink url="http://www.php.net/">http://www.php.net/</ulink>)</para></listitem>
+    <listitem><para>proftpd (<ulink url="http://www.proftpd.org">http://www.proftpd.org</ulink>, or any other suiteable FTP server)</para></listitem>
+    <listitem><para>MySQL (>= 5.0, <ulink url="http://httpd.apache.org">http://httpd.apache.org</ulink>) or SQLite (2.0, <ulink url="http://www.sqlite.net">http://www.sqlite.net</ulink>)</para></listitem>
+   </itemizedlist>
+  </para>
+ </sect1>
+ <sect1>
+  <title>Installation</title>
+  <para> 
+   For now please follow the installation instructions that can be found on the <ulink url="http://oss.netshadow.at/wiki/nephthys/Installation">project's website</ulink>.
+  </para>
+ </sect1>
+</chapter>
+<!-- Keep this comment at the end of the file
+Local Variables:
+mode: xml
+sgml-parent-document: ("./nephthys.xml" "legalnotice")
+End:
+-->

@@ -255,6 +255,9 @@ class NEPHTHYS {
          case 'about':
             return $this->tmpl->show("about.tpl");
             break;
+         case 'help':
+            return $this->tmpl->show("help.tpl");
+            break;
       }
 
       if(isset($obj))
