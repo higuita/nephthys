@@ -234,6 +234,15 @@ class NEPHTHYS_BUCKETS {
          return _("Please enter a valid receiver email address!");
       }
 
+      /* first of all we add the email address to the addressbook if requested.
+         If after something goes wrong, the address is already in the database
+         and user saves some keystrokes...
+      */
+      if(isset($_POST['bucket_receiver_to_ab']) &&
+         $_POST['bucket_receiver_to_ab'] == 'Y') {
+         $this->parent->add_to_addressbook($_POST['bucket_receiver']);
+      }
+
       if(isset($new)) {
 
          if(isset($_POST['bucket_receiver']))

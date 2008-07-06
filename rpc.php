@@ -79,6 +79,9 @@ class NEPHTHYS_RPC {
             else
                print "failed";
             break;
+         case 'getxmllist':
+            print $nephthys->get_xml_list();
+            break;
          default:
             print "unkown action ". $action;
             break;

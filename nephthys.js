@@ -374,3 +374,20 @@ function init_ajaxtabs()
 
 } // init_ajaxtabs()
 
+function load_autosuggest(obj)
+{
+   if(as == undefined) {
+      var options = {
+         script: "rpc.php?action=getxmllist&",
+         varname: "search",
+         json: false,
+         shownoresults: false,
+         maxresults: 15
+      };
+
+      as = new bsn.AutoSuggest(obj, options);
+   }
+} // load_autosuggest()
+
+var as = undefined;
+

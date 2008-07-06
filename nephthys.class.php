@@ -23,6 +23,7 @@
 
 require_once "nephthys_db.php";
 require_once "nephthys_buckets.php";
+require_once "nephthys_addressbook.php";
 require_once "nephthys_users.php";
 require_once "nephthys_profile.php";
 
@@ -252,6 +253,9 @@ class NEPHTHYS {
          case 'profile':
             $obj = new NEPHTHYS_PROFILE();
             break;
+         case 'addressbook':
+            $obj = new NEPHTHYS_ADDRESSBOOK();
+            break;
          case 'about':
             return $this->tmpl->show("about.tpl");
             break;
@@ -281,6 +285,12 @@ class NEPHTHYS {
                break;
             case 'profile':
                $obj = new NEPHTHYS_PROFILE;
+               break;
+            case 'addressbook':
+               $obj = new NEPHTHYS_ADDRESSBOOK;
+               break;
+            default:
+               return "unkown module";
                break;
          }
 
@@ -774,7 +784,7 @@ class NEPHTHYS {
       /* set application name and version information */
       $this->cfg->product = "Nephthys";
       $this->cfg->version = "1.0";
-      $this->cfg->db_version = 1;
+      $this->cfg->db_version = 2;
 
       return true;
 
@@ -1161,7 +1171,128 @@ class NEPHTHYS {
          ");
       }
 
+      if(!$this->db->db_check_table_exists("nephthys_addressbook")) {
+         switch($this->cfg->db_type) {
+            default:
+            case 'mysql':
+               $db_create = "CREATE TABLE `nephthys_addressbook` (
+                  `contact_idx` int(11) NOT NULL auto_increment,
+                  `contact_email` varchar(255) default NULL,
+                  `contact_owner` int(11) default NULL,
+                  PRIMARY KEY  (`contact_idx`)
+                  ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+               ";
+               break;
+            case 'sqlite':
+               $db_create = "CREATE TABLE nephthys_addressbook (
+                  contact_idx INTEGER PRIMARY KEY,
+                  contact_email varchar(255),
+                  contact_owner INTEGER
+               )";
+               break;
+         }
+
+         if(!$this->db->db_exec($db_create)) {
+            die("Can't create table nephthys_meta");
+         }
+      }
+
    } // check_db_tables()
+
+   /**
+    * add a email address to user's address book
+    *
+    * @param string $email
+    */
+   public function add_to_addressbook($email)
+   {
+      $to_ab = Array();
+
+      /* only one email address? */
+      if(strstr($email, ',') === false)
+         array_push($to_ab, $email);
+
+      /* multiple email addresses */
+      $emails = split(",", $email);
+      foreach($emails as $email_addr) {
+         /* return as soon as an invalid address has been found */
+         array_push($to_ab, $email_addr);
+      }
+
+      /* loop over all contacts */
+      foreach($to_ab as $address) {
+
+         if($this->db->db_fetchSingleRow("
+            SELECT *
+            FROM nephthys_addressbook
+            WHERE
+               contact_email LIKE '". $address ."'
+            ")) {
+            continue;
+         }
+
+         $this->db->db_query("
+            INSERT INTO nephthys_addressbook (
+               contact_idx, contact_email, contact_owner
+            ) VALUES (
+               NULL,
+               '". $address ."',
+               '". $_SESSION['login_idx'] ."'
+            )
+         ");
+
+      }
+
+   } // add_to_addressbook
+
+   /**
+    * returns the value for the autocomplete tag-search
+    * @return string
+    */
+   public function get_xml_list()
+   {
+      if(!isset($_GET['search']) || !is_string($_GET['search']))
+         $_GET['search'] = '';
+
+      $length = 15;
+      $i = 1;
+
+      $matched_contacts = Array();
+
+      header("Content-Type: text/xml");
+
+      $string = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n";
+      $string.= "<results>\n";
+
+      $contacts = $this->db->db_query("
+         SELECT
+            contact_idx, contact_email
+         FROM
+            nephthys_addressbook
+         WHERE
+            contact_owner LIKE '". $_SESSION['login_idx'] ."'
+      ");
+
+      while($contact = $contacts->fetchRow()) {
+
+         if(!empty($_GET['search']) &&
+            preg_match("/". $_GET['search'] ."/i", $contact->contact_email) &&
+            count($matched_contacts) < $length) {
+
+            $string.= " <rs id=\"". $i ."\" info=\"\">". htmlspecialchars($contact->contact_email) ."</rs>\n";
+            $i++;
+         }
+
+         /* if we have collected enough items, break out */
+         if(count($matched_contacts) >= $length)
+            break;
+      }
+
+      $string.= "</results>\n";
+
+      return $string;
+
+   } // get_xml_list()
 
 } // class NEPHTHYS
 
