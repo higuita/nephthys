@@ -215,7 +215,7 @@ class NEPHTHYS_BUCKETS {
          return _("Please enter a sender for this bucket!");
       }
       if(!$this->parent->is_valid_email($_POST['bucket_sender'])) {
-         return _("Please enter a valid sender email address! test" . $_POST['bucket_sender']);
+         return _("Please enter a valid sender email address!");
       }
       if(isset($_POST['bucketmode']) && $_POST['bucketmode'] == "receive" &&
          !isset($_POST['bucket_receiver']) || empty($_POST['bucket_name'])) {
