@@ -783,7 +783,7 @@ class NEPHTHYS {
 
       /* set application name and version information */
       $this->cfg->product = "Nephthys";
-      $this->cfg->version = "1.0";
+      $this->cfg->version = "1.1";
       $this->cfg->db_version = 2;
 
       return true;
