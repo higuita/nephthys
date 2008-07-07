@@ -243,6 +243,13 @@ class NEPHTHYS_BUCKETS {
          $this->parent->add_to_addressbook($_POST['bucket_receiver']);
       }
 
+      /* escape everything that looks like HTML */
+      $_POST['bucket_name'] = htmlentities($_POST['bucket_name']);
+      $_POST['bucket_sender'] = htmlentities($_POST['bucket_sender']);
+      if(isset($_POST['bucket_receiver']) && !empty($_POST['bucket_receiver']))
+         $_POST['bucket_receiver'] = htmlentities($_POST['bucket_receiver']);
+      $_POST['bucket_note'] = htmlentities($_POST['bucket_note']);
+
       if(isset($new)) {
 
          if(isset($_POST['bucket_receiver']))
