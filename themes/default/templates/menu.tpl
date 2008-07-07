@@ -5,6 +5,7 @@
      { if $login_priv == "admin" }
      <li><a href="rpc.php?action=get_content&id=users" rel="users" title="Manage Nephthys users">Users</a></li>
      { /if }
+     <li><a href="rpc.php?action=get_content&id=help" rel="help" title="Nephthys Help">Help</a></li>
      <li><a href="rpc.php?action=get_content&id=about" rel="about" title="Nephthys info">About</a></li>
      </ul>
    </div>
