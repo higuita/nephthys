@@ -185,6 +185,8 @@ class NEPHTHYS {
       if(isset($this->browser_info) && $this->browser_info->isIE())
          $this->tmpl->assign('is_ie', true);
 
+      $this->tmpl->assign('hide_logout', $this->cfg->hide_logout);
+
    } // __construct()
 
    public function __destruct()
@@ -1322,6 +1324,7 @@ class NEPHTHYS_DEFAULT_CFG {
    var $logging     = "display";
    var $log_file    = "nephthys_err.log";
    var $ignore_js   = false;
+   var $hide_logout = false;
    var $use_https   = false;
    var $bucket_via_dav = true;
    var $bucket_via_ftp = true;
