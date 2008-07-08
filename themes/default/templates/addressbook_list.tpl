@@ -1,4 +1,4 @@
-{ page_start header="Addressbook" subheader="Manage your addressbook contacts:" }
+{ page_start header="Address-Book" subheader="Manage your address-book contacts:" }
 
 <table class="withborder">
  <tr class="subhead">
@@ -32,7 +32,7 @@
  <tr>
   <td colspan="2">
    <br />
-   Currently your addressbook does not contain any contacts. They will be added when you create buckets and have entered a receiver email address. Then this email address will be automatically added to your addressbook.
+   Currently your address-book does not contain any contacts. They will be added when you create buckets and have entered a receiver email address. Then this email address will be automatically added to your address-book.
    <br />
   </td>
  </tr>

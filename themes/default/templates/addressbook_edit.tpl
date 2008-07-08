@@ -33,7 +33,7 @@
  </tr>
  { /if }
  <tr>
-  <td>{ save_button text="Save and return to front-page" }</td>
+  <td>{ save_button text="Save and return to address-book list" }</td>
  </tr>
  <tr>
   <td><div id="generalerror" style="visibility: hidden;"></div></td>

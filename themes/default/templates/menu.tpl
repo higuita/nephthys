@@ -2,7 +2,7 @@
     <ul id="menutabs" class="shadetabs">
      <li><a href="rpc.php?action=get_content&id=main" class="selected" rel="buckets" title="Bucket listing">Start Page</a></li>
      <li><a href="rpc.php?action=get_content&id=profile&mode=edit" rel="users" title="Manage your profile">My Profile</a></li>
-     <li><a href="rpc.php?action=get_content&id=addressbook" rel="address book" title="Manage your addresbook">Addressbook</a></li>
+     <li><a href="rpc.php?action=get_content&id=addressbook" rel="address-book" title="Manage your address-book">Address-Book</a></li>
      { if $login_priv == "admin" }
      <li><a href="rpc.php?action=get_content&id=users" rel="users" title="Manage Nephthys users">Users</a></li>
      { /if }

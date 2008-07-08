@@ -47,7 +47,7 @@
  </tr>
  <tr>
   <td colspan="2">
-   <input type="checkbox" name="bucket_receiver_to_ab" value="Y" checked="checked">&nbsp;add email to address book
+   <input type="checkbox" name="bucket_receiver_to_ab" value="Y" checked="checked">&nbsp;add email to address-book
   </td>
  </tr>
  <tr>
