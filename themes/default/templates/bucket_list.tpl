@@ -1,7 +1,7 @@
 <table class="withborder">
  <tr class="subhead">
   <td><img src="images/bucket_small.png" />&nbsp;Name</td>
-  <td>Open Bucket to add Files</td>
+  <td><img src="images/open.png" />&nbsp;Open Bucket to add Files</td>
   { if $login_priv == "manager" || $login_priv == "admin" }
   <td><img src="images/user.png" />&nbsp;Owner</td>
   { /if }
