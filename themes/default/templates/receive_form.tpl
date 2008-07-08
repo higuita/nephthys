@@ -47,7 +47,7 @@
  </tr>
  <tr>
   <td colspan="2">
-   <input type="checkbox" name="bucket_receiver_to_ab" value="Y" checked="checked">&nbsp;add email to address-book
+   <input type="checkbox" class="checkbox" name="bucket_receiver_to_ab" value="Y" checked="checked">&nbsp;add email to address-book
   </td>
  </tr>
  <tr>
@@ -90,7 +90,7 @@
  </tr>
  <tr>
   <td colspan="2">
-   <input type="checkbox" name="notifybucket" value="true" checked=\"checked\">&nbsp;
+   <input type="checkbox" class="checkbox" name="notifybucket" value="true" checked=\"checked\">&nbsp;
    Send email notification to receiver immediately after creating bucket.
   </td>
  </tr>
