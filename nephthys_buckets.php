@@ -237,9 +237,14 @@ class NEPHTHYS_BUCKETS {
       /* first of all we add the email address to the addressbook if requested.
          If after something goes wrong, the address is already in the database
          and user saves some keystrokes...
+
+         but only if the "add email to address-book" is checked and a receiver
+         address has been specified.
       */
       if(isset($_POST['bucket_receiver_to_ab']) &&
-         $_POST['bucket_receiver_to_ab'] == 'Y') {
+         $_POST['bucket_receiver_to_ab'] == 'Y' &&
+         isset($_POST['bucket_receiver']) &&
+         !empty($_POST['bucket_receiver'])) {
          $this->parent->add_to_addressbook($_POST['bucket_receiver']);
       }
 
