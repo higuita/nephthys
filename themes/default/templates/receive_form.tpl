@@ -98,7 +98,7 @@
   <td colspan="2">&nbsp;</td>
  </tr>
  <tr>
-  <td>{ save_button text="Save bucket and return to front-page" }</td>
+  <td>{ save_button text="Create bucket" }</td>
  </tr>
  <tr>
   <td><div id="generalerror" style="visibility: hidden;"></div></td>

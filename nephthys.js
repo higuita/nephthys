@@ -89,10 +89,14 @@ function js_create_bucket(obj, target)
       return false;
    }
 
-   var retval = ajax_save_form(obj, target);
+   var retobj = ajax_save_form(obj, target);
+   var retval = retobj.split(';');
 
-   if(retval == "ok") {
-      ajax_show_content('main');
+   if(retval[0] == "ok") {
+      if(retval[1] != undefined)
+         ajax_show_content('savedbucket', '&idx=' + retval[1]);
+      else
+         ajax_show_content('main');
    }
    else {
       var errortext = document.getElementById('generalerror');
