@@ -81,7 +81,7 @@
   <td>&nbsp;</td>
  </tr>
  <tr>
-  <td>The above links you can also find on the "Start Page" for later usuage.</td>
+  <td>The above links you can also find on the "Start Page" for later usage.</td>
  </tr>
  <tr>
   <td>&nbsp;</td>
