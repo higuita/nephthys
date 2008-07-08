@@ -8,7 +8,7 @@
   <td><img src="images/clock.png" />&nbsp;Created</td>
   <td><img src="images/clock_red.png" />&nbsp;Expires</td>
   <td><img src="images/email.png" />&nbsp;Notified</td>
-  <td>Actions</td>
+  <td><img src="images/action.png" />&nbsp;Actions</td>
  </tr>
 
 { if $user_has_buckets }
