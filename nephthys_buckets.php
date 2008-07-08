@@ -105,6 +105,60 @@ class NEPHTHYS_BUCKETS {
 
    } // show()
 
+   /**
+    * display a page containing bucket info
+    *
+    * this function returns a page containing information
+    * about the requested (or previously created) bucket.
+    *
+    * @return string
+    */
+   public function showBucket()
+   {
+      if(!$this->parent->is_logged_in()) {
+         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". _("Manage Users"), _("You do not have enough permissions to access this module!"));
+         return 0;
+      }
+
+      if(!isset($_GET['idx']) || empty($_GET['idx']) ||
+         !is_numeric($_GET['idx']))
+         return;
+
+      if($bucket = $this->db->db_fetchSingleRow("
+         SELECT *
+         FROM
+            nephthys_buckets
+         WHERE
+            bucket_idx LIKE '". $_GET['idx'] ."'")) {
+
+         $this->tmpl->assign('bucket_idx', $bucket_idx);
+         $this->tmpl->assign('bucket_name', $bucket->bucket_name);
+         $this->tmpl->assign('bucket_expire', $this->parent->get_user_expire($_SESSION['login_idx']));
+
+         if($bucket->bucket_expire != "-1")
+            $bucket_expire = $bucket->bucket_created + ($bucket->bucket_expire*86400);
+
+         $bucket_ftp = $this->parent->get_url('ftp', $bucket->bucket_hash);
+         $bucket_webdav = $this->parent->get_url('dav', $bucket->bucket_hash);
+
+         if($bucket->bucket_expire != "-1")
+            $this->tmpl->assign('bucket_expire', strftime("%Y-%m-%d", $bucket_expire));
+         else
+            $this->tmpl->assign('bucket_expire', 'never');
+
+         $this->tmpl->assign('bucket_receiver', $bucket->bucket_receiver);
+         $this->tmpl->assign('bucket_webdav_path', $bucket_webdav);
+         $this->tmpl->assign('bucket_ftp_path', $bucket_ftp);
+
+         return $this->tmpl->show('saved_bucket.tpl');
+
+      }
+
+      return;
+
+   } // show()
+
+ 
    public function notify()
    {
       if(!($bucket = $this->parent->getbucketDetails($this->id)))
@@ -215,7 +269,7 @@ class NEPHTHYS_BUCKETS {
          return _("Please enter a sender for this bucket!");
       }
       if(!$this->parent->is_valid_email($_POST['bucket_sender'])) {
-         return _("Please enter a valid sender email address! test" . $_POST['bucket_sender']);
+         return _("Please enter a valid sender email address!");
       }
       if(isset($_POST['bucketmode']) && $_POST['bucketmode'] == "receive" &&
          !isset($_POST['bucket_receiver']) || empty($_POST['bucket_name'])) {
@@ -233,6 +287,27 @@ class NEPHTHYS_BUCKETS {
          !$this->parent->is_valid_email($_POST['bucket_receiver'])) {
          return _("Please enter a valid receiver email address!");
       }
+
+      /* first of all we add the email address to the addressbook if requested.
+         If after something goes wrong, the address is already in the database
+         and user saves some keystrokes...
+
+         but only if the "add email to address-book" is checked and a receiver
+         address has been specified.
+      */
+      if(isset($_POST['bucket_receiver_to_ab']) &&
+         $_POST['bucket_receiver_to_ab'] == 'Y' &&
+         isset($_POST['bucket_receiver']) &&
+         !empty($_POST['bucket_receiver'])) {
+         $this->parent->add_to_addressbook($_POST['bucket_receiver']);
+      }
+
+      /* escape everything that looks like HTML */
+      $_POST['bucket_name'] = htmlentities($_POST['bucket_name']);
+      $_POST['bucket_sender'] = htmlentities($_POST['bucket_sender']);
+      if(isset($_POST['bucket_receiver']) && !empty($_POST['bucket_receiver']))
+         $_POST['bucket_receiver'] = htmlentities($_POST['bucket_receiver']);
+      $_POST['bucket_note'] = htmlentities($_POST['bucket_note']);
 
       if(isset($new)) {
 
@@ -263,6 +338,7 @@ class NEPHTHYS_BUCKETS {
          ");
 
          $this->id = $this->db->db_getid();
+         $last_id = $this->id;
 
          if(!mkdir($this->parent->cfg->data_path ."/". $hash)) {
             return "There was a error creating the bucket directory. Contact your administrator!";
@@ -302,7 +378,10 @@ class NEPHTHYS_BUCKETS {
             ");
       }
 
-      return "ok";
+      if(!isset($last_id))
+         return "ok";
+
+      return "ok;". $last_id;
 
    } // store()
 

@@ -1,13 +1,13 @@
 <table class="withborder">
  <tr class="subhead">
-  <td><img src="images/bucket_small.png" />&nbsp;Bucket</td>
+  <td><img src="images/bucket_small.png" />&nbsp;Name</td>
+  <td><img src="images/open.png" />&nbsp;Open Bucket to add Files</td>
   { if $login_priv == "manager" || $login_priv == "admin" }
   <td><img src="images/user.png" />&nbsp;Owner</td>
   { /if }
   <td><img src="images/clock.png" />&nbsp;Created</td>
   <td><img src="images/clock_red.png" />&nbsp;Expires</td>
   <td><img src="images/email.png" />&nbsp;Notified</td>
-  <td>Open Bucket</td>
   <td>Actions</td>
  </tr>
 
@@ -18,14 +18,6 @@
   <td>
    <a href="javascript:ajax_show_content('buckets', '&mode=edit&idx={ $bucket_idx }');" title="Click to edit this bucket"><img src="images/bucket_small.png" />&nbsp;{ $bucket_name }</a>
   </td>
-  { if $login_priv == "manager" || $login_priv == "admin" }
-  <td>
-   <a href="javascript:ajax_show_content('users', '&mode=edit&idx={ $bucket_owner_idx }');"><img src="images/user.png" />&nbsp;{ $bucket_owner }</a>
-  </td>
-  { /if }
-  <td><img src="images/clock.png" />&nbsp;{ $bucket_created }</td>
-  <td><img src="images/clock_red.png" />&nbsp;{ $bucket_expire }</td>
-  <td><img src="images/email.png" />&nbsp;{ $bucket_notified }</td>
   <td style="vertical-align: middle;">
 
    <!-- WebDAV support is enabled -->
@@ -34,12 +26,11 @@
     <!-- Browser is Internet Explorer -->
     { if $is_ie }
      <span style="behavior: url(#default#httpFolder); cursor: pointer; font-size: 14px; color: #000000;" onclick="this.navigateFrame('{ $bucket_webdav_path }', '_blank');">
-    { /if }
-
       <a href="{ $bucket_webdav_path }" onclick="return false;" title="Open bucket via WebDAV"><img src="images/webdav.png" />&nbsp;WebDAV</a>
-
-    { if $is_ie }
      </span>
+    <!-- Every other browser -->
+    { else }
+      <a href="{ $bucket_webdav_path }" onclick="return false;" title="Open bucket via WebDAV"><img src="images/webdav.png" />&nbsp;WebDAV</a>
     { /if }
 
     &nbsp;
@@ -51,6 +42,15 @@
    <a href="{ $bucket_ftp_path }" target="_blank" title="Open bucket via FTP"><img src="images/ftp.png" />&nbsp;FTP</a>
    { /if }
   </td>
+
+  { if $login_priv == "manager" || $login_priv == "admin" }
+  <td>
+   <a href="javascript:ajax_show_content('users', '&mode=edit&idx={ $bucket_owner_idx }');"><img src="images/user.png" />&nbsp;{ $bucket_owner }</a>
+  </td>
+  { /if }
+  <td><img src="images/clock.png" />&nbsp;{ $bucket_created }</td>
+  <td><img src="images/clock_red.png" />&nbsp;{ $bucket_expire }</td>
+  <td><img src="images/email.png" />&nbsp;{ $bucket_notified }</td>
   <td>
    <a href="javascript:js_delete_obj('buckets', 'main', '{ $bucket_idx }');" title="Delete bucket"><img src="images/delete.png" />&nbsp;Delete</a>
    <a href="javascript:ajax_notify_bucket({ $bucket_idx });" title="Send notification e-mails"><img src="images/mail.png" />&nbsp;Notify</a>
