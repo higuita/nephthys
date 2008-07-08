@@ -115,8 +115,13 @@ class NEPHTHYS_PROFILE {
          return _("The two entered passwords do not match!");
       }	       
 
+
       /* user-privileged are not allowed to change their user-names */
       if(!$this->parent->check_privileges('user')) {
+
+         /* escape everything that looks like HTML */
+         $_POST['user_name'] = htmlentities($_POST['user_name']);
+
          $this->db->db_query("
             UPDATE nephthys_users
             SET
@@ -133,6 +138,9 @@ class NEPHTHYS_PROFILE {
       if(!$this->parent->check_privileges('user') ||
          $this->parent->is_auto_created($_SESSION['login_idx'])) {
 
+         /* escape everything that looks like HTML */
+         $_POST['user_email'] = htmlentities($_POST['user_email']);
+
          if(!isset($_POST['user_email']) || empty($_POST['user_email'])) {
             return _("Please enter a email address!");
          }
@@ -148,6 +156,9 @@ class NEPHTHYS_PROFILE {
                user_idx='". $_POST['user_idx'] ."'
          ");
       }
+
+      /* escape everything that looks like HTML */
+      $_POST['user_full_name'] = htmlentities($_POST['user_full_name']);
 
       /* update user's full name and default-expiry time */
       $this->db->db_query("

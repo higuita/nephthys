@@ -94,6 +94,10 @@ class NEPHTHYS_CFG extends NEPHTHYS_DEFAULT_CFG {
    // Default:
    //   var $user_auto_create = false;
 
+   // Hide logout link - maybe useful if server authentication is enabled
+   // Default:
+   //   var $hide_logout = false;
+
    // Servername - hostname which will be sent out in email.
    // Default:
    //   var $servername = Auto-detect-from-Apache

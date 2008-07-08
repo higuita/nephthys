@@ -39,10 +39,15 @@
  </tr>
  <tr>
   <td>
-   <input type="text" name="bucket_receiver" class="inputedit" maxlength="250" value="{ $bucket_receiver }" onchange="js_validate_email(this, 'receiveremail');" />
+   <input type="text" name="bucket_receiver" id="bucket_receiver" class="inputedit" maxlength="250" value="{ $bucket_receiver }" onfocus="load_autosuggest('bucket_receiver');" onchange="js_validate_email(this, 'receiveremail');" onblur="js_validate_email(this, 'receiveremail');" acdropdown="true" autocomplete_list="url:rpc.php?action=getxmllist&search=[S]&length=10" />
   </td>
   <td>
    <div id="receiveremail" style="visibility: hidden;"></div>
+  </td>
+ </tr>
+ <tr>
+  <td colspan="2">
+   <input type="checkbox" class="checkbox" name="bucket_receiver_to_ab" value="Y" checked="checked">&nbsp;add email to address-book
   </td>
  </tr>
  <tr>
@@ -84,7 +89,7 @@
   <td colspan="2">&nbsp;</td>
  </tr>
  <tr>
-  <td>{ save_button text="Save bucket and return to start-page" }</td>
+  <td>{ save_button text="Create bucket" }</td>
  </tr>
  <tr>
   <td><div id="generalerror" style="visibility: hidden;"></div></td>
