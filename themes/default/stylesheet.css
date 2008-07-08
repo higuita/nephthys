@@ -46,6 +46,10 @@ table.withborder {
    width:                  100%;
 }
 
+td.miniheader {
+   font-weight:            bold;
+}
+
 /* overall surrounding box */
 #box {
    margin-top:             0px;

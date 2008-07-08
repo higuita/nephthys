@@ -262,6 +262,10 @@ class NEPHTHYS {
          case 'help':
             return $this->tmpl->show("help.tpl");
             break;
+         case 'savedbucket':
+            $obj = new NEPHTHYS_BUCKETS();
+            return $obj->showBucket();
+            break;
       }
 
       if(isset($obj))
