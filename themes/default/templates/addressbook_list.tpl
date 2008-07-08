@@ -9,6 +9,8 @@
   <td>Actions</td>
  </tr>
 
+{ if $user_has_contacts }
+
 { contact_list }
  <tr onmouseover="setBackGrdColor(this, 'mouseover');" onmouseout="setBackGrdColor(this, 'mouseout');">
   <td>
@@ -24,5 +26,17 @@
   </td>
  </tr>
 { /contact_list }
+
+{ else }
+
+ <tr>
+  <td colspan="2">
+   <br />
+   Currently your addressbook does not contain any contacts. They will be added when you create buckets and have entered a receiver email address. Then this email address will be automatically added to your addressbook.
+   <br />
+  </td>
+ </tr>
+
+{ /if }
 
 </table>
