@@ -6,8 +6,8 @@
   <link href="{$template_path}/stylesheet.css" type="text/css" rel="stylesheet" />
   <script type="text/javascript" src="rpc.php?mode=init&amp;client=all"></script>
   <script type="text/javascript" src="nephthys.js"></script>
-  <link rel="shortcut icon" href="resources/gpl_16.png" type="image/png" />
-  <link rel="icon" href="resources/gpl_16.png" type="image/png" />
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
   <link rel="stylesheet" type="text/css" href="ajaxtabs/ajaxtabs.css" />
   <script type="text/javascript" src="ajaxtabs/ajaxtabs.js">
 /***********************************************

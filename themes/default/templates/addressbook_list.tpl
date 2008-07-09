@@ -2,11 +2,11 @@
 
 <table class="withborder">
  <tr class="subhead">
-  <td><img src="images/contact_small.png" />&nbsp;Contact</td>
+  <td><img src="images/contact.png" />&nbsp;Contact</td>
   { if $login_priv == "manager" || $login_priv == "admin" }
   <td><img src="images/user.png" />&nbsp;Owner</td>
   { /if }
-  <td>Actions</td>
+  <td><img src="images/action.png" />&nbsp;Actions</td>
  </tr>
 
 { if $user_has_contacts }
@@ -14,7 +14,7 @@
 { contact_list }
  <tr onmouseover="setBackGrdColor(this, 'mouseover');" onmouseout="setBackGrdColor(this, 'mouseout');">
   <td>
-   <a href="javascript:ajax_show_content('addressbook', '&mode=edit&idx={ $contact_idx }');" title="Click to edit this contact"><img src="images/contact_small.png" />&nbsp;{ $contact_email }</a>
+   <a href="javascript:ajax_show_content('addressbook', '&mode=edit&idx={ $contact_idx }');" title="Click to edit this contact"><img src="images/contact.png" />&nbsp;{ $contact_email }</a>
   </td>
   { if $login_priv == "manager" || $login_priv == "admin" }
   <td>
