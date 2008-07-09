@@ -1019,7 +1019,7 @@ class NEPHTHYS {
 
       }
 
-      return flase;
+      return false;
 
    } // is_auto_created()
 
