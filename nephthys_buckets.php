@@ -318,7 +318,7 @@ class NEPHTHYS_BUCKETS {
             $hash = $this->parent->get_sha_hash($_POST['bucket_sender']);
          }
 
-         $this->db->db_query("
+         $sth = $this->db->db_prepare("
             INSERT INTO nephthys_buckets (
                bucket_idx,
                bucket_name, bucket_sender, bucket_receiver, bucket_created,
@@ -326,16 +326,20 @@ class NEPHTHYS_BUCKETS {
                bucket_active
             ) VALUES (
                NULL,
-               '". $_POST['bucket_name'] ."',
-               '". $_POST['bucket_sender'] ."',
-               '". $_POST['bucket_receiver'] ."',
-               '". mktime() ."',
-               '". $_POST['bucket_expire'] ."',
-               '". $_POST['bucket_note'] ."',
-               '". $hash ."',
-               '". $_POST['bucket_owner'] ."',
-               'Y')
+               ?, ?, ?, '". mktime() ."',
+               ?, ?, '". $hash ."', ?,
+               'Y'
+            )
          ");
+
+         $this->db->db_execute($sth, array(
+            $_POST['bucket_name'],
+            $_POST['bucket_sender'],
+            $_POST['bucket_receiver'],
+            $_POST['bucket_expire'],
+            $_POST['bucket_note'],
+            $_POST['bucket_owner'],
+         ));
 
          $this->id = $this->db->db_getid();
          $last_id = $this->id;
@@ -363,19 +367,31 @@ class NEPHTHYS_BUCKETS {
 
       }
       else {
-           $this->db->db_query("
-               UPDATE nephthys_buckets
-               SET
-                  bucket_name='". $_POST['bucket_name'] ."',
-                  bucket_sender='". $_POST['bucket_sender'] ."',
-                  bucket_receiver='". $_POST['bucket_receiver'] ."',
-                  bucket_expire='". $_POST['bucket_expire'] ."',
-                  bucket_note='". $_POST['bucket_note'] ."',
-                  bucket_owner='". $_POST['bucket_owner'] ."',
-                  bucket_active='Y'
-               WHERE
-                  bucket_idx='". $_POST['bucket_idx'] ."'
-            ");
+
+        $sth = $this->db->db_prepare("
+            UPDATE nephthys_buckets
+            SET
+               bucket_name=?,
+               bucket_sender=?,
+               bucket_receiver=?,
+               bucket_expire=?,
+               bucket_note=?,
+               bucket_owner=?,
+               bucket_active='Y'
+            WHERE
+               bucket_idx=?
+         ");
+
+         $this->db->db_execute($sth, array(
+            $_POST['bucket_name'],
+            $_POST['bucket_sender'],
+            $_POST['bucket_receiver'],
+            $_POST['bucket_expire'],
+            $_POST['bucket_note'],
+            $_POST['bucket_owner'],
+            $_POST['bucket_idx'],
+         ));
+
       }
 
       if(!isset($last_id))

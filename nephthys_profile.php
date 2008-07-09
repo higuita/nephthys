@@ -122,13 +122,18 @@ class NEPHTHYS_PROFILE {
          /* escape everything that looks like HTML */
          $_POST['user_name'] = htmlentities($_POST['user_name']);
 
-         $this->db->db_query("
+         $sth = $this->db->db_prepare("
             UPDATE nephthys_users
             SET
-               user_name='". $_POST['user_name'] ."'
+               user_name=?
             WHERE
-               user_idx='". $_POST['user_idx'] ."'
+               user_idx=?
          ");
+
+         $this->db->db_execute($sth, array(
+            $_POST['user_name'],
+            $_POST['user_idx'],
+         ));
       }
 
       /* handling email-address update. only privileged- or auto-created users
@@ -148,37 +153,54 @@ class NEPHTHYS_PROFILE {
             return _("Please enter a valid email address!");
          }
 
-         $this->db->db_query("
+         $sth = $this->db->db_prepare("
             UPDATE nephthys_users
             SET
-               user_email='". $_POST['user_email'] ."'
+               user_email=?
             WHERE
-               user_idx='". $_POST['user_idx'] ."'
+               user_idx=?
          ");
+
+         $this->db->db_execute($sth, array(
+            $_POST['user_email'],
+            $_POST['user_idx'],
+         ));
       }
 
       /* escape everything that looks like HTML */
       $_POST['user_full_name'] = htmlentities($_POST['user_full_name']);
 
       /* update user's full name and default-expiry time */
-      $this->db->db_query("
+      $sth = $this->db->db_prepare("
          UPDATE nephthys_users
          SET
-            user_full_name='". $_POST['user_full_name'] ."',
-            user_default_expire='". $_POST['user_default_expire'] ."'
+            user_full_name=?,
+            user_default_expire=?
          WHERE
-            user_idx='". $_POST['user_idx'] ."'
+            user_idx=?
       ");
+
+      $this->db->db_execute($sth, array(
+         $_POST['user_full_name'],
+         $_POST['user_default_expire'],
+         $_POST['user_idx'],
+      ));
 
       /* if a password change was requested, change it here. */
       if($_POST['user_pass1'] != " nochangeMS ") {
-         $this->db->db_query("
+
+         $sth = $this->db->db_prepare("
             UPDATE nephthys_users
             SET
-               user_pass='". sha1($_POST['user_pass1']) ."' 
+               user_pass=?
             WHERE
-               user_idx='". $_POST['user_idx'] ."'
+               user_idx=?
          ");
+
+         $this->db->db_execute($sth, array(
+            sha1($_POST['user_pass1']),
+            $_POST['user_idx'],
+         ));
       }
 		  
       return "ok";
