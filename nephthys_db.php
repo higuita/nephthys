@@ -142,6 +142,62 @@ class NEPHTHYS_DB {
    } // db_query()
 
    /**
+    * NEPHTHYS_DB database prepare query
+    *
+    * This function will prepare a SQL query to be executed
+    * @param string $query
+    * @param int $mode
+    * @return mixed
+    */
+   public function db_prepare($query = "")
+   {
+      if($this->getConnStatus()) {
+
+         $this->db->prepare($query, $mode);
+
+         /* for manipulating queries use exec instead of query. can save
+          * some resource because nothing has to be allocated for results.
+          */
+         if(preg_match('/^(update|insert|delete)i/', $query)) {
+            $sth = $this->db->prepare($query, MDB2_PREPARE_MANIP);
+         }
+         else {
+            $sth = $this->db->prepare($query, MDB2_PREPARE_RESULT);
+         }
+
+         if(PEAR::isError($sth))
+            $this->throwError($sth->getMessage() .' - '. $sth->getUserInfo());
+
+         return $sth;
+      }
+      else
+         $this->ThrowError("Can't prepare query - we are not connected!");
+
+   } // db_prepare()
+
+   /**
+    * NEPHTHYS_DB database execute a prepared query
+    *
+    * This function will execute a previously prepared SQL query
+    * @param mixed $sth
+    * @param mixed $data
+    */
+   public function db_execute($sth, $data)
+   {
+      if($this->getConnStatus()) {
+
+         $result = $sth->execute($data);
+
+         if(PEAR::isError($result))
+            $this->throwError($result->getMessage() .' - '. $result->getUserInfo());
+
+      }
+      else
+         $this->ThrowError("Can't prepare query - we are not connected!");
+
+   } // db_execute()
+
+   /**
     * NEPHTHYS_DB database query & execute
     *
     * This function will execute a SQL query and return nothing.
@@ -456,6 +512,22 @@ class NEPHTHYS_DB {
       $this->last_error = $string;
 	 
    } // ThrowError()
+
+   /**
+    * quote string
+    *
+    * this function handsover the provided string to the MDB2
+    * quote() function which will return the, for the selected
+    * database system, correctly quoted string.
+    *
+    * @param string $query
+    * @return string
+    */
+   public function db_quote($obj)
+   {
+      return $this->db->quote($obj);
+
+   } // db_quote()
 
 } // NEPHTHYS_DB()
 

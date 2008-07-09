@@ -985,18 +985,16 @@ class NEPHTHYS {
     */
    private function create_user($username)
    {
-      $this->db->db_query("
+      $sth = $this->db->db_prepare("
          INSERT INTO nephthys_users (
             user_idx, user_name, user_priv,
             user_active, user_auto_created
          ) VALUES (
-            NULL,
-            '". $username ."',
-            'user',
-            'Y',
-            'Y'
+            NULL, ?, 'user', 'Y', 'Y'
          )
       ");
+
+      $this->db->db_execute($sth, array($username));
 
       return $this->db->db_getid();
 
@@ -1228,6 +1226,7 @@ class NEPHTHYS {
       /* loop over all contacts */
       foreach($to_ab as $address) {
 
+         /* do nothing if such a contact already exists */
          if($this->db->db_fetchSingleRow("
             SELECT *
             FROM nephthys_addressbook
@@ -1237,19 +1236,22 @@ class NEPHTHYS {
             continue;
          }
 
-         $this->db->db_query("
+         $sth = $this->db->db_prepare("
             INSERT INTO nephthys_addressbook (
                contact_idx, contact_email, contact_owner
             ) VALUES (
-               NULL,
-               '". $address ."',
-               '". $_SESSION['login_idx'] ."'
+               NULL, ?, ?
             )
          ");
 
+         $this->db->db_execute($sth, array(
+            $address,
+            $_SESSION['login_idx'],
+         ));
+
       }
 
-   } // add_to_addressbook
+   } // add_to_addressbook()
 
    /**
     * returns the value for the autocomplete tag-search

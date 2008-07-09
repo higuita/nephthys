@@ -109,33 +109,43 @@ class NEPHTHYS_ADDRESSBOOK {
          return _("Please enter a email address for this contact!");
       }
       if(!$this->parent->is_valid_email($_POST['contact_email'])) {
-         return _("Please enter a valid sender email address! " . $_POST['contact_email']);
+         return _("Please enter a valid sender email address!");
       }
 
       if(isset($new)) {
 
-         $this->db->db_query("
+         $sth = $this->db->db_prepare("
             INSERT INTO nephthys_addressbook (
                contact_idx, contact_email, contact_owner
             ) VALUES (
-               NULL,
-               '". $_POST['contact_email'] ."',
-               '". $_POST['contact_owner'] ."',
+               NULL, ?, ?
             )
          ");
+
+         $this->db->db_execute($sth, array(
+            $_POST['contact_email'],
+            $_POST['contact_owner'],
+         ));
 
          $this->id = $this->db->db_getid();
 
       }
       else {
-           $this->db->db_query("
+
+            $sth = $this->db->db_prepare("
                UPDATE nephthys_addressbook
                SET
-                  contact_email='". $_POST['contact_email'] ."',
-                  contact_owner='". $_POST['contact_owner'] ."'
+                  contact_email=?,
+                  contact_owner=?
                WHERE
-                  contact_idx='". $_POST['contact_idx'] ."'
+                  contact_idx=?
             ");
+
+            $this->db->db_execute($sth, array(
+               $_POST['contact_email'],
+               $_POST['contact_owner'],
+               $_POST['contact_idx'],
+            ));
       }
 
       return "ok";

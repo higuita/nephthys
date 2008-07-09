@@ -158,40 +158,61 @@ class NEPHTHYS_USERS {
  
       if(isset($new)) {
 
-         $this->db->db_query("
+         $sth = $this->db->db_prepare("
             INSERT INTO nephthys_users (
                user_idx, user_name, user_pass,
                user_email, user_priv, user_active
             ) VALUES (
-               NULL,
-               '". $_POST['user_name'] ."',
-               '". sha1($_POST['user_pass1']) ."',
-               '". $_POST['user_email'] ."',
-               '". $_POST['user_priv'] ."',
-               '". $_POST['user_active'] ."'
+               NULL, ?, ?,
+               ?, ?, ?
             )
          ");
+
+         $this->db->db_execute($sth, array(
+            $_POST['user_name'],
+            sha1($_POST['user_pass1']),
+            $_POST['user_email'],
+            $_POST['user_priv'],
+            $_POST['user_active'],
+         ));
+
       }
       else {
-         $this->db->db_query("
+
+         $sth = $this->db->db_prepare("
             UPDATE nephthys_users
             SET
-               user_name='". $_POST['user_name'] ."',
-               user_email='". $_POST['user_email'] ."',
-               user_priv='". $_POST['user_priv'] ."',
-               user_active='". $_POST['user_active'] ."'
+               user_name=?,
+               user_email=?,
+               user_priv=?,
+               user_active=?
             WHERE
-               user_idx='". $_POST['user_idx'] ."'
+               user_idx=?
          ");
 
+         $this->db->db_execute($sth, array(
+            $_POST['user_name'],
+            $_POST['user_email'],
+            $_POST['user_priv'],
+            $_POST['user_active'],
+            $_POST['user_idx'],
+         ));
+
          if($_POST['user_pass1'] != " nochangeMS ") {
-            $this->db->db_query("
+
+            $sth = $this->db->db_prepare("
                UPDATE nephthys_users
                SET
-                  user_pass='". sha1($_POST['user_pass1']) ."' 
+                  user_pass=?
                WHERE
-                  user_idx='". $_POST['user_idx'] ."'
+                  user_idx=?
             ");
+
+            $this->db->db_execute($sth, array(
+               sha1($_POST['user_pass1']),
+               $_POST['user_idx'],
+            ));
+
          }
       }
 		  
