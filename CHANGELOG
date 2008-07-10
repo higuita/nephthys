@@ -5,6 +5,9 @@ nephthys (1.1)
   * feature, config option to hide logout-link (#24)
   * feature, bucket-successfully-created page (#23)
   * bug, fixed some design mistakes (#27)
+  * bug, non-auto-created users are now able to update profile (#31)
+  * bug, correctly quote SQL queries to avoid syntax errors on special
+    characters (#29)
 
  -- Andreas Unterkircher <unki@netshadow.at>  Sat, 7 July 2008 13:30:00 +0200
 

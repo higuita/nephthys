@@ -2,7 +2,7 @@
 
 <table class="withborder">
  <tr class="subhead">
-  <td><img src="images/contact.png" />&nbsp;Contact</td>
+  <td><img src="images/contact.png" />&nbsp;Email</td>
   { if $login_priv == "manager" || $login_priv == "admin" }
   <td><img src="images/user.png" />&nbsp;Owner</td>
   { /if }
