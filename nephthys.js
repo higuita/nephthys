@@ -108,12 +108,25 @@ function js_create_bucket(obj, target)
 
 } // js_create_bucket()
 
+/**
+ * submit form via AJAX
+ *
+ * this common function is used when submit a form.
+ * if RPC call was successful ('ok'), menutabs are used
+ * to switch to the correct interface tab.
+ *
+ * @param mixed object
+ * @param string target
+ * @return boolean
+ */
 function js_submit_form(obj, target)
 {
    var retval = ajax_save_form(obj)
 
    if(retval == "ok") {
-      ajax_show_content(target);
+      menutabs.expandit(target);
+      //aun, 2008-07-10, use menutabs.epandit() instead
+      //ajax_show_content(target);
    }
    else {
       window.alert(retval);
@@ -123,6 +136,8 @@ function js_submit_form(obj, target)
       */
       return false;
    }
+
+   return true;
 
 } // js_submit_form()
 
@@ -371,9 +386,13 @@ function js_logout()
 
 function init_ajaxtabs()
 {
-   var menutabs=new ddajaxtabs("menutabs", "content")
-   menutabs.setpersist(true)
-   menutabs.setselectedClassTarget("link") //"link" or "linkparent"
+   if(menutabs != undefined) {
+      menutabs = undefined;
+   }
+
+   menutabs = new ddajaxtabs("menutabs", "content");
+   menutabs.setpersist(false);
+   menutabs.setselectedClassTarget("link");
    menutabs.init()
 
 } // init_ajaxtabs()
@@ -394,4 +413,5 @@ function load_autosuggest(obj)
 } // load_autosuggest()
 
 var as = undefined;
+var menutabs = undefined;
 
