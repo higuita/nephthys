@@ -376,7 +376,8 @@ function js_logout()
 
    if(retr == "ok") {
       refreshMenu();
-      ajax_show_content('main');
+      menutabs.expandit('main');
+      init_ajaxtabs();
    }
    else {
       window.alert(retr);
