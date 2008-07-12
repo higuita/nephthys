@@ -44,7 +44,7 @@
    { /if }
   </td>
   <td>
-   <div id="user_email_error" style="visibility: hidden; padding-left: 10px; color: #aa0000;"></div>
+   <div id="user_email_error" class="warning"></div>
   </td>
  </tr>
  <tr>
@@ -84,7 +84,7 @@
   <td>{ save_button text="Save and go back to start-page" }</td>
  </tr>
  <tr>
-  <td><div id="generalerror" style="visibility: hidden;"></div></td>
+  <td><div id="generalerror" class="warning"></div></td>
  </tr>
 </table>
 </form>
