@@ -186,6 +186,8 @@ class NEPHTHYS {
          $this->tmpl->assign('is_ie', true);
 
       $this->tmpl->assign('hide_logout', $this->cfg->hide_logout);
+      $this->tmpl->assign('disk_used', $this->get_used_diskspace());
+      $this->tmpl->assign('disk_free', $this->get_free_diskspace());
 
    } // __construct()
 
@@ -1301,6 +1303,57 @@ class NEPHTHYS {
       return $string;
 
    } // get_xml_list()
+
+   /**
+    * return available disk space
+    *
+    * this function returns the available disk space of that
+    * disk where $data_path resists.
+    *
+    * @return string
+    */
+   private function get_free_diskspace()
+   {
+      $bytes = disk_free_space($this->cfg->data_path);
+      $bytes = $this->get_unit($bytes);
+      return $bytes;
+
+   } // get_free_diskspace()
+
+
+   /**
+    * return used disk space
+    *
+    * this functions returns the used disk space of that
+    * disk where $data_path resists.
+    *
+    * @return string
+    */
+   private function get_used_diskspace()
+   {
+      $bytes = disk_total_space($this->cfg->data_path);
+      $bytes = $this->get_unit($bytes);
+      return $bytes;
+
+   } // get_used_diskspace()
+
+   /**
+    * return size of unit
+    *
+    * this function returns the suitable unit for the
+    * provided amount of bytes.
+    *
+    * @param int $bytes
+    * @return string
+    */
+   private function get_unit($bytes)
+   {
+
+      $symbols = array('b', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+      $exp = floor(log($bytes)/log(1024));
+      return sprintf('%.2f '.$symbols[$exp], ($bytes/pow(1024, floor($exp))));
+
+   } // get_unit()
 
 } // class NEPHTHYS
 

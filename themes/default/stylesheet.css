@@ -26,6 +26,12 @@ div.warning {
    color:                  #aa0000;
 }
 
+div.diskusage {
+   text-align:             right;
+   padding-top:            10px;
+   padding-right:          5px;
+}
+
 tr.subhead {
    font-style:             italic;
 }
