@@ -8,6 +8,7 @@ nephthys (1.1)
   * bug, non-auto-created users are now able to update profile (#31)
   * bug, correctly quote SQL queries to avoid syntax errors on special
     characters (#29)
+  * bug, fixed sometimes occuring misbehavior of ajaxtabs
 
  -- Andreas Unterkircher <unki@netshadow.at>  Sat, 7 July 2008 13:30:00 +0200
 
