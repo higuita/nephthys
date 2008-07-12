@@ -153,7 +153,7 @@ class NEPHTHYS_DB {
    {
       if($this->getConnStatus()) {
 
-         $this->db->prepare($query, $mode);
+         $this->db->prepare($query);
 
          /* for manipulating queries use exec instead of query. can save
           * some resource because nothing has to be allocated for results.

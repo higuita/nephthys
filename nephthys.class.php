@@ -168,8 +168,9 @@ class NEPHTHYS {
          }
       }
       else {
-         /* local authentication */
-         $user = $this->get_user_details_by_idx($_SESSION['login_idx']);
+         /* local authentication, if login data is already available */
+         if(isset($_SESSION['login_idx']) && is_numeric($_SESSION['login_idx']))
+            $user = $this->get_user_details_by_idx($_SESSION['login_idx']);
       }
 
       /* overload Smarty class if our own template handler */
@@ -513,6 +514,10 @@ class NEPHTHYS {
     */
    public function get_users_email()
    {
+      /* if no user is logged in yet, return */
+      if(!isset($_SESSION['login_name']))
+         return NULL;
+
       $row = $this->db->db_fetchSingleRow("
          SELECT user_email
          FROM nephthys_users
@@ -814,7 +819,7 @@ class NEPHTHYS {
                return _("Invalid or inactive User.");
 
             /* do not allow auto-created users to login (they have no password set...) */
-            if($user->user_auto_create != 'Y' &&
+            if($user->user_auto_created != 'Y' &&
                $user->user_pass == sha1($_POST['login_pass'])) {
 
                $_SESSION['login_name'] = $_POST['login_name'];
@@ -1348,6 +1353,9 @@ class NEPHTHYS {
     */
    private function get_unit($bytes)
    {
+      /* if something went wrong and no value was supplied, return */
+      if(!is_numeric($bytes))
+         return "n/a";
 
       $symbols = array('b', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
       $exp = floor(log($bytes)/log(1024));
@@ -1366,7 +1374,7 @@ class NEPHTHYS {
 class NEPHTHYS_DEFAULT_CFG {
 
    var $page_title  = "Nephthys - file sharing";
-   var $base_path   = "/var/www/htdocs/nephthys";
+   var $base_path   = "/srv/www/htdocs/nephthys";
    var $data_path   = "/srv/www/nephthys_data";
    var $web_path    = "/nephthys";
    var $ftp_path    = "";
@@ -1378,7 +1386,7 @@ class NEPHTHYS_DEFAULT_CFG {
    var $mysql_db    = "nephthys";
    var $mysql_user  = "user";
    var $mysql_pass  = "password";
-   var $sqlite_path = "/var/www/nephthys/nephthys.db";
+   var $sqlite_path = "/srv/www/nephthys/nephthys.db";
    var $smarty_path = "/usr/share/php/smarty";
    var $logging     = "display";
    var $log_file    = "nephthys_err.log";

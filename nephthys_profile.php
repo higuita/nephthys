@@ -55,7 +55,7 @@ class NEPHTHYS_PROFILE {
       switch($_GET['mode']) {
          default:
          case 'edit':
-            $this->showEdit($_GET['idx']);
+            $this->showEdit();
             break;
       }
 
@@ -64,7 +64,7 @@ class NEPHTHYS_PROFILE {
    /**
     * display interface to edit profile settings
     */
-   private function showEdit($idx)
+   private function showEdit()
    {
       /* If authentication is enabled, check permissions */
       if(!$this->parent->is_logged_in()) {

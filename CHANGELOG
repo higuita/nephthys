@@ -10,6 +10,7 @@ nephthys (1.1)
   * bug, correctly quote SQL queries to avoid syntax errors on special
     characters (#29)
   * bug, fixed sometimes occuring misbehavior of ajaxtabs
+  * bug, cleanup code to avoid PHP notice- and warning messages (#35)
 
  -- Andreas Unterkircher <unki@netshadow.at>  Sat, 7 July 2008 13:30:00 +0200
 
