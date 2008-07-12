@@ -45,7 +45,7 @@
 
   { if $login_priv == "manager" || $login_priv == "admin" }
   <td>
-   <a href="javascript:ajax_show_content('users', '&mode=edit&idx={ $bucket_owner_idx }');"><img src="images/user.png" />&nbsp;{ $bucket_owner }</a>
+   <a href="javascript:ajax_show_content('users', '&mode=edit&idx={ $bucket_owner_idx }');" title="Click to edit this user"><img src="images/user.png" />&nbsp;{ $bucket_owner }</a>
   </td>
   { /if }
   <td><img src="images/clock.png" />&nbsp;{ $bucket_created }</td>
@@ -53,7 +53,7 @@
   <td><img src="images/email.png" />&nbsp;{ $bucket_notified }</td>
   <td>
    <a href="javascript:js_delete_obj('buckets', 'main', '{ $bucket_idx }');" title="Delete bucket"><img src="images/delete.png" />&nbsp;Delete</a>
-   <a href="javascript:ajax_notify_bucket({ $bucket_idx });" title="Send notification e-mails"><img src="images/mail.png" />&nbsp;Notify</a>
+   <a href="javascript:ajax_notify_bucket({ $bucket_idx });" title="Send notification e-mail"><img src="images/mail.png" />&nbsp;Notify</a>
   </td>
  </tr>
 { /bucket_list }

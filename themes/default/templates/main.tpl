@@ -23,3 +23,7 @@
 { import_bucket_list }
 
 { page_end }
+
+   { if $login_priv == "manager" || $login_priv == "admin" }
+   <div id="diskuseage" class="diskusage">Used: { $disk_used } / Free: { $disk_free }</div>
+   { /if }

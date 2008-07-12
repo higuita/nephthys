@@ -28,7 +28,7 @@
    <input type="text" name="bucket_sender" class="inputedit" maxlength="250" value="{ $bucket_sender }" onchange="js_validate_email(this, 'senderemail');" />
   </td>
   <td>
-   <div id="senderemail" style="visibility: hidden;"></div>
+   <div id="senderemail" class="warning"></div>
   </td>
  </tr>
  <tr>
@@ -55,7 +55,7 @@
    <input type="text" name="bucket_receiver" id="bucket_receiver" class="inputedit" maxlength="250" value="{ $bucket_receiver }" onfocus="load_autosuggest('bucket_receiver');" onchange="js_validate_email(this, 'receiveremail');" onblur="js_validate_email(this, 'receiveremail');"/>
   </td>
   <td>
-   <div id="receiveremail" style="visibility: hidden;"></div>
+   <div id="receiveremail" class="warning"></div>
   </td>
  </tr>
  <tr>
@@ -100,7 +100,7 @@
   <td>{ save_button text="Save and return to Start Page" }</td>
  </tr>
  <tr>
-  <td><div id="generalerror" style="visibility: hidden;"></div></td>
+  <td><div id="generalerror" class="warning"></div></td>
  </tr>
 </table>
 </form>

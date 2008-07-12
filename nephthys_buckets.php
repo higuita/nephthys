@@ -131,7 +131,7 @@ class NEPHTHYS_BUCKETS {
          WHERE
             bucket_idx LIKE '". $_GET['idx'] ."'")) {
 
-         $this->tmpl->assign('bucket_idx', $bucket_idx);
+         $this->tmpl->assign('bucket_idx', $bucket->bucket_idx);
          $this->tmpl->assign('bucket_name', $bucket->bucket_name);
          $this->tmpl->assign('bucket_expire', $this->parent->get_user_expire($_SESSION['login_idx']));
 

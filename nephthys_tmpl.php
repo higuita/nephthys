@@ -42,9 +42,11 @@ class NEPHTHYS_TMPL extends Smarty {
       $this->config_dir   = $nephthys->cfg->base_path .'/smarty_config';
       $this->cache_dir    = $nephthys->cfg->base_path .'/smarty_cache';
 
-      $this->assign('login_name', $nephthys->get_user_name($_SESSION['login_idx']));
-      $this->assign('login_priv', $nephthys->get_user_priv($_SESSION['login_idx']));
-      $this->assign('login_idx', $_SESSION['login_idx']);
+      if(isset($_SESSION['login_idx']) && is_numeric($_SESSION['login_idx'])) {
+         $this->assign('login_name', $nephthys->get_user_name($_SESSION['login_idx']));
+         $this->assign('login_priv', $nephthys->get_user_priv($_SESSION['login_idx']));
+         $this->assign('login_idx', $_SESSION['login_idx']);
+      }
       $this->assign('bucket_sender', $nephthys->get_users_email());
       $this->assign('page_title', $nephthys->cfg->page_title);
       $this->assign('product', $nephthys->cfg->product);

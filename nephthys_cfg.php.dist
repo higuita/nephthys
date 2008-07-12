@@ -29,11 +29,11 @@ class NEPHTHYS_CFG extends NEPHTHYS_DEFAULT_CFG {
 
    // Path where you have installed Nephthys in the filesystem.
    // Default:
-   //   var $base_path = "/var/www/nephyths";
+   //   var $base_path = "/srv/www/nephyths";
 
    // Path where file transfer will happen
    // Default:
-   //   var $data_path = "/var/www/nephyths_transfer";
+   //   var $data_path = "/srv/www/nephyths_transfer";
 
    // Webpath with which Nephthys is addressed.
    // Default:
@@ -63,7 +63,7 @@ class NEPHTHYS_CFG extends NEPHTHYS_DEFAULT_CFG {
 
    // SQLite paramters
    // Default:
-   //  var $sqlite_path = "/var/www/nephthys/nephthys.db";
+   //  var $sqlite_path = "/srv/www/nephthys_db/nephthys.db";
  
    /* path to Smarty (http://smarty.php.net) installation. this option
       should directly point to the Smarty main directory containing the

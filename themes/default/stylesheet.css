@@ -20,6 +20,18 @@ body {
    text-align:             center;
 }
 
+div.warning {
+   visibility:             hidden;
+   padding-left:           10px;
+   color:                  #aa0000;
+}
+
+div.diskusage {
+   text-align:             right;
+   padding-top:            10px;
+   padding-right:          5px;
+}
+
 tr.subhead {
    font-style:             italic;
 }

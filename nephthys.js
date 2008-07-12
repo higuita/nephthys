@@ -230,7 +230,7 @@ function js_validate_email(email, errorobj)
    }
    else {
       errortext.style.visibility = 'visible';
-      errortext.innerHTML = 'Enter a valid email address!';
+      errortext.innerHTML = '<img src="images/warning.png" />&nbsp;Enter a valid email address!';
       email.focus();
    }
 
