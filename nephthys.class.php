@@ -1400,7 +1400,7 @@ class NEPHTHYS_DEFAULT_CFG {
    var $mysql_db    = "nephthys";
    var $mysql_user  = "user";
    var $mysql_pass  = "password";
-   var $sqlite_path = "/srv/www/nephthys/nephthys.db";
+   var $sqlite_path = "/srv/www/nephthys_db/nephthys.db";
    var $smarty_path = "/usr/share/php/smarty";
    var $logging     = "display";
    var $log_file    = "nephthys_err.log";

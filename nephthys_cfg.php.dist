@@ -63,7 +63,7 @@ class NEPHTHYS_CFG extends NEPHTHYS_DEFAULT_CFG {
 
    // SQLite paramters
    // Default:
-   //  var $sqlite_path = "/srv/www/nephthys/nephthys.db";
+   //  var $sqlite_path = "/srv/www/nephthys_db/nephthys.db";
  
    /* path to Smarty (http://smarty.php.net) installation. this option
       should directly point to the Smarty main directory containing the
