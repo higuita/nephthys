@@ -4,10 +4,14 @@ nephthys (1.1)
   * feature, some usabilitily fixes (#22,#21)
   * feature, config option to hide logout-link (#24)
   * feature, bucket-successfully-created page (#23)
+  * feature, show used/free diskspace (#33)
   * bug, fixed some design mistakes (#27)
   * bug, non-auto-created users are now able to update profile (#31)
   * bug, correctly quote SQL queries to avoid syntax errors on special
     characters (#29)
+  * bug, fixed sometimes occuring misbehavior of ajaxtabs
+  * bug, cleanup code to avoid PHP notice- and warning messages (#35)
+  * bug, check if bucket root directory exists and is writeable (#36)
 
  -- Andreas Unterkircher <unki@netshadow.at>  Sat, 7 July 2008 13:30:00 +0200
 
