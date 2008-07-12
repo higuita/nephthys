@@ -1,11 +1,11 @@
 <?xml version="1.0"  encoding="ISO-8859-1"?>
 <chapter id="definition" lang="en">
  <title>Definitions and Terms</title>
- <para>Nephthys uses some terms in its web interface which will be explained here.</para>
+ <para>Nephthys uses some terms in its web interface which will be explained below.</para>
  <sect1>
   <title>Bucket</title>
   <para>
-   A bucket (as the name says) is a virtual pot where files and directories can be thrown in or fished out. Usually the bucket has lifetime - when reached, it will be removed automatically including all data within.
+   A bucket (as the name says) is a virtual pot where files and directories can be thrown in or fished out. Usually the bucket has lifetime - when reached, it will be removed automatically by the server including all data within.
   </para>
  </sect1>
  <sect1>

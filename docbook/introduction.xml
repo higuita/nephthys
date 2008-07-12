@@ -4,10 +4,12 @@
  <sect1>
   <title>Nephthys</title>
   <para>
-   Nephthys is a administration tool for file sharing with common file transfer methods like WebDAV and FTP. In general Nephthys provides a web interface for handling file sharing slots (so called 'buckets') and the necessary directory structure on the server. Nephthys it self does not provide any functionallity for WebDAV or FTP - it relys on well known projects like Apache, proftpd and others.
+   Nephthys is an administration tool for file sharing with common file transfer methods like WebDAV and FTP.
+  </para>
+  <para>To be more specific, Nephthys provides a web interface for handling file sharing slots (so called 'buckets') and the necessary directory structure on the server. Nephthys it self does not provide any functionallity for WebDAV or FTP - it relys on well known projects like Apache, proftpd, ... .
   </para>
   <para>
-   The interface has been designed to be simple and esay to handle so that everybody can use it to share files.
+   The interface has been designed to be simple and easy to handle so that everybody can use it to share files.
   </para>
  </sect1>
  <sect1>
@@ -16,7 +18,7 @@
    Via the Nephthys web interface a user can create buckets. These buckets stand for directories in the webserver's file system. Each of the buckets has a corresponding directory in the filesystem which get identified by a SHA1-hash.
   </para>
   <para>
-   The idea behind is, that no authentication for the access protocol (WebDAV, FTP, ...) is necessary. Instead the access protocol only needs to ensure, that no directory-listing is possible in the root directory. Otherwise it would be possible to find out which buckets are there. Because of the SHA1-named (40 characters long) directories it is difficult to locate them without the possibility of directory-listing.
+   The idea behind is, that no authentication for the access protocol (WebDAV, FTP, ...) is necessary. Instead the access protocol only needs to ensure, that no directory-listing is possible in the root directory. Otherwise it would be possible to find out which buckets are there. Because of the SHA1-named, 40 characters long directory names, it is difficult to locate them without the possibility of directory-listing.
   </para>
  </sect1>
  <sect1>

@@ -197,12 +197,14 @@
   </sect2>
  </sect1>
  <sect1>
-  <title>Addressbook</title>
+  <title>Address-Book</title>
   <para>
-   The per-user addressbook helps saving some time when entering receivers. Everytime you create a new bucket and leave the "add email to address book" option checked, Nephthys will record the entered email address and add it to your address book. The next time you create another bucket and start typing the first letters of the receiver's email address, Nephthys will automatically suggest the matching addressbook entries to be inserted.
+   The per-user address-book helps saving some time when entering receivers.
+  </para>
+  <para>Everytime a new bucket gets created and the "add email to address-book" option remains checked, Nephthys will record the entered receiver email address and to the address-book. The next time another bucket gets created, start typing in the receiver's email address input box will cause Nephthys to suggest matching address-book entries.
   </para>
   <para>
-   You can update or delete you addressbook entries via the "Addressbook" tab in the menu.
+   Address-book entries can be modified or delete via the "Address-Book" tab in the menu.
   </para>
  </sect1>
 </chapter>
