@@ -119,6 +119,20 @@ class NEPHTHYS {
          exit(1);
       }
 
+      /* check if the bucket root directory ($data_path) exists */
+      if(!file_exists($this->cfg->data_path)) {
+         print "[". $this->cfg->data_path ."] directory does not exist\n";
+         exit(1);
+      }
+      /* check if the webservers user is allowed to modify the bucket
+         root directory ($data_path). This is necessary to create &
+         delete bucket directories.
+      */
+      if(!is_writeable($this->cfg->data_path)) {
+         print "[". $this->cfg->data_path ."] directory is not writeable for user ". $this->getuid() ."\n";
+         exit(1);
+      }
+
       /* if session is not yet started, do it now */
       if(session_id() == "")
          session_start();

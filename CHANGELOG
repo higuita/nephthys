@@ -11,6 +11,7 @@ nephthys (1.1)
     characters (#29)
   * bug, fixed sometimes occuring misbehavior of ajaxtabs
   * bug, cleanup code to avoid PHP notice- and warning messages (#35)
+  * bug, check if bucket root directory exists and is writeable (#36)
 
  -- Andreas Unterkircher <unki@netshadow.at>  Sat, 7 July 2008 13:30:00 +0200
 
