@@ -201,8 +201,8 @@ class NEPHTHYS {
          $this->tmpl->assign('is_ie', true);
 
       $this->tmpl->assign('hide_logout', $this->cfg->hide_logout);
-      $this->tmpl->assign('disk_used', $this->get_used_diskspace());
-      $this->tmpl->assign('disk_free', $this->get_free_diskspace());
+      $this->tmpl->assign('disk_used', $this->get_unit($this->get_used_diskspace()));
+      $this->tmpl->assign('disk_free', $this->get_unit($this->get_free_diskspace()));
 
    } // __construct()
 
@@ -1334,7 +1334,6 @@ class NEPHTHYS {
    private function get_free_diskspace()
    {
       $bytes = disk_free_space($this->cfg->data_path);
-      $bytes = $this->get_unit($bytes);
       return $bytes;
 
    } // get_free_diskspace()
@@ -1346,12 +1345,33 @@ class NEPHTHYS {
     * this functions returns the used disk space of that
     * disk where $data_path resists.
     *
+    * @param string $path
     * @return string
     */
-   private function get_used_diskspace()
+   private function get_used_diskspace($path = NULL)
    {
-      $bytes = disk_total_space($this->cfg->data_path);
-      $bytes = $this->get_unit($bytes);
+      /* this function will be recursive. if no path is provided
+         as parameter, use the $data_path to start from.
+      */
+      if(!isset($path))
+         $path = $this->cfg->data_path;
+
+      $bytes = 0;
+      $dirhandle = opendir($path);
+
+      while($file = readdir($dirhandle)) {
+         if($file!="." && $file!="..") {
+            if(is_dir($path."/".$file)) {
+               $bytes = $bytes + $this->get_used_diskspace($path."/".$file);
+            }
+            else {
+               $bytes = $bytes + filesize($path."/".$file);
+            }
+         }
+      }
+
+      closedir($dirhandle);
+
       return $bytes;
 
    } // get_used_diskspace()
