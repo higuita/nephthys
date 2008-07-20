@@ -56,11 +56,11 @@
   <!-- Browser is Internet Explorer -->
   { if $is_ie }
    <span style="behavior: url(#default#httpFolder); cursor: pointer; font-size: 14px; color: #000000;" onclick="this.navigateFrame('{ $bucket_webdav_path }', '_blank');">
-    <a href="{ $bucket_webdav_path }" onclick="return false;" title="Open bucket via WebDAV"><img src="images/webdav.png" />&nbsp;WebDAV</a>
+    <a href="{ $bucket_webdav_path }" onclick="return false;" title="Open bucket via WebDAV"><img src="{ $theme_root }/images/webdav.png" />&nbsp;WebDAV</a>
    </span>
   <!-- Every other browser -->
   { else }
-    <a href="{ $bucket_webdav_path }" onclick="return false;" title="Open bucket via WebDAV"><img src="images/webdav.png" />&nbsp;WebDAV</a>
+    <a href="{ $bucket_webdav_path }" onclick="return false;" title="Open bucket via WebDAV"><img src="{ $theme_root }/images/webdav.png" />&nbsp;WebDAV</a>
   { /if }
   </td>
  </tr>
@@ -70,7 +70,7 @@
  { if $bucket_via_ftp }
  <tr>
   <td style="padding-left: 15px;">
-   <a href="{ $bucket_ftp_path }" target="_blank" title="Open bucket via FTP"><img src="images/ftp.png" />&nbsp;FTP</a>
+   <a href="{ $bucket_ftp_path }" target="_blank" title="Open bucket via FTP"><img src="{ $theme_root }/images/ftp.png" />&nbsp;FTP</a>
   </td>
  </tr>
  { /if }
@@ -90,7 +90,7 @@
   <td>&nbsp;</td>
  </tr>
  <tr>
-  <td><a href="#" onclick="ajax_show_content('main'); return false;"><img src="images/next.png">&nbsp;Go to Start Page</a></td>
+  <td><a href="#" onclick="ajax_show_content('main'); return false;"><img src="{ $theme_root }/images/next.png">&nbsp;Go to Start Page</a></td>
  </tr>
 </table>
 

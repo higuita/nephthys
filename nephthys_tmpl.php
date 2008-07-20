@@ -47,6 +47,7 @@ class NEPHTHYS_TMPL extends Smarty {
          $this->assign('login_priv', $nephthys->get_user_priv($_SESSION['login_idx']));
          $this->assign('login_idx', $_SESSION['login_idx']);
       }
+      $this->assign('theme_root', $nephthys->cfg->web_path .'themes/'. $nephthys->cfg->theme_name);
       $this->assign('bucket_sender', $nephthys->get_users_email());
       $this->assign('page_title', $nephthys->cfg->page_title);
       $this->assign('product', $nephthys->cfg->product);

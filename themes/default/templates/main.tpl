@@ -7,10 +7,10 @@
 { page_start header="Start Page" subheader="Choose from the following options:" }
 
 <div id="chooser" style="float: left;">
- <a href="javascript:ajax_show_content('buckets', '&mode=send');" title="Create a bucket to share some files."><img src="images/files_from_user.png" class="imgborder" /><br />I want to share some files.</a>
+ <a href="javascript:ajax_show_content('buckets', '&mode=send');" title="Create a bucket to share some files."><img src="{ $theme_root }/images/files_from_user.png" class="imgborder" /><br />I want to share some files.</a>
 </div>
 <div id="chooser" style="float: right;">
- <a href="javascript:ajax_show_content('buckets', '&mode=receive');" title="Create a bucket to share some files."><img src="images/files_to_user.png" class="imgborder" /><br />Someone wants to send me files.</a>
+ <a href="javascript:ajax_show_content('buckets', '&mode=receive');" title="Create a bucket to share some files."><img src="{ $theme_root }/images/files_to_user.png" class="imgborder" /><br />Someone wants to send me files.</a>
 </div>
 
 <br class="cb" />

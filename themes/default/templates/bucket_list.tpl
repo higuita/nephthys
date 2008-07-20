@@ -1,14 +1,14 @@
 <table class="withborder">
  <tr class="subhead">
-  <td><img src="images/bucket_small.png" />&nbsp;Name</td>
-  <td><img src="images/open.png" />&nbsp;Open Bucket to add Files</td>
+  <td><img src="{ $theme_root }/images/bucket_small.png" />&nbsp;Name</td>
+  <td><img src="{ $theme_root }/images/open.png" />&nbsp;Open Bucket to add Files</td>
   { if $login_priv == "manager" || $login_priv == "admin" }
-  <td><img src="images/user.png" />&nbsp;Owner</td>
+  <td><img src="{ $theme_root }/images/user.png" />&nbsp;Owner</td>
   { /if }
-  <td><img src="images/clock.png" />&nbsp;Created</td>
-  <td><img src="images/clock_red.png" />&nbsp;Expires</td>
-  <td><img src="images/email.png" />&nbsp;Notified</td>
-  <td><img src="images/action.png" />&nbsp;Actions</td>
+  <td><img src="{ $theme_root }/images/clock.png" />&nbsp;Created</td>
+  <td><img src="{ $theme_root }/images/clock_red.png" />&nbsp;Expires</td>
+  <td><img src="{ $theme_root }/images/email.png" />&nbsp;Notified</td>
+  <td><img src="{ $theme_root }/images/action.png" />&nbsp;Actions</td>
  </tr>
 
 { if $user_has_buckets }
@@ -16,7 +16,7 @@
 { bucket_list }
  <tr onmouseover="setBackGrdColor(this, 'mouseover');" onmouseout="setBackGrdColor(this, 'mouseout');">
   <td>
-   <a href="javascript:ajax_show_content('buckets', '&mode=edit&idx={ $bucket_idx }');" title="Click to edit this bucket"><img src="images/bucket_small.png" />&nbsp;{ $bucket_name }</a>
+   <a href="javascript:ajax_show_content('buckets', '&mode=edit&idx={ $bucket_idx }');" title="Click to edit this bucket"><img src="{ $theme_root }/images/bucket_small.png" />&nbsp;{ $bucket_name }</a>
   </td>
   <td style="vertical-align: middle;">
 
@@ -26,11 +26,11 @@
     <!-- Browser is Internet Explorer -->
     { if $is_ie }
      <span style="behavior: url(#default#httpFolder); cursor: pointer; font-size: 14px; color: #000000;" onclick="this.navigateFrame('{ $bucket_webdav_path }', '_blank');">
-      <a href="{ $bucket_webdav_path }" onclick="return false;" title="Open bucket via WebDAV"><img src="images/webdav.png" />&nbsp;WebDAV</a>
+      <a href="{ $bucket_webdav_path }" onclick="return false;" title="Open bucket via WebDAV"><img src="{ $theme_root }/images/webdav.png" />&nbsp;WebDAV</a>
      </span>
     <!-- Every other browser -->
     { else }
-      <a href="{ $bucket_webdav_path }" onclick="return false;" title="Open bucket via WebDAV"><img src="images/webdav.png" />&nbsp;WebDAV</a>
+      <a href="{ $bucket_webdav_path }" onclick="return false;" title="Open bucket via WebDAV"><img src="{ $theme_root }/images/webdav.png" />&nbsp;WebDAV</a>
     { /if }
 
     &nbsp;
@@ -39,21 +39,21 @@
 
    <!-- FTP support is enabled -->
    { if $bucket_via_ftp }
-   <a href="{ $bucket_ftp_path }" target="_blank" title="Open bucket via FTP"><img src="images/ftp.png" />&nbsp;FTP</a>
+   <a href="{ $bucket_ftp_path }" target="_blank" title="Open bucket via FTP"><img src="{ $theme_root }/images/ftp.png" />&nbsp;FTP</a>
    { /if }
   </td>
 
   { if $login_priv == "manager" || $login_priv == "admin" }
   <td>
-   <a href="javascript:ajax_show_content('users', '&mode=edit&idx={ $bucket_owner_idx }');" title="Click to edit this user"><img src="images/user.png" />&nbsp;{ $bucket_owner }</a>
+   <a href="javascript:ajax_show_content('users', '&mode=edit&idx={ $bucket_owner_idx }');" title="Click to edit this user"><img src="{ $theme_root }/images/user.png" />&nbsp;{ $bucket_owner }</a>
   </td>
   { /if }
-  <td><img src="images/clock.png" />&nbsp;{ $bucket_created }</td>
-  <td><img src="images/clock_red.png" />&nbsp;{ $bucket_expire }</td>
-  <td><img src="images/email.png" />&nbsp;{ $bucket_notified }</td>
+  <td><img src="{ $theme_root }/images/clock.png" />&nbsp;{ $bucket_created }</td>
+  <td><img src="{ $theme_root }/images/clock_red.png" />&nbsp;{ $bucket_expire }</td>
+  <td><img src="{ $theme_root }/images/email.png" />&nbsp;{ $bucket_notified }</td>
   <td>
-   <a href="javascript:js_delete_obj('buckets', 'main', '{ $bucket_idx }');" title="Delete bucket"><img src="images/delete.png" />&nbsp;Delete</a>
-   <a href="javascript:ajax_notify_bucket({ $bucket_idx });" title="Send notification e-mail"><img src="images/mail.png" />&nbsp;Notify</a>
+   <a href="javascript:js_delete_obj('buckets', 'main', '{ $bucket_idx }');" title="Delete bucket"><img src="{ $theme_root }/images/delete.png" />&nbsp;Delete</a>
+   <a href="javascript:ajax_notify_bucket({ $bucket_idx });" title="Send notification e-mail"><img src="{ $theme_root }/images/mail.png" />&nbsp;Notify</a>
   </td>
  </tr>
 { /bucket_list }
