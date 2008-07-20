@@ -1,3 +1,10 @@
+nephthys (1.2)
+
+  * bug, user fullname is now editable via user-management (#38)
+  * bug, used-diskspace now displays the real used diskspace (#40)
+
+ -- Andreas Unterkircher <unki@netshadow.at>  Sat, 12 July 2008 09:57:22 +0200
+
 nephthys (1.1)
 
   * feature, internal address book (#18)
