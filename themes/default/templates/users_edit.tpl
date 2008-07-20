@@ -85,6 +85,20 @@
   <td>&nbsp;</td>
  </tr>
  <tr>
+  <td>Allow long-time buckets (only affects 'User' privilege):</td>
+ </tr>
+ <tr>
+  <td>
+   <select name="user_priv_expire">
+    <option value="N" { if $user_priv_expire != 'Y' } selected="selected" { /if }>No</option>
+    <option value="Y" { if $user_priv_expire == 'Y' } selected="selected" { /if }>Yes</option>
+   </select>
+  </td>
+ </tr>
+ <tr>
+  <td>&nbsp;</td>
+ </tr>
+ <tr>
   <td>Status:
    <input type="radio" name="user_active" value="Y" { if $user_active == "Y" } checked="checked" { /if } />Enabled
    <input type="radio" name="user_active" value="N" { if $user_active != "Y" } checked="checked" { /if } />Disabled

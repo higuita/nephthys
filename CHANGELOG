@@ -1,5 +1,6 @@
 nephthys (1.2)
 
+  * feature, new privilege for long-time buckets (#41)
   * bug, user fullname is now editable via user-management (#38)
   * bug, used-diskspace now displays the real used diskspace (#40)
   * bug, icons and images are now theme-managed too (#39)

@@ -811,7 +811,7 @@ class NEPHTHYS {
       /* set application name and version information */
       $this->cfg->product = "Nephthys";
       $this->cfg->version = "1.2";
-      $this->cfg->db_version = 2;
+      $this->cfg->db_version = 3;
 
       return true;
 
@@ -883,6 +883,23 @@ class NEPHTHYS {
       return false;
 
    } // check_privileges()
+
+   /**
+    * user has permission for long-time buckets
+    *
+    * this function returns true, if the user is allowed to
+    * create long-time buckets while he has only "user" privileges.
+    */
+   public function has_bucket_privileges()
+   {
+      if($user = $this->get_user_details_by_idx($_SESSION['login_idx'])) {
+         if($user->user_priv_expire == 'Y')
+            return true;
+      }
+
+      return false;
+
+   } // has_bucket_privileges()
 
    /**
     * returns true, if user is owner of the supplied bucket
@@ -1060,8 +1077,20 @@ class NEPHTHYS {
 
    } // is_cmdline()
 
+   /**
+    * check Nephthys database
+    *
+    * this function checks the Nephthys database, if all
+    * tables are in place or if an database upgrade has
+    * to be done.
+    */
    private function check_db_tables()
    {
+      /* The following section checks if the necessary tables exist
+         in the database. If not (usually on the first Nephthys run),
+         they will be created and filled automatically.
+      */
+
       if(!$this->db->db_check_table_exists("nephthys_buckets")) {
          switch($this->cfg->db_type) {
             default:
@@ -1118,6 +1147,7 @@ class NEPHTHYS {
                   `user_active` varchar(1) default NULL,
                   `user_last_login` int(11) default NULL,
                   `user_default_expire` int(11) default NULL,
+                  `user_priv_expire` varchar(1) default NULL,
                   `user_auto_created` varchar(1) default NULL,
                   PRIMARY KEY  (`user_idx`)
                   ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
@@ -1134,6 +1164,7 @@ class NEPHTHYS {
                   user_active varchar(1),
                   user_last_login int,
                   user_default_expire int,
+                  user_priv_expire varchar(1),
                   user_auto_created varchar(1)
                   )
                ";
@@ -1156,6 +1187,7 @@ class NEPHTHYS {
                'Y',
                NULL,
                7,
+               NULL)
                NULL)
          ");
 
@@ -1220,6 +1252,28 @@ class NEPHTHYS {
          if(!$this->db->db_exec($db_create)) {
             die("Can't create table nephthys_meta");
          }
+      }
+
+
+      /* The following section keeps track of database upgrades. Nephthys
+         notes the database revision in a own table called nephthys_meta.
+      */
+
+      /* db version 3 */
+      if($this->get_db_version() < 3) {
+
+         /* add bucket-never-expire column to nephthys_users */
+         $this->db->db_exec("
+            ALTER TABLE
+               nephthys_users
+            ADD
+               user_priv_expire varchar(1)
+            AFTER
+               user_default_expire
+         ");
+
+         $this->set_db_version(3);
+
       }
 
    } // check_db_tables()
@@ -1396,6 +1450,58 @@ class NEPHTHYS {
       return sprintf('%.2f '.$symbols[$exp], ($bytes/pow(1024, floor($exp))));
 
    } // get_unit()
+
+   /**
+    * get database version
+    *
+    * this function queries the nephthys_meta table
+    * and returns the current database version.
+    *
+    * @return integer
+    */
+   public function get_db_version()
+   {
+      if($row = $this->db->db_fetchSingleRow("
+         SELECT meta_value
+         FROM
+            nephthys_meta
+         WHERE
+            meta_key LIKE 'Nephthys Database Version'
+         ")) {
+
+         return $row->meta_value;
+
+      }
+
+      return 0;
+
+   } // get_db_version()
+
+   /**
+    * set database version
+    *
+    * this function updates the nephthys_meta table
+    * with the version number provided as the first
+    * parameter.
+    *
+    * @param int $version
+    */
+   public function set_db_version($version)
+   {
+      if(isset($version) && $version > 0) {
+
+         $this->db->db_exec("
+            UPDATE
+               nephthys_meta
+            SET
+               meta_value='". $version ."'
+            WHERE
+               meta_key LIKE 'Nephthys Database Version'
+         ");
+
+      }
+
+   } // set_db_version()
 
 } // class NEPHTHYS
 

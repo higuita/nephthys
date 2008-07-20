@@ -117,14 +117,28 @@ class NEPHTHYS_TMPL extends Smarty {
 
          list($days, $name, $require_priv) = split(";", $expire);
 
-         if($require_priv == "user" ||
-            ($require_priv != "user" && !$this->parent->check_privileges('user'))) {
+         /* "user" privileged users are not allowed to create long-time
+            existing buckets. Only if the got the right assigned by an
+            admin.
 
-            $select.= "<option value=\"". $days ."\"";
-            if(isset($params['current']) && $params['current'] == $days)
-               $select.= " selected=\"selected\"";
-            $select.= ">". $name."</option>\n";
+            if the expiry-entry requires higher privileges...
+             ... and the current user has no higher privileges
+             ... and his is not equipped with the long-time bucket priv
+            then go to the next entry...
+         */
+         if($require_priv != "user" && (
+               $this->parent->check_privileges('user') &&
+               !$this->parent->has_bucket_privileges()
+            )) {
+
+            continue;
          }
+
+         $select.= "<option value=\"". $days ."\"";
+         if(isset($params['current']) && $params['current'] == $days)
+            $select.= " selected=\"selected\"";
+         $select.= ">". $name."</option>\n";
+
       }
 
       $select.= "</select>\n";

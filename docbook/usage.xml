@@ -52,7 +52,7 @@
      <para>"Receivers email" - enter the e-mail address of the receiver. This field is optionally and is used to notify receivers out of Nephthys. If you leave it empty and click on "Notify" later after creating the bucket, you will receive the notification email - to forward it manually for example.</para>
     </listitem>
     <listitem>
-     <para>"When will this bucket expire?" - expiration time. Unprivileged users are not permitted to create never expiring buckets. But a privileged user can set it for them.</para>
+     <para>"When will this bucket expire?" - expiration time. Unprivileged users are not permitted to create never expiring buckets.</para>
     </listitem>
     <listitem>
      <para>"Text to be added to notification email" - optionally you can enter a text into the box, which then will be included in the notification email.</para>
@@ -151,7 +151,7 @@
       <para>"Receivers email" - enter the email address of the receiver (mandatory).</para>
      </listitem>
      <listitem>
-      <para>"When will this bucket expire?" - expiration time. Unprivileged users are not permitted to create never expiring buckets. But a privileged user can set it for them afterwards.</para>
+      <para>"When will this bucket expire?" - expiration time. Unprivileged users are not permitted to create never expiring buckets.</para>
      </listitem>
      <listitem>
       <para>"Text to be added to notification email" - optionally you can enter a text into the box, which then will be included into the notification email.</para>
