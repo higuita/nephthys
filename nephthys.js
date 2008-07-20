@@ -11,15 +11,9 @@ function click(object)
 
 } // click()
 
-function AskServerWhatToDo()
-{
-   return HTML_AJAX.grab(encodeURI('rpc.php?action=what_to_do'));
-} // AskServerWhatToDo()
-
 function init_nephthys(mode)
 {
-   /* ask the server what we are currently displaying */
-   //whattodo = AskServerWhatToDo();
+   /* initialize menu-tabs */
    init_ajaxtabs();
 
 } // init_nephthys()
