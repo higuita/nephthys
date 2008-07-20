@@ -24,6 +24,17 @@
   <td>&nbsp;</td>
  </tr>
  <tr>
+  <td>Fullname:</td>
+ </tr>
+ <tr>
+  <td>
+   <input type="text" name="user_full_name" class="inputedit" value="{ $user_full_name }" />
+  </td>
+ </tr>
+ <tr>
+  <td>&nbsp;</td>
+ </tr>
+ <tr>
   <td>Password:</td>
  </tr>
  <tr>
