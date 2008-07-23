@@ -431,34 +431,44 @@ class NEPHTHYS_DB {
     */
    public function db_alter_table($table_name, $option, $column, $param1 = "", $param2 = "")
    {
-      if($this->db_check_table_exists($table_name)) {
+      if(!$this->db_check_table_exists($table_name)) {
+         $this->ThrowError("Table ". $table_name ." does not exist!");
+         return false;
+      }
 
-         switch(strtolower($option)) {
-	
-            case 'add':
-               if(!$this->db_check_column_exists($table_name, $column))
-                  $this->db_query("ALTER TABLE ". $table_name ." ADD ". $column ." ". $param1);
-               break;
+      switch($this->cfg->db_type) {
+         default:
+         case 'mysql':
 
-            case 'change':
-            
-               if($this->db_check_column_exists($table_name, $column))
-                  $this->db_query("ALTER TABLE ". $table_name ." CHANGE ". $column ." ". $param1);
-               break;
+            switch(strtolower($option)) {
 
-            case 'drop':
+               case 'add':
+                  if(!$this->db_check_column_exists($table_name, $column))
+                     $this->db_query("ALTER TABLE ". $table_name ." ADD ". $column ." ". $param1);
+                  break;
 
-               if($this->db_check_column_exists($table_name, $column))
-                  $this->db_query("ALTER TABLE ". $table_name ." DROP ". $column);
-               break;
+               case 'change':
+                  if($this->db_check_column_exists($table_name, $column))
+                     $this->db_query("ALTER TABLE ". $table_name ." CHANGE ". $column ." ". $param1);
+                  break;
 
-            case 'dropidx':
-	          
-               if($this->db_check_index_exists($table_name, $column))
-                  $this->db_query("ALTER TABLE ". $table_name ." DROP INDEX ". $column);
-               break;
+               case 'drop':
+                  if($this->db_check_column_exists($table_name, $column))
+                     $this->db_query("ALTER TABLE ". $table_name ." DROP ". $column);
+                  break;
 
-         }
+               case 'dropidx':
+                  if($this->db_check_index_exists($table_name, $column))
+                     $this->db_query("ALTER TABLE ". $table_name ." DROP INDEX ". $column);
+                  break;
+
+            }
+
+         case 'sqlite':
+
+            $this->throwError("SQLite only support ALTER TABLE rudimentary with version 3, so no support here right now.");
+            break;
+
       }
 
    } // db_alter_table()
