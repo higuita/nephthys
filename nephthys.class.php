@@ -1276,12 +1276,12 @@ class NEPHTHYS {
                ");
                break;
             case 'sqlite':
-               $this->db->db_exec("
-                  ALTER TABLE
-                     nephthys_users
-                  ADD
-                     user_priv_expire varchar(1)
-               ");
+               $this->db->db_alter_table(
+                  "nephthys_users",
+                  "add",
+                  "user_priv_expire",
+                  "varchar(1)"
+               );
                break;
          }
 
