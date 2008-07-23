@@ -24,6 +24,17 @@
   <td>&nbsp;</td>
  </tr>
  <tr>
+  <td>Fullname:</td>
+ </tr>
+ <tr>
+  <td>
+   <input type="text" name="user_full_name" class="inputedit" value="{ $user_full_name }" />
+  </td>
+ </tr>
+ <tr>
+  <td>&nbsp;</td>
+ </tr>
+ <tr>
   <td>Password:</td>
  </tr>
  <tr>
@@ -67,6 +78,20 @@
     <option value="user" { if $user_priv == "user" } selected="selected" { /if }>User</option>
     <option value="manager" { if $user_priv == "manager" } selected="selected" { /if }>Manager</option>
     <option value="admin" { if $user_priv == "admin" } selected="selected" { /if }>Administrator</option>
+   </select>
+  </td>
+ </tr>
+ <tr>
+  <td>&nbsp;</td>
+ </tr>
+ <tr>
+  <td>Allow long-time buckets (only affects 'User' privilege):</td>
+ </tr>
+ <tr>
+  <td>
+   <select name="user_priv_expire">
+    <option value="N" { if $user_priv_expire != 'Y' } selected="selected" { /if }>No</option>
+    <option value="Y" { if $user_priv_expire == 'Y' } selected="selected" { /if }>Yes</option>
    </select>
   </td>
  </tr>

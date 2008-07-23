@@ -113,8 +113,10 @@ class NEPHTHYS_USERS {
 
          $this->tmpl->assign('user_idx', $idx);
          $this->tmpl->assign('user_name', $user->user_name);
+         $this->tmpl->assign('user_full_name', $user->user_full_name);
          $this->tmpl->assign('user_email', $user->user_email);
          $this->tmpl->assign('user_priv', $user->user_priv);
+         $this->tmpl->assign('user_priv_expire', $user->user_priv_expire);
          $this->tmpl->assign('user_active', $user->user_active);
 
       }
@@ -160,19 +162,21 @@ class NEPHTHYS_USERS {
 
          $sth = $this->db->db_prepare("
             INSERT INTO nephthys_users (
-               user_idx, user_name, user_pass,
-               user_email, user_priv, user_active
+               user_idx, user_name, user_full_name, user_pass,
+               user_email, user_priv, user_priv_expire, user_active
             ) VALUES (
-               NULL, ?, ?,
-               ?, ?, ?
+               NULL, ?, ?, ?,
+               ?, ?, ?, ?
             )
          ");
 
          $this->db->db_execute($sth, array(
             $_POST['user_name'],
+            $_POST['user_full_name'],
             sha1($_POST['user_pass1']),
             $_POST['user_email'],
             $_POST['user_priv'],
+            $_POST['user_priv_expire'],
             $_POST['user_active'],
          ));
 
@@ -183,8 +187,10 @@ class NEPHTHYS_USERS {
             UPDATE nephthys_users
             SET
                user_name=?,
+               user_full_name=?,
                user_email=?,
                user_priv=?,
+               user_priv_expire=?,
                user_active=?
             WHERE
                user_idx=?
@@ -192,8 +198,10 @@ class NEPHTHYS_USERS {
 
          $this->db->db_execute($sth, array(
             $_POST['user_name'],
+            $_POST['user_full_name'],
             $_POST['user_email'],
             $_POST['user_priv'],
+            $_POST['user_priv_expire'],
             $_POST['user_active'],
             $_POST['user_idx'],
          ));

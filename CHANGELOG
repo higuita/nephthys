@@ -1,3 +1,12 @@
+nephthys (1.2)
+
+  * feature, new privilege for long-time buckets (#41)
+  * bug, user fullname is now editable via user-management (#38)
+  * bug, used-diskspace now displays the real used diskspace (#40)
+  * bug, icons and images are now theme-managed too (#39)
+
+ -- Andreas Unterkircher <unki@netshadow.at>  Sat, 12 July 2008 09:57:22 +0200
+
 nephthys (1.1)
 
   * feature, internal address book (#18)
@@ -13,7 +22,7 @@ nephthys (1.1)
   * bug, cleanup code to avoid PHP notice- and warning messages (#35)
   * bug, check if bucket root directory exists and is writeable (#36)
 
- -- Andreas Unterkircher <unki@netshadow.at>  Sat, 7 July 2008 13:30:00 +0200
+ -- Andreas Unterkircher <unki@netshadow.at>  Sat, 12 July 2008 09:57:22 +0200
 
 nephthys (1.0)
 

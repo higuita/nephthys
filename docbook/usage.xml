@@ -52,7 +52,7 @@
      <para>"Receivers email" - enter the e-mail address of the receiver. This field is optionally and is used to notify receivers out of Nephthys. If you leave it empty and click on "Notify" later after creating the bucket, you will receive the notification email - to forward it manually for example.</para>
     </listitem>
     <listitem>
-     <para>"When will this bucket expire?" - expiration time. Unprivileged users are not permitted to create never expiring buckets. But a privileged user can set it for them.</para>
+     <para>"When will this bucket expire?" - expiration time. Unprivileged users are not permitted to create never expiring buckets.</para>
     </listitem>
     <listitem>
      <para>"Text to be added to notification email" - optionally you can enter a text into the box, which then will be included in the notification email.</para>
@@ -151,7 +151,7 @@
       <para>"Receivers email" - enter the email address of the receiver (mandatory).</para>
      </listitem>
      <listitem>
-      <para>"When will this bucket expire?" - expiration time. Unprivileged users are not permitted to create never expiring buckets. But a privileged user can set it for them afterwards.</para>
+      <para>"When will this bucket expire?" - expiration time. Unprivileged users are not permitted to create never expiring buckets.</para>
      </listitem>
      <listitem>
       <para>"Text to be added to notification email" - optionally you can enter a text into the box, which then will be included into the notification email.</para>
@@ -197,12 +197,14 @@
   </sect2>
  </sect1>
  <sect1>
-  <title>Addressbook</title>
+  <title>Address-Book</title>
   <para>
-   The per-user addressbook helps saving some time when entering receivers. Everytime you create a new bucket and leave the "add email to address book" option checked, Nephthys will record the entered email address and add it to your address book. The next time you create another bucket and start typing the first letters of the receiver's email address, Nephthys will automatically suggest the matching addressbook entries to be inserted.
+   The per-user address-book helps saving some time when entering receivers.
+  </para>
+  <para>Everytime a new bucket gets created and the "add email to address-book" option remains checked, Nephthys will record the entered receiver email address and to the address-book. The next time another bucket gets created, start typing in the receiver's email address input box will cause Nephthys to suggest matching address-book entries.
   </para>
   <para>
-   You can update or delete you addressbook entries via the "Addressbook" tab in the menu.
+   Address-book entries can be modified or delete via the "Address-Book" tab in the menu.
   </para>
  </sect1>
 </chapter>
