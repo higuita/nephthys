@@ -366,12 +366,40 @@ class NEPHTHYS_DB {
     */
    public function db_check_column_exists($table_name, $column)
    {
-      $result = $this->db_query("DESC ". $table_name, MDB2_FETCHMODE_ORDERED);
-      while($row = $result->fetchRow()) {
-         if(in_array($column, $row))
-            return 1;
+      if(!$this->getConnStatus())
+         return false;
+
+      switch($this->cfg->db_type) {
+         default:
+         case 'mysql':
+            $result = $this->db_query("DESC ". $table_name, MDB2_FETCHMODE_ORDERED);
+            while($row = $result->fetchRow()) {
+            if(in_array($column, $row))
+               return true;
+            }
+            break;
+         case 'sqlite':
+            $result = $this->db_query("
+               SELECT sql
+               FROM
+                  (SELECT * FROM sqlite_master UNION ALL
+                   SELECT * FROM sqlite_temp_master)
+               WHERE
+                  tbl_name LIKE '". $table_name ."'
+               AND type!='meta'
+               AND sql NOT NULL
+               AND name NOT LIKE 'sqlite_%'
+               ORDER BY substr(type,2,1), name
+            ");
+            while($row = $result->fetchRow()) {
+               /* CREATE TABLE xx ( col1 int, col2 bool, col3 ...) */
+               if(strstr($row->sql, " ". $column ." ") !== false)
+                  return true;
+            }
+            break;
       }
-      return 0;
+
+      return false;
 
    } // db_check_column_exists()
 
