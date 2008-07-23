@@ -1263,14 +1263,27 @@ class NEPHTHYS {
       if($this->get_db_version() < 3) {
 
          /* add bucket-never-expire column to nephthys_users */
-         $this->db->db_exec("
-            ALTER TABLE
-               nephthys_users
-            ADD
-               user_priv_expire varchar(1)
-            AFTER
-               user_default_expire
-         ");
+         switch($this->cfg->db_type) {
+            default:
+            case 'mysql':
+               $this->db->db_exec("
+                  ALTER TABLE
+                     nephthys_users
+                  ADD
+                     user_priv_expire varchar(1)
+                  AFTER
+                     user_default_expire
+               ");
+               break;
+            case 'sqlite':
+               $this->db->db_exec("
+                  ALTER TABLE
+                     nephthys_users
+                  ADD
+                     user_priv_expire varchar(1)
+               ");
+               break;
+         }
 
          $this->set_db_version(3);
 
