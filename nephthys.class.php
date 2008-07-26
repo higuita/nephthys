@@ -1266,22 +1266,119 @@ class NEPHTHYS {
          switch($this->cfg->db_type) {
             default:
             case 'mysql':
-               $this->db->db_exec("
-                  ALTER TABLE
-                     nephthys_users
-                  ADD
-                     user_priv_expire varchar(1)
-                  AFTER
-                     user_default_expire
-               ");
-               break;
-            case 'sqlite':
                $this->db->db_alter_table(
                   "nephthys_users",
                   "add",
                   "user_priv_expire",
-                  "varchar(1)"
+                  "varchar(1)
+                   AFTER
+                   user_default_expire"
                );
+               break;
+            case 'sqlite':
+
+               /* SQlite v2 does not support ALTER TABLE, so we need
+                  to take the help of a temporary table.
+               */
+               if(!$this->db->db_start_transaction())
+                  die("Can not start database transaction");
+
+               $result = $this->db->db_exec("
+                  CREATE TEMPORARY TABLE nephthys_users_tmp (
+                     user_idx INTEGER PRIMARY KEY,
+                     user_name varchar(255),
+                     user_full_name varchar(255),
+                     user_pass varchar(255),
+                     user_email varchar(255),
+                     user_priv varchar(16),
+                     user_active varchar(1),
+                     user_last_login int,
+                     user_default_expire int,
+                     user_priv_expire varchar(1),
+                     user_auto_created varchar(1)
+                  );
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               $result = $this->db->db_exec("
+                  INSERT INTO nephthys_users_tmp
+                     SELECT
+                        user_idx,
+                        user_name,
+                        user_full_name,
+                        user_pass,
+                        user_email,
+                        user_priv,
+                        user_active,
+                        user_last_login,
+                        user_default_expire,
+                        NULL,
+                        user_auto_created
+                     FROM nephthys_users;
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               $result = $this->db->db_exec("
+                  DROP TABLE nephthys_users;
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               $result = $this->db->db_exec("
+                  CREATE TABLE nephthys_users (
+                     user_idx INTEGER PRIMARY KEY,
+                     user_name varchar(255),
+                     user_full_name varchar(255),
+                     user_pass varchar(255),
+                     user_email varchar(255),
+                     user_priv varchar(16),
+                     user_active varchar(1),
+                     user_last_login int,
+                     user_default_expire int,
+                     user_priv_expire varchar(1),
+                     user_auto_created varchar(1)
+                  );
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               $result = $this->db->db_exec("
+                  INSERT INTO nephthys_users
+                     SELECT *
+                     FROM nephthys_users_tmp;
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               $result = $this->db->db_exec("
+                  DROP TABLE nephthys_users_tmp;
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               if(!$this->db->db_commit_transaction())
+                  die("Can not commit database transaction");
+
                break;
          }
 
