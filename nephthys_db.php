@@ -137,7 +137,7 @@ class NEPHTHYS_DB {
          return $result;
       }
       else 
-         $this->ThrowError("Can't execute query - we are not connected!");
+         $this->throwError("Can't execute query - we are not connected!");
 
    } // db_query()
 
@@ -171,7 +171,7 @@ class NEPHTHYS_DB {
          return $sth;
       }
       else
-         $this->ThrowError("Can't prepare query - we are not connected!");
+         $this->throwError("Can't prepare query - we are not connected!");
 
    } // db_prepare()
 
@@ -193,7 +193,7 @@ class NEPHTHYS_DB {
 
       }
       else
-         $this->ThrowError("Can't prepare query - we are not connected!");
+         $this->throwError("Can't prepare query - we are not connected!");
 
    } // db_execute()
 
@@ -210,7 +210,7 @@ class NEPHTHYS_DB {
       $affected =& $this->db->exec($query);
 
       if(PEAR::isError($affected)) {
-         $this->ThrowError($affected->getMessage());
+         $this->throwError($affected->getMessage());
          return false;
       }
 
@@ -238,7 +238,7 @@ class NEPHTHYS_DB {
       }
       else {
    
-         $this->ThrowError("Can't fetch row - we are not connected!");
+         $this->throwError("Can't fetch row - we are not connected!");
       
       }
       
@@ -256,7 +256,7 @@ class NEPHTHYS_DB {
       $result = $this->db_query($query);
 
       /* Errors? */
-      if(PEAR::isError($result)) 
+      if(PEAR::isError($result))
          $this->throwError($result->getMessage() .' - '. $result->getUserInfo());
 
       return $result->numRows();
@@ -329,7 +329,7 @@ class NEPHTHYS_DB {
          if(!$this->db_check_table_exists($new))
             $this->db_query("RENAME TABLE ". $old ." TO ". $new);
          else
-            $this->ThrowError("Can't rename table ". $old ." - ". $new ." already exists!");
+            $this->throwError("Can't rename table ". $old ." - ". $new ." already exists!");
       }
 	 
    } // db_rename_table()
@@ -432,7 +432,7 @@ class NEPHTHYS_DB {
    public function db_alter_table($table_name, $option, $column, $param1 = "", $param2 = "")
    {
       if(!$this->db_check_table_exists($table_name)) {
-         $this->ThrowError("Table ". $table_name ." does not exist!");
+         $this->throwError("Table ". $table_name ." does not exist!");
          return false;
       }
 
@@ -536,7 +536,7 @@ class NEPHTHYS_DB {
     *
     * This function shows up error messages and afterwards through exceptions.
     */
-   private function ThrowError($string)
+   private function throwError($string)
    {
       if(!defined('DB_NOERROR'))  {
          print "<br /><br />". $string ."<br /><br />\n";
@@ -549,7 +549,7 @@ class NEPHTHYS_DB {
 
       $this->last_error = $string;
 	 
-   } // ThrowError()
+   } // throwError()
 
    /**
     * quote string
@@ -566,6 +566,83 @@ class NEPHTHYS_DB {
       return $this->db->quote($obj);
 
    } // db_quote()
+
+   /**
+    * start transaction
+    *
+    * this will start a transaction on ACID-supporting database
+    * systems.
+    *
+    * @return bool
+    */
+   public function db_start_transaction()
+   {
+      if(!$this->getConnStatus())
+         return false;
+
+      if(!$this->db->supports('transactions'))
+         return false;
+
+      $result = $this->db->beginTransaction();
+
+      /* Errors? */
+      if(PEAR::isError($result))
+         $this->throwError($result->getMessage() .' - '. $result->getUserInfo());
+
+      return true;
+
+   } // db_start_transaction()
+
+   /**
+    * commit transaction
+    *
+    * this will commit an ongoing transaction on ACID-supporting
+    * database systems
+    *
+    * @return bool
+    */
+   public function db_commit_transaction()
+   {
+      if(!$this->getConnStatus())
+         return false;
+
+      if(!$this->db->inTransaction())
+         return false;
+
+      $result = $this->db->commit();
+
+      /* Errors? */
+      if(PEAR::isError($result))
+         $this->throwError($result->getMessage() .' - '. $result->getUserInfo());
+
+      return true;
+
+   } // db_commit_transaction()
+
+   /**
+    * rollback transaction()
+    *
+    * this function aborts a on going transaction
+    *
+    * @return bool
+    */
+   public function db_rollback_transaction()
+   {
+      if(!$this->getConnStatus())
+         return false;
+
+      if(!$this->db->inTransaction())
+         return false;
+
+      $result = $this->db->rollback();
+
+      /* Errors? */
+      if(PEAR::isError($result))
+         $this->throwError($result->getMessage() .' - '. $result->getUserInfo());
+
+      return true;
+
+   } // db_rollback_transaction()
 
 } // NEPHTHYS_DB()
 
