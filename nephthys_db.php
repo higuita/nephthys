@@ -463,6 +463,7 @@ class NEPHTHYS_DB {
                   break;
 
             }
+            break;
 
          case 'sqlite':
 
