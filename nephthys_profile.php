@@ -45,7 +45,7 @@ class NEPHTHYS_PROFILE {
    public function show()
    {
       if(!$this->parent->is_logged_in()) {
-         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". _("Manage Users"), _("You do not have enough permissions to access this module!"));
+         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". $this->_("##MANAGE_USERS##"), _("##NOT_ALLOWED##"));
          return 0;
       }
 
@@ -68,7 +68,7 @@ class NEPHTHYS_PROFILE {
    {
       /* If authentication is enabled, check permissions */
       if(!$this->parent->is_logged_in()) {
-         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". _("Manage Users"), _("You do not have enough permissions to access this module!"));
+         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". $this->_("##MANAGE_USERS##"), _("##NOT_ALLOWED##"));
          return 0;
       }
 
@@ -85,6 +85,7 @@ class NEPHTHYS_PROFILE {
       $this->tmpl->assign('user_email', $user->user_email);
       $this->tmpl->assign('user_default_expire', $user->user_default_expire);
       $this->tmpl->assign('user_auto_created', $user->user_auto_created);
+      $this->tmpl->assign('user_language', $user->user_language);
 
       $this->tmpl->show("profile.tpl");
 
@@ -96,25 +97,24 @@ class NEPHTHYS_PROFILE {
    public function store()
    {
       if($this->parent->check_privileges('user') && isset($_POST['user_name'])) {
-         return _("You are not allowed to change your login name!");
+         return $this->_("##FAILURE_CHANGE_LOGIN##");
       }
       if($this->parent->check_privileges('user') &&
          !$this->parent->is_auto_created($_SESSION['login_idx'])
          && isset($_POST['user_email'])) {
-         return _("You are not allowed to change your email address!");
+         return $this->_("##FAILURE_CHANGE_EMAIL##");
       }
 
       if(!$this->parent->check_privileges('user') && (!isset($_POST['user_name']) ||
          empty($_POST['user_name']))) {
-         return _("Please enter a user name!");
+         return $this->_("##FAILURE_ENTER_USERNAME##");
       }
       if(empty($_POST['user_pass1'])) {
-         return _("Empty passwords are not allowed!");
+         return $this->_("##FAILURE_EMPTY_PASSWORD##");
       }
       if($_POST['user_pass1'] != $_POST['user_pass2']) {
-         return _("The two entered passwords do not match!");
+         return $this->_("##FAILURE_PASSWORD_NOT_MATCH##");
       }	       
-
 
       /* user-privileged are not allowed to change their user-names */
       if(!$this->parent->check_privileges('user')) {
@@ -147,10 +147,10 @@ class NEPHTHYS_PROFILE {
          $_POST['user_email'] = htmlentities($_POST['user_email']);
 
          if(!isset($_POST['user_email']) || empty($_POST['user_email'])) {
-            return _("Please enter a email address!");
+            return $this->_("##FAILURE_ENTER_EMAIL##");
          }
          if(!$this->parent->validate_email($_POST['user_email'])) {
-            return _("Please enter a valid email address!");
+            return $this->_("##FAILURE_ENTER_VALID_EMAIL##");
          }
 
          $sth = $this->db->db_prepare("
@@ -170,12 +170,13 @@ class NEPHTHYS_PROFILE {
       /* escape everything that looks like HTML */
       $_POST['user_full_name'] = htmlentities($_POST['user_full_name']);
 
-      /* update user's full name and default-expiry time */
+      /* update user's full name, default-expiry and langugage time */
       $sth = $this->db->db_prepare("
          UPDATE nephthys_users
          SET
             user_full_name=?,
-            user_default_expire=?
+            user_default_expire=?,
+            user_language=?
          WHERE
             user_idx=?
       ");
@@ -183,6 +184,7 @@ class NEPHTHYS_PROFILE {
       $this->db->db_execute($sth, array(
          $_POST['user_full_name'],
          $_POST['user_default_expire'],
+         $_POST['user_language'],
          $_POST['user_idx'],
       ));
 

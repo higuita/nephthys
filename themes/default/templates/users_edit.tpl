@@ -2,10 +2,10 @@
 <input type="hidden" name="module" value="users" />
 <input type="hidden" name="mode" value="modify" />
 { if ! $user_idx }
- { page_start header="Create a new User" }
+ { page_start header="##USER_CREATE_NEW##" }
  <input type="hidden" name="user_new" value="1" />
 { else }
- { page_start header="Modify User $user_name" }
+ { page_start header="##USER_MODIFY## $user_name" }
  <input type="hidden" name="user_new" value="0" />
  <input type="hidden" name="namebefore" value="{ $user_name }" />
  <input type="hidden" name="user_idx" value="{ $user_idx }" />
@@ -13,7 +13,7 @@
 
 <table>
  <tr>
-  <td>Username:</td>
+  <td>##USERNAME##:</td>
  </tr>
  <tr>
   <td>
@@ -24,7 +24,7 @@
   <td>&nbsp;</td>
  </tr>
  <tr>
-  <td>Fullname:</td>
+  <td>##FULLNAME##:</td>
  </tr>
  <tr>
   <td>
@@ -35,7 +35,7 @@
   <td>&nbsp;</td>
  </tr>
  <tr>
-  <td>Password:</td>
+  <td>##PASSWORD##:</td>
  </tr>
  <tr>
   <td>
@@ -47,7 +47,7 @@
  </tr>
  <tr>
   <td>
-   Password (again):
+   ##PASSWORD## (##AGAIN##):
   </td>
  </tr>
  <tr>
@@ -59,7 +59,7 @@
   <td>&nbsp;</td>
  </tr>
  <tr>
-  <td>E-mail:</td>
+  <td>##EMAIL##:</td>
  </tr>
  <tr>
   <td>
@@ -70,14 +70,14 @@
   <td>&nbsp;</td>
  </tr>
  <tr>
-  <td>Privileges:</td>
+  <td>##PRIVILEGES##:</td>
  </tr>
  <tr>
   <td>
    <select name="user_priv">
-    <option value="user" { if $user_priv == "user" } selected="selected" { /if }>User</option>
-    <option value="manager" { if $user_priv == "manager" } selected="selected" { /if }>Manager</option>
-    <option value="admin" { if $user_priv == "admin" } selected="selected" { /if }>Administrator</option>
+    <option value="user" { if $user_priv == "user" } selected="selected" { /if }>##USER##</option>
+    <option value="manager" { if $user_priv == "manager" } selected="selected" { /if }>##MANAGER##</option>
+    <option value="admin" { if $user_priv == "admin" } selected="selected" { /if }>##ADMIN##</option>
    </select>
   </td>
  </tr>
@@ -85,13 +85,13 @@
   <td>&nbsp;</td>
  </tr>
  <tr>
-  <td>Allow long-time buckets (only affects 'User' privilege):</td>
+  <td>##USER_LONG_TIME_BUCKET##:</td>
  </tr>
  <tr>
   <td>
    <select name="user_priv_expire">
-    <option value="N" { if $user_priv_expire != 'Y' } selected="selected" { /if }>No</option>
-    <option value="Y" { if $user_priv_expire == 'Y' } selected="selected" { /if }>Yes</option>
+    <option value="N" { if $user_priv_expire != 'Y' } selected="selected" { /if }>##NO##</option>
+    <option value="Y" { if $user_priv_expire == 'Y' } selected="selected" { /if }>##YES##</option>
    </select>
   </td>
  </tr>
@@ -99,16 +99,16 @@
   <td>&nbsp;</td>
  </tr>
  <tr>
-  <td>Status:
-   <input type="radio" name="user_active" value="Y" { if $user_active == "Y" } checked="checked" { /if } />Enabled
-   <input type="radio" name="user_active" value="N" { if $user_active != "Y" } checked="checked" { /if } />Disabled
+  <td>##STATUS##:
+   <input type="radio" name="user_active" value="Y" { if $user_active == "Y" } checked="checked" { /if } />##ENABLED##
+   <input type="radio" name="user_active" value="N" { if $user_active != "Y" } checked="checked" { /if } />##DISABLED##
   </td>
  </tr>
  <tr>
   <td>&nbsp;</td>
  </tr>
  <tr>
-  <td>{ save_button text="Save user and return to user-list" }</td>
+  <td>{ save_button text="##USER_SAVE##" }</td>
  </tr>
 </table>
 </form>

@@ -5,11 +5,11 @@
 <input type="hidden" name="bucket_idx" value="{ $bucket_idx }" />
 <input type="hidden" name="bucket_new" value="0" />
 
-{ page_start header="Edit bucket $bucket_name" }
+{ page_start header="##BEDIT_HEADER## $bucket_name" }
 
 <table>
  <tr>
-  <td colspan="2">Bucket name:</td>
+  <td colspan="2">##BEDIT_F1_NAME##:</td>
  </tr>
  <tr>
   <td>
@@ -21,7 +21,7 @@
  </tr>
  { if $login_priv == "manager" || $login_priv == "admin" }
  <tr>
-  <td colspan="2">Yours or senders email:
+  <td colspan="2">##BEDIT_F2_NAME##:
  </tr>
  <tr>
   <td>
@@ -36,7 +36,7 @@
  </tr>
  { else }
  <tr>
-  <td colspan="2">Yours or senders email (you can not modify this entry):
+  <td colspan="2">##BEDIT_F3_NAME##:
  </tr>
  <tr>
   <td colspan="2">
@@ -48,7 +48,7 @@
  </tr>
  { /if }
  <tr>
-  <td colspan="2">Receivers email:
+  <td colspan="2">##BEDIT_F4_NAME##:
  </tr>
  <tr>
   <td>
@@ -62,7 +62,7 @@
   <td colspan="2">&nbsp;</td>
  </tr>
  <tr>
-  <td colspan="2">When will this bucket expire?</td>
+  <td colspan="2">##EXPIRES##</td>
  </tr>
  <tr>
   <td>
@@ -74,7 +74,7 @@
  </tr>
  { if $login_priv == "manager" || $login_priv == "admin" }
  <tr>
-  <td>Owner:</td>
+  <td>##OWNER##:</td>
  </tr>
  <tr>
   <td>
@@ -86,7 +86,7 @@
  </tr>
  { /if }
  <tr>
-  <td colspan="2">Text to be added to notification email (optional):</td>
+  <td colspan="2">##FORM_ADDITIONAL_TEXT##:</td>
  </tr>
  <tr>
   <td>
@@ -97,7 +97,7 @@
   <td colspan="2">&nbsp;</td>
  </tr>
  <tr>
-  <td>{ save_button text="Save and return to Start Page" }</td>
+  <td>{ save_button text="##SAVE_GO_TO_START##" }</td>
  </tr>
  <tr>
   <td><div id="generalerror" class="warning"></div></td>

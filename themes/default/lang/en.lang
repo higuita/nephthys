@@ -1,0 +1,152 @@
+// single words
+ABOUT=About
+ACTIONS=Actions
+ADDRESS_BOOK=Address-Book
+ADMIN=Administrator
+AGAIN=again
+CREATED=Created
+DELETE=Delete
+DISABLED=Disabled
+DISK_USED=Used
+DISK_FREE=Free
+EXPIRES=Expires
+FULLNAME=Fullname
+EMAIL=Email
+ENABLED=Enabled
+HELLO=Hello
+HELP=Help
+LOGIN=Login
+MANAGER=Manager
+MY_PROFILE=My Profile
+NAME=Name
+NOTIFIED=Notified
+NO=No
+OPTIONS=Options
+OWNER=Owner
+PASSWORD=Password
+PRIVILEGES=Privileges
+START_PAGE=Start Page
+STATUS=Status
+USER=User
+USERNAME=Username
+USERS=Users
+YES=Yes
+
+// common phrases
+ACCESS_BUCKET=You can access the bucket by the following ways to add files
+BUCKET_RECEIVER=Bucket receiver
+CLICK_EDIT_CONTACT=Click to edit this contact
+CLICK_EDIT_USER=Click to edit this user
+CLICK_EDIT_BUCKET=Click to edit this bucket
+CLICK_ENABLE_USER=Click to enable this user
+CLICK_DELETE_CONTACT=Click to delete this contact
+CLICK_DELETE_BUCKET=Click to delete this bucket
+CLICK_DELETE_USER=Click to delete this user
+CLICK_DISABLE_USER=Click to disable this user
+CLICK_LOGOUT=click to logout
+CLICK_SEND_EMAIL=Click to send notification E-Mail
+DEFAULT_BUCKET_EXPIRE=Default expiration time used for buckets
+DEFAULT_LANGUAGE=Language (you need to logout &amp; login again if you change this)
+GO_TO_START=Go to Start Page
+NEVER_EXPIRE=This bucket will never expire
+OPEN_VIA_WEBDAV=Open bucket via WebDAV
+OPEN_VIA_FTP=Open bucket via FTP
+SAVE_GO_TO_START=Save and return to Start Page
+SHARE_SOME_FILES=Create a bucket to share some files
+SHARE_I_WANT=I want to share some files
+SHARE_SOMEONE_WANT=Someone wants to send me files
+
+// about.tpl
+ABOUT_TITLE=About Nephthys
+ABOUT_LICENSE=Licensed under GPLv3
+ABOUT_SITE=Nephthys website
+
+// addressbook_list.tpl
+ABLIST_SUBHEADER=Manage your address-book contacts
+ABLIST_EMPTY_AB= Currently your address-book does not contain any contacts.
+   They will be added when you create buckets and have entered a receiver
+   email address. Then this email address will be automatically added to
+   your address-book.
+
+// addressbook_edit.tpl
+ABEDIT_TITLE=Edіt contact
+ABEDIT_F1_NAME=Email
+ABEDIT_SAVE=Save and return to address-book list
+
+// bucket_list.tpl
+BLIST_COL_2_NAME=Open Bucket to add Files
+BLIST_EMPTY_BL=You have no buckets currently.
+   Create one by choosing one of the above ways you want to share files!
+
+// bucket_edit.tpl
+BEDIT_HEADER=Edit bucket
+BEDIT_F1_NAME=Bucket name
+BEDIT_F2_NAME=Yours or senders email
+BEDIT_F3_NAME=Yours or senders email (you can not modify this entry)
+BEDIT_F4_NAME=Receivers email
+
+// help.tpl
+HELP_HEADER=Nephthys Help
+HELP_TEXT=Your Nephthys installation comes with an included manual in different variantes.<br />
+   So, please choose your favorite one below:<br />
+HELP_SEPARATED=HTML (separated pages)
+HELP_ALL_IN_1=HTML (all-in-one)
+
+// login_box.tpl
+LOGIN_HEADER=Login to Nephthys
+
+// main.tpl
+MAIN_SUBHEADER=Choose from the following options
+MAIN_EMAIL_NOT_SET=Your E-Mail address is not set. You can do this in the "My Profile" tab.
+MAIN_BL_HEADER=Bucket List
+MAIN_BL_SUBHEADER=The following buckets are currently available
+
+// profile.tpl
+PROFILE_SUBHEADER=Update your profile details
+
+// receive_form.tpl
+FORM_BUCKET_NAME=Give the bucket a name
+FORM_SENDER_EMAIL=Yours or senders email
+FORM_SENDER_EMAIL=Senders email
+FORM_RECEIVER_EMAIL=Receivers email
+FORM_RECEIVER_OPT=optional, to notify out of Nephthys
+FORM_ADD_AB=add email to address-book
+FORM_BUCKET_EXPIRE=When will this bucket expire?
+FORM_ADDITIONAL_TEXT=Text to be added to notification email (optional)
+FORM_SEND_EMAIL=Send email notification to receiver immediately after creating bucket.
+FORM_CREATE_BUCKET=Create bucket
+
+// saved_bucket.tpl
+SB_HEADER=Bucket successfully created
+SB_SUBHEADER=The bucket has been created for you.
+SB_ABOVE_LINKS=The above links you can also find on the "Start Page" for later usage
+
+// users_edit.tpl
+USER_CREATE_NEW=Create a new User
+USER_MODIFY=Modify User
+USER_LONG_TIME_BUCKET=Allow long-time buckets (only affects 'User' privilege)
+USER_SAVE=Save user and return to user-list
+
+// user_list.tpl
+USER_HEADER=User - Management
+
+// from PHP source
+NOT_ALLOWED=You do not have enough permissions to access this module!
+FAILURE_ENTER_EMAIL=Please enter a email address for this contact!
+FAILURE_ENTER_SENDER=Please enter a valid sender email address!
+FAILURE_ENTER_BUCKET_NAME=Please enter a name for this bucket!
+FAILURE_ENTER_BUCKET_SENDER=Please enter a sender for this bucket!
+FAILURE_ENTER_VALID_SENDER=Please enter a valid sender email address!
+FAILURE_ENTER_BUCKET_RECEIVER=Please enter a receiver for this bucket!
+FAILURE_ENTER_VALID_RECEIVER=Please enter a valid receiver email address!
+FAILURE_USER_LOGON=Invalid or inactive User.
+FAILURE_PASSWORD=Invalid Password.
+FAILURE_USER_PASS=Please enter Username and Password.
+FAILURE_CHANGE_LOGIN=You are not allowed to change your login name!
+FAILURE_CHANGE_EMAIL=You are not allowed to change your email address!
+FAILURE_ENTER_USERNAME=Please enter a user name!
+FAILURE_EMPTY_PASSWORD=Empty passwords are not allowed!
+FAILURE_PASSWORD_NOT_MATCH=The two entered passwords do not match!
+FAILURE_ENTER_EMAIL=Please enter a email address!
+FAILURE_ENTER_VALID_EMAIL=Please enter a valid email address!
+FAILURE_USER_NOT_EXISTS=A user with such a user name already exist!

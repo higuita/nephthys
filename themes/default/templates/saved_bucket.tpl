@@ -4,11 +4,11 @@
 <input type="hidden" name="bucketmode" value="receive" />
 <input type="hidden" name="bucket_new" value="1" />
 
-{ page_start header="Bucket successfully created" subheader="The bucket has been created for you." }
+{ page_start header="##SB_HEADER##" subheader="##SB_SUBHEADER##." }
 
 <table>
  <tr>
-  <td class="miniheader">Name:</td>
+  <td class="miniheader">##NAME##:</td>
  </tr>
  <tr>
   <td>{ $bucket_name }</td>
@@ -18,7 +18,7 @@
  </tr>
  { if $bucket_receiver }
  <tr>
-  <td class="miniheader">Bucket receiver:</td>
+  <td class="miniheader">##BUCKET_RECEIVER##:</td>
  </tr>
  <tr>
   <td>
@@ -30,12 +30,12 @@
  </tr>
  { /if }
  <tr>
-  <td class="miniheader">Expires:</td>
+  <td class="miniheader">##EXPIRES##:</td>
  </tr>
  <tr>
   <td>
   { if $bucket_expire == "never" }
-   This bucket will never expire.</td>
+   ##NEVER_EXPIRE##.</td>
   { else }
    { $bucket_expire }
   { /if }
@@ -45,7 +45,7 @@
   <td>&nbsp;</td>
  </tr>
  <tr>
-  <td class="miniheader">You can access the bucket by the following ways to add files:</td>
+  <td class="miniheader">##ACCESS_BUCKET##:</td>
  </tr>
 
  <!-- WebDAV support is enabled -->
@@ -56,11 +56,11 @@
   <!-- Browser is Internet Explorer -->
   { if $is_ie }
    <span style="behavior: url(#default#httpFolder); cursor: pointer; font-size: 14px; color: #000000;" onclick="this.navigateFrame('{ $bucket_webdav_path }', '_blank');">
-    <a href="{ $bucket_webdav_path }" onclick="return false;" title="Open bucket via WebDAV"><img src="{ $theme_root }/images/webdav.png" />&nbsp;WebDAV</a>
+    <a href="{ $bucket_webdav_path }" onclick="return false;" title="##OPEN_VIA_WEBDAV##"><img src="{ $theme_root }/images/webdav.png" />&nbsp;WebDAV</a>
    </span>
   <!-- Every other browser -->
   { else }
-    <a href="{ $bucket_webdav_path }" onclick="return false;" title="Open bucket via WebDAV"><img src="{ $theme_root }/images/webdav.png" />&nbsp;WebDAV</a>
+    <a href="{ $bucket_webdav_path }" onclick="return false;" title="##OPEN_VIA_WEBDAV##"><img src="{ $theme_root }/images/webdav.png" />&nbsp;WebDAV</a>
   { /if }
   </td>
  </tr>
@@ -70,7 +70,7 @@
  { if $bucket_via_ftp }
  <tr>
   <td style="padding-left: 15px;">
-   <a href="{ $bucket_ftp_path }" target="_blank" title="Open bucket via FTP"><img src="{ $theme_root }/images/ftp.png" />&nbsp;FTP</a>
+   <a href="{ $bucket_ftp_path }" target="_blank" title="##OPEN_VIA_FTP##"><img src="{ $theme_root }/images/ftp.png" />&nbsp;FTP</a>
   </td>
  </tr>
  { /if }
@@ -81,7 +81,7 @@
   <td>&nbsp;</td>
  </tr>
  <tr>
-  <td>The above links you can also find on the "Start Page" for later usage.</td>
+  <td>##SB_ABOVE_LINKS##.</td>
  </tr>
  <tr>
   <td>&nbsp;</td>
@@ -90,7 +90,7 @@
   <td>&nbsp;</td>
  </tr>
  <tr>
-  <td><a href="#" onclick="ajax_show_content('main'); return false;"><img src="{ $theme_root }/images/next.png">&nbsp;Go to Start Page</a></td>
+  <td><a href="#" onclick="ajax_show_content('main'); return false;"><img src="{ $theme_root }/images/next.png">&nbsp;##GO_TO_START##</a></td>
  </tr>
 </table>
 

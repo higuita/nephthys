@@ -5,11 +5,11 @@
 <input type="hidden" name="contact_idx" value="{ $contact_idx }" />
 <input type="hidden" name="contact_new" value="0" />
 
-{ page_start header="Edit contact" }
+{ page_start header="##ABEDIT_TITLE##" }
 
 <table>
  <tr>
-  <td colspan="2">Email:</td>
+  <td colspan="2">##EMAIL##:</td>
  </tr>
  <tr>
   <td>
@@ -21,7 +21,7 @@
  </tr>
  { if $login_priv == "manager" || $login_priv == "admin" }
  <tr>
-  <td>Owner:</td>
+  <td>##OWNER##:</td>
  </tr>
  <tr>
   <td>
@@ -33,7 +33,7 @@
  </tr>
  { /if }
  <tr>
-  <td>{ save_button text="Save and return to address-book list" }</td>
+  <td>{ save_button text="##ABEDIT_SAVE##" }</td>
  </tr>
  <tr>
   <td><div id="generalerror" style="visibility: hidden;"></div></td>

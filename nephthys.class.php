@@ -36,6 +36,8 @@ class NEPHTHYS {
    public $browser_info;
 
    private $runtime_error = false;
+   private $_translationTable;        // currently loaded translation table
+   private $_loadedTranslationTables; // array of all loaded translation tables
 
    /**
     * class constructor
@@ -186,6 +188,18 @@ class NEPHTHYS {
          if(isset($_SESSION['login_idx']) && is_numeric($_SESSION['login_idx']))
             $user = $this->get_user_details_by_idx($_SESSION['login_idx']);
       }
+
+      if(isset($user) &&
+         isset($user->user_language) &&
+         !empty($user->user_language) &&
+         in_array($user->user_language, array_keys($this->cfg->avail_langs))) {
+
+         $this->cfg->language = $user->user_language;
+
+      }
+
+      /* load translation table for the current language */
+      $this->load_translation_table();
 
       /* overload Smarty class if our own template handler */
       require_once "nephthys_tmpl.php";
@@ -811,7 +825,7 @@ class NEPHTHYS {
       /* set application name and version information */
       $this->cfg->product = "Nephthys";
       $this->cfg->version = "1.2";
-      $this->cfg->db_version = 3;
+      $this->cfg->db_version = 4;
 
       return true;
 
@@ -830,7 +844,7 @@ class NEPHTHYS {
 
             /* reject inactive users */
             if($user->user_active != 'Y')
-               return _("Invalid or inactive User.");
+               return $this->_("##FAILURE_USER_LOGON##");
 
             /* do not allow auto-created users to login (they have no password set...) */
             if($user->user_auto_created != 'Y' &&
@@ -839,18 +853,18 @@ class NEPHTHYS {
                $_SESSION['login_name'] = $_POST['login_name'];
                $_SESSION['login_idx'] = $user->user_idx;
 
-               return _("ok");
+               return "ok";
             }
             else {
-               return _("Invalid Password.");
+               return $this->_("##FAILURE_PASSWORD##");
             }
          }
          else {
-            return _("Invalid or inactive User.");
+            return $this->_("##FAILURE_USER_LOGON##");
          }
       }
       else {
-         return _("Please enter Username and Password.");
+         return $this->_("##FAILURE_USER_PASS##");
       }
 
    } // check_login()
@@ -1347,7 +1361,8 @@ class NEPHTHYS {
                      user_last_login int,
                      user_default_expire int,
                      user_priv_expire varchar(1),
-                     user_auto_created varchar(1)
+                     user_auto_created varchar(1),
+                     user_language varchar(6)
                   );
                ");
 
@@ -1383,6 +1398,136 @@ class NEPHTHYS {
          }
 
          $this->set_db_version(3);
+
+      }
+
+      /* db version 4 */
+      if($this->get_db_version() < 4) {
+
+         /* add column user_language to nephthys_users */
+
+         switch($this->cfg->db_type) {
+            default:
+            case 'mysql':
+               $this->db->db_alter_table(
+                  "nephthys_users",
+                  "add",
+                  "user_language",
+                  "varchar(6)"
+               );
+               break;
+
+            case 'sqlite':
+
+               /* SQlite v2 does not support ALTER TABLE, so we need
+                  to take the help of a temporary table.
+               */
+               if(!$this->db->db_start_transaction())
+                  die("Can not start database transaction");
+
+               $result = $this->db->db_exec("
+                  CREATE TEMPORARY TABLE nephthys_users_tmp (
+                     user_idx INTEGER PRIMARY KEY,
+                     user_name varchar(255),
+                     user_full_name varchar(255),
+                     user_pass varchar(255),
+                     user_email varchar(255),
+                     user_priv varchar(16),
+                     user_active varchar(1),
+                     user_last_login int,
+                     user_default_expire int,
+                     user_priv_expire varchar(1),
+                     user_auto_created varchar(1),
+                     user_language varchar(6)
+                  );
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               $result = $this->db->db_exec("
+                  INSERT INTO nephthys_users_tmp
+                     SELECT
+                        user_idx,
+                        user_name,
+                        user_full_name,
+                        user_pass,
+                        user_email,
+                        user_priv,
+                        user_active,
+                        user_last_login,
+                        user_default_expire,
+                        user_priv_expire,
+                        user_auto_created,
+                        NULL
+                     FROM nephthys_users;
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               $result = $this->db->db_exec("
+                  DROP TABLE nephthys_users;
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               $result = $this->db->db_exec("
+                  CREATE TABLE nephthys_users (
+                     user_idx INTEGER PRIMARY KEY,
+                     user_name varchar(255),
+                     user_full_name varchar(255),
+                     user_pass varchar(255),
+                     user_email varchar(255),
+                     user_priv varchar(16),
+                     user_active varchar(1),
+                     user_last_login int,
+                     user_default_expire int,
+                     user_priv_expire varchar(1),
+                     user_auto_created varchar(1),
+                     user_language varchar(6)
+                  );
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               $result = $this->db->db_exec("
+                  INSERT INTO nephthys_users
+                     SELECT *
+                     FROM nephthys_users_tmp;
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               $result = $this->db->db_exec("
+                  DROP TABLE nephthys_users_tmp;
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               if(!$this->db->db_commit_transaction())
+                  die("Can not commit database transaction");
+
+               break;
+         }
+
+         $this->set_db_version(4);
 
       }
 
@@ -1613,6 +1758,98 @@ class NEPHTHYS {
 
    } // set_db_version()
 
+   public function _($text)
+   {
+      return $this->get_translation($text);
+   }
+
+   function get_language()
+   {
+      return $this->cfg->language;
+
+   } // get_language()
+
+   function load_translation_table()
+   {
+      $locale = $this->get_language();
+
+      $path = $this->cfg->base_path
+         . '/themes/'
+         . $this->cfg->theme_name
+         . '/lang/'
+         . $locale
+         . '.lang';
+
+      if (isset($this->_loadedTranslationTables[$locale])) {
+         if (in_array($path, $this->_loadedTranslationTables[$locale])) {
+            // Translation table was already loaded
+            return true;
+         }
+      }
+
+      /* if the language file is not available, stop execution. */
+      if(!file_exists($path) || !is_readable($path)) {
+         die($this->_("Can not open language file $path"));
+      }
+
+      $entries = file($path);
+      $this->_translationTable[$locale][$path] = Array();
+      $this->_loadedTranslationTables[$locale][] = $path;
+
+      foreach ($entries as $row) {
+
+         $row = trim($row);
+
+         // ignore empty lines
+         if(empty($row))
+            continue;
+
+         // ignore lines with comments
+         if (substr(ltrim($row),0,2) == '//') // ignore comments
+            continue;
+
+         $keyValuePair = explode('=',$row);
+
+         // multiline values: the first line with an equal sign '=' will start a new key=value pair
+         if(sizeof($keyValuePair) == 1) {
+            $this->_translationTable[$locale][$key] .= ' ' . chop($keyValuePair[0]);
+            continue;
+         }
+
+         $key = trim($keyValuePair[0]);
+         $value = $keyValuePair[1];
+         if (!empty($key)) {
+            $this->_translationTable[$locale][$key] = chop($value);
+         }
+      }
+
+      return true;
+   }
+
+   function get_translation($key)
+   {
+      $locale = $this->get_language();
+
+      // if get_tranlation() get called via RPC (indirect), the translation
+      // table may not be loaded yet.
+      if (!isset($this->_loadedTranslationTables[$locale]))
+         $this->load_translation_table($locale);
+
+      $trans = $this->_translationTable[$locale];
+
+      /* get the real translation key */
+      $key = preg_replace('/##(.+?)##/', '${1}', $key);
+
+      if (is_array($trans)) {
+         if (isset($trans[$key])) {
+            return $trans[$key];
+         }
+      }
+
+      return "Can not find translation for key $key";
+   }
+
+
 } // class NEPHTHYS
 
 /***************************************************************************
@@ -1643,12 +1880,13 @@ class NEPHTHYS_DEFAULT_CFG {
    var $ignore_js   = false;
    var $hide_logout = false;
    var $use_https   = false;
+
    var $bucket_via_dav = true;
    var $bucket_via_ftp = true;
 
    var $allow_server_auth = false;
-   var $user_auto_create = false;
-   var $expirations  = Array(
+   var $user_auto_create  = false;
+   var $expirations       = Array(
       "1;1 Day;user",
       "3;3 Days;user",
       "7;1 Week;user",
@@ -1656,6 +1894,12 @@ class NEPHTHYS_DEFAULT_CFG {
       "186;6 Months;manager",
       "365;1 Year; manager",
       "-1;never; manager",
+   );
+
+   var $language    = "en";
+   var $avail_langs = Array(
+      "en" => "English",
+      "de" => "Deutsch",
    );
 
 } // class NEPHTHYS_DEFAULT_CFG

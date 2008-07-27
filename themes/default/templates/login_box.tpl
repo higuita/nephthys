@@ -1,20 +1,20 @@
 <form id="login" onsubmit="js_login(); return false;">
 
-{ page_start header="Login to Nephthys" }
+{ page_start header="##LOGIN_HEADER##" }
 
 <table>
  <tr>
-  <td style="text-align: right;">Username:&nbsp;</td>
+  <td style="text-align: right;">##USERNAME##:&nbsp;</td>
   <td><input type="text" name="login_name" class="inputlogin" /></td>
  </tr>
  <tr>
-  <td style="text-align: right;">Password:&nbsp;</td>
+  <td style="text-align: right;">##PASSWORD##:&nbsp;</td>
   <td><input type="password" name="login_pass" class="inputlogin" /></td>
  </tr>
  <tr><td colspan="2">&nbsp;</td>
  <tr>
   <td>&nbsp;</td>
-  <td style="text-align: left;"><input type="submit" value="Login" />
+  <td style="text-align: left;"><input type="submit" value="##LOGIN##" />
   </td>
  </tr>
 </table>

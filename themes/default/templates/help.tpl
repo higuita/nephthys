@@ -1,9 +1,8 @@
-{ page_start header="Nephthys Help" }
+{ page_start header="##HELP_HEADER##" }
 <br />
 <div>
- Your Nephthys installation comes with an included manual in different variantes.<br />
- So, please choose your favorite one below:<br />
+ ##HELP_TEXT##
  <br />
- <a href="manual/" target="_blank"><img src="{ $theme_root }/images/html.png" />&nbsp;HTML (separated pages)</a><br />
- <a href="manual/nephthys.html" target="_blank"><img src="{ $theme_root }/images/html.png" />&nbsp;HTML (all-in-one)</a><br />
+ <a href="manual/" target="_blank"><img src="{ $theme_root }/images/html.png" />&nbsp;##HELP_SEPARATED##</a><br />
+ <a href="manual/nephthys.html" target="_blank"><img src="{ $theme_root }/images/html.png" />&nbsp;##HELP_ALL_IN_1##</a><br />
 </div>

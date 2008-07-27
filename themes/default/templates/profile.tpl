@@ -3,11 +3,11 @@
 <input type="hidden" name="mode" value="modify" />
 <input type="hidden" name="user_idx" value="{ $user_idx }" />
 
-{ page_start header="My Profile" subheader="Update your profile details:" }
+{ page_start header="##MY_PROFILE##" subheader="##PROFILE_SUBHEADER##:" }
 
 <table>
  <tr>
-  <td colspan="2">Username:</td>
+  <td colspan="2">##USERNAME##:</td>
  </tr>
  <tr>
   <td>
@@ -22,7 +22,7 @@
   <td colspan="2">&nbsp;</td>
  </tr>
  <tr>
-  <td colspan="2">Fullname:</td>
+  <td colspan="2">##FULLNAME##:</td>
  </tr>
  <tr>
   <td>
@@ -33,7 +33,7 @@
   <td colspan="2">&nbsp;</td>
  </tr>
  <tr>
-  <td colspan="2">Email:</td>
+  <td colspan="2">##EMAIL##:</td>
  </tr>
  <tr>
   <td>
@@ -51,7 +51,7 @@
   <td colspan="2">&nbsp;</td>
  </tr>
  <tr>
-  <td>Password:</td>
+  <td>##PASSWORD##:</td>
  </tr>
  <tr>
  <td>
@@ -59,7 +59,7 @@
  </td>
  </tr>
  <tr>
-  <td>again</td>
+  <td>##AGAIN##</td>
  </tr>
  <tr>
   <td>
@@ -70,7 +70,7 @@
   <td colspan="2">&nbsp;</td>
  </tr>
  <tr>
-  <td colspan="2">Default expiration time used for buckets:</td>
+  <td colspan="2">##DEFAULT_BUCKET_EXPIRE##:</td>
  </tr>
  <tr>
   <td>
@@ -81,7 +81,18 @@
   <td colspan="2">&nbsp;</td>
  </tr>
  <tr>
-  <td>{ save_button text="Save and go back to start-page" }</td>
+  <td colspan="2">##DEFAULT_LANGUAGE##:</td>
+ </tr>
+ <tr>
+  <td>
+   { language_list name="user_language" current=$user_language }
+  </td>
+ </tr>
+ <tr>
+  <td colspan="2">&nbsp;</td>
+ </tr>
+ <tr>
+  <td>{ save_button text="##SAVE_GO_TO_START##" }</td>
  </tr>
  <tr>
   <td><div id="generalerror" class="warning"></div></td>

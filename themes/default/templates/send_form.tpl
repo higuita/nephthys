@@ -4,11 +4,11 @@
 <input type="hidden" name="bucketmode" value="send" />
 <input type="hidden" name="bucket_new" value="1" />
 
-{ page_start header="I want to share some files" }
+{ page_start header="##SHARE_I_WANT##" }
 
 <table>
  <tr>
-  <td colspan="2">Give the bucket a name:</td>
+  <td colspan="2">##FORM_BUCKET_NAME##:</td>
  </tr>
  <tr>
   <td>
@@ -20,7 +20,7 @@
  </tr>
  { if $login_priv == "manager" || $login_priv == "admin" }
  <tr>
-  <td colspan="2">Senders email:
+  <td colspan="2">##FORM_SENDER_EMAIL##:
  </tr>
  <tr>
   <td>
@@ -35,7 +35,7 @@
  </tr>
  { /if }
  <tr>
-  <td colspan="2">Receivers email (optional, to notify out of Nephthys):
+  <td colspan="2">##FORM_RECEIVER_EMAIL## (##FORM_RECEIVER_OPT##):
  </tr>
  <tr>
   <td>
@@ -47,14 +47,14 @@
  </tr>
  <tr>
   <td colspan="2">
-   <input type="checkbox" class="checkbox" name="bucket_receiver_to_ab" value="Y" checked="checked">&nbsp;add email to address-book
+   <input type="checkbox" class="checkbox" name="bucket_receiver_to_ab" value="Y" checked="checked">&nbsp;##FORM_ADD_AB##
   </td>
  </tr>
  <tr>
   <td colspan="2">&nbsp;</td>
  </tr>
  <tr>
-  <td colspan="2">When will this bucket expire?</td>
+  <td colspan="2">##FORM_BUCKET_EXPIRE##?</td>
  </tr>
  <tr>
   <td>
@@ -66,7 +66,7 @@
  </tr>
  { if $login_priv == "manager" || $login_priv == "admin" }
  <tr>
-  <td>Owner:</td>
+  <td>##OWNER##:</td>
  </tr>
  <tr>
   <td>
@@ -78,7 +78,7 @@
  </tr>
  { /if }
  <tr>
-  <td colspan="2">Text to be added to notification email (optional):</td>
+  <td colspan="2">##FORM_ADDITIONAL_TEXT##:</td>
  </tr>
  <tr>
   <td>
@@ -89,7 +89,7 @@
   <td colspan="2">&nbsp;</td>
  </tr>
  <tr>
-  <td>{ save_button text="Create bucket" }</td>
+  <td>{ save_button text="##FORM_CREATE_BUCKET##" }</td>
  </tr>
  <tr>
   <td><div id="generalerror" class="warning"></div></td>

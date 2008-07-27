@@ -45,7 +45,7 @@ class NEPHTHYS_USERS {
    public function show()
    {
       if(!$this->parent->is_logged_in() || $this->parent->check_privileges('user')) {
-         print _("You do not have enough permissions to access this module!");
+         print $this->_("##NOT_ALLOWED##");
          return 0;
       }
 
@@ -99,7 +99,7 @@ class NEPHTHYS_USERS {
    {
       /* If authentication is enabled, check permissions */
       if(!$this->parent->is_logged_in() || $this->parent->check_privileges('user')) {
-         print _("You do not have enough permissions to access this module!");
+         print $this->_("##NOT_ALLOWED##");
          return 0;
       }
 
@@ -134,28 +134,28 @@ class NEPHTHYS_USERS {
    public function store()
    {
       if(!$this->parent->is_logged_in() || $this->parent->check_privileges('user')) {
-         return _("You do not have enough permissions to access this module!");
+         return $this->_("##NOT_ALLOWED##");
       }
 
       isset($_POST['user_new']) && $_POST['user_new'] == 1 ? $new = 1 : $new = NULL;
 
       if(!isset($_POST['user_name']) || $_POST['user_name'] == "") {
-         return _("Please enter a user name!");
+         return $this->_("##FAILURE_ENTER_USERNAME##");
       }
       if(isset($new) && $this->parent->check_user_exists($_POST['user_name'])) {
-         return _("A user with such a user name already exist!");
+         return $this->_("##FAILURE_USER_NOT_EXISTS##");
       }
       if($_POST['user_pass1'] == "") {
-         return _("Empty passwords are not allowed!");
+         return $this->_("##FAILURE_EMPTY_PASSWORD##");
       }
       if($_POST['user_pass1'] != $_POST['user_pass2']) {
-         return _("The two entered passwords do not match!");
+         return $this->_("##FAILURE_PASSWORD_NOT_MATCH##");
       }	       
       if(!isset($_POST['user_email']) || $_POST['user_email'] == "") {
-         return _("Please enter a email address!");
+         return $this->_("##FAILURE_ENTER_EMAIL##");
       }
       if(!$this->parent->validate_email($_POST['user_email'])) {
-         return _("Please enter a valid email address!");
+         return $this->_("##FAILURE_ENTER_VALID_EMAIL##");
       }
  
       if(isset($new)) {
@@ -234,7 +234,7 @@ class NEPHTHYS_USERS {
    public function delete()
    {
       if(!$this->parent->is_logged_in() || $this->parent->check_privileges('user')) {
-         return _("You do not have enough permissions to access this module!");
+         return $this->_("##NOT_ALLOWED##");
       }
 
       if(isset($_POST['idx']) && is_numeric($_POST['idx'])) {
@@ -259,7 +259,7 @@ class NEPHTHYS_USERS {
    public function toggleStatus()
    {
       if(!$this->parent->is_logged_in() || $this->parent->check_privileges('user')) {
-         return _("You do not have enough permissions to access this module!");
+         return $this->_("##NOT_ALLOWED##");
       }
 
       if(isset($_POST['idx']) && is_numeric($_POST['idx'])) {

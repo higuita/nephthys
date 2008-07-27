@@ -75,7 +75,7 @@ class NEPHTHYS_ADDRESSBOOK {
    public function show()
    {
       if(!$this->parent->is_logged_in()) {
-         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". _("Manage Users"), _("You do not have enough permissions to access this module!"));
+         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". $this->_("##MANAGE_USERS##"), $this->_("##NOT_ALLOWED##"));
          return 0;
       }
        if(!isset($_GET['mode']))
@@ -106,10 +106,10 @@ class NEPHTHYS_ADDRESSBOOK {
       isset($_POST['contact_new']) && $_POST['contact_new'] == 1 ? $new = 1 : $new = NULL;
 
       if(!isset($_POST['contact_email']) || empty($_POST['contact_email'])) {
-         return _("Please enter a email address for this contact!");
+         return $this->_("##FAILURE_ENTER_EMAIL##");
       }
       if(!$this->parent->is_valid_email($_POST['contact_email'])) {
-         return _("Please enter a valid sender email address!");
+         return $this->_("##FAILURE_ENTER_SENDER##");
       }
 
       if(isset($new)) {
@@ -221,7 +221,7 @@ class NEPHTHYS_ADDRESSBOOK {
    {
       /* If authentication is enabled, check permissions */
       if(!$this->parent->is_logged_in()) {
-         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". _("Manage Addressbook"), _("You do not have enough permissions to access this module!"));
+         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". $this->_("MANAGE_AB"), $this->_("NOT_ALLOWED"));
          return 0;
       }
 

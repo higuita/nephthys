@@ -64,6 +64,15 @@ class NEPHTHYS_CFG extends NEPHTHYS_DEFAULT_CFG {
    // SQLite paramters
    // Default:
    //  var $sqlite_path = "/srv/www/nephthys_db/nephthys.db";
+
+   // Default language - language can be selected per user, but
+   // here a default language can be selected.
+   // The following languages are currently available:
+   //    en - english
+   //    de - german/deutsch
+   //
+   // Default:
+   //  var $language = "en";
  
    /* path to Smarty (http://smarty.php.net) installation. this option
       should directly point to the Smarty main directory containing the

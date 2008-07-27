@@ -29,6 +29,9 @@ class NEPHTHYS_TMPL extends Smarty {
    {
       global $nephthys;
 
+      $this->_translationTable        = Array();
+      $this->_loadedTranslationTables = Array();
+
       $this->parent =& $nephthys;
 
       if(!file_exists($nephthys->cfg->base_path .'/themes/'. $nephthys->cfg->theme_name .'/templates')) {
@@ -36,7 +39,12 @@ class NEPHTHYS_TMPL extends Smarty {
          exit(1);
       }
 
+      // for debugging - disable Smarty caching
+      //$this->caching = 0;
+      //$this->force_compile = true;
+
       $this->Smarty();
+
       $this->template_dir = $nephthys->cfg->base_path .'/themes/'. $nephthys->cfg->theme_name .'/templates';
       $this->compile_dir  = $nephthys->cfg->base_path .'/templates_c';
       $this->config_dir   = $nephthys->cfg->base_path .'/smarty_config';
@@ -47,6 +55,7 @@ class NEPHTHYS_TMPL extends Smarty {
          $this->assign('login_priv', $nephthys->get_user_priv($_SESSION['login_idx']));
          $this->assign('login_idx', $_SESSION['login_idx']);
       }
+
       $this->assign('theme_root', $nephthys->cfg->web_path .'themes/'. $nephthys->cfg->theme_name);
       $this->assign('bucket_sender', $nephthys->get_users_email());
       $this->assign('page_title', $nephthys->cfg->page_title);
@@ -61,7 +70,10 @@ class NEPHTHYS_TMPL extends Smarty {
       $this->register_function("save_button", array(&$this, "smarty_save_button"), false);
       $this->register_function("import_bucket_list", array(&$this, "smarty_import_bucket_list"), false);
       $this->register_function("expiration_list", array(&$this, "smarty_expiration_list"), false);
+      $this->register_function("language_list", array(&$this, "smarty_language_list"), false);
       $this->register_function("owner_list", array(&$this, "smarty_owner_list"), false);
+
+      $this->register_postfilter(array(&$this, "smarty_prefilter_i18n"));
 
    } // __construct()
 
@@ -170,7 +182,64 @@ class NEPHTHYS_TMPL extends Smarty {
 
    } //smarty_expiration_list()
 
+   public function smarty_language_list($params, &$smarty)
+   {
+      $select = "<select name=\"". $params['name'] ."\">\n";
 
-}
+      foreach($this->parent->cfg->avail_langs as $locale => $lang) {
+
+         $select.= "<option value=\"". $locale ."\"";
+         if(isset($params['current']) && $params['current'] == $locale)
+            $select.= " selected=\"selected\"";
+         $select.= ">". $lang."</option>\n";
+
+      }
+
+      $select.= "</select>\n";
+      print $select;
+
+   } //smarty_expiration_list()
+
+   public function fetch($_smarty_tpl_file, $_smarty_cache_id = null, $_smarty_compile_id = null, $_smarty_display = false)
+   {
+      // We need to set the cache id and the compile id so a new script will be
+      // compiled for each language. This makes things really fast ;-)
+      $_smarty_compile_id = $this->parent->get_language().'-'.$_smarty_compile_id;
+      $_smarty_cache_id = $_smarty_compile_id;
+
+      // Now call parent method
+      return parent::fetch( $_smarty_tpl_file, $_smarty_cache_id, $_smarty_compile_id, $_smarty_display );
+
+   } // fetch()
+
+   /**
+    * smarty_prefilter_i18n()
+    * This function takes the language file, and rips it into the template
+    *
+    * @param $tpl_source
+    * @return
+    **/
+   public function smarty_prefilter_i18n($tpl_source, &$smarty)
+   {
+      // Now replace the matched language strings with the entry in the file
+      return preg_replace_callback('/##(.+?)##/', array(&$this, '_compile_lang'), $tpl_source);
+
+   } // smarty_prefilter_i18n()
+
+   /**
+    * _compile_lang
+    * Called by smarty_prefilter_i18n function it processes every language
+    * identifier, and inserts the language string in its place.
+    *
+    */
+   public function _compile_lang($key)
+   {
+      return $this->parent->get_translation($key[1]);
+
+   } // _compile_lang()
+
+} // class SmartyML
+
+// vim:set ts=3 sw=3
 
 ?>

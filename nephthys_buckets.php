@@ -77,7 +77,7 @@ class NEPHTHYS_BUCKETS {
    public function show()
    {
       if(!$this->parent->is_logged_in()) {
-         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". _("Manage Users"), _("You do not have enough permissions to access this module!"));
+         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". $this->_("##MANAGE_USERS##"), $this->_("##NOT_ALLOWED##"));
          return 0;
       }
        if(!isset($_GET['mode']))
@@ -116,7 +116,7 @@ class NEPHTHYS_BUCKETS {
    public function showBucket()
    {
       if(!$this->parent->is_logged_in()) {
-         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". _("Manage Users"), _("You do not have enough permissions to access this module!"));
+         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". $this->_("##MANAGE_USERS##"), $this->_("##NOT_ALLOWED##"));
          return 0;
       }
 
@@ -263,21 +263,21 @@ class NEPHTHYS_BUCKETS {
       isset($_POST['bucket_new']) && $_POST['bucket_new'] == 1 ? $new = 1 : $new = NULL;
 
       if(!isset($_POST['bucket_name']) || empty($_POST['bucket_name'])) {
-         return _("Please enter a name for this bucket!");
+         return $this->_("##FAILURE_ENTER_BUCKET_NAME##");
       }
       if(!isset($_POST['bucket_sender']) || empty($_POST['bucket_name'])) {
-         return _("Please enter a sender for this bucket!");
+         return $this->_("##FAILURE_ENTER_BUCKET_SENDER##");
       }
       if(!$this->parent->is_valid_email($_POST['bucket_sender'])) {
-         return _("Please enter a valid sender email address!");
+         return $this->_("##FAILURE_ENTER_VALID_SENDER##");
       }
       if(isset($_POST['bucketmode']) && $_POST['bucketmode'] == "receive" &&
          !isset($_POST['bucket_receiver']) || empty($_POST['bucket_name'])) {
-         return _("Please enter a receiver for this bucket!");
+         return $this->_("##FAILURE_ENTER_BUCKET_RECEIVER##");
       }
       if(isset($_POST['bucketmode']) && $_POST['bucketmode'] == "receive" &&
          !$this->parent->is_valid_email($_POST['bucket_receiver'])) {
-         return _("Please enter a valid receiver email address!");
+         return $this->_("##FAILURE_ENTER_VALID_RECEIVER##");
       }
       /* for "send" it's not a must to specify a receiver, anyway, if one is there
          validate it...
@@ -285,7 +285,7 @@ class NEPHTHYS_BUCKETS {
       if(isset($_POST['bucketmode']) && $_POST['bucketmode'] == "send" &&
          isset($_POST['bucket_receiver']) && !empty($_POST['bucket_receiver']) &&
          !$this->parent->is_valid_email($_POST['bucket_receiver'])) {
-         return _("Please enter a valid receiver email address!");
+         return $this->_("##FAILURE_ENTER_VALID_RECEIVER##");
       }
 
       /* first of all we add the email address to the addressbook if requested.
@@ -586,7 +586,7 @@ class NEPHTHYS_BUCKETS {
    {
       /* If authentication is enabled, check permissions */
       if(!$this->parent->is_logged_in()) {
-         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". _("Manage Users"), _("You do not have enough permissions to access this module!"));
+         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". $this->_("##MANAGE_USERS##"), _("##NOT_ALLOWED##"));
          return 0;
       }
 
