@@ -1,0 +1,153 @@
+// single words
+ABOUT=Über
+ACTIONS=Aktionen
+ADDRESS_BOOK=Adressbuch
+ADMIN=Administrator
+AGAIN=nochmal
+CREATED=Erstellt am
+DELETE=Löschen
+DISABLED=Deaktivieren
+DISK_USED=Belegt
+DISK_FREE=Frei
+EXPIRES=Läuft ab
+FULLNAME=Vollständiger Name
+EMAIL=Email
+ENABLED=Aktiviert
+HELLO=Hallo
+HELP=Hilfe
+LOGIN=Anmeldung
+MANAGER=Manager
+MY_PROFILE=Mein Profil
+NAME=Name
+NOTIFIED=Benachrichtigt
+NO=Nein
+OPTIONS=Optionen
+OWNER=Besitzer
+PASSWORD=Passwort
+PRIVILEGES=Privilegien
+START_PAGE=Start Seite
+STATUS=Status
+USER=Benutzer
+USERNAME=Benutzername
+USERS=Benutzer
+YES=Ja
+
+// common phrases
+ACCESS_BUCKET=Auf den Bucket kann über folgende Wege zugegriffen werden
+BUCKET_RECEIVER=Bucket Empfänger
+CLICK_EDIT_CONTACT=Hier klicken um den Kontakt zu editieren
+CLICK_EDIT_USER=Hier klicken um den Benutzer zu editieren
+CLICK_EDIT_BUCKET=Hier klicken um den Bucket zu editieren
+CLICK_ENABLE_USER=Hier klicken um den Benutzer zu aktivieren
+CLICK_DELETE_CONTACT=Hier klicken um den Kontakt zu löschen
+CLICK_DELETE_BUCKET=Hier klicken um den Bucket zu löschen
+CLICK_DELETE_USER=Hier klicken um den Benutzer zu löschen
+CLICK_DISABLE_USER=Hier klicken um den Benutzer zu deaktivieren
+CLICK_LOGOUT=Ausloggen
+CLICK_SEND_EMAIL=Hier klicken um die Benachrichtungs Email zu versenden
+DEFAULT_BUCKET_EXPIRE=Standard-Ablaufzeit für neu erstellte Buckets
+DEFAULT_LANGUAGE=Sprache (nach Änderung ist ein Ab- und Anmelden erforderlich)
+GO_TO_START=Zur Start Seite
+NEVER_EXPIRE=Dieser Bucket läuft nicht ab
+OPEN_VIA_WEBDAV=Bucket via WebDAV öffnen
+OPEN_VIA_FTP=Bucket via FTP öffnen
+SAVE_GO_TO_START=Speichern und zurück zur Startseite
+SHARE_SOME_FILES=Bucket erstellen um Daten auszutauschen
+SHARE_I_WANT=Ich möchte Daten versenden
+SHARE_SOMEONE_WANT=Jemand möchte mir Daten senden
+
+// about.tpl
+ABOUT_TITLE=Über Nephthys
+ABOUT_LICENSE=Lizenzierst unter GPLv3
+ABOUT_SITE=Nephthys Website
+
+// addressbook_list.tpl
+ABLIST_HEADER=Adressbuch
+ABLIST_SUBHEADER=Adressbuch Kontakt verwalten
+ABLIST_EMPTY_AB=Derzeit existieren keine Adressbuch Kontakte.
+   Diese werden automatisch angelegt, wenn sie ein Bucket mit einer Empfänger
+   Email Adresse versehen. Diese Adresse gelangt dann in ihr persönliches
+   Adressbuch.
+
+// addressbook_edit.tpl
+ABEDIT_TITLE=Kontakt editieren
+ABEDIT_SAVE=Speichern und zurück zur Adressbuch Übersicht
+
+// bucket_list.tpl
+BLIST_COL_2_NAME=Bucket öffnen um Daten hinzuzufügen
+BLIST_EMPTY_BL=Derzeit sind keine Buckets definiert.
+   Erstellen Sie einen in dem Sie einen der oben aufgezeigten Wege anklicken!
+
+// bucket_edit.tpl
+BEDIT_HEADER=Bucket editieren
+BEDIT_F1_NAME=Bucket Name
+BEDIT_F2_NAME=Ihre oder die Absender-Email
+BEDIT_F3_NAME=Ihre oder die Absender-Email (sie können diese Option nicht bearbeiten)
+BEDIT_F4_NAME=Empfänger Email
+
+// help.tpl
+HELP_HEADER=Nephthys Hilfe
+HELP_TEXT=Diese Nephthys Installation enthält ein online Handbuch.<br />
+   Wählen Sie aus den folgenden Varianten:<br />
+HELP_SEPARATED=HTML (einzelne Seiten)
+HELP_ALL_IN_1=HTML (eine Seite)
+
+// login_box.tpl
+LOGIN_HEADER=Nephthys Anmeldung
+
+// main.tpl
+MAIN_HEADER=Start Seite
+MAIN_SUBHEADER=Wählen Sie aus den folgenden Optionen
+MAIN_EMAIL_NOT_SET=Ihre Email Adresse ist nicht gesetzt. Korrigieren Sie dieses über "Mein Profil".
+MAIN_BL_HEADER=Bucket Liste
+MAIN_BL_SUBHEADER=Derzeit sind folgende Buckets definiert
+
+// profile.tpl
+PROFILE_SUBHEADER=Profil-Daten aktualisieren
+
+// receive_form.tpl
+FORM_BUCKET_NAME=Geben Sie dem Bucket einen Namen
+FORM_SENDER_EMAIL=Ihre oder die Absender-Email
+FORM_SENDER_EMAIL=Absender Email
+FORM_RECEIVER_EMAIL=Empfänger Email
+FORM_RECEIVER_OPT=optional, wenn eine Benachrichtung von Nephthys erfolgen soll
+FORM_ADD_AB=Email zum Adressbuch hinzufügen
+FORM_BUCKET_EXPIRE=Wann soll dieser Bucket ablaufen?
+FORM_ADDITIONAL_TEXT=Text der in die Benachrichtungs-Email inkludiert wird (optional)
+FORM_SEND_EMAIL=Benachrichtungs-Email unmittelbar nach erstellen des Buckets versenden.
+FORM_CREATE_BUCKET=Bucket erstellen
+
+// saved_bucket.tpl
+SB_HEADER=Bucket erfolgreich erstellt
+SB_SUBHEADER=Der Bucket kann jetzt mit Daten gefüllt werden.
+SB_ABOVE_LINKS=Die obigen Links sind auch auf der "Start Seite" für die spätere Verwendung zu finden
+
+// users_edit.tpl
+USER_CREATE_NEW=Neuen Benutzer erstellen
+USER_MODIFY=Benutzer editieren
+USER_LONG_TIME_BUCKET=Langzeit Buckets erlauben (betrifft nur 'Benutzer' Privilegien)
+USER_SAVE=Benutzer speichern und zurück zur Benutzer-Liste
+
+// user_list.tpl
+USER_HEADER=Benutzer Verwaltung
+
+// from PHP source
+NOT_ALLOWED=Sie haben auf dieses Modul keinen Zugriff!
+FAILURE_ENTER_EMAIL=Bitte eine Email Adresse für diesen Kontakt eingeben!
+FAILURE_ENTER_SENDER=Bitte eine gültige Absender Email Adresse eingeben!
+FAILURE_ENTER_BUCKET_NAME=Bitte einen Namen für dieses Bucket eingeben!
+FAILURE_ENTER_BUCKET_SENDER=Bitte einen Absender Email Adresse für dieses Bucket eingeben!
+FAILURE_ENTER_VALID_SENDER=Bitte eine gültige Absender Email Adresse eingeben!
+FAILURE_ENTER_BUCKET_RECEIVER=Bitte einen Empfänger Email Adresse für dieses Bucket eingeben!
+FAILURE_ENTER_VALID_RECEIVER=Bitte eine gültige Empfänger Email Adresse eingeben!
+FAILURE_USER_LOGON=Ungültiger oder inaktiver Benutzer.
+FAILURE_PASSWORD=Ungültiges Passwort.
+FAILURE_USER_PASS=Bitte Benutzername und Passwort eingeben.
+FAILURE_CHANGE_LOGIN=Sie können Ihren Benutzernamen nicht ändern!
+FAILURE_CHANGE_EMAIL=Sie können Ihre Email Adresse nicht ändern!
+FAILURE_ENTER_USERNAME=Bitte einen Benutzernamen eingeben!
+FAILURE_EMPTY_PASSWORD=Ein leeres Passwort ist nicht erlaubt!
+FAILURE_PASSWORD_NOT_MATCH=Die beiden eingegebenen Passwörter stimmen nicht überein!
+FAILURE_ENTER_EMAIL=Bitte eine Email Adresse eingeben!
+FAILURE_ENTER_VALID_EMAIL=Bitte eine gültige Email Adresse eingeben!
+FAILURE_USER_NOT_EXISTS=Ein Benutzer mit diesem Benutzernamen existiert bereits!
