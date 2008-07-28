@@ -1363,7 +1363,6 @@ class NEPHTHYS {
                      user_default_expire int,
                      user_priv_expire varchar(1),
                      user_auto_created varchar(1),
-                     user_language varchar(6)
                   );
                ");
 
