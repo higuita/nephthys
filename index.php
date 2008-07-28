@@ -27,4 +27,5 @@ require_once "nephthys.class.php";
 $nephthys = new NEPHTHYS;
 $nephthys->init();
 
+// vim: set filetype=php expandtab softtabstop=3 tabstop=3 shiftwidth=3 autoindent smartindent:
 ?>

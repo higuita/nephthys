@@ -95,4 +95,5 @@ class NEPHTHYS_RPC {
 $rpc = new NEPHTHYS_RPC();
 $rpc->process_ajax_request();
 
+// vim: set filetype=php expandtab softtabstop=3 tabstop=3 shiftwidth=3 autoindent smartindent:
 ?>

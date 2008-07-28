@@ -246,4 +246,5 @@ class NEPHTHYS_ADDRESSBOOK {
 
 } // class NEPHTHYS_ADDRESSBOOK
 
+// vim: set filetype=php expandtab softtabstop=3 tabstop=3 shiftwidth=3 autoindent smartindent:
 ?>

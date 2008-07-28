@@ -616,4 +616,5 @@ class NEPHTHYS_BUCKETS {
 
 } // class NEPHTHYS_BUCKETS
 
+// vim: set filetype=php expandtab softtabstop=3 tabstop=3 shiftwidth=3 autoindent smartindent:
 ?>

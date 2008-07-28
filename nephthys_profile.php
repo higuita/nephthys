@@ -212,4 +212,5 @@ class NEPHTHYS_PROFILE {
 
 } // class NEPHTHYS_PROFILE
 
+// vim: set filetype=php expandtab softtabstop=3 tabstop=3 shiftwidth=3 autoindent smartindent:
 ?>

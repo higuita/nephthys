@@ -241,6 +241,5 @@ class NEPHTHYS_TMPL extends Smarty {
 
 } // class SmartyML
 
-// vim:set ts=3 sw=3
-
+// vim: set filetype=php expandtab softtabstop=3 tabstop=3 shiftwidth=3 autoindent smartindent:
 ?>
