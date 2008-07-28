@@ -147,6 +147,13 @@ class NEPHTHYS_TMPL extends Smarty {
             continue;
          }
 
+         /* if translation is requested, try to get it */
+         if(preg_match('/(##.+?##)/', $name, $period)) {
+
+            $period = $this->parent->_($period[0]);
+            $name = preg_replace('/##.+?##/', $period, $name);
+         }
+
          $select.= "<option value=\"". $days ."\"";
          if(isset($params['current']) && $params['current'] == $days)
             $select.= " selected=\"selected\"";
@@ -181,7 +188,7 @@ class NEPHTHYS_TMPL extends Smarty {
       $select.= "</select>\n";
       print $select;
 
-   } //smarty_expiration_list()
+   } //smarty_owner_list()
 
    public function smarty_language_list($params, &$smarty)
    {
@@ -199,7 +206,7 @@ class NEPHTHYS_TMPL extends Smarty {
       $select.= "</select>\n";
       print $select;
 
-   } //smarty_expiration_list()
+   } //smarty_language_list()
 
    public function fetch($_smarty_tpl_file, $_smarty_cache_id = null, $_smarty_compile_id = null, $_smarty_display = false)
    {

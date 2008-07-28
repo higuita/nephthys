@@ -76,7 +76,7 @@ class NEPHTHYS_ADDRESSBOOK {
    public function show()
    {
       if(!$this->parent->is_logged_in()) {
-         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". $this->_("##MANAGE_USERS##"), $this->_("##NOT_ALLOWED##"));
+         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". $this->parent->_("##MANAGE_USERS##"), $this->parent->_("##NOT_ALLOWED##"));
          return 0;
       }
        if(!isset($_GET['mode']))
@@ -107,10 +107,10 @@ class NEPHTHYS_ADDRESSBOOK {
       isset($_POST['contact_new']) && $_POST['contact_new'] == 1 ? $new = 1 : $new = NULL;
 
       if(!isset($_POST['contact_email']) || empty($_POST['contact_email'])) {
-         return $this->_("##FAILURE_ENTER_EMAIL##");
+         return $this->parent->_("##FAILURE_ENTER_EMAIL##");
       }
       if(!$this->parent->is_valid_email($_POST['contact_email'])) {
-         return $this->_("##FAILURE_ENTER_SENDER##");
+         return $this->parent->_("##FAILURE_ENTER_SENDER##");
       }
 
       if(isset($new)) {
@@ -222,7 +222,7 @@ class NEPHTHYS_ADDRESSBOOK {
    {
       /* If authentication is enabled, check permissions */
       if(!$this->parent->is_logged_in()) {
-         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". $this->_("MANAGE_AB"), $this->_("NOT_ALLOWED"));
+         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". $this->parent->_("MANAGE_AB"), $this->parent->_("NOT_ALLOWED"));
          return 0;
       }
 

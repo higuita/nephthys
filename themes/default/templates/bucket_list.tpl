@@ -50,10 +50,10 @@
   { /if }
   <td><img src="{ $theme_root }/images/clock.png" />&nbsp;{ $bucket_created }</td>
   <td><img src="{ $theme_root }/images/clock_red.png" />&nbsp;{ $bucket_expire }</td>
-  <td><img src="{ $theme_root }/images/email.png" />&nbsp;{ $bucket_notified }</td>
+  <td><img src="{ $theme_root }/images/email.png" />&nbsp;{ if $bucket_notified == 'Y' } ##YES## { else } ##NO## { /if}</td>
   <td>
-   <a href="javascript:js_delete_obj('buckets', 'main', '{ $bucket_idx }');" title="##CLICK_DELETE_BUCKET##"><img src="{ $theme_root }/images/delete.png" />&nbsp;Delete</a>
-   <a href="javascript:ajax_notify_bucket({ $bucket_idx });" title="##CLICK_SEND_EMAIL##"><img src="{ $theme_root }/images/mail.png" />&nbsp;Notify</a>
+   <a href="javascript:js_delete_obj('buckets', 'main', '{ $bucket_idx }');" title="##CLICK_DELETE_BUCKET##"><img src="{ $theme_root }/images/delete.png" />&nbsp;##DELETE##</a>
+   <a href="javascript:ajax_notify_bucket({ $bucket_idx });" title="##CLICK_SEND_EMAIL##"><img src="{ $theme_root }/images/mail.png" />&nbsp;##NOTIFY##</a>
   </td>
  </tr>
 { /bucket_list }

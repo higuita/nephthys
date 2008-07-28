@@ -46,7 +46,7 @@ class NEPHTHYS_PROFILE {
    public function show()
    {
       if(!$this->parent->is_logged_in()) {
-         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". $this->_("##MANAGE_USERS##"), _("##NOT_ALLOWED##"));
+         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". $this->parent->_("##MANAGE_USERS##"), _("##NOT_ALLOWED##"));
          return 0;
       }
 
@@ -69,7 +69,7 @@ class NEPHTHYS_PROFILE {
    {
       /* If authentication is enabled, check permissions */
       if(!$this->parent->is_logged_in()) {
-         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". $this->_("##MANAGE_USERS##"), _("##NOT_ALLOWED##"));
+         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". $this->parent->_("##MANAGE_USERS##"), _("##NOT_ALLOWED##"));
          return 0;
       }
 
@@ -98,23 +98,23 @@ class NEPHTHYS_PROFILE {
    public function store()
    {
       if($this->parent->check_privileges('user') && isset($_POST['user_name'])) {
-         return $this->_("##FAILURE_CHANGE_LOGIN##");
+         return $this->parent->_("##FAILURE_CHANGE_LOGIN##");
       }
       if($this->parent->check_privileges('user') &&
          !$this->parent->is_auto_created($_SESSION['login_idx'])
          && isset($_POST['user_email'])) {
-         return $this->_("##FAILURE_CHANGE_EMAIL##");
+         return $this->parent->_("##FAILURE_CHANGE_EMAIL##");
       }
 
       if(!$this->parent->check_privileges('user') && (!isset($_POST['user_name']) ||
          empty($_POST['user_name']))) {
-         return $this->_("##FAILURE_ENTER_USERNAME##");
+         return $this->parent->_("##FAILURE_ENTER_USERNAME##");
       }
       if(empty($_POST['user_pass1'])) {
-         return $this->_("##FAILURE_EMPTY_PASSWORD##");
+         return $this->parent->_("##FAILURE_EMPTY_PASSWORD##");
       }
       if($_POST['user_pass1'] != $_POST['user_pass2']) {
-         return $this->_("##FAILURE_PASSWORD_NOT_MATCH##");
+         return $this->parent->_("##FAILURE_PASSWORD_NOT_MATCH##");
       }	       
 
       /* user-privileged are not allowed to change their user-names */
@@ -148,10 +148,10 @@ class NEPHTHYS_PROFILE {
          $_POST['user_email'] = htmlentities($_POST['user_email']);
 
          if(!isset($_POST['user_email']) || empty($_POST['user_email'])) {
-            return $this->_("##FAILURE_ENTER_EMAIL##");
+            return $this->parent->_("##FAILURE_ENTER_EMAIL##");
          }
          if(!$this->parent->validate_email($_POST['user_email'])) {
-            return $this->_("##FAILURE_ENTER_VALID_EMAIL##");
+            return $this->parent->_("##FAILURE_ENTER_VALID_EMAIL##");
          }
 
          $sth = $this->db->db_prepare("

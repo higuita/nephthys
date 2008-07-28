@@ -59,7 +59,7 @@
  </td>
  </tr>
  <tr>
-  <td>##AGAIN##</td>
+  <td>##AGAIN##:</td>
  </tr>
  <tr>
   <td>

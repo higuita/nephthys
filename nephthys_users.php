@@ -46,7 +46,7 @@ class NEPHTHYS_USERS {
    public function show()
    {
       if(!$this->parent->is_logged_in() || $this->parent->check_privileges('user')) {
-         print $this->_("##NOT_ALLOWED##");
+         print $this->parent->_("##NOT_ALLOWED##");
          return 0;
       }
 
@@ -100,7 +100,7 @@ class NEPHTHYS_USERS {
    {
       /* If authentication is enabled, check permissions */
       if(!$this->parent->is_logged_in() || $this->parent->check_privileges('user')) {
-         print $this->_("##NOT_ALLOWED##");
+         print $this->parent->_("##NOT_ALLOWED##");
          return 0;
       }
 
@@ -135,28 +135,28 @@ class NEPHTHYS_USERS {
    public function store()
    {
       if(!$this->parent->is_logged_in() || $this->parent->check_privileges('user')) {
-         return $this->_("##NOT_ALLOWED##");
+         return $this->parent->_("##NOT_ALLOWED##");
       }
 
       isset($_POST['user_new']) && $_POST['user_new'] == 1 ? $new = 1 : $new = NULL;
 
       if(!isset($_POST['user_name']) || $_POST['user_name'] == "") {
-         return $this->_("##FAILURE_ENTER_USERNAME##");
+         return $this->parent->_("##FAILURE_ENTER_USERNAME##");
       }
       if(isset($new) && $this->parent->check_user_exists($_POST['user_name'])) {
-         return $this->_("##FAILURE_USER_NOT_EXISTS##");
+         return $this->parent->_("##FAILURE_USER_NOT_EXISTS##");
       }
       if($_POST['user_pass1'] == "") {
-         return $this->_("##FAILURE_EMPTY_PASSWORD##");
+         return $this->parent->_("##FAILURE_EMPTY_PASSWORD##");
       }
       if($_POST['user_pass1'] != $_POST['user_pass2']) {
-         return $this->_("##FAILURE_PASSWORD_NOT_MATCH##");
+         return $this->parent->_("##FAILURE_PASSWORD_NOT_MATCH##");
       }	       
       if(!isset($_POST['user_email']) || $_POST['user_email'] == "") {
-         return $this->_("##FAILURE_ENTER_EMAIL##");
+         return $this->parent->_("##FAILURE_ENTER_EMAIL##");
       }
       if(!$this->parent->validate_email($_POST['user_email'])) {
-         return $this->_("##FAILURE_ENTER_VALID_EMAIL##");
+         return $this->parent->_("##FAILURE_ENTER_VALID_EMAIL##");
       }
  
       if(isset($new)) {
@@ -235,7 +235,7 @@ class NEPHTHYS_USERS {
    public function delete()
    {
       if(!$this->parent->is_logged_in() || $this->parent->check_privileges('user')) {
-         return $this->_("##NOT_ALLOWED##");
+         return $this->parent->_("##NOT_ALLOWED##");
       }
 
       if(isset($_POST['idx']) && is_numeric($_POST['idx'])) {
@@ -260,7 +260,7 @@ class NEPHTHYS_USERS {
    public function toggleStatus()
    {
       if(!$this->parent->is_logged_in() || $this->parent->check_privileges('user')) {
-         return $this->_("##NOT_ALLOWED##");
+         return $this->parent->_("##NOT_ALLOWED##");
       }
 
       if(isset($_POST['idx']) && is_numeric($_POST['idx'])) {

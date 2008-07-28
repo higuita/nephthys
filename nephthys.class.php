@@ -1887,13 +1887,13 @@ class NEPHTHYS_DEFAULT_CFG {
    var $allow_server_auth = false;
    var $user_auto_create  = false;
    var $expirations       = Array(
-      "1;1 Day;user",
-      "3;3 Days;user",
-      "7;1 Week;user",
-      "30;1 Month;user",
-      "186;6 Months;manager",
-      "365;1 Year; manager",
-      "-1;never; manager",
+      "1;1 ##DAY##;user",
+      "3;3 ##DAYS##;user",
+      "7;1 ##WEEK##;user",
+      "30;1 ##MONTH##;user",
+      "186;6 ##MONTHS##;manager",
+      "365;1 ##YEAR##; manager",
+      "-1;##NEVER##; manager",
    );
 
    var $language    = "en";

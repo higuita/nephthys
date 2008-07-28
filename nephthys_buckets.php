@@ -78,7 +78,7 @@ class NEPHTHYS_BUCKETS {
    public function show()
    {
       if(!$this->parent->is_logged_in()) {
-         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". $this->_("##MANAGE_USERS##"), $this->_("##NOT_ALLOWED##"));
+         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". $this->parent->_("##MANAGE_USERS##"), $this->parent->_("##NOT_ALLOWED##"));
          return 0;
       }
        if(!isset($_GET['mode']))
@@ -117,7 +117,7 @@ class NEPHTHYS_BUCKETS {
    public function showBucket()
    {
       if(!$this->parent->is_logged_in()) {
-         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". $this->_("##MANAGE_USERS##"), $this->_("##NOT_ALLOWED##"));
+         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". $this->parent->_("##MANAGE_USERS##"), $this->parent->_("##NOT_ALLOWED##"));
          return 0;
       }
 
@@ -145,7 +145,7 @@ class NEPHTHYS_BUCKETS {
          if($bucket->bucket_expire != "-1")
             $this->tmpl->assign('bucket_expire', strftime("%Y-%m-%d", $bucket_expire));
          else
-            $this->tmpl->assign('bucket_expire', 'never');
+            $this->tmpl->assign('bucket_expire', $this->parent->_('##NEVER##'));
 
          $this->tmpl->assign('bucket_receiver', $bucket->bucket_receiver);
          $this->tmpl->assign('bucket_webdav_path', $bucket_webdav);
@@ -157,9 +157,8 @@ class NEPHTHYS_BUCKETS {
 
       return;
 
-   } // show()
+   } // showBucket()
 
- 
    public function notify()
    {
       if(!($bucket = $this->parent->getbucketDetails($this->id)))
@@ -264,21 +263,21 @@ class NEPHTHYS_BUCKETS {
       isset($_POST['bucket_new']) && $_POST['bucket_new'] == 1 ? $new = 1 : $new = NULL;
 
       if(!isset($_POST['bucket_name']) || empty($_POST['bucket_name'])) {
-         return $this->_("##FAILURE_ENTER_BUCKET_NAME##");
+         return $this->parent->_("##FAILURE_ENTER_BUCKET_NAME##");
       }
       if(!isset($_POST['bucket_sender']) || empty($_POST['bucket_name'])) {
-         return $this->_("##FAILURE_ENTER_BUCKET_SENDER##");
+         return $this->parent->_("##FAILURE_ENTER_BUCKET_SENDER##");
       }
       if(!$this->parent->is_valid_email($_POST['bucket_sender'])) {
-         return $this->_("##FAILURE_ENTER_VALID_SENDER##");
+         return $this->parent->_("##FAILURE_ENTER_VALID_SENDER##");
       }
       if(isset($_POST['bucketmode']) && $_POST['bucketmode'] == "receive" &&
          !isset($_POST['bucket_receiver']) || empty($_POST['bucket_name'])) {
-         return $this->_("##FAILURE_ENTER_BUCKET_RECEIVER##");
+         return $this->parent->_("##FAILURE_ENTER_BUCKET_RECEIVER##");
       }
       if(isset($_POST['bucketmode']) && $_POST['bucketmode'] == "receive" &&
          !$this->parent->is_valid_email($_POST['bucket_receiver'])) {
-         return $this->_("##FAILURE_ENTER_VALID_RECEIVER##");
+         return $this->parent->_("##FAILURE_ENTER_VALID_RECEIVER##");
       }
       /* for "send" it's not a must to specify a receiver, anyway, if one is there
          validate it...
@@ -286,7 +285,7 @@ class NEPHTHYS_BUCKETS {
       if(isset($_POST['bucketmode']) && $_POST['bucketmode'] == "send" &&
          isset($_POST['bucket_receiver']) && !empty($_POST['bucket_receiver']) &&
          !$this->parent->is_valid_email($_POST['bucket_receiver'])) {
-         return $this->_("##FAILURE_ENTER_VALID_RECEIVER##");
+         return $this->parent->_("##FAILURE_ENTER_VALID_RECEIVER##");
       }
 
       /* first of all we add the email address to the addressbook if requested.
@@ -438,17 +437,13 @@ class NEPHTHYS_BUCKETS {
          if($bucket->bucket_expire != "-1")
             $this->tmpl->assign('bucket_expire', strftime("%Y-%m-%d", $bucket_expire));
          else
-            $this->tmpl->assign('bucket_expire', 'never');
+            $this->tmpl->assign('bucket_expire', $this->parent->_('##NEVER##'));
          $this->tmpl->assign('bucket_owner', $bucket_owner);
          $this->tmpl->assign('bucket_owner_idx', $bucket->bucket_owner);
          $this->tmpl->assign('bucket_receiver', $bucket->bucket_receiver);
          $this->tmpl->assign('bucket_webdav_path', $bucket_webdav);
          $this->tmpl->assign('bucket_ftp_path', $bucket_ftp);
-
-         if($bucket->bucket_notified == 'Y')
-            $this->tmpl->assign('bucket_notified', 'Yes');
-         else
-            $this->tmpl->assign('bucket_notified', 'No');
+         $this->tmpl->assign('bucket_notified', $bucket->bucket_notified);
 
          $index++;
          $this->tmpl->assign('smarty.IB.bucket_list.index', $index);
@@ -587,7 +582,7 @@ class NEPHTHYS_BUCKETS {
    {
       /* If authentication is enabled, check permissions */
       if(!$this->parent->is_logged_in()) {
-         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". $this->_("##MANAGE_USERS##"), _("##NOT_ALLOWED##"));
+         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". $this->parent->_("##MANAGE_USERS##"), _("##NOT_ALLOWED##"));
          return 0;
       }
 
