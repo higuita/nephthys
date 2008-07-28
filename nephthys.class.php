@@ -1362,7 +1362,7 @@ class NEPHTHYS {
                      user_last_login int,
                      user_default_expire int,
                      user_priv_expire varchar(1),
-                     user_auto_created varchar(1),
+                     user_auto_created varchar(1)
                   );
                ");
 
