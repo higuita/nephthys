@@ -1789,7 +1789,7 @@ class NEPHTHYS {
 
       /* if the language file is not available, stop execution. */
       if(!file_exists($path) || !is_readable($path)) {
-         die($this->_("Can not open language file $path"));
+         die("Can not open language file $path");
       }
 
       $entries = file($path);
