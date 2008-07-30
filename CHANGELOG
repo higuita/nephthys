@@ -7,6 +7,7 @@ nephthys (1.2)
   * bug, used-diskspace now displays the real used diskspace (#40)
   * bug, icons and images are now theme-managed too (#39)
   * bug, GPL banners in Nephthys own PHP files no lead to GPLv3 (#43)
+  * buf, german umlauts are now handled correct (#46)
 
  -- Andreas Unterkircher <unki@netshadow.at>  Sat, 12 July 2008 09:57:22 +0200
 

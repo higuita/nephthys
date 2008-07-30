@@ -81,9 +81,9 @@ class NEPHTHYS_PROFILE {
       ");
 
       $this->tmpl->assign('user_idx', $_SESSION['login_idx']);
-      $this->tmpl->assign('user_name', $user->user_name);
-      $this->tmpl->assign('user_full_name', $user->user_full_name);
-      $this->tmpl->assign('user_email', $user->user_email);
+      $this->tmpl->assign('user_name', $this->parent->unescape($user->user_name));
+      $this->tmpl->assign('user_full_name', $this->parent->unescape($user->user_full_name));
+      $this->tmpl->assign('user_email', $this->parent->unescape($user->user_email));
       $this->tmpl->assign('user_default_expire', $user->user_default_expire);
       $this->tmpl->assign('user_auto_created', $user->user_auto_created);
       $this->tmpl->assign('user_language', $user->user_language);
@@ -121,7 +121,7 @@ class NEPHTHYS_PROFILE {
       if(!$this->parent->check_privileges('user')) {
 
          /* escape everything that looks like HTML */
-         $_POST['user_name'] = htmlentities($_POST['user_name']);
+         $_POST['user_name'] = $this->parent->escape($_POST['user_name']);
 
          $sth = $this->db->db_prepare("
             UPDATE nephthys_users
@@ -145,7 +145,7 @@ class NEPHTHYS_PROFILE {
          $this->parent->is_auto_created($_SESSION['login_idx'])) {
 
          /* escape everything that looks like HTML */
-         $_POST['user_email'] = htmlentities($_POST['user_email']);
+         $_POST['user_email'] = $this->parent->escape($_POST['user_email']);
 
          if(!isset($_POST['user_email']) || empty($_POST['user_email'])) {
             return $this->parent->_("##FAILURE_ENTER_EMAIL##");
@@ -169,7 +169,7 @@ class NEPHTHYS_PROFILE {
       }
 
       /* escape everything that looks like HTML */
-      $_POST['user_full_name'] = htmlentities($_POST['user_full_name']);
+      $_POST['user_full_name'] = $this->parent->escape($_POST['user_full_name']);
 
       /* update user's full name, default-expiry and langugage time */
       $sth = $this->db->db_prepare("
@@ -188,6 +188,8 @@ class NEPHTHYS_PROFILE {
          $_POST['user_language'],
          $_POST['user_idx'],
       ));
+
+      $_POST['user_pass1'] = $this->parent->escape($_POST['user_pass1']);
 
       /* if a password change was requested, change it here. */
       if($_POST['user_pass1'] != " nochangeMS ") {

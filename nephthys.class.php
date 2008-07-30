@@ -1556,6 +1556,8 @@ class NEPHTHYS {
       /* loop over all contacts */
       foreach($to_ab as $address) {
 
+         $address = $this->escape($address);
+
          /* do nothing if such a contact already exists */
          if($this->db->db_fetchSingleRow("
             SELECT *
@@ -1617,7 +1619,7 @@ class NEPHTHYS {
             preg_match("/". $_GET['search'] ."/i", $contact->contact_email) &&
             count($matched_contacts) < $length) {
 
-            $string.= " <rs id=\"". $i ."\" info=\"\">". htmlentities($contact->contact_email) ."</rs>\n";
+            $string.= " <rs id=\"". $i ."\" info=\"\">". $this->parent->unescape($contact->contact_email) ."</rs>\n";
             $i++;
          }
 
@@ -1848,6 +1850,58 @@ class NEPHTHYS {
 
       return "Can not find translation for key $key";
    }
+
+   /**
+    * escape string to avoid SQL injection
+    *
+    * this function will let call a MySQL own function
+    * to escape all dangerous stuff within the provided
+    * text. If the MySQL function is not available, it
+    * just returns the provided string as it is.
+    *
+    * @param string $text
+    * @return string
+    */
+   public function escape($text)
+   {
+      /* if text has already been escaped, we need to strip
+         slashes before
+      */
+
+      if(function_exists('mysql_real_escape_string')) {
+
+         if (get_magic_quotes_gpc() == 1)
+            $text = stripslashes($text);
+
+         return mysql_real_escape_string($text);
+      }
+
+      return $text;
+
+   } // escape()
+
+   /**
+    * unescape string and translate some characters to HTML
+    *
+    * this function gets used on strings previously modified
+    * by escape(). It will strip of slashes and translate
+    * some special characters (quotes for example) to HTML
+    * entities.
+    *
+    * @param string $text
+    * @return string
+    */
+   public function unescape($text)
+   {
+      /* if text has already been escaped, we need to strip
+         slashes before
+      */
+
+      $text = stripslashes($text);
+
+      return htmlspecialchars($text);
+
+   } // unescape()
 
 
 } // class NEPHTHYS

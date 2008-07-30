@@ -143,8 +143,8 @@ class NEPHTHYS_ADDRESSBOOK {
             ");
 
             $this->db->db_execute($sth, array(
-               $_POST['contact_email'],
-               $_POST['contact_owner'],
+               $this->parent->escape($_POST['contact_email']),
+               $this->parent->escape($_POST['contact_owner']),
                $_POST['contact_idx'],
             ));
       }
@@ -235,8 +235,8 @@ class NEPHTHYS_ADDRESSBOOK {
          ");
 
          $this->tmpl->assign('contact_idx', $idx);
-         $this->tmpl->assign('contact_email', $contact->contact_email);
-         $this->tmpl->assign('contact_owner', $contact->contact_owner);
+         $this->tmpl->assign('contact_email', $this->parent->unescape($contact->contact_email));
+         $this->tmpl->assign('contact_owner', $this->parent->unescape($contact->contact_owner));
 
       }
 

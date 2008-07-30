@@ -133,7 +133,7 @@ class NEPHTHYS_BUCKETS {
             bucket_idx LIKE '". $_GET['idx'] ."'")) {
 
          $this->tmpl->assign('bucket_idx', $bucket->bucket_idx);
-         $this->tmpl->assign('bucket_name', $bucket->bucket_name);
+         $this->tmpl->assign('bucket_name', $this->parent->unescape($bucket->bucket_name));
          $this->tmpl->assign('bucket_expire', $this->parent->get_user_expire($_SESSION['login_idx']));
 
          if($bucket->bucket_expire != "-1")
@@ -147,7 +147,7 @@ class NEPHTHYS_BUCKETS {
          else
             $this->tmpl->assign('bucket_expire', $this->parent->_('##NEVER##'));
 
-         $this->tmpl->assign('bucket_receiver', $bucket->bucket_receiver);
+         $this->tmpl->assign('bucket_receiver', $this->parent->unescape($bucket->bucket_receiver));
          $this->tmpl->assign('bucket_webdav_path', $bucket_webdav);
          $this->tmpl->assign('bucket_ftp_path', $bucket_ftp);
 
@@ -303,11 +303,11 @@ class NEPHTHYS_BUCKETS {
       }
 
       /* escape everything that looks like HTML */
-      $_POST['bucket_name'] = htmlentities($_POST['bucket_name']);
-      $_POST['bucket_sender'] = htmlentities($_POST['bucket_sender']);
+      $_POST['bucket_name'] = $this->parent->escape($_POST['bucket_name']);
+      $_POST['bucket_sender'] = $this->parent->escape($_POST['bucket_sender']);
       if(isset($_POST['bucket_receiver']) && !empty($_POST['bucket_receiver']))
-         $_POST['bucket_receiver'] = htmlentities($_POST['bucket_receiver']);
-      $_POST['bucket_note'] = htmlentities($_POST['bucket_note']);
+         $_POST['bucket_receiver'] = $this->parent->escape($_POST['bucket_receiver']);
+      $_POST['bucket_note'] = $this->parent->escape($_POST['bucket_note']);
 
       if(isset($new)) {
 
@@ -432,15 +432,15 @@ class NEPHTHYS_BUCKETS {
          $bucket_webdav = $this->parent->get_url('dav', $bucket->bucket_hash);
 
          $this->tmpl->assign('bucket_idx', $bucket_idx);
-         $this->tmpl->assign('bucket_name', $bucket->bucket_name);
+         $this->tmpl->assign('bucket_name', $this->parent->unescape($bucket->bucket_name));
          $this->tmpl->assign('bucket_created', strftime("%Y-%m-%d", $bucket->bucket_created));
          if($bucket->bucket_expire != "-1")
             $this->tmpl->assign('bucket_expire', strftime("%Y-%m-%d", $bucket_expire));
          else
             $this->tmpl->assign('bucket_expire', $this->parent->_('##NEVER##'));
-         $this->tmpl->assign('bucket_owner', $bucket_owner);
+         $this->tmpl->assign('bucket_owner', $this->parent->unescape($bucket_owner));
          $this->tmpl->assign('bucket_owner_idx', $bucket->bucket_owner);
-         $this->tmpl->assign('bucket_receiver', $bucket->bucket_receiver);
+         $this->tmpl->assign('bucket_receiver', $this->parent->unescape($bucket->bucket_receiver));
          $this->tmpl->assign('bucket_webdav_path', $bucket_webdav);
          $this->tmpl->assign('bucket_ftp_path', $bucket_ftp);
          $this->tmpl->assign('bucket_notified', $bucket->bucket_notified);
@@ -595,12 +595,12 @@ class NEPHTHYS_BUCKETS {
          ");
 
          $this->tmpl->assign('bucket_idx', $idx);
-         $this->tmpl->assign('bucket_name', $bucket->bucket_name);
-         $this->tmpl->assign('bucket_sender', $bucket->bucket_sender);
-         $this->tmpl->assign('bucket_receiver', $bucket->bucket_receiver);
+         $this->tmpl->assign('bucket_name', $this->parent->unescape($bucket->bucket_name));
+         $this->tmpl->assign('bucket_sender', $this->parent->unescape($bucket->bucket_sender));
+         $this->tmpl->assign('bucket_receiver', $this->parent->unescape($bucket->bucket_receiver));
          $this->tmpl->assign('bucket_expire', $bucket->bucket_expire);
-         $this->tmpl->assign('bucket_note', $bucket->bucket_note);
-         $this->tmpl->assign('bucket_owner', $bucket->bucket_owner);
+         $this->tmpl->assign('bucket_note', $this->parent->unescape($bucket->bucket_note));
+         $this->tmpl->assign('bucket_owner', $this->parent->unescape($bucket->bucket_owner));
          $this->tmpl->assign('bucket_active', $bucket->bucket_active);
 
       }
