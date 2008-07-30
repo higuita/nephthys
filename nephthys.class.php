@@ -1621,7 +1621,7 @@ class NEPHTHYS {
             preg_match("/". $_GET['search'] ."/i", $contact->contact_email) &&
             count($matched_contacts) < $length) {
 
-            $string.= " <rs id=\"". $i ."\" info=\"\">". $this->parent->unescape($contact->contact_email) ."</rs>\n";
+            $string.= " <rs id=\"". $i ."\" info=\"\">". $this->unescape($contact->contact_email) ."</rs>\n";
             $i++;
          }
 
