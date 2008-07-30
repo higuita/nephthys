@@ -1,0 +1,164 @@
+﻿// Author: Alexander 'Snow' Davidenko snowtracker@gmail.com
+// version 1.0
+
+// single words
+ABOUT=О программе
+ACTIONS=Действия
+ADDRESS_BOOK=Адресная книга
+ADMIN=Администратор
+AGAIN=Повтор
+CREATED=Создан
+DAY=День
+DAYS=дней
+DELETE=Удалить
+DISABLED=Удалён
+DISK_USED=Занято
+DISK_FREE=Свободно
+EXPIRES=Истёк
+FULLNAME=Полное имя
+EMAIL=E-Mail
+ENABLED=Включено
+HELLO=Здравствуйте,
+HELP=Помощь
+LOGIN=Имя пользователя
+MANAGER=Manager
+MY_PROFILE=Мой профиль
+MONTH=Месяц
+MONTHS=Месяцев
+NAME=Имя
+NEVER=Никогда
+NOTIFIED=Оповещён
+NOTIFY=Оповестить
+NO=Нет
+OPTIONS=Настройки
+OWNER=Владелец
+PASSWORD=Пароль
+PRIVILEGES=Права доступа
+START_PAGE=Начальная страница
+STATUS=Статус
+USER=Пользователь
+USERNAME=Имя пользователя
+USERS=Пользователи
+WEEK=Неделя
+YEAR=Год
+YES=Да
+
+// common phrases
+ACCESS_BUCKET=Вы можете получить доступ для добавления файлов в этот ковш
+BUCKET_RECEIVER=Получатель ковша
+CLICK_EDIT_CONTACT=Нажмите, чтобы редактировать этот контакт
+CLICK_EDIT_USER=Нажмите, чтобы редактировать этого пользователя
+CLICK_EDIT_BUCKET=Нажмите для изменения этого ковша
+CLICK_ENABLE_USER=Нажмите, чтобы включить этого пользователя
+CLICK_DELETE_CONTACT=Нажмите, чтобы удалить этот контакт
+CLICK_DELETE_BUCKET=Нажмите, чтобы удалить этот ковш
+CLICK_DELETE_USER=Нажмите, чтобы удалить этого пользователя
+CLICK_DISABLE_USER=Нажмите, чтобы отключить этого пользователя
+CLICK_LOGOUT=Нажмите для выхода
+CLICK_SEND_EMAIL=Нажмите, чтобы отправить оповещение по E-Mail
+DEFAULT_BUCKET_EXPIRE=Срок хранения ковшей задан по умолчанию
+DEFAULT_LANGUAGE=Язык (изменения вступят в силу &amp; при следующем входе)
+GO_TO_START=На начальную страницу
+NEVER_EXPIRE=Срок хранения этого ковша не ограничен
+OPEN_VIA_WEBDAV=Открыть ковш при помощи WebDAV
+OPEN_VIA_FTP=Открыть ковш при помощи FTP
+SAVE_GO_TO_START=Сохранить и вернуться на начальную страницу
+SHARE_SOME_FILES=Создать ковш для отправки файлов
+SHARE_I_WANT=Я хочу отправить файлы
+SHARE_SOMEONE_WANT=Кто-то хочет отправить мне файлы
+
+// about.tpl
+ABOUT_TITLE=О программе Nephthys
+ABOUT_LICENSE=Лицензия GPLv3
+ABOUT_SITE=Веб-сайт Nephthys
+
+// addressbook_list.tpl
+ABLIST_SUBHEADER=Управлять контактами в Вашей адресной книге
+ABLIST_EMPTY_AB= В Вашей адресной книге нет контактов.
+   Они будут добавлены, когда Вы создадите ковш и введёте адрес E-Mail
+   получателя. Этот адрес E-Mail будет автоматически добавлен в Вашу
+   адресную книгу.
+
+// addressbook_edit.tpl
+ABEDIT_TITLE=Редактировать контакт
+ABEDIT_F1_NAME=E-Mail
+ABEDIT_SAVE=Сохранить и вернуться к списку адресов
+
+// bucket_list.tpl
+BLIST_COL_2_NAME=Открыть ковш для добавления файлов
+BLIST_EMPTY_BL=У вас нет ковшей.
+   Выберите один из указанных выше способов для передачи файлов!
+
+// bucket_edit.tpl
+BEDIT_HEADER=Изменить ковш
+BEDIT_F1_NAME=Имя ковша
+BEDIT_F2_NAME=E-Mail ваш или отправителя
+BEDIT_F3_NAME=E-Mail ваш или отправителя (Вы не можете его редактировать)
+BEDIT_F4_NAME=E-Mail получателя
+
+// help.tpl
+HELP_HEADER=Справка Nephthys
+HELP_TEXT=Установленный Nephthys имеет несколько вариантов руководства.<br />
+   Пожалуйста, выберите из списка наиболее удобный:<br />
+HELP_SEPARATED=HTML (отдельные страницы)
+HELP_ALL_IN_1=HTML (всё-в-одном)
+
+// login_box.tpl
+LOGIN_HEADER=Войти в Nephthys
+
+// main.tpl
+MAIN_SUBHEADER=Выберите одно из двух:
+MAIN_EMAIL_NOT_SET=Не указан Ваш адрес E-Mail. Вы можете сделать это на вкладке "Мой профиль".
+MAIN_BL_HEADER=Список ковшей
+MAIN_BL_SUBHEADER=Доступны следующие ковши
+
+// profile.tpl
+PROFILE_SUBHEADER=Обновление данных Вашего профиля:
+
+// receive_form.tpl
+FORM_BUCKET_NAME=Дать ковшу имя
+FORM_SENDER_EMAIL=E-Mail ваш или отправителя
+FORM_SENDER_EMAIL=E-Mail отправителя
+FORM_RECEIVER_EMAIL=E-Mail получателя
+FORM_RECEIVER_OPT=Дополнительно, для оповещений из Nephthys
+FORM_ADD_AB=Добавить E-Mail в адресную книгу
+FORM_BUCKET_EXPIRE=Когда истечёт срок хранения этого ковша?
+FORM_ADDITIONAL_TEXT=Текст для добавления в письмо-оповещение (не обязательно)
+FORM_SEND_EMAIL=Отправить письмо-оповещение получателю немедленно после создания ковша.
+FORM_CREATE_BUCKET=Создать ковш
+
+// saved_bucket.tpl
+SB_HEADER=Ковш успешно создан
+SB_SUBHEADER=Для Вас создан ковш.
+SB_ABOVE_LINKS=Ссылки, приведённые выше, Вы можете также найти на начальной странице для будущего использования
+
+// users_edit.tpl
+USER_CREATE_NEW=Создать нового пользователя
+USER_MODIFY=Изменить пользователя
+USER_LONG_TIME_BUCKET=Разрешить долговременные ковши (применяется только к правам доступа уровня 'User')
+USER_SAVE=Сохранить изменения и вернуться в список пользователей
+
+// user_list.tpl
+USER_HEADER=Управление пользователями
+
+// from PHP source
+NOT_ALLOWED=У Вас недостаточно полномочий для доступа к этому модулю!
+FAILURE_ENTER_EMAIL=Пожалуйста, введите адрес E-Mail для этого контакта!
+FAILURE_ENTER_SENDER=Пожалуйста, введите правильный адрес E-Mail!
+FAILURE_ENTER_BUCKET_NAME=Пожалуйста, введите имя для этого ковша!
+FAILURE_ENTER_BUCKET_SENDER=Пожалуйста, введите отправителя для этого ковша!
+FAILURE_ENTER_VALID_SENDER=Пожалуйста, введите правильный адрес E-Mail отправителя!
+FAILURE_ENTER_BUCKET_RECEIVER=Пожалуйста, введите получателя для этого ковша!
+FAILURE_ENTER_VALID_RECEIVER=Пожалуйста, введите правильный адрес E-Mail получателя!
+FAILURE_USER_LOGON=Неверный или неактивный пользователь.
+FAILURE_PASSWORD=Неверный пароль.
+FAILURE_USER_PASS=пожалуйста, введите имя пользователя и пароль.
+FAILURE_CHANGE_LOGIN=Вам не разрешено изменять своё имя пользователя!
+FAILURE_CHANGE_EMAIL=Вам не разрешено изменять свой адрес E-Mail!
+FAILURE_ENTER_USERNAME=Пожалуйста, введите имя пользователя!
+FAILURE_EMPTY_PASSWORD=Пустые пароли не разрешены!
+FAILURE_PASSWORD_NOT_MATCH=Пароли не совпадают!
+FAILURE_ENTER_EMAIL=Пожалуйста, введите адрес E-Mail!
+FAILURE_ENTER_VALID_EMAIL=Пожалуйста, введите правильный адрес E-Mail!
+FAILURE_USER_NOT_EXISTS=Пользователь с таким именем уже существует!
+
