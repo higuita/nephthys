@@ -1954,6 +1954,7 @@ class NEPHTHYS_DEFAULT_CFG {
    var $avail_langs = Array(
       "en" => "English",
       "de" => "Deutsch",
+      "ru" => "Russian",
    );
 
 } // class NEPHTHYS_DEFAULT_CFG
