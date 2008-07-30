@@ -183,6 +183,9 @@ class NEPHTHYS_BUCKETS {
       $ftp_url = $this->parent->get_url('ftp', $bucket->bucket_hash);
       $http_url = $this->parent->get_url('dav', $bucket->bucket_hash);
 
+      $bucket_expire = $bucket->bucket_created + ($bucket->bucket_expire*86400);
+      $bucket_expire = strftime("%d. %b. %Y", $bucket_expire);
+
       /* prepare the mail headers */
       $header['From'] = $sender_text;
       $header['To'] = $receiver_text;
@@ -211,6 +214,7 @@ class NEPHTHYS_BUCKETS {
       $text->assign('bucket_ftp_url', $ftp_url);
       $text->assign('bucket_http_url', $http_url);
       $text->assign('bucket_servername', $this->parent->cfg->servername);
+      $text->assign('bucket_expire', $bucket_expire);
 
       /* if a bucket description has been specified, assign it to the template */
       if(isset($bucket->bucket_note) && !empty($bucket->bucket_note))

@@ -6,6 +6,8 @@ Please follow the instructions below on how you can access it.
 Afterwards reply to this email, to notify the sender that you have
 transfered all files.
 
+Please note that this bucket will expire on { $bucket_expire }.
+
 Best Regards,
 Nephthys
 
