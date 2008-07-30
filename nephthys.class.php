@@ -725,6 +725,8 @@ class NEPHTHYS {
       /* multiple email addresses */
       $emails = split(",", $email);
       foreach($emails as $email_addr) {
+
+         $email_addr = trim($email_addr);
          /* return as soon as an invalid address has been found */
          if(!$this->validate_email($email_addr))
             return false;
@@ -1549,7 +1551,7 @@ class NEPHTHYS {
       /* multiple email addresses */
       $emails = split(",", $email);
       foreach($emails as $email_addr) {
-         /* return as soon as an invalid address has been found */
+         $email_addr = trim($email_addr);
          array_push($to_ab, $email_addr);
       }
 
