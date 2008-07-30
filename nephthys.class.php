@@ -1857,7 +1857,8 @@ class NEPHTHYS {
     * this function will let call a MySQL own function
     * to escape all dangerous stuff within the provided
     * text. If the MySQL function is not available, it
-    * just returns the provided string as it is.
+    * just returns the provided string simply escaped
+    * with addslashes()
     *
     * @param string $text
     * @return string
@@ -1868,15 +1869,25 @@ class NEPHTHYS {
          slashes before
       */
 
-      if(function_exists('mysql_real_escape_string')) {
+      if($this->cfg->db_type == 'mysql' &&
+         function_exists('mysql_real_escape_string')) {
 
-         if (get_magic_quotes_gpc() == 1)
+         if(get_magic_quotes_gpc() == 1)
             $text = stripslashes($text);
 
          return mysql_real_escape_string($text);
       }
 
-      return $text;
+      if($this->cfg->db_type == 'sqlite' &&
+         function_exists('sqlite_escape_string')) {
+
+         if(get_magic_quotes_gpc() == 1)
+            $text = stripslashes($text);
+
+         return sqlite_escape_string($text);
+      }
+
+      return addslashes($text);
 
    } // escape()
 
