@@ -164,6 +164,9 @@ class NEPHTHYS_BUCKETS {
       if(!($bucket = $this->parent->getbucketDetails($this->id)))
          return;
 
+      $bucket->bucket_sender = $this->parent->unescape($bucket->bucket_sender, false);
+      $bucket->bucket_receiver = $this->parent->unescape($bucket->bucket_receiver, false);
+
       /* the bucket sender */
       $sender = $bucket->bucket_sender;
       $sender_text = $bucket->bucket_sender;
@@ -190,6 +193,7 @@ class NEPHTHYS_BUCKETS {
       $header['From'] = $sender_text;
       $header['To'] = $receiver_text;
       $header['Subject'] = "File sharing information";
+      $header['Content-Type'] = "text/plain; charset=UTF-8";
       /* if a bucket receiver has been specified, send mail to the receiver
          and in CC also to the sender
       */
@@ -217,8 +221,10 @@ class NEPHTHYS_BUCKETS {
       $text->assign('bucket_expire', $bucket_expire);
 
       /* if a bucket description has been specified, assign it to the template */
-      if(isset($bucket->bucket_note) && !empty($bucket->bucket_note))
+      if(isset($bucket->bucket_note) && !empty($bucket->bucket_note)) {
+         $bucket->bucket_note = $this->parent->unescape($bucket->bucket_note, false);
          $text->assign('bucket_note', $bucket->bucket_note);
+      }
 
       /* now translate the template and return the result as a string */
       $body = $text->fetch('notify.tpl');

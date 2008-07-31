@@ -1899,20 +1899,24 @@ class NEPHTHYS {
     * this function gets used on strings previously modified
     * by escape(). It will strip of slashes and translate
     * some special characters (quotes for example) to HTML
-    * entities.
+    * entities (if $encode_html == true).
     *
     * @param string $text
+    * @param boolean $encode_html
     * @return string
     */
-   public function unescape($text)
+   public function unescape($text, $encode_html = true)
    {
       /* if text has already been escaped, we need to strip
          slashes before
       */
 
-      $text = stripslashes($text);
+      //$text = stripslashes($text);
 
-      return htmlspecialchars($text);
+      if($encode_html)
+         return htmlspecialchars($text);
+
+      return $text;
 
    } // unescape()
 
