@@ -1,6 +1,6 @@
 { if !$login_email }
  <br />
- <font style='color: #ff0000;'>##MAIL_EMAIL_NOT_SET##</font>
+ <font style='color: #ff0000;'>##MAIN_EMAIL_NOT_SET##</font>
  <br />
 { /if }
 

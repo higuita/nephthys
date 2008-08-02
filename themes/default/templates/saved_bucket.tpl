@@ -4,7 +4,7 @@
 <input type="hidden" name="bucketmode" value="receive" />
 <input type="hidden" name="bucket_new" value="1" />
 
-{ page_start header="##SB_HEADER##" subheader="##SB_SUBHEADER##." }
+{ page_start header="##SB_HEADER##" subheader="##SB_SUBHEADER##" }
 
 <table>
  <tr>

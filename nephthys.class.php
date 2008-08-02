@@ -938,6 +938,32 @@ class NEPHTHYS {
    } // is_bucket_owner()
 
    /**
+    * check if current user is owner of contact
+    *
+    * this function returns true, if the current user is owner
+    * of the supplied address-book contact. Otherwise it will
+    * return false
+    *
+    * @param int $bucket_idx
+    * @return bool
+    */
+   public function is_contact_owner($contact_idx)
+   {
+      if($contact = $this->db->db_fetchSingleRow("
+            SELECT *
+            FROM nephthys_addressbook
+            WHERE contact_idx LIKE '". $contact_idx ."'
+         ")) {
+
+         if($contact->contact_owner == $_SESSION['login_idx'])
+            return true;
+      }
+
+      return false;
+
+   } // is_contact_owner()
+
+   /**
     * returns true if the requested user exists
     */
    public function check_user_exists($user_name)
@@ -1166,6 +1192,7 @@ class NEPHTHYS {
                   `user_default_expire` int(11) default NULL,
                   `user_priv_expire` varchar(1) default NULL,
                   `user_auto_created` varchar(1) default NULL,
+                  `user_language` varchar(6) default NULL,
                   PRIMARY KEY  (`user_idx`)
                   ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
                ";
@@ -1182,7 +1209,8 @@ class NEPHTHYS {
                   user_last_login int,
                   user_default_expire int,
                   user_priv_expire varchar(1),
-                  user_auto_created varchar(1)
+                  user_auto_created varchar(1),
+                  user_language varchar(6)
                   )
                ";
                break;
@@ -1204,8 +1232,9 @@ class NEPHTHYS {
                'Y',
                NULL,
                7,
-               NULL)
-               NULL)
+               NULL,
+               NULL,
+               'en')
          ");
 
       }
