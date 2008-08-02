@@ -938,6 +938,32 @@ class NEPHTHYS {
    } // is_bucket_owner()
 
    /**
+    * check if current user is owner of contact
+    *
+    * this function returns true, if the current user is owner
+    * of the supplied address-book contact. Otherwise it will
+    * return false
+    *
+    * @param int $bucket_idx
+    * @return bool
+    */
+   public function is_contact_owner($contact_idx)
+   {
+      if($contact = $this->db->db_fetchSingleRow("
+            SELECT *
+            FROM nephthys_addressbook
+            WHERE contact_idx LIKE '". $contact_idx ."'
+         ")) {
+
+         if($contact->contact_owner == $_SESSION['login_idx'])
+            return true;
+      }
+
+      return false;
+
+   } // is_contact_owner()
+
+   /**
     * returns true if the requested user exists
     */
    public function check_user_exists($user_name)
