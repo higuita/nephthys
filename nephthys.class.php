@@ -1230,7 +1230,7 @@ class NEPHTHYS {
                'Y',
                NULL,
                7,
-               NULL)
+               NULL,
                NULL)
          ");
 
