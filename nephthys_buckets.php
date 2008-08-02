@@ -186,8 +186,13 @@ class NEPHTHYS_BUCKETS {
       $ftp_url = $this->parent->get_url('ftp', $bucket->bucket_hash);
       $http_url = $this->parent->get_url('dav', $bucket->bucket_hash);
 
-      $bucket_expire = $bucket->bucket_created + ($bucket->bucket_expire*86400);
-      $bucket_expire = strftime("%d. %b. %Y", $bucket_expire);
+      if($bucket->bucket_expire != -1) {
+         $bucket_expire = $bucket->bucket_created + ($bucket->bucket_expire*86400);
+         $bucket_expire = strftime("%d. %b. %Y", $bucket_expire);
+      }
+      else {
+         $bucket_expire = "never";
+      }
 
       /* prepare the mail headers */
       $header['From'] = $sender_text;
