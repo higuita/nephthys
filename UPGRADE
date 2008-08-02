@@ -1,12 +1,27 @@
-== Upgrading from 1.2 ==
+== Upgrading to 1.2 ==
+
+ * The "images" directory has been moved from the main directory into
+   the default theme directory (/themes/default). All templates have
+   been updated so they reference images & icons on the right place
+   now. If you have made your own theme, you need to followup with
+   these changes otherwise your template will reference not more
+   existing images.
+
+ * With introducing the new multi-language system all language specific
+   text has been moved to language-files (.lang) in the "lang" directory
+   within the default theme directory (/themes/default). Templates now
+   only contain "keywords" which will be looked up when parsing the
+   Smarty templates and replaced with the text of the choosen language.
+   If you have made your own theme, you need to followup and replace
+   the text within with the language keywords - otherwise you will earn
+   many failure messages. Also you need to copy the lang-directory from
+   the default theme to your own theme.
+
+== Upgrading to 1.1 ==
 
  * Nothing special needs to be done.
 
-== Upgrading from 1.1 ==
-
- * Nothing special needs to be done.
-
-== Upgrading from 1.0 ==
+== Upgrading to 1.0 ==
 
  * This is the inital version? From what do you plan to upgrade?
 

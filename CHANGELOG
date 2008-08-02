@@ -3,13 +3,17 @@ nephthys (1.2)
   * feature, new privilege for long-time buckets (#41)
   * feature, support for mutli-language (#1)
   * feature, german translation (#42)
+  * feature, expirining date now also showes up in notification email (#48)
   * bug, user fullname is now editable via user-management (#38)
   * bug, used-diskspace now displays the real used diskspace (#40)
   * bug, icons and images are now theme-managed too (#39)
-  * bug, GPL banners in Nephthys own PHP files no lead to GPLv3 (#43)
-  * buf, german umlauts are now handled correct (#46)
+  * bug, GPL banners in Nephthys own PHP files now lead to GPLv3 (#43)
+  * bug, german umlauts are now handled correct (#46)
+  * bug, german umlauts in notification email are now displayed correct (#52)
+  * bug, unprivileged users can finally delete their address-book contacts (#54)
+  * bug, fixed entering multiple receipients for a bucket (#47)
 
- -- Andreas Unterkircher <unki@netshadow.at>  Sat, 12 July 2008 09:57:22 +0200
+ -- Andreas Unterkircher <unki@netshadow.at>  Sat, 2 Aug 2008 10:35:47 +0200
 
 nephthys (1.1)
 
