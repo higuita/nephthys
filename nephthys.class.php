@@ -1192,6 +1192,7 @@ class NEPHTHYS {
                   `user_default_expire` int(11) default NULL,
                   `user_priv_expire` varchar(1) default NULL,
                   `user_auto_created` varchar(1) default NULL,
+                  `user_language` varchar(6) default NULL,
                   PRIMARY KEY  (`user_idx`)
                   ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
                ";
@@ -1208,7 +1209,8 @@ class NEPHTHYS {
                   user_last_login int,
                   user_default_expire int,
                   user_priv_expire varchar(1),
-                  user_auto_created varchar(1)
+                  user_auto_created varchar(1),
+                  user_language varchar(6)
                   )
                ";
                break;
