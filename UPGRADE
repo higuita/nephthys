@@ -1,3 +1,7 @@
+== Upgrading to 1.3 ==
+
+ * Nothing special needs to be done.
+
 == Upgrading to 1.2 ==
 
  * The "images" directory has been moved from the main directory into
