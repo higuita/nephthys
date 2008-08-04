@@ -828,7 +828,7 @@ class NEPHTHYS {
       /* set application name and version information */
       $this->cfg->product = "Nephthys";
       $this->cfg->version = "1.3";
-      $this->cfg->db_version = 4;
+      $this->cfg->db_version = 5;
 
       return true;
 
@@ -1280,6 +1280,7 @@ class NEPHTHYS {
             case 'mysql':
                $db_create = "CREATE TABLE `nephthys_addressbook` (
                   `contact_idx` int(11) NOT NULL auto_increment,
+                  `contact_name` varchar(255) default NULL,
                   `contact_email` varchar(255) default NULL,
                   `contact_owner` int(11) default NULL,
                   PRIMARY KEY  (`contact_idx`)
@@ -1289,6 +1290,7 @@ class NEPHTHYS {
             case 'sqlite':
                $db_create = "CREATE TABLE nephthys_addressbook (
                   contact_idx INTEGER PRIMARY KEY,
+                  contact_name varchar(255),
                   contact_email varchar(255),
                   contact_owner INTEGER
                )";
@@ -1430,7 +1432,7 @@ class NEPHTHYS {
 
          $this->set_db_version(3);
 
-      }
+      } /* // db version 3 */
 
       /* db version 4 */
       if($this->get_db_version() < 4) {
@@ -1560,7 +1562,114 @@ class NEPHTHYS {
 
          $this->set_db_version(4);
 
-      }
+      } /* // db version 4 */
+
+      /* db version 5 */
+      if($this->get_db_version() < 5) {
+
+         /* add column contact_name to nephthys_addressbook */
+
+         switch($this->cfg->db_type) {
+            default:
+            case 'mysql':
+               $this->db->db_alter_table(
+                  "nephthys_addressbook",
+                  "add",
+                  "contact_name",
+                  "varchar(255) default NULL"
+               );
+               break;
+
+            case 'sqlite':
+
+               /* SQlite v2 does not support ALTER TABLE, so we need
+                  to take the help of a temporary table.
+               */
+               if(!$this->db->db_start_transaction())
+                  die("Can not start database transaction");
+
+               $result = $this->db->db_exec("
+                  CREATE TEMPORARY TABLE nephthys_addressbook_tmp (
+                     contact_idx INTEGER PRIMARY KEY,
+                     contact_name varchar(255),
+                     contact_email varchar(255),
+                     contact_owner int
+                  );
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               $result = $this->db->db_exec("
+                  INSERT INTO nephthys_addressbook_tmp
+                     SELECT
+                        contact_idx,
+                        NULL,
+                        contact_email,
+                        contact_owner
+                     FROM nephthys_addressbook;
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               $result = $this->db->db_exec("
+                  DROP TABLE nephthys_addressbook;
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               $result = $this->db->db_exec("
+                  CREATE TABLE nephthys_addressbook (
+                     contact_idx INTEGER PRIMARY KEY,
+                     contact_name varchar(255),
+                     contact_email varchar(255),
+                     contact_owner int
+                  );
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               $result = $this->db->db_exec("
+                  INSERT INTO nephthys_addressbook
+                     SELECT *
+                     FROM nephthys_addressbook_tmp;
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               $result = $this->db->db_exec("
+                  DROP TABLE nephthys_addressbook_tmp;
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               if(!$this->db->db_commit_transaction())
+                  die("Can not commit database transaction");
+
+               break;
+         }
+
+         $this->set_db_version(5);
+
+      } /* // db version 5 */
+
 
    } // check_db_tables()
 
@@ -1637,7 +1746,9 @@ class NEPHTHYS {
 
       $contacts = $this->db->db_query("
          SELECT
-            contact_idx, contact_email
+            contact_idx,
+            contact_name,
+            contact_email
          FROM
             nephthys_addressbook
          WHERE
@@ -1646,11 +1757,27 @@ class NEPHTHYS {
 
       while($contact = $contacts->fetchRow()) {
 
-         if(!empty($_GET['search']) &&
-            preg_match("/". $_GET['search'] ."/i", $contact->contact_email) &&
+         /* ignore empty searches */
+         if(empty($_GET['search']))
+            break;
+
+         if((
+               preg_match("/". $_GET['search'] ."/i", $contact->contact_email) ||
+               preg_match("/". $_GET['search'] ."/i", $contact->contact_name)
+            )&&
             count($matched_contacts) < $length) {
 
-            $string.= " <rs id=\"". $i ."\" info=\"\">". $this->unescape($contact->contact_email) ."</rs>\n";
+            $string.= " <rs id=\"". $i ."\" ";
+
+            /* if a contact-name is available, add it as info for autosuggest */
+            if(isset($contact->contact_name) && !empty($contact->contact_name))
+               $string.= " info=\"". $this->unescape($contact->contact_name, false) ."\">";
+            else
+               $string.= " info=\"\">";
+
+            $string.= $this->unescape($contact->contact_email, false);
+            $string.= "</rs>\n";
+
             $i++;
          }
 

@@ -14,7 +14,7 @@
 { contact_list }
  <tr onmouseover="setBackGrdColor(this, 'mouseover');" onmouseout="setBackGrdColor(this, 'mouseout');">
   <td>
-   <a href="javascript:ajax_show_content('addressbook', '&mode=edit&idx={ $contact_idx }');" title="##CLICK_EDIT_CONTACT##"><img src="{ $theme_root }/images/contact.png" />&nbsp;{ $contact_email }</a>
+   <a href="javascript:ajax_show_content('addressbook', '&mode=edit&idx={ $contact_idx }');" title="##CLICK_EDIT_CONTACT##"><img src="{ $theme_root }/images/contact.png" />&nbsp;{ $contact_name }</a>
   </td>
   { if $login_priv == "manager" || $login_priv == "admin" }
   <td>

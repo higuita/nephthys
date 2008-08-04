@@ -9,6 +9,17 @@
 
 <table>
  <tr>
+  <td colspan="2">##NAME##:</td>
+ </tr>
+ <tr>
+  <td>
+   <input type="text" name="contact_name" class="inputedit" maxlength="250" value="{ $contact_name }" />
+  </td>
+ </tr>
+ <tr>
+  <td colspan="2">&nbsp;</td>
+ </tr>
+ <tr>
   <td colspan="2">##EMAIL##:</td>
  </tr>
  <tr>

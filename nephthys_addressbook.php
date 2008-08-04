@@ -117,13 +117,15 @@ class NEPHTHYS_ADDRESSBOOK {
 
          $sth = $this->db->db_prepare("
             INSERT INTO nephthys_addressbook (
-               contact_idx, contact_email, contact_owner
+               contact_idx, contact_name,
+               contact_email, contact_owner
             ) VALUES (
-               NULL, ?, ?
+               NULL, ?, ?, ?
             )
          ");
 
          $this->db->db_execute($sth, array(
+            $_POST['contact_name'],
             $_POST['contact_email'],
             $_POST['contact_owner'],
          ));
@@ -136,6 +138,7 @@ class NEPHTHYS_ADDRESSBOOK {
             $sth = $this->db->db_prepare("
                UPDATE nephthys_addressbook
                SET
+                  contact_name=?,
                   contact_email=?,
                   contact_owner=?
                WHERE
@@ -143,6 +146,7 @@ class NEPHTHYS_ADDRESSBOOK {
             ");
 
             $this->db->db_execute($sth, array(
+               $this->parent->escape($_POST['contact_name']),
                $this->parent->escape($_POST['contact_email']),
                $this->parent->escape($_POST['contact_owner']),
                $_POST['contact_idx'],
@@ -178,7 +182,16 @@ class NEPHTHYS_ADDRESSBOOK {
          $contact_owner = $this->parent->get_user_name($contact->contact_owner);
 
          $this->tmpl->assign('contact_idx', $contact_idx);
-         $this->tmpl->assign('contact_email', $contact->contact_email);
+
+         if(isset($contact->contact_name) && !empty($contact->contact_name)) {
+            $this->tmpl->assign(
+               'contact_name',
+               $contact->contact_name ."&nbsp;&lt;". $contact->contact_email ."&gt;"
+            );
+         }
+         else {
+            $this->tmpl->assign('contact_name', $contact->contact_email);
+         }
          $this->tmpl->assign('contact_owner', $contact_owner);
          $this->tmpl->assign('contact_owner_idx', $contact->contact_owner);
 
@@ -235,6 +248,7 @@ class NEPHTHYS_ADDRESSBOOK {
          ");
 
          $this->tmpl->assign('contact_idx', $idx);
+         $this->tmpl->assign('contact_name', $this->parent->unescape($contact->contact_name));
          $this->tmpl->assign('contact_email', $this->parent->unescape($contact->contact_email));
          $this->tmpl->assign('contact_owner', $this->parent->unescape($contact->contact_owner));
 
