@@ -260,7 +260,7 @@ class NEPHTHYS_BUCKETS {
             bucket_idx LIKE '". $this->id ."'
       ");
 
-      return "ok";
+      return "ok;". $this->parent->_("##NOTIFY_SUCCESS##");
 
    } // notify()
 

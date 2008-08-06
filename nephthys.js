@@ -55,13 +55,16 @@ function ajax_notify_bucket(id)
    objTemp['action'] = 'notifybucket';
    objTemp['id'] = id;
 
-   var retr = HTML_AJAX.post('rpc.php', objTemp);
-   if(retr != "ok") {
-      window.alert("Server message: "+ retr);
+   var retobj = HTML_AJAX.post('rpc.php', objTemp);
+
+   var retval = retobj.split(';');
+
+   if(retval[0] != "ok") {
+      window.alert("Server message: "+ retval[0]);
       return;
    }
 
-   ajax_show_content('main');
+   show_box(retval[1]);
 
 } // ajax_notify_bucket()
 
@@ -406,6 +409,28 @@ function load_autosuggest(obj)
       as = new bsn.AutoSuggest(obj, options);
    }
 } // load_autosuggest()
+
+function show_box(text)
+{
+   Dialog.alert(text,
+      {
+         windowParameters: {
+            className: "alphacube",
+            resizeable: false,
+            minimizeable: false,
+            maximizeable: false,
+            effectOptions: {duration:0.2},
+            opactiy: 0.50,
+         },
+         width:300, height:75, okLabel: "close",
+         ok:function(win) {
+            ajax_show_content('main');
+            return true;
+         }
+      }
+   );
+
+} // show_box()
 
 var as = undefined;
 var menutabs = undefined;
