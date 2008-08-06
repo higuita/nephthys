@@ -25,4 +25,4 @@
   <link href="windows_js/themes/default.css" rel="stylesheet" type="text/css"/>
   <link href="windows_js/themes/alphacube.css" rel="stylesheet" type="text/css"/>
 
- </head>                                                                                                      
+ </head>
