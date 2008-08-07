@@ -414,18 +414,20 @@ function show_box(text)
 {
    Dialog.alert(text,
       {
+         width:300,
+         height:75,
+         okLabel: "close",
+         ok:function(win) {
+            ajax_show_content('main');
+            return true;
+         },
          windowParameters: {
             className: "alphacube",
             resizeable: false,
             minimizeable: false,
             maximizeable: false,
             effectOptions: {duration:0.2},
-            opactiy: 0.50,
-         },
-         width:300, height:75, okLabel: "close",
-         ok:function(win) {
-            ajax_show_content('main');
-            return true;
+            opactiy: 0.50
          }
       }
    );
