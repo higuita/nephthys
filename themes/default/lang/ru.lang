@@ -122,6 +122,7 @@ FORM_SENDER_EMAIL=E-Mail ваш или отправителя
 FORM_SENDER_EMAIL=E-Mail отправителя
 FORM_RECEIVER_EMAIL=E-Mail получателя
 FORM_RECEIVER_OPT=Дополнительно, для оповещений из Nephthys
+FORM_RECEIVER_SEPARATE=Enter multiple receivers separated by ',' (comma)
 FORM_ADD_AB=Добавить E-Mail в адресную книгу
 FORM_BUCKET_EXPIRE=Когда истечёт срок хранения этого ковша?
 FORM_ADDITIONAL_TEXT=Текст для добавления в письмо-оповещение (не обязательно)

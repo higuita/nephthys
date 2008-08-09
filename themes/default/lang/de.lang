@@ -120,6 +120,7 @@ FORM_SENDER_EMAIL=Ihre oder die Absender-Email
 FORM_SENDER_EMAIL=Absender Email
 FORM_RECEIVER_EMAIL=Empfänger Email
 FORM_RECEIVER_OPT=optional, wenn eine Benachrichtung von Nephthys erfolgen soll
+FORM_RECEIVER_SEPARATE=Mehrere Empf&auml;nger mittels ',' (Beistrich) trennen
 FORM_ADD_AB=Email zum Adressbuch hinzufügen
 FORM_BUCKET_EXPIRE=Wann soll dieser Bucket ablaufen?
 FORM_ADDITIONAL_TEXT=Text der in die Benachrichtungs-Email inkludiert wird (optional)

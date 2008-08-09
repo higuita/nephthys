@@ -32,6 +32,12 @@ div.diskusage {
    padding-right:          5px;
 }
 
+div.forminfo {
+   font-size:              8px;
+   padding-top:            2px;
+   padding-bottom:         2px;
+}
+
 tr.subhead {
    font-style:             italic;
 }

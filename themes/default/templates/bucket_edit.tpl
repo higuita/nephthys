@@ -48,7 +48,8 @@
  </tr>
  { /if }
  <tr>
-  <td colspan="2">##BEDIT_F4_NAME##:
+  <td colspan="2">##FORM_RECEIVER_EMAIL##:
+  <div class="forminfo">##FORM_RECEIVER_SEPARATE##.</div>
  </tr>
  <tr>
   <td>

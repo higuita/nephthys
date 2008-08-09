@@ -36,6 +36,7 @@
  { /if }
  <tr>
   <td colspan="2">##FORM_RECEIVER_EMAIL## (##FORM_RECEIVER_OPT##):
+  <div class="forminfo">##FORM_RECEIVER_SEPARATE##.</div>
  </tr>
  <tr>
   <td>

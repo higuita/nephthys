@@ -92,7 +92,6 @@ BEDIT_HEADER=Edit bucket
 BEDIT_F1_NAME=Bucket name
 BEDIT_F2_NAME=Yours or senders email
 BEDIT_F3_NAME=Yours or senders email (you can not modify this entry)
-BEDIT_F4_NAME=Receivers email
 
 // help.tpl
 HELP_HEADER=Nephthys Help
@@ -114,11 +113,13 @@ MAIN_BL_SUBHEADER=The following buckets are currently available
 PROFILE_SUBHEADER=Update your profile details
 
 // receive_form.tpl
+// send_form.tpl
 FORM_BUCKET_NAME=Give the bucket a name
 FORM_SENDER_EMAIL=Yours or senders email
 FORM_SENDER_EMAIL=Senders email
 FORM_RECEIVER_EMAIL=Receivers email
 FORM_RECEIVER_OPT=optional, to notify out of Nephthys
+FORM_RECEIVER_SEPARATE=Enter multiple receivers separated by ',' (comma)
 FORM_ADD_AB=add email to address-book
 FORM_BUCKET_EXPIRE=When will this bucket expire?
 FORM_ADDITIONAL_TEXT=Text to be added to notification email (optional)
