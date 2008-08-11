@@ -1734,6 +1734,16 @@ class NEPHTHYS {
       if(!isset($_GET['search']) || !is_string($_GET['search']))
          $_GET['search'] = '';
 
+      /* strip leading or pending whitespaces */
+      $_GET['search'] = trim($_GET['search']);
+
+      /* if string contains multiple receivers separated by
+         a comma character, just handle the last one entered.
+      */
+      if($matches = explode(',', $_GET['search'])) {
+         $_GET['search'] = trim($matches[count($matches)-1]);
+      }
+
       $length = 15;
       $i = 1;
 
