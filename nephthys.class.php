@@ -1856,12 +1856,22 @@ class NEPHTHYS {
     */
    private function get_unit($bytes)
    {
+      $symbols = array('b', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+
+      /* if $bytes = 0, return 0b */
+      if(empty($bytes))
+         return '0'. $symbols[0];
+
       /* if something went wrong and no value was supplied, return */
       if(!is_numeric($bytes))
          return "n/a";
 
-      $symbols = array('b', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
       $exp = floor(log($bytes)/log(1024));
+
+      /* if $bytes was to small, return 0b */
+      if($exp == -INF)
+         return '0'. $symbols[0];
+
       return sprintf('%.2f '.$symbols[$exp], ($bytes/pow(1024, floor($exp))));
 
    } // get_unit()
