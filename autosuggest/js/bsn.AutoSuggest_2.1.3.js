@@ -571,7 +571,27 @@ _b.AutoSuggest.prototype.setHighlightedValue = function ()
 {
 	if (this.iHigh)
 	{
-		this.sInp = this.fld.value = this.aSug[ this.iHigh-1 ].value;
+      /**
+       * Code added by unki@netshadow.at for Nephthys to support
+       * autosuggestion for multiple receipients.
+       */
+      if(this.fld.value.search(/,/) == -1) {
+         this.sInp = this.fld.value = this.aSug[ this.iHigh-1 ].value;
+      }
+      else {
+         var entries = this.fld.value.split(',');
+         var newfield = "";
+         var i;
+
+         for(i = 0; i < entries.length-1; i++) {
+            entries[i] = entries[i].replace(/ /g, '');
+            newfield = newfield + entries[i] + ", ";
+         }
+
+         newfield = newfield + this.aSug[ this.iHigh-1 ].value;
+         this.sInp = this.fld.value = newfield;
+      }
+      // end of Nephthys code modifications
 		
 		// move cursor to end of input (safari)
 		//

@@ -16,7 +16,7 @@
 * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
 ***********************************************/
   </script>
-  <script type="text/javascript" src="autosuggest/js/bsn.AutoSuggest_2.1.3_comp.js"></script>
+  <script type="text/javascript" src="autosuggest/js/bsn.AutoSuggest_2.1.3.js"></script>
   <link rel="stylesheet" href="autosuggest/css/autosuggest_inquisitor.css" type="text/css" media="screen" charset="utf-8" />
   <!-- windows_js -->
   <script type="text/javascript" src="windows_js/javascripts/prototype.js"> </script>
