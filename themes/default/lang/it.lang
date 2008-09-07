@@ -1,0 +1,162 @@
+// single words
+ABOUT=Informazioni su
+ACTIONS=Azioni
+ADDRESS_BOOK=Rubrica
+ADMIN=Amministratore
+AGAIN=Nuovamente
+CREATED=Creato
+DAY=Giorno
+DAYS=Giorni
+DELETE=Elimina
+DISABLED=Disabilitato
+DISK_USED=Usati
+DISK_FREE=Disponibili
+EXPIRES=Scadenza
+FULLNAME=Nome completo
+EMAIL=Email
+ENABLED=Abilitato
+HELLO=Ciao
+HELP=Aiuto
+LOGIN=Login
+MANAGER=Manager
+MONTH=Mese
+MONTHS=Mesi
+MY_PROFILE=Profilo
+NAME=Nome
+NEVER=Mai
+NOTIFY=Notifica
+NOTIFIED=Notificato
+NO=No
+OPTIONS=Opzioni
+OWNER=Proprietario
+PASSWORD=Password
+PRIVILEGES=Privilegi
+START_PAGE=Pagina iniziale
+STATUS=Stato
+USER=Utente
+USERNAME=Nome utente
+USERS=Utenti
+WEEK=Settimana
+YEAR=Anno
+YES=Si
+
+// common phrases
+ACCESS_BUCKET=Puoi accedere allo slot utilizzando questi metodi per aggiungere i file
+BUCKET_RECEIVER=Ricevente dello slot
+CLICK_EDIT_CONTACT=Clicca per modificare questo contatto
+CLICK_EDIT_USER=Clicca per modificare questo utente
+CLICK_EDIT_BUCKET=Clicca per modificare questo slot
+CLICK_ENABLE_USER=Clicca per abilitare questo utente
+CLICK_DELETE_CONTACT=Clicca per eliminare questo contatto
+CLICK_DELETE_BUCKET=Clicca per eliminare questo slot
+CLICK_DELETE_USER=Clicca per eliminare questo utente
+CLICK_DISABLE_USER=Clicca per disabilitare questo utente
+CLICK_LOGOUT=disconnetti
+CLICK_SEND_EMAIL=Clicca per inviare notifica via E-Mail
+DEFAULT_BUCKET_EXPIRE=Tempo scadenza predefinito usato per gli slot
+DEFAULT_LANGUAGE=Lingua (devi disconnetterti &amp; connetterti se cambi il questo valore)
+GO_TO_START=Vai alla pagina iniziale
+NEVER_EXPIRE=Slot senza scadenza
+NOTIFY_SUCCESS=Questo slot è stato notificato adesso
+OPEN_VIA_WEBDAV=Apri slot via WebDAV
+OPEN_VIA_FTP=Apri slot via FTP
+SAVE_GO_TO_START=Salva e ritorna alla pagina iniziale
+SHARE_SOME_FILES=Crea uno slot per condividere dei file
+SHARE_I_WANT=Voglio condividere dei file
+SHARE_SOMEONE_WANT=Qualcuno vuole inviarmi dei file
+
+// about.tpl
+ABOUT_TITLE=Informazioni su Nephthys
+ABOUT_LICENSE=Sotto licenza GPLv3
+ABOUT_SITE=Sito internet Nephthys
+
+// addressbook_list.tpl
+ABLIST_SUBHEADER=Amministra contatti rubrica
+ABLIST_EMPTY_AB= Attualmente la tua rubrica non contiene contatti.
+   Saranno aggiunti quando creerai slot e inserirai una mail del destinatario.
+   Quindi quindi questo indirizzo mail verrà automaticamente aggiunto alla 
+   tua rubrica.   
+
+// addressbook_edit.tpl
+ABEDIT_TITLE=Ed—ñt contatto
+ABEDIT_F1_NAME=Email
+ABEDIT_SAVE=Salva e ritorna alla rubrica
+
+// bucket_list.tpl
+BLIST_COL_2_NAME=Apri slot per aggiungere file
+BLIST_EMPTY_BL=Attualmente non hai slot.
+   Creane uno selezionando uno dei seguenti metodi per condividere file!
+
+// bucket_edit.tpl
+BEDIT_HEADER=Modifica slot
+BEDIT_F1_NAME=Nome slot
+BEDIT_F2_NAME=Email personale o del mittente
+BEDIT_F3_NAME=Email personale o del mittente (non puoi modificare questo valore)
+
+// help.tpl
+HELP_HEADER=Aiuto Nephthys
+HELP_TEXT=La tua installazione di Nephthys comprende un manuale in diverse varianti<br />
+   Seleziona la tua favorita:<br />
+HELP_SEPARATED=HTML (pagine separate)
+HELP_ALL_IN_1=HTML (unico file)
+
+// login_box.tpl
+LOGIN_HEADER=Connessione a Nephthys
+
+// main.tpl
+MAIN_SUBHEADER=Seleziona dalle seguenti opzioni
+MAIN_EMAIL_NOT_SET=La tua mail non è stata impostata. Puoi farlo dalla scheda "Profilo".
+MAIN_BL_HEADER=Lista slot
+MAIN_BL_SUBHEADER=I seguenti slot sono disponibili
+
+// profile.tpl
+PROFILE_SUBHEADER=Aggiorna dettagli profilo
+
+// receive_form.tpl
+// send_form.tpl
+FORM_BUCKET_NAME=Dai un nome allo slot
+FORM_SENDER_EMAIL=Email personale o del mittente
+FORM_SENDER_EMAIL=Email mittenti
+FORM_RECEIVER_EMAIL=Email destinatari
+FORM_RECEIVER_OPT=facoltativo, per notificare al di fuori di Nephthys
+FORM_RECEIVER_SEPARATE=Inserisci destinatari multipli separati da ',' (virgola)
+FORM_ADD_AB=aggiungi email alla rubrica
+FORM_BUCKET_EXPIRE=Quando scadrà questo slot?
+FORM_ADDITIONAL_TEXT=Testo da allegare alla mail di notifica (favoltativo)
+FORM_SEND_EMAIL=Invia notifica email al destinatario immediatamente dopo aver creato lo slot.
+FORM_CREATE_BUCKET=Crea slot
+
+// saved_bucket.tpl
+SB_HEADER=Slot correttamente creato
+SB_SUBHEADER=Questo slot è stato creato per te.
+SB_ABOVE_LINKS=Con il link sottostante puoi trovarlo nella pagina iniziale per un successivo utilizzo
+
+// users_edit.tpl
+USER_CREATE_NEW=Crea nuovo utente
+USER_MODIFY=Modifica utente
+USER_LONG_TIME_BUCKET=Abilita slot a lungo termine (effetto solo su privilegio 'Utenti')
+USER_SAVE=Salva e torna alla lista utenti
+
+// user_list.tpl
+USER_HEADER=Amministrazione - Utenti
+
+// from PHP source
+NOT_ALLOWED=Non hai i permessi per accedere a questo modulo!
+FAILURE_ENTER_EMAIL=Inserisci un indirizzo email valido per questo contatto!
+FAILURE_ENTER_SENDER=Inserisci un indirizzo email valido per questo mittente!
+FAILURE_ENTER_BUCKET_NAME=Inserisci un nome per questo slot!
+FAILURE_ENTER_BUCKET_SENDER=Inserisci un mittente per questo slot!
+FAILURE_ENTER_VALID_SENDER=Inserisci un indirizzo email valido per questo mittente!
+FAILURE_ENTER_BUCKET_RECEIVER=Inserisci un destinatario per questo slot!
+FAILURE_ENTER_VALID_RECEIVER=Inserisci un indirizzo email valido per questo destinatario!
+FAILURE_USER_LOGON=Utente non valido o inattivo.
+FAILURE_PASSWORD=Password non corretta.
+FAILURE_USER_PASS=Inserisci Nome Utente e Password.
+FAILURE_CHANGE_LOGIN=Non sei abilitato a cambiare il tuo nome utente!
+FAILURE_CHANGE_EMAIL=Non sei abilitato a cambiare il tuo indirizzo email!
+FAILURE_ENTER_USERNAME=Inserisci un nome utente!
+FAILURE_EMPTY_PASSWORD=Non sono permesse password vuote!
+FAILURE_PASSWORD_NOT_MATCH=Le password non corrispondono!
+FAILURE_ENTER_EMAIL=Inserisci un indirizzo email!
+FAILURE_ENTER_VALID_EMAIL=Inserisci un indirizzo email valido!
+FAILURE_USER_NOT_EXISTS=Esiste già un utente con questo nome!

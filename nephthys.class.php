@@ -2148,6 +2148,7 @@ class NEPHTHYS_DEFAULT_CFG {
       "en" => "English",
       "de" => "Deutsch",
       "ru" => "Russian",
+      "it" => "Italian",
    );
 
 } // class NEPHTHYS_DEFAULT_CFG
