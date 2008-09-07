@@ -454,6 +454,11 @@ function swap_image(obj, src)
 
 } // swap_image()
 
+function update_sort_order(module, obj, order)
+{
+
+} // update_sort_order()
+
 var as = undefined;
 var menutabs = undefined;
 

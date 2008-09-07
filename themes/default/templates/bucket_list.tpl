@@ -1,6 +1,10 @@
 <table class="withborder">
  <tr class="subhead">
-  <td><img src="{ $theme_root }/images/bucket_small.png" />&nbsp;##NAME##</td>
+  <td>
+   <img src="{ $theme_root }/images/bucket_small.png" />&nbsp;##NAME##
+   <a href="javascript:update_sort_order('bucket_name', 'asc');">asc</a>
+   <a href="javascript:update_sort_order('bucket_name', 'desc');">desc</a>
+  </td>
   <td><img src="{ $theme_root }/images/open.png" />&nbsp;##BLIST_COL_2_NAME##</td>
   { if $login_priv == "manager" || $login_priv == "admin" }
   <td><img src="{ $theme_root }/images/user.png" />&nbsp;##OWNER##</td>
