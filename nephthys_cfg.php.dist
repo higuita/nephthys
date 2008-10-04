@@ -68,9 +68,13 @@ class NEPHTHYS_CFG extends NEPHTHYS_DEFAULT_CFG {
 
    // Default language - language can be selected per user, but
    // here a default language can be selected.
+   //
    // The following languages are currently available:
-   //    en - english
-   //    de - german/deutsch
+   //    en - English
+   //    de - German
+   //    ru - Russian
+   //    it - Italian
+   //    es - Spanish
    //
    // Default:
    //  var $language = "en";

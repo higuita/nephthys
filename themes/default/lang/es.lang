@@ -1,0 +1,165 @@
+// Author: Juan Pablo (Whiskola) <whiskola@gmail.com>
+// version 1.0
+
+// single words
+ABOUT=Acerca de
+ACTIONS=Accion
+ADDRESS_BOOK=Libreta de Direcciones
+ADMIN=Administrador
+AGAIN=Repetir Contraseña
+CREATED=Creado
+DAY=Dia
+DAYS=Dias
+DELETE=Borrar
+DISABLED=Deshabilitado
+DISK_USED=Usado
+DISK_FREE=Libre
+EXPIRES=Expira
+FULLNAME=Nombre Completo
+EMAIL=Email
+ENABLED=Habilitado
+HELLO=Hola
+HELP=Ayuda
+LOGIN=Usuario
+MANAGER=Administrador
+MONTH=Mes
+MONTHS=Meses
+MY_PROFILE=Mi Perfil
+NAME=Nombre
+NEVER=Nunca
+NOTIFY=Notificar
+NOTIFIED=Notificado
+NO=No
+OPTIONS=Optiones
+OWNER=Dueño
+PASSWORD=Contraseña
+PRIVILEGES=Privilegios
+START_PAGE=Pagina de Inicio
+STATUS=Estado
+USER=Usuario
+USERNAME=Nombre de Usuario
+USERS=Usuarios
+WEEK=Semana
+YEAR=Año
+YES=Si
+
+// common phrases
+ACCESS_BUCKET=Tiene acceso a este comparto por los siguientes caminos para agregar archivos
+BUCKET_RECEIVER=Contenedor receptor
+CLICK_EDIT_CONTACT=Click para editar este Contacto
+CLICK_EDIT_USER=Click para editar este Usuario
+CLICK_EDIT_BUCKET=Click para editar este Contenedor
+CLICK_ENABLE_USER=Click para habilitar este Usuario
+CLICK_DELETE_CONTACT=Click para borrar este Contacto
+CLICK_DELETE_BUCKET=Click para borrar este Contenedor
+CLICK_DELETE_USER=Click para borrar este Usuario
+CLICK_DISABLE_USER=Click para deshabilitar este Usuario
+CLICK_LOGOUT=click para salir
+CLICK_SEND_EMAIL=Click para enviar E-Mail de notificacion 
+DEFAULT_BUCKET_EXPIRE=Tiempo de expiracion por defecto de los contenedores
+DEFAULT_LANGUAGE=Idioma (Necesita salir y volver a entrar si cambia esta opcion)
+GO_TO_START=Ir a la Pagina de Inicio
+NEVER_EXPIRE=Este Contenedor nunca expira
+NOTIFY_SUCCESS=El Contenedor a sido notificado
+OPEN_VIA_WEBDAV=Abrir Contenedor via WebDAV
+OPEN_VIA_FTP=Abrir contenedor via FTP
+SAVE_GO_TO_START=Guardar y Volver a la Pagina de Inicio
+SHARE_SOME_FILES=Crear Contenedor para compartir archivos
+SHARE_I_WANT=Quiero compartir algunos archivos
+SHARE_SOMEONE_WANT=Alguien quiere enviarme archivos
+
+// about.tpl
+ABOUT_TITLE=Acerca de WebFS
+ABOUT_LICENSE= 
+ABOUT_SITE= 
+
+// addressbook_list.tpl
+ABLIST_SUBHEADER=Administrador de contactos de su libreta de direcciones
+ABLIST_EMPTY_AB= Actualmente su libreta de direcciones no contiene ningun contacto.
+   Este es agregado cuando usted crea un contenedor e inserta una direccion de email.
+   Esa direccion de email es agregada automaticamente a su libreta de direcciones
+
+// addressbook_edit.tpl
+ABEDIT_TITLE=Editar Contacto
+ABEDIT_F1_NAME=Email
+ABEDIT_SAVE=Guardar y Retornar a la Libreta de direcciones
+
+// bucket_list.tpl
+BLIST_COL_2_NAME=Abrir Contenedor
+BLIST_EMPTY_BL=No tienes ningun contenedor actualmente.
+   Crea uno eligiendo una de las opciones.
+
+// bucket_edit.tpl
+BEDIT_HEADER=Editar Contenedor
+BEDIT_F1_NAME=Nombre del Contenedor
+BEDIT_F2_NAME=Direccion de Envio
+BEDIT_F3_NAME=Direccion de Envio (esta entrada no puede ser modificada)
+
+// help.tpl
+HELP_HEADER=WebFS Ayuda
+HELP_TEXT=Your Nephthys installation comes with an included manual in different variantes.<br />
+   So, please choose your favorite one below:<br />
+HELP_SEPARATED=HTML (Paginas Separadas)
+HELP_ALL_IN_1=HTML (Una sola Pagina)
+
+// login_box.tpl
+LOGIN_HEADER=Login to WebFS
+
+// main.tpl
+MAIN_SUBHEADER=Elegir entre las siguientes opciones
+MAIN_EMAIL_NOT_SET=Su direccion de E-Mail no a sido configurada. iPuedes hacer esto desde la opcion "Mi Perfil".
+MAIN_BL_HEADER=Lista de Contenedores
+MAIN_BL_SUBHEADER=Los siguientes Contenedores estan actualmente disponibles
+
+// profile.tpl
+PROFILE_SUBHEADER=Actualizar su Perfil
+
+// receive_form.tpl
+// send_form.tpl
+FORM_BUCKET_NAME=Dar nombre al Contenedor
+FORM_SENDER_EMAIL=Direccion de Envio
+FORM_SENDER_EMAIL=Direccion de Envio
+FORM_RECEIVER_EMAIL= Email de Destinatarios
+FORM_RECEIVER_OPT=opcional, para notificar fuera de WebFS
+FORM_RECEIVER_SEPARATE=Ingrese multiples destinatarios separados por ',' (coma)
+FORM_ADD_AB=Agregar email a la libreta de direcciones
+FORM_BUCKET_EXPIRE=Cuando expira este Contenedor?
+FORM_ADDITIONAL_TEXT=Texto para agregar en la notificacion por email (opcional)
+FORM_SEND_EMAIL=Enviar mail de notificacion al destinatario inmediatamente despues de crear el contenedor
+FORM_CREATE_BUCKET=Crear Contenedor
+
+// saved_bucket.tpl
+SB_HEADER=Contenedor creado correctamente
+SB_SUBHEADER=El Contenedor a sido creado.
+SB_ABOVE_LINKS=The above links you can also find on the "Start Page" for later usage
+SB_ABOVE_LINKS=Los links anteriores puedes encontrerlos en la "Pagina de Inicio" para un uso posterior
+
+// users_edit.tpl
+USER_CREATE_NEW=Crear un nuevo Usuario
+USER_MODIFY=Modificar Usuario
+USER_LONG_TIME_BUCKET=Permitir un mayor tiempo del Contenedor (Solo para usuarios comunes)
+USER_SAVE=Guardar usuario y regresar a la Lista de Usuarios
+
+// user_list.tpl
+USER_HEADER=Administrador de Usuarios
+
+// from PHP source
+NOT_ALLOWED=No tiene permisos para acceder a este modulo
+FAILURE_ENTER_EMAIL=Por favor ingrese un email para este contacto!
+FAILURE_ENTER_SENDER=Por favor ingrese un email valido!
+FAILURE_ENTER_BUCKET_NAME=Por Favor ingrese un nombre para este contenedor!
+FAILURE_ENTER_BUCKET_SENDER=Por favor ingrese un email para este contenedor!
+FAILURE_ENTER_VALID_SENDER=Por favor ingrese un email valido!
+FAILURE_ENTER_BUCKET_RECEIVER=Por favor ingrese el mail del destinatario para este contenedor!
+FAILURE_ENTER_VALID_RECEIVER=Por favor ingrese un email de destinatario valido!
+FAILURE_USER_LOGON=Usuario o Contraseña invalido
+FAILURE_PASSWORD=Usuario o Contraseña invalido
+FAILURE_USER_PASS=Por favor ingresar usuario y contraseña
+FAILURE_CHANGE_LOGIN=usted no esta autorizado para cambiar su nombre de usuario!
+FAILURE_CHANGE_EMAIL=Usted no esta autorizado para cambiar su direccion de email!
+FAILURE_ENTER_USERNAME=Por favor ingrese un nombre de usuario!
+FAILURE_EMPTY_PASSWORD=Contraseñas vacias no estan permitidas
+FAILURE_PASSWORD_NOT_MATCH=Las contraseñas no coinciden
+FAILURE_ENTER_EMAIL=Por favor ingrese una direccion de email!
+FAILURE_ENTER_VALID_EMAIL=Por favor ingrese una direccion de email valida!
+FAILURE_USER_NOT_EXISTS=El nombre de usuario ya existe!
