@@ -2146,7 +2146,7 @@ class NEPHTHYS_DEFAULT_CFG {
    var $language    = "en";
    var $avail_langs = Array(
       "en" => "English",
-      "de" => "Deutsch",
+      "de" => "German",
       "ru" => "Russian",
       "it" => "Italian",
       "es" => "Spanish",
