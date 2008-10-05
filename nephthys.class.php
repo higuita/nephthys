@@ -828,7 +828,7 @@ class NEPHTHYS {
       /* set application name and version information */
       $this->cfg->product = "Nephthys";
       $this->cfg->version = "1.3";
-      $this->cfg->db_version = 5;
+      $this->cfg->db_version = 6;
 
       return true;
 
@@ -1777,7 +1777,7 @@ class NEPHTHYS {
                }
 
                $result = $this->db->db_exec("
-                  CREATE TEMPORARY TABLE nephthys_users (
+                  CREATE TABLE nephthys_users (
                      user_idx INTEGER PRIMARY KEY,
                      user_name varchar(255),
                      user_full_name varchar(255),
@@ -1811,7 +1811,7 @@ class NEPHTHYS {
                }
 
                $result = $this->db->db_exec("
-                  DROP TABLE nephthys_users;
+                  DROP TABLE nephthys_users_tmp;
                ");
 
                if(!$result) {
