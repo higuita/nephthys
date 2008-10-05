@@ -11,6 +11,7 @@ nephthys (1.3)
   * feature, fullname for address-book contacts (#50)
   * feature, auto-suggest for multiple receivers (#69)
   * feature, deny user-password-change flag (#71)
+  * feature, confirmation dialog is now shown after clicking "notify" (#49)
 
  -- Andreas Unterkircher <unki@netshadow.at>  Sat, 5 Oct 2008 09:57:22 +0200
 
