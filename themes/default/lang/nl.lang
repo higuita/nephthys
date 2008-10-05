@@ -42,6 +42,8 @@ USERS=Gebruikers
 WEEK=Week
 YEAR=Jaar
 YES=Ja
+ALLOW=Allow
+DENY=Deny
 
 // Algemene mededelingen
 ACCESS_BUCKET=Je kunt op verschillende manieren zien wat er in je bakje (bucket) zit, als volgt:
@@ -136,6 +138,7 @@ SB_ABOVE_LINKS=Bovenstaande links kun je ook vinden op de "Startpagina"
 USER_CREATE_NEW=Maak een nieuwe gebruiker aan
 USER_MODIFY=Wijzig gebruikersgegevens
 USER_LONG_TIME_BUCKET=Long-time bakjes toestaan (werkt alleen bij 'User' privilege)
+USER_DENY_CHPWD=Change Password
 USER_SAVE=Gebruikersgegevens opslaan en terug naar de lijst van gebruikers
 
 // user_list.tpl

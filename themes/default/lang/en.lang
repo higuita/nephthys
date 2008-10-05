@@ -39,6 +39,8 @@ USERS=Users
 WEEK=Week
 YEAR=Year
 YES=Yes
+ALLOW=Allow
+DENY=Deny
 
 // common phrases
 ACCESS_BUCKET=You can access the bucket by the following ways to add files
@@ -135,6 +137,7 @@ SB_ABOVE_LINKS=The above links you can also find on the "Start Page" for later u
 USER_CREATE_NEW=Create a new User
 USER_MODIFY=Modify User
 USER_LONG_TIME_BUCKET=Allow long-time buckets (only affects 'User' privilege)
+USER_DENY_CHPWD=Change Password
 USER_SAVE=Save user and return to user-list
 
 // user_list.tpl

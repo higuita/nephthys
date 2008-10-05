@@ -39,6 +39,8 @@ USERS=Benutzer
 WEEK=Woche
 YEAR=Jahr
 YES=Ja
+ALLOW=Erlaubt
+DENY=Verboten
 
 // common phrases
 ACCESS_BUCKET=Auf den Bucket kann über folgende Wege zugegriffen werden
@@ -136,6 +138,7 @@ SB_ABOVE_LINKS=Die obigen Links sind auch auf der "Start Seite" für die später
 USER_CREATE_NEW=Neuen Benutzer erstellen
 USER_MODIFY=Benutzer editieren
 USER_LONG_TIME_BUCKET=Langzeit Buckets erlauben (betrifft nur 'Benutzer' Privilegien)
+USER_DENY_CHPWD=Passwort ändern
 USER_SAVE=Benutzer speichern und zurück zur Benutzer-Liste
 
 // user_list.tpl

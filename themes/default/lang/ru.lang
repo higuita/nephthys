@@ -42,6 +42,8 @@ USERS=Пользователи
 WEEK=Неделя
 YEAR=Год
 YES=Да
+ALLOW=Allow
+DENY=Deny
 
 // common phrases
 ACCESS_BUCKET=Вы можете получить доступ для добавления файлов в этот ковш
@@ -138,6 +140,7 @@ SB_ABOVE_LINKS=Ссылки, приведённые выше, Вы можете 
 USER_CREATE_NEW=Создать нового пользователя
 USER_MODIFY=Изменить пользователя
 USER_LONG_TIME_BUCKET=Разрешить долговременные ковши (применяется только к правам доступа уровня 'User')
+USER_DENY_CHPWD=Change Password
 USER_SAVE=Сохранить изменения и вернуться в список пользователей
 
 // user_list.tpl

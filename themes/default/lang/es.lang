@@ -42,6 +42,8 @@ USERS=Usuarios
 WEEK=Semana
 YEAR=Año
 YES=Si
+ALLOW=Allow
+DENY=Deny
 
 // common phrases
 ACCESS_BUCKET=Tiene acceso a este comparto por los siguientes caminos para agregar archivos
@@ -138,6 +140,7 @@ SB_ABOVE_LINKS=Los links anteriores puedes encontrerlos en la "Pagina de Inicio"
 USER_CREATE_NEW=Crear un nuevo Usuario
 USER_MODIFY=Modificar Usuario
 USER_LONG_TIME_BUCKET=Permitir un mayor tiempo del Contenedor (Solo para usuarios comunes)
+USER_DENY_CHPWD=Change Password
 USER_SAVE=Guardar usuario y regresar a la Lista de Usuarios
 
 // user_list.tpl

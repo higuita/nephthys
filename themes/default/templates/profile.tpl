@@ -50,6 +50,7 @@
  <tr>
   <td colspan="2">&nbsp;</td>
  </tr>
+ { if $user_deny_chpwd != "Y" }
  <tr>
   <td>##PASSWORD##:</td>
  </tr>
@@ -69,6 +70,7 @@
  <tr>
   <td colspan="2">&nbsp;</td>
  </tr>
+ { /if }
  <tr>
   <td colspan="2">##DEFAULT_BUCKET_EXPIRE##:</td>
  </tr>

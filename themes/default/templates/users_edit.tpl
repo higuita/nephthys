@@ -85,6 +85,15 @@
   <td>&nbsp;</td>
  </tr>
  <tr>
+  <td>##USER_DENY_CHPWD##:
+   <input type="radio" name="user_deny_chpwd" value="N" { if $user_deny_chpwd != "Y" } checked="checked" { /if } />##ALLOW##
+   <input type="radio" name="user_deny_chpwd" value="Y" { if $user_deny_chpwd == "Y" } checked="checked" { /if } />##DENY##
+  </td>
+ </tr>
+ <tr>
+  <td>&nbsp;</td>
+ </tr>
+ <tr>
   <td>##USER_LONG_TIME_BUCKET##:</td>
  </tr>
  <tr>

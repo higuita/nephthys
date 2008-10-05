@@ -86,6 +86,7 @@ class NEPHTHYS_PROFILE {
       $this->tmpl->assign('user_email', $this->parent->unescape($user->user_email));
       $this->tmpl->assign('user_default_expire', $user->user_default_expire);
       $this->tmpl->assign('user_auto_created', $user->user_auto_created);
+      $this->tmpl->assign('user_deny_chpwd', $user->user_deny_chpwd);
       $this->tmpl->assign('user_language', $user->user_language);
 
       $this->tmpl->show("profile.tpl");
@@ -192,7 +193,8 @@ class NEPHTHYS_PROFILE {
       $_POST['user_pass1'] = $this->parent->escape($_POST['user_pass1']);
 
       /* if a password change was requested, change it here. */
-      if($_POST['user_pass1'] != " nochangeMS ") {
+      if($_POST['user_pass1'] != " nochangeMS " &&
+         !$this->parent->is_deny_chpwd($_SESSION['login_idx'])) {
 
          $sth = $this->db->db_prepare("
             UPDATE nephthys_users

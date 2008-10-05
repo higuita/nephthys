@@ -1069,9 +1069,10 @@ class NEPHTHYS {
       $sth = $this->db->db_prepare("
          INSERT INTO nephthys_users (
             user_idx, user_name, user_priv,
-            user_active, user_auto_created
+            user_active, user_auto_created,
+            user_deny_chpwd
          ) VALUES (
-            NULL, ?, 'user', 'Y', 'Y'
+            NULL, ?, 'user', 'Y', 'Y', 'Y'
          )
       ");
 
@@ -1103,6 +1104,29 @@ class NEPHTHYS {
       return false;
 
    } // is_auto_created()
+
+   /**
+    * return true if user is _not_ allowed to change its password
+    * @param integer $idx
+    * @return boolean
+    */
+   public function is_deny_chpwd($user_idx)
+   {
+      if($user = $this->db->db_fetchSingleRow("
+         SELECT user_deny_chpwd
+         FROM nephthys_users
+         WHERE
+            user_idx LIKE '". $user_idx ."'
+         ")) {
+
+         if(isset($user->user_deny_chpwd) && $user->user_deny_chpwd == 'Y')
+            return true;
+
+      }
+
+      return false;
+
+   } // is_deny_chpwd()
 
    /**
     * check if called from command line
@@ -1192,6 +1216,7 @@ class NEPHTHYS {
                   `user_default_expire` int(11) default NULL,
                   `user_priv_expire` varchar(1) default NULL,
                   `user_auto_created` varchar(1) default NULL,
+                  `user_deny_chpwd` varchar(1) default NULL,
                   `user_language` varchar(6) default NULL,
                   PRIMARY KEY  (`user_idx`)
                   ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
@@ -1210,6 +1235,7 @@ class NEPHTHYS {
                   user_default_expire int,
                   user_priv_expire varchar(1),
                   user_auto_created varchar(1),
+                  user_deny_chpwd varchar(1),
                   user_language varchar(6)
                   )
                ";
@@ -1670,6 +1696,161 @@ class NEPHTHYS {
 
       } /* // db version 5 */
 
+      /* db version 6 */
+      if($this->get_db_version() < 6) {
+
+         /* add column user_deny_chpwd to nephthys_users */
+
+         switch($this->cfg->db_type) {
+            default:
+            case 'mysql':
+               $this->db->db_alter_table(
+                  "nephthys_users",
+                  "add",
+                  "user_deny_chpwd",
+                  "varchar(1) default NULL"
+               );
+               break;
+
+            case 'sqlite':
+
+               /* SQlite v2 does not support ALTER TABLE, so we need
+                  to take the help of a temporary table.
+               */
+               if(!$this->db->db_start_transaction())
+                  die("Can not start database transaction");
+
+               $result = $this->db->db_exec("
+                  CREATE TEMPORARY TABLE nephthys_users_tmp (
+                     user_idx INTEGER PRIMARY KEY,
+                     user_name varchar(255),
+                     user_full_name varchar(255),
+                     user_pass varchar(255),
+                     user_email varchar(255),
+                     user_priv varchar(16),
+                     user_active varchar(1),
+                     user_last_login int,
+                     user_default_expire int,
+                     user_priv_expire varchar(1),
+                     user_auto_created varchar(1),
+                     user_deny_chpwd varchar(1),
+                     user_language varchar(6)
+                  )
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               $result = $this->db->db_exec("
+                  INSERT INTO nephthys_users_tmp
+                     SELECT
+                        user_idx,
+                        user_name,
+                        user_full_name,
+                        user_pass,
+                        user_email,
+                        user_priv,
+                        user_active,
+                        user_last_login,
+                        user_default_expire,
+                        user_priv_expire,
+                        user_auto_created,
+                        NULL,
+                        user_language
+                     FROM nephthys_users;
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               $result = $this->db->db_exec("
+                  DROP TABLE nephthys_users;
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               $result = $this->db->db_exec("
+                  CREATE TEMPORARY TABLE nephthys_users (
+                     user_idx INTEGER PRIMARY KEY,
+                     user_name varchar(255),
+                     user_full_name varchar(255),
+                     user_pass varchar(255),
+                     user_email varchar(255),
+                     user_priv varchar(16),
+                     user_active varchar(1),
+                     user_last_login int,
+                     user_default_expire int,
+                     user_priv_expire varchar(1),
+                     user_auto_created varchar(1),
+                     user_deny_chpwd varchar(1),
+                     user_language varchar(6)
+                  )
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               $result = $this->db->db_exec("
+                  INSERT INTO nephthys_users
+                     SELECT *
+                     FROM nephthys_users_tmp;
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               $result = $this->db->db_exec("
+                  DROP TABLE nephthys_users;
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               if(!$this->db->db_commit_transaction())
+                  die("Can not commit database transaction");
+
+               break;
+         }
+
+         /* per default we deny every auto-created user
+            to change his password.
+         */
+         $this->db->db_query("
+            UPDATE
+               nephthys_users
+            SET
+               user_deny_chpwd='Y'
+            WHERE
+               user_auto_created LIKE 'Y'
+         ");
+         /* per default we allowe every non auto-created user
+            to change his password.
+         */
+          $this->db->db_query("
+            UPDATE
+               nephthys_users
+            SET
+               user_deny_chpwd='N'
+            WHERE
+               user_auto_created NOT LIKE 'Y'
+         ");
+
+         $this->set_db_version(6);
+
+      } /* // db version 6 */
 
    } // check_db_tables()
 

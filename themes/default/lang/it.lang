@@ -39,6 +39,8 @@ USERS=Utenti
 WEEK=Settimana
 YEAR=Anno
 YES=Si
+ALLOW=Allow
+DENY=Deny
 
 // common phrases
 ACCESS_BUCKET=Puoi accedere allo slot utilizzando questi metodi per aggiungere i file
@@ -135,6 +137,7 @@ SB_ABOVE_LINKS=Con il link sottostante puoi trovarlo nella pagina iniziale per u
 USER_CREATE_NEW=Crea nuovo utente
 USER_MODIFY=Modifica utente
 USER_LONG_TIME_BUCKET=Abilita slot a lungo termine (effetto solo su privilegio 'Utenti')
+USER_DENY_CHPWD=Change Password
 USER_SAVE=Salva e torna alla lista utenti
 
 // user_list.tpl
