@@ -75,6 +75,7 @@ class NEPHTHYS_CFG extends NEPHTHYS_DEFAULT_CFG {
    //    ru - Russian
    //    it - Italian
    //    es - Spanish
+   //    nl - Dutch
    //
    // Default:
    //  var $language = "en";

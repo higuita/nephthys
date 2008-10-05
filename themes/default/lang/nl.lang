@@ -1,0 +1,163 @@
+// Author: Gijs van Gemert
+// version 1.0
+
+// losse woorden
+ABOUT=Over
+ACTIONS=Acties
+ADDRESS_BOOK=Addresboek
+ADMIN=Administrator
+AGAIN=Opnieuw
+CREATED=Gemaakt
+DAY=Dag
+DAYS=Dagen
+DELETE=Verwijder
+DISABLED=Uitgeschakeld
+DISK_USED=Gebruikt
+DISK_FREE=Vrij
+EXPIRES=Vervalt
+FULLNAME=Volledige naam
+EMAIL=Email
+ENABLED=Ingeschakeld
+HELLO=Hallo
+HELP=Help
+LOGIN=Login
+MANAGER=Manager
+MONTH=Maand
+MONTHS=Maanden
+MY_PROFILE=Mijn Profiel
+NAME=Naam
+NEVER=Nooit
+NOTIFY=Bericht
+NOTIFIED=Bericht
+NO=Nee
+OPTIONS=Opties
+OWNER=Eigenaar
+PASSWORD=Wachtwoord
+PRIVILEGES=Privileges
+START_PAGE=Startpagina
+STATUS=Status
+USER=Gebruiker
+USERNAME=Usernaam
+USERS=Gebruikers
+WEEK=Week
+YEAR=Jaar
+YES=Ja
+
+// Algemene mededelingen
+ACCESS_BUCKET=Je kunt op verschillende manieren zien wat er in je bakje (bucket) zit, als volgt:
+BUCKET_RECEIVER=Bucket receiver
+CLICK_EDIT_CONTACT=Klik: wijzigen
+CLICK_EDIT_USER=Klik: deze gebruiker wijzigen
+CLICK_EDIT_BUCKET=Klik: Dit bakje wijzigen
+CLICK_ENABLE_USER=Klik: deze gebruiker wordt ingeschakeld
+CLICK_DELETE_CONTACT=Klik: dit contact wordt verwijderd 
+CLICK_DELETE_BUCKET=Klik: dit bakje wordt verwijderd
+CLICK_DELETE_USER=Klik: deze gebruiker wordt verwijderd
+CLICK_DISABLE_USER=Klik: deze gebruiker wordt uitgeschakeld
+CLICK_LOGOUT=Klik: uitloggen
+CLICK_SEND_EMAIL=Klik: een notificatie- EMail versturen
+DEFAULT_BUCKET_EXPIRE=Standaard levensduur van bakjes
+DEFAULT_LANGUAGE=Taal (je moet uit & weer inloggen als je dit verandert)
+GO_TO_START=Ga naar de startpagina
+NEVER_EXPIRE=Dit bakje heeft het eeuwige leven
+OPEN_VIA_WEBDAV=Open bakje via WebDAV
+OPEN_VIA_FTP=Open bakje via FTP
+SAVE_GO_TO_START=Opslaan en terug naar de Startpagina
+SHARE_SOME_FILES=Maak een bakje aan voor je files
+SHARE_I_WANT=Ik wil files met anderen delen
+SHARE_SOMEONE_WANT=Iemand wil me files sturen
+
+// about.tpl
+ABOUT_TITLE=Over  Nephthys
+ABOUT_LICENSE=Licensed under GPLv3
+ABOUT_SITE=Nephthys website
+
+// addressbook_list.tpl
+ABLIST_SUBHEADER=Beheer de contacten in je adresboek
+ABLIST_EMPTY_AB= Je adresboek bevat nog geen contacten.
+   Die zullen worden toegevoegd als je bakjes aanmaakt en het emailadres van een ontvanger invult.
+   Emailadres wordt automatisch toegevoegd aan het adresboek.
+
+// addressbook_edit.tpl
+ABEDIT_TITLE=Edit Titel
+ABEDIT_F1_NAME=Email
+ABEDIT_SAVE=Opslaan en terug naar het adresboek
+
+// bucket_list.tpl
+BLIST_COL_2_NAME=Bakje openen om files toe te voegen
+BLIST_EMPTY_BL=Je hebt nog geen bakje.
+   Maak er een aan (op een van bovenstaande manieren)!
+
+// bucket_edit.tpl
+BEDIT_HEADER=Bakje bewerken
+BEDIT_F1_NAME=Naam van het bakje
+BEDIT_F2_NAME=Eigen of andermans email.
+BEDIT_F3_NAME=Eigen email of van de afzender (dit kun je niet veranderen)
+BEDIT_F4_NAME=Email ontvanger
+
+// help.tpl
+HELP_HEADER=Nephthys Help
+HELP_TEXT=Bij deze Nephthys installatie hoort een handleiding in een paar varianten<br />
+   Geef hier aan wat je voorkeur heeft:<br />
+HELP_SEPARATED=HTML (afzonderlijke pagina's)
+HELP_ALL_IN_1=HTML (één geheel)
+
+// login_box.tpl
+LOGIN_HEADER=Login bij Nephthys
+
+// main.tpl
+MAIN_SUBHEADER=Maak een keuze:
+MAIN_EMAIL_NOT_SET=U hebt geen emailadres ingevuld. Dit kan onder  "Mijn Profiel".
+MAIN_BL_HEADER=De bestaande bakjes
+MAIN_BL_SUBHEADER=De volgende bakjes zijn beschikbaar
+
+// profile.tpl
+PROFILE_SUBHEADER=Verander je persoonlijke gegevens
+
+// receive_form.tpl
+FORM_BUCKET_NAME=Geef het bakje een naam
+
+FORM_SENDER_EMAIL=Eigen email of van afzender
+FORM_SENDER_EMAIL=Email van afzender
+FORM_RECEIVER_EMAIL=Email ontvanger
+FORM_RECEIVER_OPT=Optioneel.Notificatie buiten Nephthys
+FORM_ADD_AB=Voeg email toe aan  addressbook
+FORM_BUCKET_EXPIRE=Wat is de levensduur van dit bakje?
+FORM_ADDITIONAL_TEXT=Tekst toevoegen aan de notificatie-email (optioneel)
+FORM_SEND_EMAIL=Stuur een email-notification aan de ontvanger direct na het aanmaken van het bakje.
+FORM_CREATE_BUCKET=Maak een bakje aan
+
+// saved_bucket.tpl
+SB_HEADER=Aanmaken bakje geslaagd!
+SB_SUBHEADER=Uw bakje is aangemaakt.
+SB_ABOVE_LINKS=Bovenstaande links kun je ook vinden op de "Startpagina"
+
+// users_edit.tpl
+USER_CREATE_NEW=Maak een nieuwe gebruiker aan
+USER_MODIFY=Wijzig gebruikersgegevens
+USER_LONG_TIME_BUCKET=Long-time bakjes toestaan (werkt alleen bij 'User' privilege)
+USER_SAVE=Gebruikersgegevens opslaan en terug naar de lijst van gebruikers
+
+// user_list.tpl
+USER_HEADER=Gebruikersbeheer
+
+// from PHP source
+NOT_ALLOWED=Je hebt onvoldoende permissie om deze module te gebruiken!
+FAILURE_ENTER_EMAIL=Vul het emailadres van dit contact in!
+FAILURE_ENTER_SENDER=Vul een geldig email adres van de afzender in!
+FAILURE_ENTER_BUCKET_NAME=Geef dit bakje een naam!
+FAILURE_ENTER_BUCKET_SENDER=Wie is de afzender van dit bakje?
+FAILURE_ENTER_VALID_SENDER=Vul een geldig emailadres van de afzender in!
+FAILURE_ENTER_BUCKET_RECEIVER=Wie is de ontvanger van dit bakje?
+FAILURE_ENTER_VALID_RECEIVER=Vul een geldig emailadres van de afzender in!
+FAILURE_USER_LOGON=Ongeldige of niet-actieve gebruiker.
+FAILURE_PASSWORD=Ongeldig wachtwoord
+FAILURE_USER_PASS=Usernaam en wachtwoord invullen.
+FAILURE_CHANGE_LOGIN=U hebt geen toestemming om uw login-naam te veranderen!
+FAILURE_CHANGE_EMAIL=U hebt geen toestemming om uw emailadres te veranderen!
+FAILURE_ENTER_USERNAME=Vul een usernaam in!
+FAILURE_EMPTY_PASSWORD=Er moet een wachtwoordworden ingevuld!
+FAILURE_PASSWORD_NOT_MATCH=De twee ingevoerde wachtwoorden zijn niet hetzelfde!
+FAILURE_ENTER_EMAIL=Vul een emailadres in!
+FAILURE_ENTER_VALID_EMAIL=Vul een geldig emailadres in!
+FAILURE_USER_NOT_EXISTS=Er bestaat al een gebruiker met deze naam!
