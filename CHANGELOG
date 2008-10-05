@@ -4,9 +4,14 @@ nephthys (1.3)
        contributed by Alexander Davidenko
   * feature, italian translation (#75)
        contributed by Alberto Vincenzi
+  * feature, spanish translation (#77)
+       contributed by Juan Pablo
+  * feature, dutch translation (#82)
+       contributed by Gijs van Gemert
   * feature, fullname for address-book contacts (#50)
+  * feature, auto-suggest for multiple receivers (#69)
 
- -- Andreas Unterkircher <unki@netshadow.at>  Sat, 7 Sep 2008 09:57:22 +0200
+ -- Andreas Unterkircher <unki@netshadow.at>  Sat, 5 Oct 2008 09:57:22 +0200
 
 nephthys (1.2)
 
