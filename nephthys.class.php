@@ -742,6 +742,14 @@ class NEPHTHYS {
    */
    public function validate_email($email)
    {
+      /* if email has been entered in the format
+            fullname <email-address>
+         then we need to extract the address first
+      */
+      if(preg_match('/^(.+)\s\<(.+)\>/', $email, $matches)) {
+         $email = $matches[2];
+      }
+
       //if php version < 5.2
       if ( version_compare( phpversion(), "5.2","<" ) ) {
          // First, we check that there's one @ symbol, and that the lengths are right
@@ -1877,7 +1885,17 @@ class NEPHTHYS {
       /* loop over all contacts */
       foreach($to_ab as $address) {
 
+         $fullname = '';
          $address = $this->escape($address);
+
+         /* when entered in the format
+               fullname <email-address>
+            we need to extract the parts of that string first
+         */
+         if(preg_match('/^(.+)\s\<(.+)\>/', $address, $matches)) {
+            $fullname = $matches[1];
+            $address = $matches[2];
+         }
 
          /* do nothing if such a contact already exists */
          if($this->db->db_fetchSingleRow("
@@ -1891,15 +1909,22 @@ class NEPHTHYS {
 
          $sth = $this->db->db_prepare("
             INSERT INTO nephthys_addressbook (
-               contact_idx, contact_email, contact_owner
+               contact_idx,
+               contact_email,
+               contact_owner,
+               contact_name
             ) VALUES (
-               NULL, ?, ?
+               NULL,
+               ?,
+               ?,
+               ?
             )
          ");
 
          $this->db->db_execute($sth, array(
             $address,
             $_SESSION['login_idx'],
+            $fullname,
          ));
 
       }
