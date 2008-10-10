@@ -111,7 +111,7 @@ class NEPHTHYS_PROFILE {
          empty($_POST['user_name']))) {
          return $this->parent->_("##FAILURE_ENTER_USERNAME##");
       }
-      if(empty($_POST['user_pass1'])) {
+      if(!$this->parent->is_deny_chpwd($_SESSION['login_idx']) && empty($_POST['user_pass1'])) {
          return $this->parent->_("##FAILURE_EMPTY_PASSWORD##");
       }
       if($_POST['user_pass1'] != $_POST['user_pass2']) {
