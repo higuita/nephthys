@@ -1266,8 +1266,9 @@ class NEPHTHYS {
                'Y',
                NULL,
                7,
-               NULL,
-               NULL,
+               'N',
+               'N',
+               'N',
                'en')
          ");
 
