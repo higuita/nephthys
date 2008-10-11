@@ -114,9 +114,13 @@ class NEPHTHYS_PROFILE {
       if(!$this->parent->is_deny_chpwd($_SESSION['login_idx']) && empty($_POST['user_pass1'])) {
          return $this->parent->_("##FAILURE_EMPTY_PASSWORD##");
       }
-      if($_POST['user_pass1'] != $_POST['user_pass2']) {
+      /* it's not a must that the password needs to be available, as
+         the user may not have the right to change its Nephthys password.
+      */
+      if(isset($_POST['user_pass1']) && isset($_POST['user_pass2']) &&
+         $_POST['user_pass1'] != $_POST['user_pass2']) {
          return $this->parent->_("##FAILURE_PASSWORD_NOT_MATCH##");
-      }	       
+      }
 
       /* user-privileged are not allowed to change their user-names */
       if(!$this->parent->check_privileges('user')) {
@@ -190,24 +194,27 @@ class NEPHTHYS_PROFILE {
          $_POST['user_idx'],
       ));
 
-      $_POST['user_pass1'] = $this->parent->escape($_POST['user_pass1']);
+      if(isset($_POST['user_pass1'])) {
 
-      /* if a password change was requested, change it here. */
-      if($_POST['user_pass1'] != " nochangeMS " &&
-         !$this->parent->is_deny_chpwd($_SESSION['login_idx'])) {
+         $_POST['user_pass1'] = $this->parent->escape($_POST['user_pass1']);
 
-         $sth = $this->db->db_prepare("
-            UPDATE nephthys_users
-            SET
-               user_pass=?
-            WHERE
-               user_idx=?
-         ");
+         /* if a password change was requested, change it here. */
+         if($_POST['user_pass1'] != " nochangeMS " &&
+            !$this->parent->is_deny_chpwd($_SESSION['login_idx'])) {
 
-         $this->db->db_execute($sth, array(
-            sha1($_POST['user_pass1']),
-            $_POST['user_idx'],
-         ));
+            $sth = $this->db->db_prepare("
+               UPDATE nephthys_users
+               SET
+                  user_pass=?
+               WHERE
+                  user_idx=?
+            ");
+
+            $this->db->db_execute($sth, array(
+               sha1($_POST['user_pass1']),
+               $_POST['user_idx'],
+            ));
+         }
       }
 		  
       return "ok";
