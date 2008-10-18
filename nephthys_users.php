@@ -305,6 +305,12 @@ class NEPHTHYS_USERS {
 
          $this->tmpl->assign('user_idx', $user_idx);
          $this->tmpl->assign('user_name', $user->user_name);
+         $this->tmpl->assign('user_full_name', $user->user_full_name);
+
+         if(!empty($user->user_last_login) && !is_null($user->user_last_login))
+            $this->tmpl->assign('user_last_login', strftime("%c", $user->user_last_login));
+         else
+            $this->tmpl->assign('user_last_login', $this->parent->_("##NEVER##"));
          $this->tmpl->assign('user_active', $user->user_active);
 
          $index++;

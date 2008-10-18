@@ -18,6 +18,7 @@ ENABLED=Aktiviert
 HELLO=Hallo
 HELP=Hilfe
 LOGIN=Anmeldung
+LASTLOGIN=Letzte Anmeldung
 MANAGER=Manager
 MONTH=Monat
 MONTHS=Monate
@@ -27,7 +28,6 @@ NEVER=Niemals
 NOTIFY=Benachrichtigen
 NOTIFIED=Benachrichtigt
 NO=Nein
-OPTIONS=Optionen
 OWNER=Besitzer
 PASSWORD=Passwort
 PRIVILEGES=Privilegien
@@ -143,6 +143,7 @@ USER_SAVE=Benutzer speichern und zurück zur Benutzer-Liste
 
 // user_list.tpl
 USER_HEADER=Benutzer Verwaltung
+USER_SUBHEADER=Nephthys Benutzer verwalten
 
 // from PHP source
 NOT_ALLOWED=Sie haben auf dieses Modul keinen Zugriff!

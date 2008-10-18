@@ -21,6 +21,7 @@ ENABLED=Habilitado
 HELLO=Hola
 HELP=Ayuda
 LOGIN=Usuario
+LASTLOGIN=Last Login
 MANAGER=Administrador
 MONTH=Mes
 MONTHS=Meses
@@ -30,7 +31,6 @@ NEVER=Nunca
 NOTIFY=Notificar
 NOTIFIED=Notificado
 NO=No
-OPTIONS=Optiones
 OWNER=Dueño
 PASSWORD=Contraseña
 PRIVILEGES=Privilegios
@@ -145,6 +145,7 @@ USER_SAVE=Guardar usuario y regresar a la Lista de Usuarios
 
 // user_list.tpl
 USER_HEADER=Administrador de Usuarios
+USER_SUBHEADER=Manage Nephthys users
 
 // from PHP source
 NOT_ALLOWED=No tiene permisos para acceder a este modulo
