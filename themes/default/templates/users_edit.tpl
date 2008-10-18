@@ -70,6 +70,15 @@
   <td>&nbsp;</td>
  </tr>
  <tr>
+  <td>##LANGUAGE##:</td>
+ </tr>
+ <tr>
+  <td>{ language_list name="user_language" current=$user_language }</td>
+ </tr>
+ <tr>
+  <td>&nbsp;</td>
+ </tr>
+ <tr>
   <td>##PRIVILEGES##:</td>
  </tr>
  <tr>
@@ -79,15 +88,6 @@
     <option value="manager" { if $user_priv == "manager" } selected="selected" { /if }>##MANAGER##</option>
     <option value="admin" { if $user_priv == "admin" } selected="selected" { /if }>##ADMIN##</option>
    </select>
-  </td>
- </tr>
- <tr>
-  <td>&nbsp;</td>
- </tr>
- <tr>
-  <td>##USER_DENY_CHPWD##:
-   <input type="radio" name="user_deny_chpwd" value="N" { if $user_deny_chpwd != "Y" } checked="checked" { /if } />##ALLOW##
-   <input type="radio" name="user_deny_chpwd" value="Y" { if $user_deny_chpwd == "Y" } checked="checked" { /if } />##DENY##
   </td>
  </tr>
  <tr>
@@ -108,9 +108,22 @@
   <td>&nbsp;</td>
  </tr>
  <tr>
-  <td>##STATUS##:
-   <input type="radio" name="user_active" value="Y" { if $user_active == "Y" } checked="checked" { /if } />##ENABLED##
-   <input type="radio" name="user_active" value="N" { if $user_active != "Y" } checked="checked" { /if } />##DISABLED##
+  <td>
+   <table>
+    <tr>
+     <td>##USER_DENY_CHPWD##:</td>
+     <td><input type="radio" name="user_deny_chpwd" value="N" { if $user_deny_chpwd != "Y" } checked="checked" { /if } />##ALLOW##</td>
+     <td><input type="radio" name="user_deny_chpwd" value="Y" { if $user_deny_chpwd == "Y" } checked="checked" { /if } />##DENY##</td>
+    </tr>
+    <tr>
+     <td colspan="3">&nbsp;</td>
+    </tr>
+    <tr>
+     <td>##STATUS##:</td>
+     <td><input type="radio" name="user_active" value="Y" { if $user_active == "Y" } checked="checked" { /if } />##ENABLED##</td>
+     <td><input type="radio" name="user_active" value="N" { if $user_active != "Y" } checked="checked" { /if } />##DISABLED##</td>
+    </tr>
+   </table>
   </td>
  </tr>
  <tr>
