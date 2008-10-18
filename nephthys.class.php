@@ -165,6 +165,8 @@ class NEPHTHYS {
             if($user->user_active == 'Y') {
                $_SESSION['login_name'] = $user->user_name;
                $_SESSION['login_idx'] = $user->user_idx;
+               /* update the last login time of this user */
+               $this->update_last_login($user->user_idx);
             }
          }
          /* otherwise, if auto-creation is enabled, create it... */
@@ -179,6 +181,8 @@ class NEPHTHYS {
                   if($user = $this->get_user_details_by_idx($idx)) {
                      $_SESSION['login_name'] = $user->user_name;
                      $_SESSION['login_idx'] = $user->user_idx;
+                     /* update the last login time of this user */
+                     $this->update_last_login($user->user_idx);
                   }
                }
             }
@@ -844,6 +848,10 @@ class NEPHTHYS {
 
    /**
     * check login
+    *
+    * this function gets called via RPC to verify users entered
+    * credential informations and permit or deny finally login.
+    * @return string
     */
    public function login()
    {
@@ -863,6 +871,9 @@ class NEPHTHYS {
 
                $_SESSION['login_name'] = $_POST['login_name'];
                $_SESSION['login_idx'] = $user->user_idx;
+
+               /* update the last login time of this user */
+               $this->update_last_login($user->user_idx);
 
                return "ok";
             }
@@ -2303,6 +2314,25 @@ class NEPHTHYS {
 
    } // unescape()
 
+   /**
+    * update users last login time
+    *
+    * this function updates the users last login time
+    * in the database table nephthys_users.
+    * @param int $user_idx
+    */
+   private function update_last_login($user_idx)
+   {
+      $this->db->db_query("
+         UPDATE
+            nephthys_users
+         SET
+            user_last_login='". mktime() ."'
+         WHERE
+            user_idx LIKE '". $user_idx ."'
+      ");
+
+   } // update_last_login()
 
 } // class NEPHTHYS
 
