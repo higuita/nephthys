@@ -1,5 +1,7 @@
 nephthys (1.4)
 
+  * bug, user-last-login information gets now updated during login (#91)
+
  -- Andreas Unterkircher <unki@netshadow.at>  Sat, 11 Oct 2008 09:59:42 +0200
 
 nephthys (1.3)
