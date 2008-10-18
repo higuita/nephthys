@@ -21,6 +21,7 @@ ENABLED=Ingeschakeld
 HELLO=Hallo
 HELP=Help
 LOGIN=Login
+LASTLOGIN=Last Login
 MANAGER=Manager
 MONTH=Maand
 MONTHS=Maanden
@@ -30,7 +31,6 @@ NEVER=Nooit
 NOTIFY=Bericht
 NOTIFIED=Bericht
 NO=Nee
-OPTIONS=Opties
 OWNER=Eigenaar
 PASSWORD=Wachtwoord
 PRIVILEGES=Privileges
@@ -143,6 +143,7 @@ USER_SAVE=Gebruikersgegevens opslaan en terug naar de lijst van gebruikers
 
 // user_list.tpl
 USER_HEADER=Gebruikersbeheer
+USER_SUBHEADER=Manage Nephthys users
 
 // from PHP source
 NOT_ALLOWED=Je hebt onvoldoende permissie om deze module te gebruiken!
