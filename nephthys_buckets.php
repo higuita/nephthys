@@ -559,14 +559,16 @@ class NEPHTHYS_BUCKETS {
                   $this->deltree($fq_obj);
                } else {
                   /* ordinary file will be deleted here */
-                  unlink($fq_obj);
+                  if(!unlink($fq_obj))
+                     return false;
                }
             }
          }
          closedir($handle);
 
          /* now remove the - hopefully empty - directory */
-         rmdir($directory);
+         if(!rmdir($directory))
+            return false;
 
          return true;
       }
