@@ -16,6 +16,7 @@ margin: 0;
 }
 
 .shadetabs li a{
+font-size: 1.2em;
 text-decoration: none;
 position: relative;
 z-index: 1;
@@ -36,6 +37,7 @@ color: #2d2b2b;
 }
 
 .shadetabs li a.selected{ /*selected main tab style */
+font-size: 1.2em;
 position: relative;
 top: 1px;
 }
@@ -48,7 +50,6 @@ border-bottom-color: white;
 .shadetabs li a.selected:hover{ /*selected main tab style */
 text-decoration: none;
 }
-
 
 /* ######### CSS for Inverted Modern Bricks II Tabs. Remove if not using ######### */
 

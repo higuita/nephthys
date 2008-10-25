@@ -25,7 +25,7 @@
 
     <!-- Browser is Internet Explorer -->
     { if $is_ie }
-     <span style="behavior: url(#default#httpFolder); cursor: pointer; font-size: 14px; color: #000000;" onclick="this.navigateFrame('{ $bucket_webdav_path }', '_blank');">
+     <span class="ie_davlink" style="behavior: url(#default#httpFolder);" onclick="this.navigateFrame('{ $bucket_webdav_path }', '_blank');">
       <a href="{ $bucket_webdav_path }" onclick="return false;" title="##OPEN_VIA_WEBDAV##"><img src="{ $theme_root }/images/webdav.png" />&nbsp;WebDAV</a>
      </span>
     <!-- Every other browser -->
