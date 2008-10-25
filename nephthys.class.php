@@ -53,7 +53,7 @@ class NEPHTHYS {
 
       /* load config, exit if it fails */
       if(!$this->load_config()) {
-         print "Error during load_config()<br />\n";
+         $this->_error("Error during load_config()");
          exit(1);
       }
 
@@ -1019,7 +1019,10 @@ class NEPHTHYS {
       switch($this->cfg->logging) {
          default:
          case 'display':
-            print $text ."<br />\n";
+            print $text;
+            if(!$this->is_cmdline())
+               print "<br />";
+            print "\n";
             break;
          case 'errorlog':
             error_log($text);
