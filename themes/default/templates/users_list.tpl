@@ -9,6 +9,7 @@
  <tr class="subhead">
   <td><img src="{ $theme_root }/images/user.png" alt="user icon" />&nbsp;<i>##USERNAME##</i></td>
   <td><img src="{ $theme_root }/images/user.png" alt="user icon" />&nbsp;<i>##FULLNAME##</i></td>
+  <td><img src="{ $theme_root }/images/user.png" alt="user icon" />&nbsp;<i>##PRIVILEGES##</i></td>
   <td><img src="{ $theme_root }/images/user.png" alt="user icon" />&nbsp;<i>##LASTLOGIN##</i></td>
   <td><img src="{ $theme_root }/images/action.png" alt="action icon" />&nbsp;<i>##ACTIONS##</i></td>
  </tr>
@@ -22,6 +23,7 @@
    <img src="{ $theme_root }/images/user.png" alt="user icon" />
    <a href="javascript:ajax_show_content('users', '&mode=edit&idx={ $user_idx }');" title="##CLICK_EDIT_USER##">{ $user_full_name }</a>
   </td>
+  <td><img src="{ $theme_root }/images/user.png" />&nbsp;{ $user_priv }</td>
   <td><img src="{ $theme_root }/images/clock.png" />&nbsp;{ $user_last_login }</td>
   <td>
    { if $user_active == 'Y' }

@@ -2335,6 +2335,25 @@ class NEPHTHYS {
 
    } // update_last_login()
 
+   /**
+    * get privilege name
+    *
+    * this function returns the real privilege name for the
+    * requests permission in the used language.
+    * @param string $user_priv
+    * @return string
+    */
+   public function get_priv_name($user_priv)
+   {
+      if(isset($this->cfg->privileges[$user_priv])) {
+         return $this->_($this->cfg->privileges[$user_priv]);
+      }
+
+      /* return what we got, if we found no matching privilege */
+      return $user_priv;
+
+   } // get_priv_name()
+
 } // class NEPHTHYS
 
 /***************************************************************************
@@ -2379,6 +2398,11 @@ class NEPHTHYS_DEFAULT_CFG {
       "186;6 ##MONTHS##;manager",
       "365;1 ##YEAR##; manager",
       "-1;##NEVER##; manager",
+   );
+   var $privileges        = Array(
+      "user" => "##USER##",
+      "manager" => "##MANAGER##",
+      "admin" => "##ADMIN##",
    );
 
    var $language    = "en";
