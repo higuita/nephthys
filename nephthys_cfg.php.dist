@@ -109,6 +109,13 @@ class NEPHTHYS_CFG extends NEPHTHYS_DEFAULT_CFG {
    // Default:
    //   var $user_auto_create = false;
 
+   // Force profile update - for auto-created users, this option will force
+   // the user to update its profile during the first login. If set to
+   // false, the user will see a warning message on the Start Page that he
+   // has not set its email address yet.
+   // Default:
+   //   var $force_profile_update = true;
+
    // Hide logout link - maybe useful if server authentication is enabled
    // Default:
    //   var $hide_logout = false;

@@ -194,6 +194,9 @@ class NEPHTHYS {
             $user = $this->get_user_details_by_idx($_SESSION['login_idx']);
       }
 
+      /* if the user-object was found in database (or has been auto-created)
+         and the user has selected its own prefered language...
+      */
       if(isset($user) &&
          isset($user->user_language) &&
          !empty($user->user_language) &&
@@ -268,15 +271,37 @@ class NEPHTHYS {
     */
    public function get_content()
    {
+      /* if no user-login yet, show the login box */
       if(!$this->is_logged_in()) {
          $this->tmpl->show("login_box.tpl");
          return;
       }
+      else {
+         /* if the user has been auto-created, but its email address has not
+            been set yet - and the nephthys config option
+               $force_profile_update
+            is set to true, forward the user to the profile page instead of
+            everything else.
+         */
+         if(isset($this->cfg->force_profile_update) &&
+            !empty($this->cfg->force_profile_update) &&
+            $this->is_auto_created($_SESSION['login_idx']) &&
+            !$this->get_users_email($_SESSION['login_idx'])) {
 
-      if(isset($_GET['id']) && is_string($_GET['id']))
-         $request = $_GET['id'];
-      if(isset($_POST['id']) && is_string($_POST['id']))
-         $request = $_POST['id'];
+            $request = "profile";
+
+         }
+      }
+
+      /* if the requests has not been overruled yet */
+      if(!isset($request)) {
+         /* page-id via HTTP GET */
+         if(isset($_GET['id']) && is_string($_GET['id']))
+            $request = $_GET['id'];
+         /* page-id via HTTP POST */
+         if(isset($_POST['id']) && is_string($_POST['id']))
+            $request = $_POST['id'];
+      }
 
       switch($request) {
          case 'main':
@@ -2390,7 +2415,10 @@ class NEPHTHYS_DEFAULT_CFG {
 
    var $allow_server_auth = false;
    var $user_auto_create  = false;
-   var $expirations       = Array(
+
+   var $force_profile_update = true;
+
+   var $expirations = Array(
       "1;1 ##DAY##;user",
       "3;3 ##DAYS##;user",
       "7;1 ##WEEK##;user",
@@ -2399,7 +2427,7 @@ class NEPHTHYS_DEFAULT_CFG {
       "365;1 ##YEAR##; manager",
       "-1;##NEVER##; manager",
    );
-   var $privileges        = Array(
+   var $privileges = Array(
       "user" => "##USER##",
       "manager" => "##MANAGER##",
       "admin" => "##ADMIN##",
