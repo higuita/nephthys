@@ -416,14 +416,6 @@ class NEPHTHYS {
 
    } // checkRequirements()
 
-   private function _debug($text)
-   {
-      if($this->fromcmd) {
-         print $text;
-      }
-
-   } // _debug()
-
    /**
     * return the type of protocol used
     *
