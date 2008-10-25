@@ -395,6 +395,12 @@ class NEPHTHYS {
          $missing = true;
          unset($php_errormsg);
       }
+      @include_once 'Console/Getopt.php';
+      if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
+         print "PEAR Console_Getopt package is missing<br />\n";
+         $missing = true;
+         unset($php_errormsg);
+      }
       @include_once $this->cfg->smarty_path .'/libs/Smarty.class.php';
       if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
          print "Smarty template engine can not be found in ". $this->cfg->smarty_path ."/libs/Smarty.class.php<br />\n";
