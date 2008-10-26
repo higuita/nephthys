@@ -743,22 +743,6 @@ class NEPHTHYS {
 
    } // is_valid_user()
 
-   /**
-    * return bucket details
-    */
-   public function getbucketDetails($idx)
-   {
-      if($row = $this->db->db_fetchSingleRow("
-            SELECT *
-            FROM nephthys_buckets
-            WHERE bucket_idx LIKE '". $idx ."'
-         ")) {
-
-         return $row;
-
-      }
-   } // getbucketDetails()
-
    /***
     * validates all provided email addresses.
     * multiple email addresses are seperated by comma

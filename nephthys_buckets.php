@@ -161,7 +161,7 @@ class NEPHTHYS_BUCKETS {
 
    public function notify()
    {
-      if(!($bucket = $this->parent->getbucketDetails($this->id)))
+      if(!($bucket = $this->get_bucket_details($this->id)))
          return;
 
       $bucket->bucket_sender = $this->parent->unescape($bucket->bucket_sender, false);
