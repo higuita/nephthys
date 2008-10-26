@@ -102,4 +102,4 @@
 </table>
 </form>
 
-{ page_end }
+{ page_end focus_to='user_full_name' }

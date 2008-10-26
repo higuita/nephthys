@@ -112,4 +112,4 @@
 </table>
 </form>
 
-{ page_end }
+{ page_end focus_to='bucket_name' }

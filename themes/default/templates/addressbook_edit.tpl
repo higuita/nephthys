@@ -52,4 +52,4 @@
 </table>
 </form>
 
-{ page_end }
+{ page_end focus_to='contact_name' }

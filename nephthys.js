@@ -324,6 +324,9 @@ function setFocus(obj) {
          if(el.item(0).focus) {
             el.item(0).focus();
          }
+         if(el.item(0).select) {
+            el.item(0).select();
+         }
       }
    }
 } // setFocus()
