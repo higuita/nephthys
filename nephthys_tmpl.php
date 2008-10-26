@@ -36,7 +36,7 @@ class NEPHTHYS_TMPL extends Smarty {
       $this->parent =& $nephthys;
 
       if(!file_exists($nephthys->cfg->base_path .'/themes/'. $nephthys->cfg->theme_name .'/templates')) {
-         print "No templates found in ". $nephthys->cfg->base_path .'/themes/'. $nephthys->cfg->theme_name .'/templates';
+         $this->parent->_error("No templates found in ". $nephthys->cfg->base_path .'/themes/'. $nephthys->cfg->theme_name .'/templates');
          exit(1);
       }
 

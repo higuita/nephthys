@@ -76,8 +76,8 @@ class NEPHTHYS {
       if(!$this->is_cmdline() && (!isset($this->cfg->ignore_js) || empty($this->cfg->ignore_js))) {
 
          if(!$this->browser_info->hasFeature('javascript')) {
-            print "It seems your browser is not capable of supporting JavaScript or it has been disabled.<br />\n";
-            print "Nephthys will not correctly work without JavaScript!<br />\n";
+            $this->_error("It seems your browser is not capable of supporting JavaScript or it has been disabled.");
+            $this->_error("Nephthys will not correctly work without JavaScript!");
             exit;
          }
 
@@ -89,7 +89,7 @@ class NEPHTHYS {
       if($this->cfg->db_type == "sqlite" &&
          file_exists($this->cfg->sqlite_path) &&
          !is_readable($this->cfg->sqlite_path)) {
-         print "[". $this->cfg->sqlite_path ."] SQLite database is not readable for user ". $this->getuid() ."\n";
+         $this->_error("[". $this->cfg->sqlite_path ."] SQLite database is not readable for user ". $this->getuid());
          exit(1);
       }
 
@@ -99,7 +99,7 @@ class NEPHTHYS {
       if($this->cfg->db_type == "sqlite" &&
          file_exists($this->cfg->sqlite_path) &&
          !is_writable($this->cfg->sqlite_path)) {
-         print "[". $this->cfg->sqlite_path ."] SQLite database is not writeable for user ". $this->getuid() ."\n";
+         $this->_error("[". $this->cfg->sqlite_path ."] SQLite database is not writeable for user ". $this->getuid());
          exit(1);
       }
 
@@ -109,7 +109,7 @@ class NEPHTHYS {
       if($this->cfg->db_type == "sqlite" &&
          !file_exists($this->cfg->sqlite_path) &&
          !is_writable(dirname($this->cfg->sqlite_path))) {
-         print "[". $this->cfg->sqlite_path ."] SQLite database can not be created in directory by user ". $this->getuid() ."\n";
+         $this->_error("[". $this->cfg->sqlite_path ."] SQLite database can not be created in directory by user ". $this->getuid());
          exit(1);
       }
 
@@ -118,13 +118,13 @@ class NEPHTHYS {
       $this->check_db_tables();
 
       if(!is_writable($this->cfg->base_path ."/templates_c")) {
-         print "[". $this->cfg->base_path ."/templates_c] directory is not writeable for user ". $this->getuid() ."\n";
+         $this->_error("[". $this->cfg->base_path ."/templates_c] directory is not writeable for user ". $this->getuid());
          exit(1);
       }
 
       /* check if the bucket root directory ($data_path) exists */
       if(!file_exists($this->cfg->data_path)) {
-         print "[". $this->cfg->data_path ."] directory does not exist\n";
+         $this->_error("[". $this->cfg->data_path ."] directory does not exist");
          exit(1);
       }
       /* check if the webservers user is allowed to modify the bucket
@@ -132,7 +132,7 @@ class NEPHTHYS {
          delete bucket directories.
       */
       if(!is_writeable($this->cfg->data_path)) {
-         print "[". $this->cfg->data_path ."] directory is not writeable for user ". $this->getuid() ."\n";
+         $this->_error("[". $this->cfg->data_path ."] directory is not writeable for user ". $this->getuid());
          exit(1);
       }
 
@@ -141,7 +141,7 @@ class NEPHTHYS {
          session_start();
 
       /*if(!isset($_SERVER['REMOTE_USER']) || empty($_SERVER['REMOTE_USER'])) {
-         print "It seems you are not authenticated through the server";
+         $this->parent->_error("It seems you are not authenticated through the server");
          exit(1);
       }
       */
@@ -149,8 +149,8 @@ class NEPHTHYS {
       if(!$this->is_cmdline() &&
          isset($this->cfg->allow_server_auth) && $this->cfg->allow_server_auth == true
          && (!isset($_SERVER['REMOTE_USER']) || empty($_SERVER['REMOTE_USER']))) {
-         print "Server authentication is enabled in Nephthys config but server does not "
-            ."provide details in REMOTE_USER variable.\n";
+         $this->_error("Server authentication is enabled in Nephthys config but server does not "
+            ."provide details in REMOTE_USER variable.");
 
          exit(1);
       }
@@ -381,12 +381,12 @@ class NEPHTHYS {
       ini_set('track_errors', 1);
       @include_once 'HTML/AJAX/Server.php';
       if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
-         print "PEAR HTML_AJAX package is missing<br />\n";
+         $this->_error("PEAR HTML_AJAX package is missing");
          $missing = true;
       }
       @include_once 'MDB2.php';
       if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
-         print "PEAR MDB2 package is missing<br />\n";
+         $this->_error("PEAR MDB2 package is missing");
          $missing = true;
          unset($php_errormsg);
       }
@@ -394,7 +394,7 @@ class NEPHTHYS {
       if($this->cfg->db_type == "mysql") {
          @include_once 'MDB2/Driver/mysql.php';
          if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
-            print "PEAR MDB2-mysql package is missing<br />\n";
+            $this->_error("PEAR MDB2-mysql package is missing");
             $missing = true;
             unset($php_errormsg);
          }
@@ -403,32 +403,32 @@ class NEPHTHYS {
       if($this->cfg->db_type == "sqlite") {
           @include_once 'MDB2/Driver/sqlite.php';
          if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
-            print "PEAR MDB2-sqlite package is missing<br />\n";
+            $this->_error("PEAR MDB2-sqlite package is missing");
             $missing = true;
             unset($php_errormsg);
          }
       }
       @include_once 'Mail.php';
       if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
-         print "PEAR Mail package is missing<br />\n";
+         $this->_error("PEAR Mail package is missing");
          $missing = true;
          unset($php_errormsg);
       }
       @include_once 'Net/UserAgent/Detect.php';
       if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
-         print "PEAR Net_UserAgent_Detect package is missing<br />\n";
+         $this->_error("PEAR Net_UserAgent_Detect package is missing");
          $missing = true;
          unset($php_errormsg);
       }
       @include_once 'Console/Getopt.php';
       if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
-         print "PEAR Console_Getopt package is missing<br />\n";
+         $this->_error("PEAR Console_Getopt package is missing");
          $missing = true;
          unset($php_errormsg);
       }
       @include_once $this->cfg->smarty_path .'/libs/Smarty.class.php';
       if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
-         print "Smarty template engine can not be found in ". $this->cfg->smarty_path ."/libs/Smarty.class.php<br />\n";
+         $this->_error("Smarty template engine can not be found in ". $this->cfg->smarty_path ."/libs/Smarty.class.php");
          $missing = true;
          unset($php_errormsg);
       }
@@ -870,8 +870,8 @@ class NEPHTHYS {
       ini_set('track_errors', 1);
       @include_once "nephthys_cfg.php";
       if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
-         print "Can't read nephthys_cfg.php or have no permission to do it. Follow the documentation\n";
-         print "create nephthys_cfg.php from nephthys_cfg.php.dist<br />\n";
+         $this->_error("Can't read nephthys_cfg.php or have no permission to do it. Follow the documentation");
+         $this->_error("create nephthys_cfg.php from nephthys_cfg.php.dist");
          return false;
       }
       ini_restore('track_errors');

@@ -46,7 +46,7 @@ class NEPHTHYS_PROFILE {
    public function show()
    {
       if(!$this->parent->is_logged_in()) {
-         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". $this->parent->_("##MANAGE_USERS##"), _("##NOT_ALLOWED##"));
+         $this->parent->_error($this->parent->_("##MANAGE_USERS##") ." - ". $this->parent->_("##NOT_ALLOWED##"));
          return 0;
       }
 
@@ -69,7 +69,7 @@ class NEPHTHYS_PROFILE {
    {
       /* If authentication is enabled, check permissions */
       if(!$this->parent->is_logged_in()) {
-         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". $this->parent->_("##MANAGE_USERS##"), _("##NOT_ALLOWED##"));
+         $this->parent->_error($this->parent->_("##MANAGE_USERS##") ." - ". $this->parent->_("##NOT_ALLOWED##"));
          return 0;
       }
 

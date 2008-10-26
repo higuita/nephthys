@@ -87,7 +87,7 @@ class NEPHTHYS_WATCH {
                   $this->verbose = true;
                   break;
                default:
-                  print "invalid option";
+                  $this->parent->_error("invalid option(s) provided. use --help to see possibile options.");
                   exit(1);
                   break;
             }

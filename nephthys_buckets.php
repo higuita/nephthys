@@ -78,7 +78,7 @@ class NEPHTHYS_BUCKETS {
    public function show()
    {
       if(!$this->parent->is_logged_in()) {
-         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". $this->parent->_("##MANAGE_USERS##"), $this->parent->_("##NOT_ALLOWED##"));
+         $this->parent->_error($this->parent->_("##MANAGE_USERS##") ." - ". $this->parent->_("##NOT_ALLOWED##"));
          return 0;
       }
        if(!isset($_GET['mode']))
@@ -117,7 +117,7 @@ class NEPHTHYS_BUCKETS {
    public function showBucket()
    {
       if(!$this->parent->is_logged_in()) {
-         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". $this->parent->_("##MANAGE_USERS##"), $this->parent->_("##NOT_ALLOWED##"));
+         $this->parent->_error($this->parent->_("##MANAGE_USERS##") ." - ". $this->parent->_("##NOT_ALLOWED##"));
          return 0;
       }
 
@@ -552,7 +552,7 @@ class NEPHTHYS_BUCKETS {
          }
 
          if(!$this->del_data_directory($hash)) {
-            print "Removing bucket directory ". $this->parent->cfg->data_path ."/". $hash ." not possible\n";
+            $this->parent->_error("Removing bucket directory ". $this->parent->cfg->data_path ."/". $hash ." not possible");
          }
 
          $this->delete_bucket($_POST['idx']);
@@ -681,7 +681,7 @@ class NEPHTHYS_BUCKETS {
    {
       /* If authentication is enabled, check permissions */
       if(!$this->parent->is_logged_in()) {
-         $this->parent->printError("<img src=\"". ICON_USERS ."\" alt=\"user icon\" />&nbsp;". $this->parent->_("##MANAGE_USERS##"), _("##NOT_ALLOWED##"));
+         $this->parent->_error($this->parent->_("##MANAGE_USERS##") ." - ". $this->parent->_("##NOT_ALLOWED##"));
          return 0;
       }
 
