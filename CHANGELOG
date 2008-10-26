@@ -11,6 +11,7 @@ nephthys (1.4)
       but support verbose-mode via -v command line option (#90)
   * feature, config-option to force auto-created users to update
       their profiles (#87)
+  * feature, notify owner when bucket has expired (#96)
 
  -- Andreas Unterkircher <unki@netshadow.at>  Sat, 11 Oct 2008 09:59:42 +0200
 

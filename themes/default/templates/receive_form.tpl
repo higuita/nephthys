@@ -90,10 +90,13 @@
   <td colspan="2">&nbsp;</td>
  </tr>
  <tr>
-  <td colspan="2">
-   <input type="checkbox" class="checkbox" name="notifybucket" value="true" checked=\"checked\">&nbsp;
-   ##FORM_SEND_EMAIL##
-  </td>
+  <td colspan="2"><input type="checkbox" class="checkbox" name="notifybucket" value="true" checked=\"checked\">&nbsp;##FORM_SEND_EMAIL##</td>
+ </tr>
+ <tr>
+  <td colspan="2">&nbsp;</td>
+ </tr>
+ <tr>
+  <td colspan="2"><input type="checkbox" name="bucket_notify_on_expire" value="Y" { if $bucket_notify_on_expire == "Y" } checked="checked" { /if } />&nbsp;##NOTIFY_ON_EXPIRE##</td>
  </tr>
  <tr>
   <td colspan="2">&nbsp;</td>

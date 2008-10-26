@@ -60,6 +60,7 @@ DEFAULT_BUCKET_EXPIRE=Standard-Ablaufzeit für neu erstellte Buckets
 DEFAULT_LANGUAGE=Sprache (nach Änderung ist ein Ab- und Anmelden erforderlich)
 GO_TO_START=Zur Start Seite
 NEVER_EXPIRE=Dieser Bucket läuft nicht ab
+NOTIFY_ON_EXPIRE=Benachrichtige mich, wenn der Bucket abgelaufen ist
 NOTIFY_SUCCESS=Die Bucket-Benachrichtung wurde nun versandt
 OPEN_VIA_WEBDAV=Bucket via WebDAV öffnen
 OPEN_VIA_FTP=Bucket via FTP öffnen

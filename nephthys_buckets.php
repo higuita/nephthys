@@ -264,11 +264,72 @@ class NEPHTHYS_BUCKETS {
 
    } // notify()
 
+   /**
+    * notify expired bucket
+    *
+    * this bucket notifies the bucket-owner about expiring buckets
+    * @param int $bucket_idx
+    */
+   public function notify_expired_bucket($bucket_idx)
+   {
+      $bucket = $this->get_bucket_details($bucket_idx);
+
+      $owner_email = $this->parent->get_user_email($bucket->bucket_owner);
+      $owner_email = $this->parent->unescape($owner_email, false);
+
+      /* the bucket sender */
+      if(isset($this->parent->cfg->system_mail)) {
+         $sender = $this->parent->cfg->system_mail;
+         $sender_text = $this->parent->cfg->system_mail;
+      }
+      else {
+         $sender = $owner_email;
+         $sender_text = $owner_email;
+      }
+
+      /* the bucket receiver */
+      $receiver = Array($owner_email);
+      $receiver_text = $owner_email;
+
+      /* prepare the mail headers */
+      $header['From'] = $sender_text;
+      $header['To'] = $receiver_text;
+      $header['Subject'] = "Your Nephthys bucket has expired";
+      $header['Content-Type'] = "text/plain; charset=UTF-8";
+
+      /* prepare the notification text out of the Smarty template */
+      $text = new NEPHTHYS_TMPL($this->parent);
+      $text->assign('bucket_name', $bucket->bucket_name);
+
+      /* now translate the template and return the result as a string */
+      $body = $text->fetch('notify_expired.tpl');
+
+      // if you want to use php's own mail() function, remove the
+      // comment from the next two lines and wipe out the sendmail
+      // lines below.
+      // $mailer =& Mail::factory('mail');
+      // $status = $mailer->send($receiver, $header, $body);
+
+      // usually this do not need to be set.
+      // $params['sendmail_path'] = '/usr/bin/sendmail';
+      $params['sendmail_arg'] = '-f'. $sender;
+
+      $mailer =& Mail::factory('sendmail', $params);
+      $status = $mailer->send($receiver, $header, $body);
+
+      if(PEAR::isError($status)) {
+         die($status->getMessage());
+      }
+
+      return true;
+
+   } // notify_expired_buckets()
+
    public function store()
    {
       /* if not a privileged user, then set the email address from his profile */
       if($this->parent->check_privileges('user')) {
-         $_POST['bucket_sender'] = $this->parent->get_users_email();
+         $_POST['bucket_sender'] = $this->parent->get_my_email();
       }
       /* if not a privilged user, then set the owner to his id */
       if($this->parent->check_privileges('user')) {
@@ -338,12 +399,12 @@ class NEPHTHYS_BUCKETS {
                bucket_idx,
                bucket_name, bucket_sender, bucket_receiver, bucket_created,
                bucket_expire, bucket_note, bucket_hash, bucket_owner,
-               bucket_active
+               bucket_active, bucket_notify_on_expire
             ) VALUES (
                NULL,
                ?, ?, ?, '". mktime() ."',
                ?, ?, '". $hash ."', ?,
-               'Y'
+               'Y', ?
             )
          ");
 
@@ -354,6 +415,7 @@ class NEPHTHYS_BUCKETS {
             $_POST['bucket_expire'],
             $_POST['bucket_note'],
             $_POST['bucket_owner'],
+            $_POST['bucket_notify_on_expire'],
          ));
 
          $this->id = $this->db->db_getid();
@@ -392,7 +454,8 @@ class NEPHTHYS_BUCKETS {
                bucket_expire=?,
                bucket_note=?,
                bucket_owner=?,
-               bucket_active='Y'
+               bucket_active='Y',
+               bucket_notify_on_expire=?
             WHERE
                bucket_idx=?
          ");
@@ -404,6 +467,7 @@ class NEPHTHYS_BUCKETS {
             $_POST['bucket_expire'],
             $_POST['bucket_note'],
             $_POST['bucket_owner'],
+            $_POST['bucket_notify_on_expire'],
             $_POST['bucket_idx'],
          ));
 
@@ -491,10 +555,7 @@ class NEPHTHYS_BUCKETS {
             print "Removing bucket directory ". $this->parent->cfg->data_path ."/". $hash ." not possible\n";
          }
 
-         $this->db->db_query("
-            DELETE FROM nephthys_buckets
-            WHERE bucket_idx LIKE '". $_POST['idx'] ."'
-         ");
+         $this->delete_bucket($_POST['idx']);
       }
 
       print "ok";
@@ -526,12 +587,23 @@ class NEPHTHYS_BUCKETS {
 
    public function del_data_directory($hash)
    {
-      $invalid_path = Array("/", "/usr", "/var", "/home", "/boot");
+      /* if something went wrong before, do not delete anything */
+      if(!is_string($hash) || empty($hash))
+         return false;
+
+      $invalid_path = Array(
+         "/",
+         "/usr",
+         "/var",
+         "/home",
+         "/boot",
+         $this->parent->cfg->base_path);
+
       /*
        * ensure that this function can not malfunction
        */
       if(in_array($this->parent->cfg->data_path, $invalid_path))
-         die;
+         return false;
 
       if($this->data_directory_exists($hash))
          return $this->deltree($this->parent->cfg->data_path ."/". $hash);
@@ -540,6 +612,13 @@ class NEPHTHYS_BUCKETS {
 
    } // del_data_directory()
 
+   /**
+    * deltree similar function
+    *
+    * this function deletes the given $directory recursivley
+    * @param string $directory
+    * @return bool
+    */
    private function deltree($directory)
    {
       /* verify that $directory is really a directory */
@@ -582,6 +661,8 @@ class NEPHTHYS_BUCKETS {
     *
     * returns true, if the specified data-directory + hash-named
     * directory really exists.
+    * @param string $hash
+    * @return bool
     */
    private function data_directory_exists($hash)
    {
@@ -594,6 +675,7 @@ class NEPHTHYS_BUCKETS {
 
    /**
     * display interface to create or edit users
+    * @param int $idx
     */
    private function showEdit($idx)
    {
@@ -619,12 +701,104 @@ class NEPHTHYS_BUCKETS {
          $this->tmpl->assign('bucket_note', $this->parent->unescape($bucket->bucket_note));
          $this->tmpl->assign('bucket_owner', $this->parent->unescape($bucket->bucket_owner));
          $this->tmpl->assign('bucket_active', $bucket->bucket_active);
+         $this->tmpl->assign('bucket_notify_on_expire', $bucket->bucket_notify_on_expire);
 
       }
 
       $this->tmpl->show("bucket_edit.tpl");
 
    } // showEdit()
+
+   /**
+    * get bucket details
+    *
+    * this function returns a object containing all
+    * informations about a bucket-object in database.
+    * @param int $idx
+    * @return object
+    */
+   public function get_bucket_details($idx)
+   {
+      if($bucket = $this->db->db_fetchSingleRow("
+         SELECT *
+         FROM
+            nephthys_buckets
+         WHERE
+            bucket_idx='". $idx ."'")) {
+
+         return $bucket;
+
+      }
+
+      return NULL;
+
+   } // get_bucket_details()
+
+   /**
+    * get expired buckets
+    *
+    * this function will return an array consiting the row id's of all
+    * expired buckets.
+    * @return array
+    */
+   public function get_expired_buckets()
+   {
+
+      $expired_buckets = Array();
+
+      /* get all buckets */
+      $buckets = $this->db->db_query("
+         SELECT
+            b.bucket_idx as bucket_idx,
+            b.bucket_expire as bucket_expire,
+            b.bucket_created as bucket_created
+         FROM
+            nephthys_buckets b
+         INNER JOIN
+            nephthys_users u
+         ON
+            b.bucket_owner=u.user_idx
+      ");
+
+      while($bucket = $buckets->fetchRow()) {
+
+         /* don't care about never-expiring buckets */
+         if($bucket->bucket_expire == -1)
+            continue;
+
+         /* check if the bucket has expired */
+         if(($bucket->bucket_created + ($bucket->bucket_expire * 86400)) <= mktime()) {
+            array_push($expired_buckets, $bucket->bucket_idx);
+         }
+      }
+
+      return $expired_buckets;
+
+   } // get_expired_buckets()
+
+   /**
+    * delete bucket
+    *
+    * this function deletes a bucket ONLY from the database identified
+    * by its row id.
+    * @param int $idx
+    * @return bool
+    */
+   public function delete_bucket($idx)
+   {
+      if($this->db->db_query("
+         DELETE FROM
+            nephthys_buckets
+         WHERE
+            bucket_idx LIKE '". $idx ."'")) {
+
+         return true;
+
+      }
+
+      return false;
+
+   } // delete_bucket()
 
 } // class NEPHTHYS_BUCKETS
 

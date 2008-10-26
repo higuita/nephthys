@@ -48,6 +48,12 @@ class NEPHTHYS_CFG extends NEPHTHYS_DEFAULT_CFG {
    // Default:
    //   var $ftp_path = "";
 
+   // E-Mail address used as "From" for Nephthys system mails
+   // (expire messages, ...). Should be a real address so bounce
+   // messages can be sent to it.
+   // Default:
+   //   var $system_mail = bucket sender;
+
    // Specify alternate theme name
    // Default:
    //   var $theme_name = "default";

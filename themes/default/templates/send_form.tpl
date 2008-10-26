@@ -90,6 +90,12 @@
   <td colspan="2">&nbsp;</td>
  </tr>
  <tr>
+  <td colspan="2"><input type="checkbox" name="bucket_notify_on_expire" value="Y" { if $bucket_notify_on_expire == "Y" } checked="checked" { /if } />&nbsp;##NOTIFY_ON_EXPIRE##</td>
+ </tr>
+ <tr>
+  <td colspan="2">&nbsp;</td>
+ </tr>
+ <tr>
   <td>{ save_button text="##FORM_CREATE_BUCKET##" }</td>
  </tr>
  <tr>

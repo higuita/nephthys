@@ -58,7 +58,7 @@ class NEPHTHYS_TMPL extends Smarty {
       }
 
       $this->assign('theme_root', $nephthys->cfg->web_path .'themes/'. $nephthys->cfg->theme_name);
-      $this->assign('bucket_sender', $nephthys->get_users_email());
+      $this->assign('bucket_sender', $nephthys->get_my_email());
       $this->assign('page_title', $nephthys->cfg->page_title);
       $this->assign('product', $nephthys->cfg->product);
       $this->assign('version', $nephthys->cfg->version);

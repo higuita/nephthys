@@ -63,6 +63,7 @@ DEFAULT_BUCKET_EXPIRE=Tiempo de expiracion por defecto de los contenedores
 DEFAULT_LANGUAGE=Idioma (Necesita salir y volver a entrar si cambia esta opcion)
 GO_TO_START=Ir a la Pagina de Inicio
 NEVER_EXPIRE=Este Contenedor nunca expira
+NOTIFY_ON_EXPIRE=Notify me via E-Mail when this bucket has expired
 NOTIFY_SUCCESS=El Contenedor a sido notificado
 OPEN_VIA_WEBDAV=Abrir Contenedor via WebDAV
 OPEN_VIA_FTP=Abrir contenedor via FTP

@@ -60,6 +60,7 @@ DEFAULT_BUCKET_EXPIRE=Default expiration time used for buckets
 DEFAULT_LANGUAGE=Language (you need to logout &amp; login again if you change this)
 GO_TO_START=Go to Start Page
 NEVER_EXPIRE=This bucket will never expire
+NOTIFY_ON_EXPIRE=Notify me via E-Mail when this bucket has expired
 NOTIFY_SUCCESS=The bucket has been notified now
 OPEN_VIA_WEBDAV=Open bucket via WebDAV
 OPEN_VIA_FTP=Open bucket via FTP

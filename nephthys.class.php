@@ -286,7 +286,7 @@ class NEPHTHYS {
          if(isset($this->cfg->force_profile_update) &&
             !empty($this->cfg->force_profile_update) &&
             $this->is_auto_created($_SESSION['login_idx']) &&
-            !$this->get_users_email($_SESSION['login_idx'])) {
+            !$this->get_user_email($_SESSION['login_idx'])) {
 
             $request = "profile";
 
@@ -566,9 +566,37 @@ class NEPHTHYS {
    } // getuid()
 
    /**
-    * returns the current logged-on user's email address
+    * returns the email address of the provided user id
+    * @param int $user_idx
+    * @return string
     */
-   public function get_users_email()
+   public function get_user_email($user_idx)
+   {
+      $row = $this->db->db_fetchSingleRow("
+         SELECT
+            user_email
+         FROM
+            nephthys_users
+         WHERE
+            user_idx='". $user_idx ."'
+      ");
+
+      if(isset($row->user_email)) {
+         return $row->user_email;
+      }
+
+      return NULL;
+
+   } // get_user_email()
+
+   /**
+    * return current users email address
+    *
+    * this function returns the email address of the
+    * currently logged in user.
+    * @return string
+    */
+   public function get_my_email()
    {
       /* if no user is logged in yet, return */
       if(!isset($_SESSION['login_name']))
@@ -586,7 +614,7 @@ class NEPHTHYS {
 
       return NULL;
 
-   } // get_users_email()
+   } // get_my_email()
 
    /**
     * return all user details for the provided user_name
@@ -632,9 +660,7 @@ class NEPHTHYS {
    public function get_user_name($user_idx)
    {
       if($user = $this->get_user_details_by_idx($user_idx)) {
-
          return $user->user_name;
-
       }
 
       return NULL;
@@ -649,9 +675,7 @@ class NEPHTHYS {
    public function get_user_fullname($user_idx)
    {
       if($user = $this->get_user_details_by_idx($user_idx)) {
-
          return $user->user_full_name;
-
       }
 
       return NULL;
@@ -664,9 +688,7 @@ class NEPHTHYS {
    public function get_user_priv($user_idx)
    {
       if($user = $this->get_user_details_by_idx($user_idx)) {
-
          return $user->user_priv;
-
       }
 
       return NULL;
@@ -681,6 +703,7 @@ class NEPHTHYS {
       if($user = $this->get_user_details_by_idx($user_idx)) {
          return $user->user_default_expire;
       }
+
       return NULL;
 
    } // get_user_expire()
@@ -863,7 +886,7 @@ class NEPHTHYS {
       /* set application name and version information */
       $this->cfg->product = "Nephthys";
       $this->cfg->version = "1.4";
-      $this->cfg->db_version = 6;
+      $this->cfg->db_version = 7;
 
       return true;
 
@@ -1219,6 +1242,7 @@ class NEPHTHYS {
                   `bucket_owner` int(11) default NULL,
                   `bucket_active` varchar(1) default NULL,
                   `bucket_notified` varchar(1) default NULL,
+                  `bucket_notify_on_expire` varchar(1) default NULL,
                   PRIMARY KEY  (`bucket_idx`)
                   ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
                ";
@@ -1235,7 +1259,8 @@ class NEPHTHYS {
                   bucket_note text,
                   bucket_owner int,
                   bucket_active varchar(1),
-                  bucket_notified varchar(1)
+                  bucket_notified varchar(1),
+                  bucket_notify_on_expire varchar(1)
                )";
                break;
          }
@@ -1897,6 +1922,144 @@ class NEPHTHYS {
          $this->set_db_version(6);
 
       } /* // db version 6 */
+
+      /* db version 7 */
+      if($this->get_db_version() < 7) {
+
+         /* add column user_deny_chpwd to nephthys_users */
+
+         switch($this->cfg->db_type) {
+            default:
+            case 'mysql':
+               $this->db->db_alter_table(
+                  "nephthys_buckets",
+                  "add",
+                  "bucket_notify_on_expire",
+                  "varchar(1) default NULL"
+               );
+               break;
+
+            case 'sqlite':
+
+               /* SQlite v2 does not support ALTER TABLE, so we need
+                  to take the help of a temporary table.
+               */
+               if(!$this->db->db_start_transaction())
+                  die("Can not start database transaction");
+
+               $result = $this->db->db_exec("
+                  CREATE TEMPORARY TABLE nephthys_buckets_tmp (
+                     bucket_idx INTEGER PRIMARY KEY,
+                     bucket_name varchar(255),
+                     bucket_sender varchar(255),
+                     bucket_receiver varchar(255),
+                     bucket_hash varchar(64),
+                     bucket_created int,
+                     bucket_expire int,
+                     bucket_note text,
+                     bucket_owner int,
+                     bucket_active varchar(1),
+                     bucket_notified varchar(1),
+                     bucket_notify_on_expire varchar(1)
+                  )
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               $result = $this->db->db_exec("
+                  INSERT INTO nephthys_buckets_tmp
+                     SELECT
+                        bucket_idx,
+                        bucket_name,
+                        bucket_sender,
+                        bucket_receiver,
+                        bucket_hash,
+                        bucket_created,
+                        bucket_expire,
+                        bucket_note,
+                        bucket_owner,
+                        bucket_active,
+                        bucket_notified,
+                        NULL
+                     FROM nephthys_buckets;
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               $result = $this->db->db_exec("
+                  DROP TABLE nephthys_buckets;
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               $result = $this->db->db_exec("
+                  CREATE TABLE nephthys_buckets (
+                     bucket_idx INTEGER PRIMARY KEY,
+                     bucket_name varchar(255),
+                     bucket_sender varchar(255),
+                     bucket_receiver varchar(255),
+                     bucket_hash varchar(64),
+                     bucket_created int,
+                     bucket_expire int,
+                     bucket_note text,
+                     bucket_owner int,
+                     bucket_active varchar(1),
+                     bucket_notified varchar(1),
+                     bucket_notify_on_expire varchar(1)
+                  )
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               $result = $this->db->db_exec("
+                  INSERT INTO nephthys_buckets
+                     SELECT *
+                     FROM nephthys_buckets_tmp;
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               $result = $this->db->db_exec("
+                  DROP TABLE nephthys_buckets_tmp;
+               ");
+
+               if(!$result) {
+                  $this->db->db_rollback_transaction();
+                  die("Upgrade failover - tranaction rollback");
+               }
+
+               if(!$this->db->db_commit_transaction())
+                  die("Can not commit database transaction");
+
+               break;
+         }
+
+         /* per default do not notify an expired bucket */
+         $this->db->db_query("
+            UPDATE
+               nephthys_buckets
+            SET
+               bucket_notify_on_expire='N'
+         ");
+
+         $this->set_db_version(7);
+
+      } /* // db version 7 */
 
    } // check_db_tables()
 

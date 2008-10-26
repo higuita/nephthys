@@ -101,66 +101,48 @@ class NEPHTHYS_WATCH {
    public function watch()
    {
       $nephthys_buckets = new NEPHTHYS_BUCKETS;
+      $expired_buckets = $nephthys_buckets->get_expired_buckets();
 
-      /* get all buckets */
-      $buckets = $this->db->db_query("
-         SELECT
-            b.bucket_idx as bucket_idx,
-            b.bucket_name as bucket_name,
-            b.bucket_expire as bucket_expire,
-            b.bucket_created as bucket_created,
-            b.bucket_hash as bucket_hash,
-            u.user_name as user_name
-         FROM
-            nephthys_buckets b
-         INNER JOIN nephthys_users u
-            ON
-               b.bucket_owner=u.user_idx
-      ");
+      foreach($expired_buckets as $bucket) {
 
-      while($bucket = $buckets->fetchRow()) {
+         $found_error = false;
 
-         /* check if the bucket can expire. -1 means it never expires */
-         if($bucket->bucket_expire != -1) {
+         $bucket_details = $nephthys_buckets->get_bucket_details($bucket);
 
-            $found_error = false;
+         $log_msg =
+            "Bucket: ". $bucket_details->bucket_name .", ".
+            "Owner: ". $this->parent->get_user_name($bucket_details->bucket_owner) .", ".
+            "Expired on: ". date("%c", $bucket_details->bucket_expire) .", ";
 
-            $log_msg =
-               "Bucket: ". $bucket->bucket_name .", ".
-               "Owner: ". $bucket->user_name .", ".
-               "Expired on: ". date("%c", $bucket->bucket_expire) .", ";
-
-            /* has the bucket expired? */
-            if(($bucket->bucket_created + ($bucket->bucket_expire * 86400)) <= mktime()) {
-
-               /* does the bucket-directory still exist? */
-               if(file_exists($this->parent->cfg->data_path ."/". $bucket->bucket_hash)) {
-                  /* lets delete the bucket-directory recursivly */
-                  if(!$nephthys_buckets->del_data_directory($bucket->bucket_hash)) {
-                     $this->parent->_error("ERROR: Can't delete bucket directory ". $this->parent->cfg->data_path ."/". $bucket->bucket_hash .".");
-                     $found_error = true;
-                  }
-               }
-               else {
-                  $this->parent->_error("WARNING: Bucket directory ". $this->parent->cfg->data_path ."/". $bucket->bucket_hash ." no longer exists.");
-               }
-
-               /* if directory-deletion was successful, delete bucket from database */
-               if(empty($found_error)) {
-                  $this->db->db_query("
-                     DELETE FROM nephthys_buckets
-                     WHERE bucket_idx LIKE '". $bucket->bucket_idx ."'
-                  ");
-
-                  if(!empty($this->verbose))
-                     $log_msg.= "deleted";
-               }
-               else {
-               }
-
-               if(empty($found_error) && !empty($this->verbose))
-                  $this->parent->_error($log_msg);
+         /* does the bucket-directory still exist? */
+         if(file_exists($this->parent->cfg->data_path ."/". $bucket_details->bucket_hash)) {
+            /* lets delete the bucket-directory recursivly */
+            if(!$nephthys_buckets->del_data_directory($bucket_details->bucket_hash)) {
+               $this->parent->_error("ERROR: Can't delete bucket directory ". $this->parent->cfg->data_path ."/". $bucket_details->bucket_hash .".");
+               $found_error = true;
             }
+         }
+         else {
+            $this->parent->_error("WARNING: Bucket directory ". $this->parent->cfg->data_path ."/". $bucket_details->bucket_hash ." no longer exists.");
+         }
+
+         /* if directory-deletion was successful, delete bucket from database */
+         if(empty($found_error)) {
+
+            /* check if deletion on this bucket needs to be notified */
+            if($bucket_details->bucket_notify_on_expire == 'Y') {
+               $nephthys_buckets->notify_expired_bucket($bucket);
+            }
+            /* delete bucket from database */
+            $nephthys_buckets->delete_bucket($bucket);
+
+            if(!empty($this->verbose)) {
+               $log_msg.= "deleted";
+            }
+         }
+
+         if(empty($found_error) && !empty($this->verbose)) {
+            $this->parent->_error($log_msg);
          }
       }
 

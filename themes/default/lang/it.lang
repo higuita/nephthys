@@ -60,6 +60,7 @@ DEFAULT_BUCKET_EXPIRE=Tempo scadenza predefinito usato per gli slot
 DEFAULT_LANGUAGE=Lingua (devi disconnetterti &amp; connetterti se cambi il questo valore)
 GO_TO_START=Vai alla pagina iniziale
 NEVER_EXPIRE=Slot senza scadenza
+NOTIFY_ON_EXPIRE=Notify me via E-Mail when this bucket has expired
 NOTIFY_SUCCESS=Questo slot è stato notificato adesso
 OPEN_VIA_WEBDAV=Apri slot via WebDAV
 OPEN_VIA_FTP=Apri slot via FTP
