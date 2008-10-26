@@ -7,10 +7,10 @@
 { page_start header="##START_PAGE##" subheader="##MAIN_SUBHEADER##:" }
 
 <div id="chooser" style="float: left;">
- <a href="javascript:ajax_show_content('buckets', '&mode=send');" title="##SHARE_SOME_FILES##."><img src="{ $theme_root }/images/files_from_user.png" class="imgborder" /><br />##SHARE_I_WANT##.</a>
+ <a href="javascript:ajax_show_content('buckets', '&mode=send');" title="##SHARE_SOME_FILES##."><img src="{ $theme_root }/images/files_from_user.png" class="imgborder" onmouseover="swap_image(this, '{ $theme_root }/images/files_from_user_selected.png');" onmouseout="swap_image(this, '{ $theme_root }/images/files_from_user.png');" /><br />##SHARE_I_WANT##.</a>
 </div>
 <div id="chooser" style="float: right;">
- <a href="javascript:ajax_show_content('buckets', '&mode=receive');" title="##SHARE_SOME_FILES##."><img src="{ $theme_root }/images/files_to_user.png" class="imgborder" /><br />##SHARE_SOMEONE_WANT##.</a>
+ <a href="javascript:ajax_show_content('buckets', '&mode=receive');" title="##SHARE_SOME_FILES##."><img src="{ $theme_root }/images/files_to_user.png" class="imgborder" onmouseover="swap_image(this, '{ $theme_root }/images/files_to_user_selected.png');" onmouseout="swap_image(this, '{ $theme_root }/images/files_to_user.png');" /><br />##SHARE_SOMEONE_WANT##.</a>
 </div>
 
 <br class="cb" />

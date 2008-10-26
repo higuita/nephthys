@@ -437,6 +437,23 @@ function show_box(text)
 
 } // show_box()
 
+/**
+ * replace image src
+ *
+ * this function is used to replace images
+ * within a <img>-tag.
+ * @param object obj
+ * @param string src
+ */
+function swap_image(obj, src)
+{
+   if(obj == undefined || src == undefined)
+      return;
+
+   obj.src = src;
+
+} // swap_image()
+
 var as = undefined;
 var menutabs = undefined;
 
