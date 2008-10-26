@@ -55,7 +55,7 @@
   <td colspan="2">&nbsp;</td>
  </tr>
  <tr>
-  <td colspan="2">##FORM_BUCKET_EXPIRE##?</td>
+  <td colspan="2">##FORM_BUCKET_EXPIRE##</td>
  </tr>
  <tr>
   <td>
