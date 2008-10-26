@@ -28,15 +28,19 @@ class NEPHTHYS_DB {
    private $cfg;
    private $is_connected;
    private $last_error;
+   private $parent;
 
    /**
     * NEPHTHYS_DB class constructor
     *
     * This constructor initially connect to the database.
     */
-   public function __construct(&$parent)
+   public function __construct()
    {
-      $this->cfg = $parent->cfg;
+      global $nephthys;
+      $this->parent =& $nephthys;
+
+      $this->cfg = $this->parent->cfg;
 
       /* We are starting disconnected */
       $this->setConnStatus(false);
@@ -538,11 +542,16 @@ class NEPHTHYS_DB {
    private function throwError($string)
    {
       if(!defined('DB_NOERROR'))  {
-         print "<br /><br />". $string ."<br /><br />\n";
+
+         $this->parent->_error($string);
+
          try {
-            throw new Exception;
+            throw new NEPHTHYS_EXCEPTION;
          }
-         catch(Exectpion $e) {
+         catch(NEPHTHYS_EXCEPTION $e) {
+            print "<br /><br />\n";
+            $this->parent->_error($e);
+            die;
          }
       }
 

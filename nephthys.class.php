@@ -113,7 +113,7 @@ class NEPHTHYS {
          exit(1);
       }
 
-      $this->db  = new NEPHTHYS_DB($this);
+      $this->db  = new NEPHTHYS_DB();
 
       $this->check_db_tables();
 
@@ -2530,7 +2530,7 @@ class NEPHTHYS {
 
 /***************************************************************************
  *
- * NEPHTHYS_DEFAULTS class, inerhites by nephthys_cfg.php
+ * NEPHTHYS_DEFAULTS class, inherited by nephthys_cfg.php
  *
  ***************************************************************************/
 
@@ -2591,6 +2591,21 @@ class NEPHTHYS_DEFAULT_CFG {
    );
 
 } // class NEPHTHYS_DEFAULT_CFG
+
+/***************************************************************************
+ *
+ * NEPHTHYS_EXCEPTION class, inherits PHP's Exception class
+ *
+ ***************************************************************************/
+
+class NEPHTHYS_EXCEPTION extends Exception {
+
+   // custom string representation of object
+   public function __toString() {
+      return "Backtrace:<br />\n". str_replace("\n", "<br />\n", parent::getTraceAsString());
+   }
+
+} // class NEPHTHYS_EXCEPTION
 
 // vim: set filetype=php expandtab softtabstop=3 tabstop=3 shiftwidth=3 autoindent smartindent:
 ?>

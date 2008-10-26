@@ -5,6 +5,7 @@ nephthys (1.4)
       filesystem failed (#93)
   * bug, use relative font-size instead of fixed (#92)
   * bug, last login-information now gets updated (#91)
+  * bug, make Exceptions better readable (#100)
   * feature, show privileges in user-management overview (#94)
   * feature, set default language via user-management (#57)
   * feature, nephthys_watch.php is now quiet per default
