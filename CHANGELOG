@@ -9,6 +9,8 @@ nephthys (1.4)
   * feature, set default language via user-management (#57)
   * feature, nephthys_watch.php is now quiet per default
       but support verbose-mode via -v command line option (#90)
+  * feature, config-option to force auto-created users to update
+      their profiles (#87)
 
  -- Andreas Unterkircher <unki@netshadow.at>  Sat, 11 Oct 2008 09:59:42 +0200
 
