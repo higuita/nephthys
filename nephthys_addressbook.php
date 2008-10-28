@@ -47,8 +47,10 @@ class NEPHTHYS_ADDRESSBOOK {
       $this->tmpl->register_block("contact_list", array(&$this, "smarty_contact_list"));
 
       $query_str = "
-         SELECT *
-         FROM nephthys_addressbook
+         SELECT
+            *
+         FROM
+            nephthys_addressbook
       ";
 
       if(!$this->parent->check_privileges('admin') &&
@@ -56,7 +58,9 @@ class NEPHTHYS_ADDRESSBOOK {
          $query_str.= "WHERE contact_owner LIKE '". $_SESSION['login_idx'] ."'";
       }
 
-      $query_str.= "ORDER BY contact_email ASC";
+      $query_str.= "
+         ORDER BY
+            ". $_SESSION['sort_order']['addressbook']['column'] ." ". $_SESSION['sort_order']['addressbook']['order'];
 
       $res_contacts = $nephthys->db->db_query($query_str);
 

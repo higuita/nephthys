@@ -35,6 +35,7 @@ class NEPHTHYS {
    public $tmpl;
    public $current_user;
    public $browser_info;
+   public $sort_order;
 
    private $runtime_error = false;
    private $_translationTable;        // currently loaded translation table
@@ -225,6 +226,23 @@ class NEPHTHYS {
       $this->tmpl->assign('hide_logout', $this->cfg->hide_logout);
       $this->tmpl->assign('disk_used', $this->get_unit($this->get_used_diskspace()));
       $this->tmpl->assign('disk_free', $this->get_unit($this->get_free_diskspace()));
+
+      /* pre-define default sort order, if not set yet */
+      if(!isset($_SESSION['sort_order']) || !is_array($_SESSION['sort_order'])) {
+
+         $_SESSION['sort_order'] = Array(
+            'buckets' => Array(
+               'column' => 'bucket_name',
+               'order' => 'asc'),
+            'addressbook' => Array(
+               'column' => 'contact_name',
+               'order' => 'asc'),
+            'users' => Array(
+               'column' => 'user_name',
+               'order' => 'asc'),
+         );
+
+      }
 
    } // __construct()
 
@@ -2525,6 +2543,73 @@ class NEPHTHYS {
       return $user_priv;
 
    } // get_priv_name()
+
+   /**
+    * update column sort order
+    *
+    * this function checks the provided information in the $_POST
+    * variable for the new requested sort options. it validates
+    * and then stores it in the $_SESSION['sort_order'] variable.
+    * @return string
+    */
+   public function update_sort_order()
+   {
+      /* define columns in each module which can be used for sorting.
+       * this array is used to validate the information provided by
+       * HTTP POST.
+       */
+      $modules = Array(
+         'buckets' => Array(
+            'bucket_name',
+            'bucket_owner',
+            'bucket_created',
+            'bucket_expire',
+            'bucket_notified',
+         ),
+         'addressbook' => Array(
+            'contact_name',
+            'contact_owner',
+         ),
+         'users' => Array(
+            'user_name',
+            'user_full_name',
+            'user_priv',
+            'user_last_login',
+         ),
+      );
+
+      /* check if all parameters are available */
+      if(!isset($_POST['module']) || empty($_POST['module']) ||
+         !isset($_POST['column']) || empty($_POST['column']) ||
+         !isset($_POST['order']) || empty($_POST['order'])) {
+
+         return "update_sort_order(): some parameters are missing!";
+      }
+
+      /* make it a bit easier to handle... */
+      $module = $_POST['module'];
+      $column = $_POST['column'];
+      $order = $_POST['order'];
+
+      /* check if the requested sort-order is valid */
+      if($order != 'asc' && $order != 'desc') {
+         return "update_sort_order(): incorrect sort order specified!";
+      }
+
+      /* check if the requested module is valid */
+      if(in_array($module, array_keys($modules))) {
+         /* check if the requested column is valid */
+         if(in_array($column, $modules[$module])) {
+            /* update sort-order in session variable */
+            $_SESSION['sort_order'][$module]['column'] = $column;
+            $_SESSION['sort_order'][$module]['order']  = $order;
+            return "ok";
+         }
+      }
+
+      return "update_sort_order(): incorrect order options specified!";
+
+   } // update_sort_order()
 
 } // class NEPHTHYS
 

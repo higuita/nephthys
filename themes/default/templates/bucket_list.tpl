@@ -2,16 +2,32 @@
  <tr class="subhead">
   <td>
    <img src="{ $theme_root }/images/bucket_small.png" />&nbsp;##NAME##
-   <a href="javascript:update_sort_order('bucket_name', 'asc');">asc</a>
-   <a href="javascript:update_sort_order('bucket_name', 'desc');">desc</a>
+   { sort_link module='buckets' column='bucket_name' order='asc' }
+   { sort_link module='buckets' column='bucket_name' order='desc' }
   </td>
   <td><img src="{ $theme_root }/images/open.png" />&nbsp;##BLIST_COL_2_NAME##</td>
   { if $login_priv == "manager" || $login_priv == "admin" }
-  <td><img src="{ $theme_root }/images/user.png" />&nbsp;##OWNER##</td>
+  <td>
+   <img src="{ $theme_root }/images/user.png" />&nbsp;##OWNER##
+   { sort_link module='buckets' column='bucket_owner' order='asc' }
+   { sort_link module='buckets' column='bucket_owner' order='desc' }
+  </td>
   { /if }
-  <td><img src="{ $theme_root }/images/clock.png" />&nbsp;##CREATED##</td>
-  <td><img src="{ $theme_root }/images/clock_red.png" />&nbsp;##EXPIRES##</td>
-  <td><img src="{ $theme_root }/images/email.png" />&nbsp;##NOTIFIED##</td>
+  <td>
+   <img src="{ $theme_root }/images/clock.png" />&nbsp;##CREATED##
+   { sort_link module='buckets' column='bucket_created' order='asc' }
+   { sort_link module='buckets' column='bucket_created' order='desc' }
+  </td>
+  <td>
+   <img src="{ $theme_root }/images/clock_red.png" />&nbsp;##EXPIRES##
+   { sort_link module='buckets' column='bucket_expire' order='asc' }
+   { sort_link module='buckets' column='bucket_expire' order='desc' }
+  </td>
+  <td>
+   <img src="{ $theme_root }/images/email.png" />&nbsp;##NOTIFIED##
+   { sort_link module='buckets' column='bucket_notified' order='asc' }
+   { sort_link module='buckets' column='bucket_notified' order='desc' }
+  </td>
   <td><img src="{ $theme_root }/images/action.png" />&nbsp;##ACTIONS##</td>
  </tr>
 

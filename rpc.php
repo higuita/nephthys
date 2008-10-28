@@ -80,6 +80,9 @@ class NEPHTHYS_RPC {
             else
                print "failed";
             break;
+         case 'sortorder':
+            print $nephthys->update_sort_order();
+            break;
          case 'getxmllist':
             print $nephthys->get_xml_list();
             break;

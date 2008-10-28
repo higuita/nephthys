@@ -13,6 +13,7 @@ nephthys (1.4)
   * feature, config-option to force auto-created users to update
       their profiles (#87)
   * feature, notify owner when bucket has expired (#96)
+  * feature, sort columns (#37)
 
  -- Andreas Unterkircher <unki@netshadow.at>  Sat, 11 Oct 2008 09:59:42 +0200
 

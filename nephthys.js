@@ -454,8 +454,26 @@ function swap_image(obj, src)
 
 } // swap_image()
 
-function update_sort_order(module, obj, order)
+function update_sort_order(module, column, order, reload)
 {
+   // Create object with values of the form
+   var objTemp = new Object();
+   objTemp['module'] = module;
+   objTemp['column'] = column;
+   objTemp['order']  = order;
+
+   var retr = HTML_AJAX.post('rpc.php?action=sortorder', objTemp);
+
+   if(retr == "ok") {
+
+      if(reload == undefined)
+         reload = 'main';
+         
+      ajax_show_content(reload);
+   }
+   else {
+      window.alert(retr);
+   }
 
 } // update_sort_order()
 

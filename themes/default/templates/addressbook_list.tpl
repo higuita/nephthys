@@ -2,9 +2,17 @@
 
 <table class="withborder">
  <tr class="subhead">
-  <td><img src="{ $theme_root }/images/contact.png" />&nbsp;##NAME##</td>
+  <td>
+   <img src="{ $theme_root }/images/contact.png" />&nbsp;##NAME##
+   { sort_link module='addressbook' column='contact_name' order='asc' return='addressbook' }
+   { sort_link module='addressbook' column='contact_name' order='desc' return='addressbook' }
+  </td>
   { if $login_priv == "manager" || $login_priv == "admin" }
-  <td><img src="{ $theme_root }/images/user.png" />&nbsp;##OWNER##</td>
+  <td>
+   <img src="{ $theme_root }/images/user.png" />&nbsp;##OWNER##
+   { sort_link module='addressbook' column='contact_owner' order='asc' return='addressbook' }
+   { sort_link module='addressbook' column='contact_owner' order='desc' return='addressbook' }
+  </td>
   { /if }
   <td><img src="{ $theme_root }/images/action.png" />&nbsp;##ACTIONS##</td>
  </tr>

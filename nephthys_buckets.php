@@ -49,8 +49,10 @@ class NEPHTHYS_BUCKETS {
       $this->tmpl->register_block("bucket_list", array(&$this, "smarty_bucket_list"));
 
       $query_str = "
-         SELECT *
-         FROM nephthys_buckets
+         SELECT
+            *
+         FROM
+            nephthys_buckets
       ";
 
       if(!$this->parent->check_privileges('admin') &&
@@ -58,7 +60,9 @@ class NEPHTHYS_BUCKETS {
          $query_str.= "WHERE bucket_owner LIKE '". $_SESSION['login_idx'] ."'";
       }
 
-      $query_str.= "ORDER BY bucket_name ASC";
+      $query_str.= "
+         ORDER BY
+            ". $_SESSION['sort_order']['buckets']['column'] ." ". $_SESSION['sort_order']['buckets']['order'];
 
       $res_buckets = $nephthys->db->db_query($query_str);
 

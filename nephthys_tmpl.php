@@ -50,6 +50,7 @@ class NEPHTHYS_TMPL extends Smarty {
       $this->compile_dir  = $nephthys->cfg->base_path .'/templates_c';
       $this->config_dir   = $nephthys->cfg->base_path .'/smarty_config';
       $this->cache_dir    = $nephthys->cfg->base_path .'/smarty_cache';
+      $this->theme_root   = $nephthys->cfg->web_path .'themes/'. $nephthys->cfg->theme_name;
 
       if(isset($_SESSION['login_idx']) && is_numeric($_SESSION['login_idx'])) {
          $this->assign('login_name', $nephthys->get_user_name($_SESSION['login_idx']));
@@ -57,7 +58,7 @@ class NEPHTHYS_TMPL extends Smarty {
          $this->assign('login_idx', $_SESSION['login_idx']);
       }
 
-      $this->assign('theme_root', $nephthys->cfg->web_path .'themes/'. $nephthys->cfg->theme_name);
+      $this->assign('theme_root', $this->theme_root);
       $this->assign('bucket_sender', $nephthys->get_my_email());
       $this->assign('page_title', $nephthys->cfg->page_title);
       $this->assign('product', $nephthys->cfg->product);
@@ -73,6 +74,7 @@ class NEPHTHYS_TMPL extends Smarty {
       $this->register_function("expiration_list", array(&$this, "smarty_expiration_list"), false);
       $this->register_function("language_list", array(&$this, "smarty_language_list"), false);
       $this->register_function("owner_list", array(&$this, "smarty_owner_list"), false);
+      $this->register_function("sort_link", array(&$this, "smarty_sort_link"), false);
 
       $this->register_postfilter(array(&$this, "smarty_prefilter_i18n"));
 
@@ -114,6 +116,79 @@ class NEPHTHYS_TMPL extends Smarty {
       $this->show('save_button.tpl');
 
    } // smarty_function_startTable()
+
+   /**
+    * output sort link
+    *
+    * this function outputs the sort-links used to trigger
+    * the javascript function update_sort_order() to alternate
+    * the column-sort-ordering.
+    */
+   public function smarty_sort_link($params, &$smarty)
+   {
+      if(!isset($params['module']) ||
+         !isset($params['column']) ||
+         !isset($params['order'])) {
+
+         $smarty->trigger_error('assign: module, column and order are required parameters');
+         
+      }
+
+      $module = $params['module'];
+      $column = $params['column'];
+      $order  = $params['order'];
+
+      $string = "<a href=\"javascript:update_sort_order("
+         ."'". $module ."', "
+         ."'". $column ."', "
+         ."'". $order ."'";
+
+      if(isset($params['return'])) {
+         $string.= ", "
+            ."'". $params['return'] ."'";
+      }
+
+      $string.= ");\" title=\"";
+
+      if($order == 'asc') {
+         $string.= $this->parent->_("##ASCENDING##");
+      }
+      elseif($order == 'desc') {
+         $string.= $this->parent->_("##DESCENDING##");
+      }
+
+      $string.= "\"><img src=\"";
+      
+      if($order == 'asc') {
+         if(isset($_SESSION['sort_order'][$module]) &&
+            $_SESSION['sort_order'][$module]['column'] == $column &&
+            $_SESSION['sort_order'][$module]['order'] == "asc") {
+
+            $string.= $this->theme_root ."/images/sort_asc_sel.png";
+         }
+         else {
+
+            $string.= $this->theme_root ."/images/sort_asc.png";
+         }
+      }
+      elseif($order == 'desc') {
+         if(isset($_SESSION['sort_order'][$module]) &&
+            $_SESSION['sort_order'][$module]['column'] == $column &&
+            $_SESSION['sort_order'][$module]['order'] == "desc") {
+
+            $string.= $this->theme_root ."/images/sort_desc_sel.png";
+         }
+         else {
+
+            $string.= $this->theme_root ."/images/sort_desc.png";
+         }
+      }
+
+      $string.= "\" /></a>";
+
+      print $string;
+
+   } // smarty_sort_link()
 
    public function smarty_import_bucket_list()
    {

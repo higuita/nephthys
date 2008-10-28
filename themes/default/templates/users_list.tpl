@@ -7,11 +7,28 @@
 </div>
 <table class="withborder">
  <tr class="subhead">
-  <td><img src="{ $theme_root }/images/user.png" alt="user icon" />&nbsp;<i>##USERNAME##</i></td>
-  <td><img src="{ $theme_root }/images/user.png" alt="user icon" />&nbsp;<i>##FULLNAME##</i></td>
-  <td><img src="{ $theme_root }/images/user.png" alt="user icon" />&nbsp;<i>##PRIVILEGES##</i></td>
-  <td><img src="{ $theme_root }/images/user.png" alt="user icon" />&nbsp;<i>##LASTLOGIN##</i></td>
-  <td><img src="{ $theme_root }/images/action.png" alt="action icon" />&nbsp;<i>##ACTIONS##</i></td>
+  <td>
+   <img src="{ $theme_root }/images/user.png" alt="user icon" />&nbsp;<i>##USERNAME##</i>
+   { sort_link module='users' column='user_name' order='asc' return='users' }
+   { sort_link module='users' column='user_name' order='desc' return='users' }
+  </td>
+  <td>
+   <img src="{ $theme_root }/images/user.png" alt="user icon" />&nbsp;<i>##FULLNAME##</i>
+   { sort_link module='users' column='user_full_name' order='asc' return='users' }
+   { sort_link module='users' column='user_full_name' order='desc' return='users' }
+  </td>
+  <td>
+   <img src="{ $theme_root }/images/user.png" alt="user icon" />&nbsp;<i>##PRIVILEGES##</i>
+   { sort_link module='users' column='user_priv' order='asc' return='users' }
+   { sort_link module='users' column='user_priv' order='desc' return='users' }
+  </td>
+  <td>
+   <img src="{ $theme_root }/images/user.png" alt="user icon" />&nbsp;<i>##LASTLOGIN##</i>
+   { sort_link module='users' column='user_last_login' order='asc' return='users' }
+   { sort_link module='users' column='user_last_login' order='desc' return='users' }
+  </td>
+  <td>
+   <img src="{ $theme_root }/images/action.png" alt="action icon" />&nbsp;<i>##ACTIONS##</i></td>
  </tr>
  { user_list }
  <tr onmouseover="setBackGrdColor(this, 'mouseover');" onmouseout="setBackGrdColor(this, 'mouseout');">

@@ -77,10 +77,13 @@ class NEPHTHYS_USERS {
       $cnt_users = 0;
 
       $res_users = $this->db->db_query("
-         SELECT *
-         FROM nephthys_users
-         ORDER BY user_name ASC
-      ");
+         SELECT
+            *
+         FROM
+            nephthys_users
+         ORDER BY
+            ". $_SESSION['sort_order']['users']['column'] ." ". $_SESSION['sort_order']['users']['order']
+      );
 	
       while($user = $res_users->fetchrow()) {
          $this->avail_users[$cnt_users] = $user->user_idx;
