@@ -52,7 +52,7 @@ class NEPHTHYS_BUCKETS {
          SELECT
             *
          FROM
-            nephthys_buckets
+            nephthys_buckets b
       ";
 
       if(!$this->parent->check_privileges('admin') &&
@@ -60,9 +60,27 @@ class NEPHTHYS_BUCKETS {
          $query_str.= "WHERE bucket_owner LIKE '". $_SESSION['login_idx'] ."'";
       }
 
-      $query_str.= "
-         ORDER BY
-            ". $_SESSION['sort_order']['buckets']['column'] ." ". $_SESSION['sort_order']['buckets']['order'];
+      /* get the current sort-order */
+      $column = $this->parent->get_sort_column('buckets');
+      $order  = $this->parent->get_sort_order('buckets');
+
+      // if sort should happen on bucket-owners, sort by the real
+      // user_name instead of the user_idx (which is stored in
+      // bucket_owner).
+      if($column == 'bucket_owner') {
+         $query_str.= "
+            INNER JOIN
+               nephthys_users u
+            ON
+               b.bucket_owner=u.user_idx
+            ORDER BY
+               u.user_name ". $order;
+      }
+      else {
+         $query_str.= "
+            ORDER BY
+               ". $column ." ". $order;
+      }
 
       $res_buckets = $nephthys->db->db_query($query_str);
 

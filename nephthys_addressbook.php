@@ -50,7 +50,7 @@ class NEPHTHYS_ADDRESSBOOK {
          SELECT
             *
          FROM
-            nephthys_addressbook
+            nephthys_addressbook ab
       ";
 
       if(!$this->parent->check_privileges('admin') &&
@@ -58,9 +58,27 @@ class NEPHTHYS_ADDRESSBOOK {
          $query_str.= "WHERE contact_owner LIKE '". $_SESSION['login_idx'] ."'";
       }
 
-      $query_str.= "
-         ORDER BY
-            ". $_SESSION['sort_order']['addressbook']['column'] ." ". $_SESSION['sort_order']['addressbook']['order'];
+      /* get the current sort-order */
+      $column = $this->parent->get_sort_column('addressbook');
+      $order  = $this->parent->get_sort_order('addressbook');
+
+      // if sort should happen on bucket-owners, sort by the real
+      // user_name instead of the user_idx (which is stored in
+      // bucket_owner).
+      if($column == 'contact_owner') {
+         $query_str.= "
+            INNER JOIN
+               nephthys_users u
+            ON
+               ab.contact_owner=u.user_idx
+            ORDER BY
+               u.user_name ". $order;
+      }
+      else {
+         $query_str.= "
+            ORDER BY
+               ". $column ." ". $order;
+      }
 
       $res_contacts = $nephthys->db->db_query($query_str);
 

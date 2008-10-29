@@ -2611,6 +2611,40 @@ class NEPHTHYS {
 
    } // update_sort_order()
 
+   /**
+    * return column to be used to sort module results
+    *
+    * this function returns the column-name to be used in the
+    * SQL queries to sort the results.
+    * @param string $module
+    * @return string
+    */
+   public function get_sort_column($module)
+   {
+      if(isset($_SESSION['sort_order'][$module]))
+         return $_SESSION['sort_order'][$module]['column'];
+
+      return NULL;
+
+   } // get_sort_column()
+
+   /**
+    * return sort-order to be used to sort module results
+    *
+    * this function returns the sort-order to be used in the
+    * SQL queries to sort the results.
+    * @param string $module
+    * @return string
+    */
+   public function get_sort_order($module)
+   {
+      if(isset($_SESSION['sort_order'][$module]))
+         return $_SESSION['sort_order'][$module]['order'];
+
+      return NULL;
+
+   } // get_sort_order()
+
 } // class NEPHTHYS
 
 /***************************************************************************
