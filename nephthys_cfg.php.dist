@@ -30,7 +30,7 @@ class NEPHTHYS_CFG extends NEPHTHYS_DEFAULT_CFG {
 
    // Path where you have installed Nephthys in the filesystem.
    // Default:
-   //   var $base_path = "/srv/www/nephthys";
+   //   var $base_path = "/srv/www/htdocs/nephthys";
 
    // Path where file transfer will happen
    // Default:
