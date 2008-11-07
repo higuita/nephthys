@@ -50,15 +50,21 @@ class NEPHTHYS_BUCKETS {
 
       $query_str = "
          SELECT
-            *
+            b.bucket_idx as bucket_idx,
+            b.bucket_name as bucket_name,
+            b.bucket_sender as bucket_sender,
+            b.bucket_receiver as bucket_receiver,
+            b.bucket_hash as bucket_hash,
+            b.bucket_created as bucket_created,
+            b.bucket_expire as bucket_expire,
+            b.bucket_note as bucket_note,
+            b.bucket_owner as bucket_owner,
+            b.bucket_active as bucket_active,
+            b.bucket_notified as bucket_notified,
+            b.bucket_notify_on_expire as bucket_notify_on_expire
          FROM
             nephthys_buckets b
       ";
-
-      if(!$this->parent->check_privileges('admin') &&
-         !$this->parent->check_privileges('manager')) {
-         $query_str.= "WHERE bucket_owner LIKE '". $_SESSION['login_idx'] ."'";
-      }
 
       /* get the current sort-order */
       $column = $this->parent->get_sort_column('buckets');
@@ -68,15 +74,32 @@ class NEPHTHYS_BUCKETS {
       // user_name instead of the user_idx (which is stored in
       // bucket_owner).
       if($column == 'bucket_owner') {
+
          $query_str.= "
-            INNER JOIN
+            LEFT OUTER JOIN
                nephthys_users u
             ON
                b.bucket_owner=u.user_idx
+         ";
+
+         /* equipped with just user privileges, show only personal buckets */
+         if(!$this->parent->check_privileges('admin') &&
+            !$this->parent->check_privileges('manager')) {
+            $query_str.= "WHERE b.bucket_owner LIKE '". $_SESSION['login_idx'] ."'";
+         }
+
+         $query_str.= "
             ORDER BY
                u.user_name ". $order;
       }
       else {
+
+         /* equipped with just user privileges, show only personal buckets */
+         if(!$this->parent->check_privileges('admin') &&
+            !$this->parent->check_privileges('manager')) {
+            $query_str.= "WHERE b.bucket_owner LIKE '". $_SESSION['login_idx'] ."'";
+         }
+
          $query_str.= "
             ORDER BY
                ". $column ." ". $order;
