@@ -407,6 +407,9 @@ class NEPHTHYS_BUCKETS {
          $_POST['bucket_receiver'] = $this->parent->escape($_POST['bucket_receiver']);
       $_POST['bucket_note'] = $this->parent->escape($_POST['bucket_note']);
 
+      if(!isset($_POST['bucket_notify_on_expire']))
+         $_POST['bucket_notify_on_expire'] = 'N';
+
       if(isset($new)) {
 
          if(isset($_POST['bucket_receiver']))
