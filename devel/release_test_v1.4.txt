@@ -1,0 +1,88 @@
+This document contains the release test-procedure for
+Nephthys v1.4.
+
+Possible states:
+
+[OPEN]    [_]
+[SUCCESS] [s]
+[FAILED]  [f]
+
+****************************************************************
+* Test details
+*
+* Date:      2008-11-08
+* OS:        Debian Etch (4.0r4, all security updates applied)
+* WebServer: Apache2 2.2.3
+* PHP:       5.2.0
+* MySQL:     5.0.32
+* SQLite:    2.8.17 
+****************************************************************
+
+* [SUCCESS] Test 1 - Fresh installation with MySQL database
+
+* [SUCCESS] Test 2 - Fresh installation with SQLite database
+
+* [SUCCESS] Test 3 - Upgrade from v1.3 with MySQL database
+
+* [SUCCESS] Test 4 - Upgrade from v1.3 with SQLite database
+
+* [SUCCESS] Test 5 - Operation with MySQL database (local auth)
+
+ - [s] Fresh installation
+ - [s] Login as user 'admin'
+ - [s] Enter E-Mail address and change password via "My Profile"
+ - [s] create a additional user (unprivileged)
+ - [s] login as newly created user
+ - [s] update profile settings and change password via "My Profile"
+ - [s] relogin with newly created user
+ - [s] create a bucket
+ - [s] notify bucket
+ - [s] modify bucket
+        # change name
+        # change notes-text
+        # change expiry-date
+ - [s] delete bucket
+ - [s] logout
+ - [s] login as user 'admin'
+ - [s] disable user
+ - [s] delete user
+
+* [SUCCESS] Test 6 - Operation with SQLite database (local auth)
+
+ - [s] Fresh installation
+ - [s] Login as user 'admin'
+ - [s] Enter E-Mail address and change password via "My Profile"
+ - [s] create a additional user (unprivileged)
+ - [s] login as newly created user
+ - [s] update profile settings and change password via "My Profile"
+ - [s] relogin with newly created user
+ - [s] create a bucket
+ - [s] notify bucket
+ - [s] modify bucket
+        # change name
+        # change notes-text
+        # change expiry-date
+ - [s] delete bucket
+ - [s] logout
+ - [s] login as user 'admin'
+ - [s] disable user
+ - [s] delete user
+
+* [SUCCESS] Test 7 - Operation with server-authentication
+
+ - [s] Fresh installation
+ - [s] set
+         $allow_server_auth = true
+         $user_auto_create = true
+         $hide_logout = true
+       in nephthys_cfg.php
+ - [s] enable server-authentication
+ - [s] open again nephthys, login via server-authentication
+ - [s] update profile settings and change password via "My Profile"
+ - [s] create a bucket
+ - [s] notify bucket
+ - [s] modify bucket
+        # change name
+        # change notes-text
+        # change expiry-date
+ - [s] delete bucket
