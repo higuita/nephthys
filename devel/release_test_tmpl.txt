@@ -22,9 +22,9 @@ Possible states:
 
 * [OPEN] Test 2 - Fresh installation with SQLite database
 
-* [OPEN] Test 3 - Upgrade from v1.2 with MySQL database
+* [OPEN] Test 3 - Upgrade from previous version with MySQL database
 
-* [OPEN] Test 4 - Upgrade from v1.2 with SQLite database
+* [OPEN] Test 4 - Upgrade from previous version with SQLite database
 
 * [OPEN] Test 5 - Operation with MySQL database (local auth)
 
