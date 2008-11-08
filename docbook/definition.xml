@@ -11,7 +11,7 @@
  <sect1>
   <title>User</title>
   <para>
-   A user is necessary to login to Nephthys. This user can have different privilege levels. Standard users can maintain their profiles and buckets. Users quipped with the "Manager" privilege can also modify other's buckets. "Admin"'s have the same rights as "Manager"'s but in addition can maintain the Nephthys user database.
+   A user is necessary to login to Nephthys. This user can have different privilege levels. Standard users can maintain their profiles and buckets. Users quipped with the "Manager" privilege can also manage other users buckets. "Admin"'s have the same rights as "Manager"'s but in addition they can maintain the Nephthys user database.
   </para>
  </sect1>
  <sect1>

@@ -19,7 +19,8 @@ XSL_JADETEX=/usr/share/sgml/docbook/xsl-stylesheets/xhtml/docbook.xsl
 JADE=openjade
 
 #------------ MAIN ----------------
-all:	clean prepare html_doc valid pdf_doc
+#all:	clean prepare html_doc valid pdf_doc
+all:	clean prepare html_doc valid
 
 prepare:
 	mkdir -p ${WWW_PATH}${IMAGES}

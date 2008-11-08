@@ -4,33 +4,37 @@
  <sect1>
   <title>Nephthys</title>
   <para>
-   Nephthys is an administration tool for file sharing with common file transfer methods like WebDAV and FTP.
+   Nephthys is an administration tool for file sharing with common file-transfer methods like WebDAV and FTP.
   </para>
-  <para>To be more specific, Nephthys provides a web interface for handling file sharing slots (so called 'buckets') and the necessary directory structure on the server. Nephthys it self does not provide any functionallity for WebDAV or FTP - it relys on well known projects like Apache, proftpd, ... .
+  <para>To be more specific, Nephthys provides a web interface for handling file sharing slots (so called 'buckets') and take care for the necessary directory structure on the server. Nephthys it self does not provide any functionallity for WebDAV or FTP - it relys on well known open source projects like Apache and ProFTPd. In fact you can use any other web- or ftp-server as well.
   </para>
   <para>
-   The interface has been designed to be simple and easy to handle so that everybody can use it to share files.
+   The interface has been designed to be simple and easy to handle so that everybody can use it.
   </para>
  </sect1>
  <sect1>
-  <title>How does Nephthys its job?</title>
+  <title>How the user interacts with Nephthys</title>
   <para>
    Via the Nephthys web interface a user can create buckets. These buckets stand for directories in the webserver's file system. Each of the buckets has a corresponding directory in the filesystem which get identified by a SHA1-hash.
   </para>
   <para>
-   The idea behind is, that no authentication for the access protocol (WebDAV, FTP, ...) is necessary. Instead the access protocol only needs to ensure, that no directory-listing is possible in the root directory. Otherwise it would be possible to find out which buckets are there. Because of the SHA1-named, 40 characters long directory names, it is difficult to locate them without the possibility of directory-listing.
+   The idea behind is that no authentication for the access protocol (WebDAV, FTP, ...) is necessary. Instead the access protocol only needs to ensure, that no directory-listing is possible in the root directory. Otherwise it would be possible to identify other existing buckets. Because of the SHA1-named, 40 characters long directory name, it is not very likely to find out which other buckets exist on the same storage.
   </para>
  </sect1>
  <sect1>
   <title>Requirements</title>
   <para>
    <itemizedlist>
-    <listitem><para>On client side - a web browser that supports JavaScript (like all modern browsers)</para></listitem>
-    <listitem><para>Linux-based operating system</para></listitem>
-    <listitem><para>Apache HTTP webserver (<ulink url="http://httpd.apache.org/">http://httpd.apache.org/</ulink>)</para></listitem>
-    <listitem><para>PHP5 (<ulink url="http://www.php.net/">http://www.php.net/</ulink>)</para></listitem>
-    <listitem><para>proftpd (<ulink url="http://www.proftpd.org">http://www.proftpd.org</ulink>, or any other suiteable FTP server)</para></listitem>
-    <listitem><para>MySQL (>= 5.0, <ulink url="http://httpd.apache.org">http://httpd.apache.org</ulink>) or SQLite (2.0, <ulink url="http://www.sqlite.net">http://www.sqlite.net</ulink>)</para></listitem>
+    <listitem><para>Client side - web browser (support for JavaScript enabled)</para></listitem>
+    <listitem>
+     <para>Server side - Linux-based operating system</para>
+     <itemizedlist>
+      <listitem><para>Apache HTTP webserver (<ulink url="http://httpd.apache.org/">http://httpd.apache.org/</ulink>)</para></listitem>
+      <listitem><para>PHP5 (<ulink url="http://www.php.net/">http://www.php.net/</ulink>)</para></listitem>
+      <listitem><para>proftpd (<ulink url="http://www.proftpd.org">http://www.proftpd.org</ulink>, or any other suiteable FTP server)</para></listitem>
+      <listitem><para>MySQL (>= 5.0, <ulink url="http://httpd.apache.org">http://httpd.apache.org</ulink>) or SQLite (2.0, <ulink url="http://www.sqlite.net">http://www.sqlite.net</ulink>)</para></listitem>
+     </itemizedlist>
+    </listitem>
    </itemizedlist>
   </para>
  </sect1>
