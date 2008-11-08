@@ -1,21 +1,20 @@
 nephthys (1.4)
 
-  * bug, user-last-login information gets now updated during login (#91)
+  * bug, user-last-logon information gets now updated during login (#91)
   * bug, do not remove bucket from database, if bucket-deletion in
       filesystem failed (#93)
   * bug, use relative font-size instead of fixed (#92)
-  * bug, last login-information now gets updated (#91)
-  * bug, make Exceptions better readable (#100)
-  * feature, show privileges in user-management overview (#94)
+  * bug, make Exceptions better readable in browser-view (#100)
+  * feature, show user-privileges in user-management overview (#94)
   * feature, set default language via user-management (#57)
   * feature, nephthys_watch.php is now quiet per default
       but support verbose-mode via -v command line option (#90)
   * feature, config-option to force auto-created users to update
-      their profiles (#87)
+      their profiles during first login (#87)
   * feature, notify owner when bucket has expired (#96)
   * feature, sort columns (#37)
 
- -- Andreas Unterkircher <unki@netshadow.at>  Sat, 11 Oct 2008 09:59:42 +0200
+ -- Andreas Unterkircher <unki@netshadow.at>  Sat, 8 Nov 2008 09:59:42 +0100
 
 nephthys (1.3)
 
