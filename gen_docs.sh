@@ -5,7 +5,7 @@
 phpdoc -o HTML:frames:earthli \
        -d . \
        -t docs \
-       -i 'thumbs/,resources/,templates_c/,nephthys_cfg.php' \
+       -i 'debian/,thumbs/,resources/,templates_c/,nephthys_cfg.php' \
        -ti 'Nephthys source-code documentation' \
        -dn 'nephthys' \
        -s \
