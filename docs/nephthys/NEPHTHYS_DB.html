@@ -25,9 +25,9 @@
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">*************************************************************************</p>
-<p class="description"><p>Copyright (c) by Andreas Unterkircher, unki@netshadow.at  All rights reserved</p><p>This program is free software; you can redistribute it and/or modify   it under the terms of the GNU General Public License as published by   the Free Software Foundation; either version 2 of the License, or   (at your option) any later version.</p><p>This program is distributed in the hope that it will be useful,   but WITHOUT ANY WARRANTY; without even the implied warranty of   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the   GNU General Public License for more details.</p><p>You should have received a copy of the GNU General Public License   along with this program; if not, write to the Free Software   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.</p><p>*************************************************************************</p></p>
+<p class="description"><p>Nephthys - file sharing management  Copyright (c) by Andreas Unterkircher, unki@netshadow.at</p><p>This file is part of Nephthys.</p><p>Nephthys is free software: you can redistribute it and/or modify   it under the terms of the GNU General Public License as published by   the Free Software Foundation, either version 3 of the License, or   (at your option) any later version.</p><p>Nephthys is distributed in the hope that it will be useful,   but WITHOUT ANY WARRANTY; without even the implied warranty of   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the   GNU General Public License for more details.</p><p>You should have received a copy of the GNU General Public License   along with Nephthys. If not, see &lt;http://www.gnu.org/licenses/&gt;.</p><p>*************************************************************************</p></p>
 		<p class="notes">
-			Located in <a class="field" href="_nephthys_db.php.html">/nephthys_db.php</a> (line <span class="field">27</span>)
+			Located in <a class="field" href="_nephthys_db.php.html">/nephthys_db.php</a> (line <span class="field">25</span>)
 		</p>
 		
 				
@@ -48,11 +48,11 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																																																																																																<div class="method-definition">
+																																																																																																																																																																																																<div class="method-definition">
 					<img src="../media/images/Constructor.png" alt=" "/>
 											<span class="method-result">NEPHTHYS_DB</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">&$parent</span>)
+										()
 									</div>
 																<div class="method-definition">
 					<img src="../media/images/Destructor.png" alt=" "/>
@@ -86,6 +86,12 @@
 									</div>
 																<div class="method-definition">
 					<img src="../media/images/Method.png" alt=" "/>
+											<span class="method-result">bool</span>
+										<a href="#db_commit_transaction" title="details" class="method-name">db_commit_transaction</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../media/images/Method.png" alt=" "/>
 											<span class="method-result">void</span>
 										<a href="#db_drop_table" title="details" class="method-name">db_drop_table</a>
 											(<span class="var-type"></span>&nbsp;<span class="var-name">$table_name</span>)
@@ -95,6 +101,12 @@
 											<span class="method-result">void</span>
 										<a href="#db_exec" title="details" class="method-name">db_exec</a>
 											([<span class="var-type"></span>&nbsp;<span class="var-name">$query</span> = <span class="var-default">&quot;&quot;</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#db_execute" title="details" class="method-name">db_execute</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$sth</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$data</span>)
 									</div>
 																<div class="method-definition">
 					<img src="../media/images/Method.png" alt=" "/>
@@ -116,15 +128,39 @@
 									</div>
 																<div class="method-definition">
 					<img src="../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#db_prepare" title="details" class="method-name">db_prepare</a>
+											([<span class="var-type">string</span>&nbsp;<span class="var-name">$query</span> = <span class="var-default">&quot;&quot;</span>], <span class="var-type">int</span>&nbsp;<span class="var-name">$mode</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../media/images/Method.png" alt=" "/>
 											<span class="method-result">void</span>
 										<a href="#db_query" title="details" class="method-name">db_query</a>
 											([<span class="var-type"></span>&nbsp;<span class="var-name">$query</span> = <span class="var-default">&quot;&quot;</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$mode</span> = <span class="var-default">MDB2_FETCHMODE_OBJECT</span>])
 									</div>
 																<div class="method-definition">
 					<img src="../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
+										<a href="#db_quote" title="details" class="method-name">db_quote</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$obj</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$query</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../media/images/Method.png" alt=" "/>
 											<span class="method-result">void</span>
 										<a href="#db_rename_table" title="details" class="method-name">db_rename_table</a>
 											(<span class="var-type">old_name,</span>&nbsp;<span class="var-name">$old</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$new</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../media/images/Method.png" alt=" "/>
+											<span class="method-result">bool</span>
+										<a href="#db_rollback_transaction" title="details" class="method-name">db_rollback_transaction</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../media/images/Method.png" alt=" "/>
+											<span class="method-result">bool</span>
+										<a href="#db_start_transaction" title="details" class="method-name">db_start_transaction</a>
+										()
 									</div>
 																<div class="method-definition">
 					<img src="../media/images/Method.png" alt=" "/>
@@ -160,11 +196,11 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../media/images/Constructor.png" />
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">39</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">38</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -179,23 +215,18 @@
 		<span class="method-name">
 			__construct
 		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">&$parent</span>)
+				()
 			</div>
 	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">&$parent</span>			</li>
-				</ul>
 		
 			
 	</div>
 <a name="method__destruct" id="__destruct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../media/images/Destructor.png" />
-		<span class="method-title">Destructor __destruct</span> (line <span class="line-number">56</span>)
+		<span class="method-title">Destructor __destruct</span> (line <span class="line-number">58</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -217,11 +248,11 @@
 			
 	</div>
 <a name="methoddb_alter_table" id="db_alter_table"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../media/images/Method.png" />
-		<span class="method-title">db_alter_table</span> (line <span class="line-number">348</span>)
+		<span class="method-title">db_alter_table</span> (line <span class="line-number">434</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -260,11 +291,11 @@
 			
 	</div>
 <a name="methoddb_check_column_exists" id="db_check_column_exists"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../media/images/Method.png" />
-		<span class="method-title">db_check_column_exists</span> (line <span class="line-number">311</span>)
+		<span class="method-title">db_check_column_exists</span> (line <span class="line-number">369</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -294,11 +325,11 @@
 			
 	</div>
 <a name="methoddb_check_index_exists" id="db_check_index_exists"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../media/images/Method.png" />
-		<span class="method-title">db_check_index_exists</span> (line <span class="line-number">328</span>)
+		<span class="method-title">db_check_index_exists</span> (line <span class="line-number">414</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -328,11 +359,11 @@
 			
 	</div>
 <a name="methoddb_check_table_exists" id="db_check_table_exists"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../media/images/Method.png" />
-		<span class="method-title">db_check_table_exists</span> (line <span class="line-number">236</span>)
+		<span class="method-title">db_check_table_exists</span> (line <span class="line-number">294</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -359,12 +390,38 @@
 		
 			
 	</div>
+<a name="methoddb_commit_transaction" id="db_commit_transaction"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../media/images/Method.png" />
+		<span class="method-title">db_commit_transaction</span> (line <span class="line-number">612</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">commit transaction</p>
+<p class="description"><p>this will commit an ongoing transaction on ACID-supporting  database systems</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">bool</span>
+		<span class="method-name">
+			db_commit_transaction
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
 <a name="methoddb_drop_table" id="db_drop_table"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../media/images/Method.png" />
-		<span class="method-title">db_drop_table</span> (line <span class="line-number">286</span>)
+		<span class="method-title">db_drop_table</span> (line <span class="line-number">344</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -395,7 +452,7 @@
 	
 	<div class="method-header">
 		<img src="../media/images/Method.png" />
-		<span class="method-title">db_exec</span> (line <span class="line-number">149</span>)
+		<span class="method-title">db_exec</span> (line <span class="line-number">207</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -421,12 +478,46 @@
 		
 			
 	</div>
-<a name="methoddb_fetchSingleRow" id="db_fetchSingleRow"><!-- --></a>
+<a name="methoddb_execute" id="db_execute"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../media/images/Method.png" />
-		<span class="method-title">db_fetchSingleRow</span> (line <span class="line-number">171</span>)
+		<span class="method-title">db_execute</span> (line <span class="line-number">187</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">NEPHTHYS_DB database execute a prepared query</p>
+<p class="description"><p>This function will execute a previously prepared SQL query</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			db_execute
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$sth</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$data</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$sth</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$data</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methoddb_fetchSingleRow" id="db_fetchSingleRow"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../media/images/Method.png" />
+		<span class="method-title">db_fetchSingleRow</span> (line <span class="line-number">229</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -456,11 +547,11 @@
 			
 	</div>
 <a name="methoddb_getid" id="db_getid"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../media/images/Method.png" />
-		<span class="method-title">db_getid</span> (line <span class="line-number">216</span>)
+		<span class="method-title">db_getid</span> (line <span class="line-number">274</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -487,11 +578,11 @@
 			
 	</div>
 <a name="methoddb_getNumRows" id="db_getNumRows"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../media/images/Method.png" />
-		<span class="method-title">db_getNumRows</span> (line <span class="line-number">197</span>)
+		<span class="method-title">db_getNumRows</span> (line <span class="line-number">255</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -517,12 +608,46 @@
 		
 			
 	</div>
+<a name="methoddb_prepare" id="db_prepare"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../media/images/Method.png" />
+		<span class="method-title">db_prepare</span> (line <span class="line-number">154</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">NEPHTHYS_DB database prepare query</p>
+<p class="description"><p>This function will prepare a SQL query to be executed</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			db_prepare
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$query</span> = <span class="var-default">&quot;&quot;</span>], <span class="var-type">int</span>&nbsp;<span class="var-name">$mode</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$query</span>			</li>
+					<li>
+				<span class="var-type">int</span>
+				<span class="var-name">$mode</span>			</li>
+				</ul>
+		
+			
+	</div>
 <a name="methoddb_query" id="db_query"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../media/images/Method.png" />
-		<span class="method-title">db_query</span> (line <span class="line-number">118</span>)
+		<span class="method-title">db_query</span> (line <span class="line-number">120</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -551,12 +676,46 @@
 		
 			
 	</div>
-<a name="methoddb_rename_table" id="db_rename_table"><!-- --></a>
+<a name="methoddb_quote" id="db_quote"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../media/images/Method.png" />
-		<span class="method-title">db_rename_table</span> (line <span class="line-number">270</span>)
+		<span class="method-title">db_quote</span> (line <span class="line-number">572</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">quote string</p>
+<p class="description"><p>this function handsover the provided string to the MDB2  quote() function which will return the, for the selected  database system, correctly quoted string.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			db_quote
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$obj</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$query</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$query</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$obj</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methoddb_rename_table" id="db_rename_table"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../media/images/Method.png" />
+		<span class="method-title">db_rename_table</span> (line <span class="line-number">328</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -585,12 +744,64 @@
 		
 			
 	</div>
-<a name="methoddb_truncate_table" id="db_truncate_table"><!-- --></a>
+<a name="methoddb_rollback_transaction" id="db_rollback_transaction"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../media/images/Method.png" />
+		<span class="method-title">db_rollback_transaction</span> (line <span class="line-number">637</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">rollback transaction()</p>
+<p class="description"><p>this function aborts a on going transaction</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">bool</span>
+		<span class="method-name">
+			db_rollback_transaction
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methoddb_start_transaction" id="db_start_transaction"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../media/images/Method.png" />
-		<span class="method-title">db_truncate_table</span> (line <span class="line-number">298</span>)
+		<span class="method-title">db_start_transaction</span> (line <span class="line-number">586</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">start transaction</p>
+<p class="description"><p>this will start a transaction on ACID-supporting database  systems.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">bool</span>
+		<span class="method-name">
+			db_start_transaction
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methoddb_truncate_table" id="db_truncate_table"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../media/images/Method.png" />
+		<span class="method-title">db_truncate_table</span> (line <span class="line-number">356</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -617,11 +828,11 @@
 			
 	</div>
 <a name="methodgetVersion" id="getVersion"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../media/images/Method.png" />
-		<span class="method-title">getVersion</span> (line <span class="line-number">387</span>)
+		<span class="method-title">getVersion</span> (line <span class="line-number">484</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -643,11 +854,11 @@
 			
 	</div>
 <a name="methodsetVersion" id="setVersion"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../media/images/Method.png" />
-		<span class="method-title">setVersion</span> (line <span class="line-number">407</span>)
+		<span class="method-title">setVersion</span> (line <span class="line-number">504</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -679,7 +890,7 @@
 
 	
 	<p class="notes" id="credit">
-		Documentation generated on Sun, 29 Jun 2008 09:25:46 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.2</a>
+		Documentation generated on Sat, 08 Nov 2008 07:35:45 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.2</a>
 	</p>
 	</div></body>
 </html>
