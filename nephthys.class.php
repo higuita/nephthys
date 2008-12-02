@@ -2452,28 +2452,38 @@ class NEPHTHYS {
     */
    public function escape($text)
    {
-      /* if text has already been escaped, we need to strip
-         slashes before
-      */
+      switch($this->cfg->db_type) {
 
-      if($this->cfg->db_type == 'mysql' &&
-         function_exists('mysql_real_escape_string')) {
+         case 'mysql':
 
-         if(get_magic_quotes_gpc() == 1)
-            $text = stripslashes($text);
+            if(function_exists('mysql_real_escape_string')) {
+               /* if text has already been escaped, we need
+                  to strip slashes before
+                */
+               if(get_magic_quotes_gpc())
+                  $text = stripslashes($text);
 
-         return mysql_real_escape_string($text);
+               return mysql_real_escape_string($text);
+            }
+            break;
+
+         case 'sqlite':
+
+            if(function_exists('sqlite_escape_string')) {
+               /* if text has already been escaped, we need
+                  to strip slashes before
+                */
+               if(get_magic_quotes_gpc())
+                  $text = stripslashes($text);
+
+               return sqlite_escape_string($text);
+            }
+            break;
       }
 
-      if($this->cfg->db_type == 'sqlite' &&
-         function_exists('sqlite_escape_string')) {
-
-         if(get_magic_quotes_gpc() == 1)
-            $text = stripslashes($text);
-
-         return sqlite_escape_string($text);
-      }
-
+      /* if no action took place before, just escape
+         string with addslashes()
+       */
       return addslashes($text);
 
    } // escape()
