@@ -168,9 +168,9 @@ class NEPHTHYS_ADDRESSBOOK {
             ");
 
             $this->db->db_execute($sth, array(
-               $this->parent->escape($_POST['contact_name']),
-               $this->parent->escape($_POST['contact_email']),
-               $this->parent->escape($_POST['contact_owner']),
+               $_POST['contact_name'],
+               $_POST['contact_email'],
+               $_POST['contact_owner'],
                $_POST['contact_idx'],
             ));
       }

@@ -423,13 +423,6 @@ class NEPHTHYS_BUCKETS {
          $this->parent->add_to_addressbook($_POST['bucket_receiver']);
       }
 
-      /* escape everything that looks like HTML */
-      $_POST['bucket_name'] = $this->parent->escape($_POST['bucket_name']);
-      $_POST['bucket_sender'] = $this->parent->escape($_POST['bucket_sender']);
-      if(isset($_POST['bucket_receiver']) && !empty($_POST['bucket_receiver']))
-         $_POST['bucket_receiver'] = $this->parent->escape($_POST['bucket_receiver']);
-      $_POST['bucket_note'] = $this->parent->escape($_POST['bucket_note']);
-
       if(!isset($_POST['bucket_notify_on_expire']))
          $_POST['bucket_notify_on_expire'] = 'N';
 

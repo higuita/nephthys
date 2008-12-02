@@ -125,9 +125,6 @@ class NEPHTHYS_PROFILE {
       /* user-privileged are not allowed to change their user-names */
       if(!$this->parent->check_privileges('user')) {
 
-         /* escape everything that looks like HTML */
-         $_POST['user_name'] = $this->parent->escape($_POST['user_name']);
-
          $sth = $this->db->db_prepare("
             UPDATE nephthys_users
             SET
@@ -148,9 +145,6 @@ class NEPHTHYS_PROFILE {
       */
       if(!$this->parent->check_privileges('user') ||
          $this->parent->is_auto_created($_SESSION['login_idx'])) {
-
-         /* escape everything that looks like HTML */
-         $_POST['user_email'] = $this->parent->escape($_POST['user_email']);
 
          if(!isset($_POST['user_email']) || empty($_POST['user_email'])) {
             return $this->parent->_("##FAILURE_ENTER_EMAIL##");
@@ -173,9 +167,6 @@ class NEPHTHYS_PROFILE {
          ));
       }
 
-      /* escape everything that looks like HTML */
-      $_POST['user_full_name'] = $this->parent->escape($_POST['user_full_name']);
-
       /* update user's full name, default-expiry and langugage time */
       $sth = $this->db->db_prepare("
          UPDATE nephthys_users
@@ -195,8 +186,6 @@ class NEPHTHYS_PROFILE {
       ));
 
       if(isset($_POST['user_pass1'])) {
-
-         $_POST['user_pass1'] = $this->parent->escape($_POST['user_pass1']);
 
          /* if a password change was requested, change it here. */
          if($_POST['user_pass1'] != " nochangeMS " &&

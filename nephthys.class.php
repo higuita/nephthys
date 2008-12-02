@@ -410,9 +410,9 @@ class NEPHTHYS {
       }
       // If database type is set to MySQL
       if($this->cfg->db_type == "mysql") {
-         @include_once 'MDB2/Driver/mysql.php';
+         @include_once 'MDB2/Driver/mysqli.php';
          if(isset($php_errormsg) && preg_match('/Failed opening.*for inclusion/i', $php_errormsg)) {
-            $this->_error("PEAR MDB2-mysql package is missing");
+            $this->_error("PEAR MDB2-mysqli package is missing");
             $missing = true;
             unset($php_errormsg);
          }
@@ -2089,7 +2089,6 @@ class NEPHTHYS {
       foreach($to_ab as $address) {
 
          $fullname = '';
-         $address = $this->escape($address);
 
          /* when entered in the format
                fullname <email-address>
@@ -2439,56 +2438,6 @@ class NEPHTHYS {
    }
 
    /**
-    * escape string to avoid SQL injection
-    *
-    * this function will let call a MySQL own function
-    * to escape all dangerous stuff within the provided
-    * text. If the MySQL function is not available, it
-    * just returns the provided string simply escaped
-    * with addslashes()
-    *
-    * @param string $text
-    * @return string
-    */
-   public function escape($text)
-   {
-      switch($this->cfg->db_type) {
-
-         case 'mysql':
-
-            if(function_exists('mysql_real_escape_string')) {
-               /* if text has already been escaped, we need
-                  to strip slashes before
-                */
-               if(get_magic_quotes_gpc())
-                  $text = stripslashes($text);
-
-               return mysql_real_escape_string($text);
-            }
-            break;
-
-         case 'sqlite':
-
-            if(function_exists('sqlite_escape_string')) {
-               /* if text has already been escaped, we need
-                  to strip slashes before
-                */
-               if(get_magic_quotes_gpc())
-                  $text = stripslashes($text);
-
-               return sqlite_escape_string($text);
-            }
-            break;
-      }
-
-      /* if no action took place before, just escape
-         string with addslashes()
-       */
-      return addslashes($text);
-
-   } // escape()
-
-   /**
     * unescape string and translate some characters to HTML
     *
     * this function gets used on strings previously modified
@@ -2506,7 +2455,7 @@ class NEPHTHYS {
          slashes before
       */
 
-      //$text = stripslashes($text);
+      $text = stripslashes($text);
 
       if($encode_html)
          return htmlspecialchars($text);

@@ -76,7 +76,7 @@ class NEPHTHYS_DB {
       switch($this->cfg->db_type) {
          default:
          case 'mysql':
-            $dsn = "mysql://"
+            $dsn = "mysqli://"
                . $this->cfg->mysql_user .":"
                . $this->cfg->mysql_pass ."@"
                . $this->cfg->mysql_host ."/"

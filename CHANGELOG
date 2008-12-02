@@ -1,3 +1,9 @@
+nephthys (1.5)
+
+  * bug, quoting of input data works now correct (#113)
+
+ -- Andreas Unterkircher <unki@netshadow.at>  Sat, 2 Dec 2008 09:59:42 +0100
+
 nephthys (1.4)
 
   * bug, user-last-logon information gets now updated during login (#91)
