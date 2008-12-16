@@ -36,6 +36,12 @@ class NEPHTHYS_CFG extends NEPHTHYS_DEFAULT_CFG {
    // Default:
    //   var $data_path = "/srv/www/nephyths_transfer";
 
+   // Path where the template engine can store its cache files.
+   // This directory should contain the directories templates_c,
+   // smarty_cache and smarty_config.
+   // Default:
+   //   var $tmpl_path = "/srv/www/htdocs/nephthys";
+
    // Webpath with which Nephthys is addressed.
    // Default:
    //   var $web_path = "/nephthys";

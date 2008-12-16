@@ -47,9 +47,9 @@ class NEPHTHYS_TMPL extends Smarty {
       $this->Smarty();
 
       $this->template_dir = $nephthys->cfg->base_path .'/themes/'. $nephthys->cfg->theme_name .'/templates';
-      $this->compile_dir  = $nephthys->cfg->base_path .'/templates_c';
-      $this->config_dir   = $nephthys->cfg->base_path .'/smarty_config';
-      $this->cache_dir    = $nephthys->cfg->base_path .'/smarty_cache';
+      $this->compile_dir  = $nephthys->cfg->tmpl_path .'/templates_c';
+      $this->config_dir   = $nephthys->cfg->tmpl_path .'/smarty_config';
+      $this->cache_dir    = $nephthys->cfg->tmpl_path .'/smarty_cache';
       $this->theme_root   = $nephthys->cfg->web_path .'themes/'. $nephthys->cfg->theme_name;
 
       if(isset($_SESSION['login_idx']) && is_numeric($_SESSION['login_idx'])) {

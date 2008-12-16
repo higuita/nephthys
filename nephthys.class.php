@@ -118,8 +118,8 @@ class NEPHTHYS {
 
       $this->check_db_tables();
 
-      if(!is_writable($this->cfg->base_path ."/templates_c")) {
-         $this->_error("[". $this->cfg->base_path ."/templates_c] directory is not writeable for user ". $this->getuid());
+      if(!is_writable($this->cfg->tmpl_path ."/templates_c")) {
+         $this->_error("[". $this->cfg->tmpl_path ."/templates_c] directory is not writeable for user ". $this->getuid());
          exit(1);
       }
 
@@ -2667,6 +2667,14 @@ class NEPHTHYS_DEFAULT_CFG {
       "es" => "Spanish",
       "nl" => "Dutch",
    );
+
+   public function __construct()
+   {
+      if(!isset($this->tmpl_path)) {
+         $this->tmpl_path = $this->base_path;
+      }
+
+   } // __construct()
 
 } // class NEPHTHYS_DEFAULT_CFG
 

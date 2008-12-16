@@ -1,6 +1,8 @@
 nephthys (1.5)
 
   * bug, quoting of input data works now correct (#113)
+  * feature, make the position of Smarty template cache directories
+      configureable (#134)
 
  -- Andreas Unterkircher <unki@netshadow.at>  Sat, 2 Dec 2008 09:59:42 +0100
 
