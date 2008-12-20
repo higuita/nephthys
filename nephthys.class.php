@@ -2134,6 +2134,25 @@ class NEPHTHYS {
    } // add_to_addressbook()
 
    /**
+    * get bucket information & details
+    *
+    * this function just invokes get_bucket_info() of the
+    * NEPHTHYS_BUCKETS class. See that one for more info.
+    *
+    * @return string
+    */
+   public function get_bucket_info()
+   {
+      if(isset($_POST['id']) && is_numeric($_POST['id'])) {
+         $bucket = new NEPHTHYS_BUCKETS($_POST['id']);
+         return $bucket->get_bucket_info();
+      }
+
+      return "unkown bucket";
+
+   } // get_bucket_info()
+
+   /**
     * returns the value for the autocomplete tag-search
     * @return string
     */
@@ -2235,7 +2254,7 @@ class NEPHTHYS {
     * @param string $path
     * @return string
     */
-   private function get_used_diskspace($path = NULL)
+   public function get_used_diskspace($path = NULL)
    {
       /* this function will be recursive. if no path is provided
          as parameter, use the $data_path to start from.
@@ -2247,13 +2266,15 @@ class NEPHTHYS {
       $dirhandle = opendir($path);
 
       while($file = readdir($dirhandle)) {
-         if($file!="." && $file!="..") {
-            if(is_dir($path."/".$file)) {
-               $bytes = $bytes + $this->get_used_diskspace($path."/".$file);
-            }
-            else {
-               $bytes = $bytes + filesize($path."/".$file);
-            }
+
+         if(!$this->is_valid_file($path, $file))
+            continue;
+
+         if(is_dir($path."/".$file)) {
+            $bytes = $bytes + $this->get_used_diskspace($path."/".$file);
+         }
+         else {
+            $bytes = $bytes + filesize($path."/".$file);
          }
       }
 
@@ -2272,7 +2293,7 @@ class NEPHTHYS {
     * @param int $bytes
     * @return string
     */
-   private function get_unit($bytes)
+   public function get_unit($bytes)
    {
       $symbols = array('b', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
 
@@ -2603,6 +2624,95 @@ class NEPHTHYS {
       return NULL;
 
    } // get_sort_order()
+
+   /**
+    * get directory information
+    *
+    * this function collect some directory information like
+    * amount of directories and files, last modification
+    * time, ... and returns them as array.
+    *
+    * @param string $path
+    * @return mixed
+    */
+   public function get_dir_info($path)
+   {
+      $info = Array();
+
+      $info['files']    = 0;
+      $info['dirs']     = 0;
+      $info['last_mod'] = 0;
+
+      if(!file_exists($path))
+         return __METHOD__ ." directory $path does not exist";
+
+      if(!is_dir($path))
+         return __METHOD__ ." $path is not a directory";
+
+      if(!is_readable($path) && !is_executable($path))
+         return __METHOD__ ." $path is either not readable or executable";
+
+      $dirhandle = opendir($path);
+
+      while($file = readdir($dirhandle)) {
+
+         if(!$this->is_valid_file($path, $file))
+            continue;
+
+         if(is_dir($path."/".$file)) {
+
+            $info['dirs']++;
+
+            $sub_info = $this->get_dir_info($type, $path."/".$file);
+
+            $info['dirs']+= $sub_info['dirs'];
+            $info['files']+= $sub_info['files'];
+            $info['last_mod'] = $info['last_mod'] > $sub_info['last_mod'] ? $info['last_mod'] : $sub_info['last_mod'];
+
+         }
+         else {
+
+            $info['files']++;
+
+            $last_mod = filemtime($path ."/". $files);
+            $info['last_mod'] = $info['last_mod'] > $last_mod ? $info['last_mod'] : $last_mod;
+
+         }
+      }
+
+      closedir($dirhandle);
+
+      return $info;
+
+   } // get_dir_info()
+
+   /**
+    * validate a file
+    *
+    * this function returns true, if the inspect file is
+    * valid in Nephthys point of view
+    *
+    * @param string $path
+    * @param string $file
+    * @return boolean
+    */
+   private function is_valid_file($path, $file)
+   {
+      if(!file_exists($path."/".$file))
+         return false;
+
+      if(is_link($path."/".$file))
+         return false;
+
+      if($file == "." || $file == "..")
+         return false;
+
+      if($file == "webdav.html")
+         return false;
+
+      return true;
+
+   } // is_valid_file()
 
 } // class NEPHTHYS
 

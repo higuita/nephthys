@@ -204,6 +204,43 @@ class NEPHTHYS_BUCKETS {
 
    } // showBucket()
 
+   /**
+    * get bucket information & details
+    *
+    * this function returns informations about the requested
+    * bucket. how much diskspace it uses, ...
+    *
+    * @return string
+    */
+   public function get_bucket_info()
+   {
+      if(!($bucket = $this->get_bucket_details($this->id)))
+         return "unkown bucket";
+
+      $bucket_path = $this->parent->cfg->data_path
+         ."/"
+         . $bucket->bucket_hash;
+
+      if(($used_diskspace = $this->parent->get_used_diskspace($bucket_path)) === false) {
+         return "Can not locate bucket in filesystem to get used diskspace";
+      }
+
+      $bucket_size = $this->parent->get_unit($used_diskspace);
+      $bucket_details = $this->parent->get_dir_info($bucket_path);
+
+      $this->tmpl->assign('count_files', $bucket_details['files']);
+      $this->tmpl->assign('count_dirs', $bucket_details['dirs']);
+      $this->tmpl->assign('bucket_size', $bucket_size);
+      if($bucket_details['last_mod'] > 0) {
+         $this->tmpl->assign('bucket_last_mod', strftime("%c", $bucket_details['last_mod']));
+      }
+
+      $body = $this->tmpl->fetch('bucket_info.tpl');
+
+      return $body;
+
+   } // get_bucket_info()
+
    public function notify()
    {
       if(!($bucket = $this->get_bucket_details($this->id)))
