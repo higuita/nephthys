@@ -70,6 +70,17 @@
   <td>&nbsp;</td>
  </tr>
  <tr>
+  <td colspan="2">##DEFAULT_BUCKET_EXPIRE##:</td>
+ </tr>
+ <tr>
+  <td>
+   { expiration_list name="user_default_expire" current=$user_default_expire }
+  </td>
+ </tr>
+ <tr>
+  <td>&nbsp;</td>
+ </tr>
+ <tr>
   <td>##LANGUAGE##:</td>
  </tr>
  <tr>

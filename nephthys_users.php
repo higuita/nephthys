@@ -124,6 +124,7 @@ class NEPHTHYS_USERS {
          $this->tmpl->assign('user_deny_chpwd', $user->user_deny_chpwd);
          $this->tmpl->assign('user_language', $user->user_language);
          $this->tmpl->assign('user_active', $user->user_active);
+         $this->tmpl->assign('user_default_expire', $user->user_default_expire);
 
       }
       else {
@@ -170,10 +171,10 @@ class NEPHTHYS_USERS {
             INSERT INTO nephthys_users (
                user_idx, user_name, user_full_name, user_pass,
                user_email, user_priv, user_priv_expire, user_deny_chpwd,
-               user_language, user_active
+               user_language, user_active, user_default_expire
             ) VALUES (
                NULL, ?, ?, ?,
-               ?, ?, ?, ?, ?, ?
+               ?, ?, ?, ?, ?, ?, ?
             )
          ");
 
@@ -187,6 +188,7 @@ class NEPHTHYS_USERS {
             $_POST['user_deny_chpwd'],
             $_POST['user_language'],
             $_POST['user_active'],
+            $_POST['user_default_expire'],
          ));
 
       }
@@ -202,7 +204,8 @@ class NEPHTHYS_USERS {
                user_priv_expire=?,
                user_deny_chpwd=?,
                user_language=?,
-               user_active=?
+               user_active=?,
+               user_default_expire=?
             WHERE
                user_idx=?
          ");
@@ -216,6 +219,7 @@ class NEPHTHYS_USERS {
             $_POST['user_deny_chpwd'],
             $_POST['user_language'],
             $_POST['user_active'],
+            $_POST['user_default_expire'],
             $_POST['user_idx'],
          ));
 
