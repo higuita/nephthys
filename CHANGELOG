@@ -6,6 +6,7 @@ nephthys (1.5)
   * feature, Debian package can be built now out of the 'debian' branch
       (#53)
   * feature, modify bucket expiration time via user-management (#112)
+  * feature, show bucket-details via helpballoon (#102)
 
  -- Andreas Unterkircher <unki@netshadow.at>  Sat, 2 Dec 2008 09:59:42 +0100
 

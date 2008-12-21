@@ -37,6 +37,7 @@
  <tr onmouseover="setBackGrdColor(this, 'mouseover');" onmouseout="setBackGrdColor(this, 'mouseout');">
   <td>
    <a href="javascript:ajax_show_content('buckets', '&mode=edit&idx={ $bucket_idx }');" title="##CLICK_EDIT_BUCKET##"><img src="{ $theme_root }/images/bucket_small.png" />&nbsp;{ $bucket_name }</a>
+   <a id='bucketinfo{ $bucket_idx }' onclick="ajax_get_bucket_info({ $bucket_idx });" title="Click to show details about this bucket"><img src="{ $theme_root }/images/info.png" /></a>
   </td>
   <td style="vertical-align: middle;">
 

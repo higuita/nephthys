@@ -15,6 +15,8 @@ function init_nephthys(mode)
 {
    /* initialize menu-tabs */
    init_ajaxtabs();
+   /* initialize helpballoon */
+   init_helpballoon();
 
 } // init_nephthys()
 
@@ -398,6 +400,26 @@ function init_ajaxtabs()
 
 } // init_ajaxtabs()
 
+/**
+ * initialize helpballoon
+ *
+ * this function initialize the helpballoon, setting
+ * the correct directories where to find the balloon
+ * stuff.
+ */
+function init_helpballoon()
+{
+   // Override the default settings to point to the helpballoon directory
+   HelpBalloon.Options.prototype = Object.extend(HelpBalloon.Options.prototype, {
+      icon: 'helpballoon/images/icon.gif',
+      button: 'helpballoon/images/button.png',
+      balloonPrefix: 'helpballoon/images/balloon-',
+      hideEffectOptions: {duration: 0.1},
+      showEffectOptions: {duration: 0.1}
+   });
+
+} // init_helpballoon()
+
 function load_autosuggest(obj)
 {
    if(as == undefined) {
@@ -413,12 +435,15 @@ function load_autosuggest(obj)
    }
 } // load_autosuggest()
 
-function show_box(text)
+function show_box(text, height)
 {
+   if(height == undefined)
+      height = 75;
+
    Dialog.alert(text,
       {
          width:300,
-         height:75,
+         height: height,
          okLabel: "close",
          ok:function(win) {
             ajax_show_content('main');
@@ -477,6 +502,47 @@ function update_sort_order(module, column, order, reload)
 
 } // update_sort_order()
 
+function ajax_get_bucket_info(id)
+{
+   var objTemp = new Object();
+   var text;
+
+   objTemp['action'] = 'get_bucket_info';
+   objTemp['id'] = id;
+
+   var retobj = HTML_AJAX.post('rpc.php', objTemp);
+
+   show_balloon(id, 'Bucket Details', retobj);
+
+} // ajax_get_bucket_info()
+
+/**
+ * show some flying note
+ *
+ * @param int id
+ * @param string text
+ */
+function show_balloon(id, title, text)
+{
+   /* if there is any balloon shown currently... */
+   if(balloon != undefined) {
+      balloon.hide();
+      balloon = null; /* destroy */
+   }
+
+   /* initalize */
+   balloon = new HelpBalloon({
+      icon: $('bucketinfo'+id),
+      title: title,
+      content: text,
+      autoHideTimeout: 2000
+   });
+
+   /* show */
+   balloon.show()
+
+} // show_balloon()
+
 var as = undefined;
 var menutabs = undefined;
-
+var balloon = undefined;

@@ -1,7 +1,7 @@
 .overlay_alphacube {
 	/* original = background-color: #85BBEF;*/
 	background-color: #81cc81;
-	filter:alpha(opacity=40);
+	/*filter:alpha(opacity=40);*/
 	-moz-opacity: 0.4;
 	opacity: 0.4;
 }
@@ -143,7 +143,7 @@
 
 .alphacube_wired_frame {
 	background: #FFF;
-	filter:alpha(opacity=60);
+	/*filter:alpha(opacity=60);*/
 	-moz-opacity: 0.6;
 	opacity: 0.6;	
 }

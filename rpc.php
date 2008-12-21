@@ -86,6 +86,9 @@ class NEPHTHYS_RPC {
          case 'getxmllist':
             print $nephthys->get_xml_list();
             break;
+         case 'get_bucket_info':
+            print $nephthys->get_bucket_info();
+            break;
          default:
             print "unkown action ". $action;
             break;
