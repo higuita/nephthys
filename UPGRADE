@@ -1,12 +1,13 @@
 == Upgrading to 1.5 ==
 
- * MySQL interface has changed to mysqli.
-   See http://oss.netshadow.at/wiki/nephthys/ChangingToMySqli for more.
+ * PHP MySQL database interface has changed from 'mysql' to 'mysqli'.
+   See http://oss.netshadow.at/wiki/nephthys/ChangingToMySqli for more
+   details.
 
- * The directory for the location of the template engine cache
-   directories is now configureable via the $tmpl_path variable.
+ * The directory for storing Smarty template engine's cache is now
+   configureable via the $tmpl_path variable in Nephthys configuration.
    If this one has not been set in nephthys_cfg.php, it defaults
-   to $base_path. So this should not require any change when you do
+   to $base_path. So far this does not require any change when you do
    a upgrade from a previous version. Just to let you know.
 
 == Upgrading to 1.4 ==

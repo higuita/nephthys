@@ -10,24 +10,35 @@
 		<body>
 						<div align="center"><h1>CHANGELOG</h1></div>
 <pre>
+nephthys (1.5)
+
+  * bug, quoting of input data works now correct (#113)
+  * feature, make the position of Smarty template cache directories
+      configureable (#134)
+  * feature, Debian package can be built now out of the 'debian' branch
+      (#53)
+  * feature, modify bucket expiration time via user-management (#112)
+  * feature, show bucket-details via helpballoon (#102)
+
+ -- Andreas Unterkircher &lt;unki@netshadow.at&gt;  Sat, 2 Dec 2008 09:59:42 +0100
+
 nephthys (1.4)
 
-  * bug, user-last-login information gets now updated during login (#91)
+  * bug, user-last-logon information gets now updated during login (#91)
   * bug, do not remove bucket from database, if bucket-deletion in
       filesystem failed (#93)
   * bug, use relative font-size instead of fixed (#92)
-  * bug, last login-information now gets updated (#91)
-  * bug, make Exceptions better readable (#100)
-  * feature, show privileges in user-management overview (#94)
+  * bug, make Exceptions better readable in browser-view (#100)
+  * feature, show user-privileges in user-management overview (#94)
   * feature, set default language via user-management (#57)
   * feature, nephthys_watch.php is now quiet per default
       but support verbose-mode via -v command line option (#90)
   * feature, config-option to force auto-created users to update
-      their profiles (#87)
+      their profiles during first login (#87)
   * feature, notify owner when bucket has expired (#96)
   * feature, sort columns (#37)
 
- -- Andreas Unterkircher &lt;unki@netshadow.at&gt;  Sat, 11 Oct 2008 09:59:42 +0200
+ -- Andreas Unterkircher &lt;unki@netshadow.at&gt;  Sat, 8 Nov 2008 09:59:42 +0100
 
 nephthys (1.3)
 
@@ -91,7 +102,7 @@ nephthys (1.0)
 
 </pre>
 	<p class="notes" id="credit">
-		Documentation generated on Sat, 08 Nov 2008 07:35:44 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.2</a>
+		Documentation generated on Tue, 23 Dec 2008 09:57:48 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.2</a>
 	</p>
 	</body>
 </html>
