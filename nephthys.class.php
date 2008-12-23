@@ -2421,7 +2421,9 @@ class NEPHTHYS {
 
          // multiline values: the first line with an equal sign '=' will start a new key=value pair
          if(sizeof($keyValuePair) == 1) {
-            $this->_translationTable[$locale][$key] .= ' ' . chop($keyValuePair[0]);
+            if(isset($key) && !empty($key)) {
+               $this->_translationTable[$locale][$key] .= ' ' . chop($keyValuePair[0]);
+            }
             continue;
          }
 
@@ -2433,7 +2435,8 @@ class NEPHTHYS {
       }
 
       return true;
-   }
+
+   } // load_translation_table()
 
    function get_translation($key)
    {
