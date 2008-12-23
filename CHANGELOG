@@ -1,14 +1,15 @@
 nephthys (1.5)
 
   * bug, quoting of input data works now correct (#113)
+  * bug, avoid notice-message in load_translation_table() (#135)
   * feature, make the position of Smarty template cache directories
       configureable (#134)
   * feature, Debian package can be built now out of the 'debian' branch
       (#53)
   * feature, modify bucket expiration time via user-management (#112)
-  * feature, show bucket-details via helpballoon (#102)
+  * feature, show bucket-details via HelpBalloon javascript class (#102)
 
- -- Andreas Unterkircher <unki@netshadow.at>  Sat, 2 Dec 2008 09:59:42 +0100
+ -- Andreas Unterkircher <unki@netshadow.at>  Tue, 23 Dec 2008 09:59:42 +0100
 
 nephthys (1.4)
 
