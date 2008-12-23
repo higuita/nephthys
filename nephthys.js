@@ -418,6 +418,11 @@ function init_helpballoon()
       showEffectOptions: {duration: 0.1}
    });
 
+   /* initialize it once, so the necessary images will get preloaded */
+   balloon = new HelpBalloon({
+      returnElement: true
+   });
+
 } // init_helpballoon()
 
 function load_autosuggest(obj)
