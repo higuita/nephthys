@@ -78,7 +78,7 @@ Possible states:
        in nephthys_cfg.php
  - [_] enable server-authentication
  - [_] open again nephthys, login via server-authentication
- - [_] update profile settings and change password via "My Profile"
+ - [_] update profile settings via "My Profile"
  - [_] create a bucket
  - [_] notify bucket
  - [_] modify bucket
