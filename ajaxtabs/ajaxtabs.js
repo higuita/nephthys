@@ -1,7 +1,9 @@
 //** Ajax Tabs Content script v2.0- © Dynamic Drive DHTML code library (http://www.dynamicdrive.com)
 //** Updated Oct 21st, 07 to version 2.0. Contains numerous improvements
-
 //** Updated Feb 18th, 08 to version 2.1: Adds a public "tabinstance.cycleit(dir)" method to cycle forward or backward between tabs dynamically. Only .js file changed from v2.0.
+//** Updated April 8th, 08 to version 2.2:
+//   -Adds support for expanding a tab using a URL parameter (ie: http://mysite.com/tabcontent.htm?tabinterfaceid=0) 
+//   -Modified Ajax routine so testing the script out locally in IE7 now works 
 
 var ddajaxtabssettings={}
 ddajaxtabssettings.bustcachevar=1  //bust potential caching of external pages after initial request? (1=yes, 0=no)
@@ -27,9 +29,7 @@ this.revcontentids=[] //Array to store ids of arbitrary contents to expand/conta
 ddajaxtabs.connect=function(pageurl, tabinstance){
 	var page_request = false
 	var bustcacheparameter=""
-	if (window.XMLHttpRequest) // if Mozilla, IE7, Safari etc
-		page_request = new XMLHttpRequest()
-	else if (window.ActiveXObject){ // if IE6 or below
+	if (window.ActiveXObject){ //Test for support for ActiveXObject in IE first (as XMLHttpRequest in IE7 is broken)
 		try {
 		page_request = new ActiveXObject("Msxml2.XMLHTTP")
 		} 
@@ -40,6 +40,8 @@ ddajaxtabs.connect=function(pageurl, tabinstance){
 			catch (e){}
 		}
 	}
+	else if (window.XMLHttpRequest) // if Mozilla, Safari etc
+		page_request = new XMLHttpRequest()
 	else
 		return false
 	var ajaxfriendlyurl=pageurl.replace(/^http:\/\/[^\/]+\//i, "http://"+window.location.hostname+"/") 
@@ -122,6 +124,11 @@ ddajaxtabs.prototype={
 		return (this.selectedClassTarget==("linkparent".toLowerCase()))? tabref.parentNode : tabref
 	},
 
+	urlparamselect:function(tabinterfaceid){
+		var result=window.location.search.match(new RegExp(tabinterfaceid+"=(\\d+)", "i")) //check for "?tabinterfaceid=2" in URL
+		return (result==null)? null : parseInt(RegExp.$1) //returns null or index, where index (int) is the selected tab's index
+	},
+
 	onajaxpageload:function(pageurl){ //PUBLIC Event handler that can invoke custom code whenever an Ajax page has been fetched and displayed
 		//do nothing by default
 	},
@@ -183,7 +190,8 @@ ddajaxtabs.prototype={
 
 	init:function(automodeperiod){
 		var persistedtab=ddajaxtabs.getCookie(this.tabinterfaceid) //get position of persisted tab (applicable if persistence is enabled)
-		var persisterror=true //Bool variable to check whether persisted tab position is valid (can become invalid if user has modified tab structure)
+		var selectedtab=-1 //Currently selected tab index (-1 meaning none)
+		var selectedtabfromurl=this.urlparamselect(this.tabinterfaceid) //returns null or index from: tabcontent.htm?tabinterfaceid=index
 		this.automodeperiod=automodeperiod || 0
 		this.defaultHTML=document.getElementById(this.contentdivid).innerHTML
 		for (var i=0; i<this.tabs.length; i++){
@@ -199,13 +207,14 @@ ddajaxtabs.prototype={
 				if (this.tabs[i].getAttribute("rev")){ //if "rev" attr defined, store each value within "rev" as an array element
 					this.revcontentids=this.revcontentids.concat(this.tabs[i].getAttribute("rev").split(/\s*,\s*/))
 				}
-				if (this.enabletabpersistence && parseInt(persistedtab)==i || !this.enabletabpersistence && this.getselectedClassTarget(this.tabs[i]).className=="selected"){
-					this.expandtab(this.tabs[i]) //expand current tab if it's the persisted tab, or if persist=off, carries the "selected" CSS class
-					persisterror=false //Persisted tab (if applicable) was found, so set "persisterror" to false
+				if (selectedtabfromurl==i || this.enabletabpersistence && selectedtab==-1 && parseInt(persistedtab)==i || !this.enabletabpersistence && selectedtab==-1 && this.getselectedClassTarget(this.tabs[i]).className=="selected"){
+					selectedtab=i //Selected tab index, if found
 				}
 			}
 		} //END for loop
-		if (persisterror) //if an error has occured while trying to retrieve persisted tab (based on its position within its peers)
+		if (selectedtab!=-1) //if a valid default selected tab index is found
+			this.expandtab(this.tabs[selectedtab]) //expand selected tab (either from URL parameter, persistent feature, or class="selected" class)
+		else //if no valid default selected index found
 			this.expandtab(this.tabs[this.hottabspositions[0]]) //Just select first tab that contains a "rel" attr
 		if (parseInt(this.automodeperiod)>500 && this.hottabspositions.length>1){
 			this.autoruntimer=setInterval(function(){tabinstance.autorun()}, this.automodeperiod)
