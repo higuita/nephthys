@@ -4,15 +4,15 @@
 // losse woorden
 ABOUT=Over
 ACTIONS=Acties
-ADDRESS_BOOK=Addresboek
+ADDRESS_BOOK=Adresboek
 ADMIN=Administrator
 AGAIN=Opnieuw
-ASCENDING=Ascending
+ASCENDING=Oplopend
 CREATED=Gemaakt
 DAY=Dag
 DAYS=Dagen
 DELETE=Verwijder
-DESCENDING=Descending
+DESCENDING=Aflopend
 DISABLED=Uitgeschakeld
 DISK_USED=Gebruikt
 DISK_FREE=Vrij
@@ -22,8 +22,8 @@ EMAIL=Email
 ENABLED=Ingeschakeld
 HELLO=Hallo
 HELP=Help
-LANGUAGE=Language
-LASTLOGIN=Last Login
+LANGUAGE=Taal
+LASTLOGIN=Laatste Login
 LOGIN=Login
 MANAGER=Manager
 MONTH=Maand
@@ -40,17 +40,17 @@ PRIVILEGES=Privileges
 START_PAGE=Startpagina
 STATUS=Status
 USER=Gebruiker
-USERNAME=Usernaam
+USERNAME=Gebruikersnaam
 USERS=Gebruikers
 WEEK=Week
 YEAR=Jaar
 YES=Ja
-ALLOW=Allow
-DENY=Deny
+ALLOW=Toestaan
+DENY=Weigeren
 
 // Algemene mededelingen
 ACCESS_BUCKET=Je kunt op verschillende manieren zien wat er in je bakje (bucket) zit, als volgt:
-BUCKET_RECEIVER=Bucket receiver
+BUCKET_RECEIVER=Bakje ontvanger
 CLICK_EDIT_CONTACT=Klik: wijzigen
 CLICK_EDIT_USER=Klik: deze gebruiker wijzigen
 CLICK_EDIT_BUCKET=Klik: Dit bakje wijzigen
@@ -65,8 +65,8 @@ DEFAULT_BUCKET_EXPIRE=Standaard levensduur van bakjes
 DEFAULT_LANGUAGE=Taal (je moet uit & weer inloggen als je dit verandert)
 GO_TO_START=Ga naar de startpagina
 NEVER_EXPIRE=Dit bakje heeft het eeuwige leven
-NOTIFY_ON_EXPIRE=Notify me via E-Mail when this bucket has expired
-NOTIFY_SUCCESS=The bucket has been notified now
+NOTIFY_ON_EXPIRE=Contacteer me via E-mail als het bakje is verlopen.
+NOTIFY_SUCCESS=Het bakje-Email is verzonden.
 OPEN_VIA_WEBDAV=Open bakje via WebDAV
 OPEN_VIA_FTP=Open bakje via FTP
 SAVE_GO_TO_START=Opslaan en terug naar de Startpagina
@@ -123,11 +123,11 @@ PROFILE_SUBHEADER=Verander je persoonlijke gegevens
 
 // receive_form.tpl
 FORM_BUCKET_NAME=Geef het bakje een naam
-
 FORM_SENDER_EMAIL=Eigen email of van afzender
 FORM_SENDER_EMAIL=Email van afzender
 FORM_RECEIVER_EMAIL=Email ontvanger
 FORM_RECEIVER_OPT=Optioneel.Notificatie buiten Nephthys
+FORM_RECEIVER_SEPARATE=Voeg meerdere ontvangers toe, gescheiden door een ',' (comma)
 FORM_ADD_AB=Voeg email toe aan  addressbook
 FORM_BUCKET_EXPIRE=Wat is de levensduur van dit bakje?
 FORM_ADDITIONAL_TEXT=Tekst toevoegen aan de notificatie-email (optioneel)
