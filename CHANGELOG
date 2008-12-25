@@ -1,3 +1,9 @@
+nephthys (1.6)
+
+  * (empty)
+
+ -- Andreas Unterkircher <unki@netshadow.at>  Tue, 23 Dec 2008 09:59:42 +0100
+
 nephthys (1.5)
 
   * bug, quoting of input data works now correct (#113)

@@ -1,3 +1,7 @@
+== Upgrading to 1.6 ==
+
+ * Nothing special needs to be done.
+
 == Upgrading to 1.5 ==
 
  * PHP MySQL database interface has changed from 'mysql' to 'mysqli'.
