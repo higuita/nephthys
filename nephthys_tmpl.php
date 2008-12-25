@@ -132,7 +132,7 @@ class NEPHTHYS_TMPL extends Smarty {
       $column = $params['column'];
       $order  = $params['order'];
 
-      $string = "<a href=\"javascript:update_sort_order("
+      $string = "<a href=\"#\" onclick=\"update_sort_order("
          ."'". $module ."', "
          ."'". $column ."', "
          ."'". $order ."'";

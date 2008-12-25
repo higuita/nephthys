@@ -12,6 +12,6 @@
    </div>
    <div id="login" style="float: right;">
     { if $login_name }
-     ##HELLO## { $login_name}{if !$hide_logout }, <a href="javascript:js_logout()" title="Logout Nephthys and reset session">##CLICK_LOGOUT##{ /if }</a>
+     ##HELLO## { $login_name}{if !$hide_logout }, <a href="#" onclick="js_logout()" title="Logout Nephthys and reset session">##CLICK_LOGOUT##{ /if }</a>
     { /if }
    </div>

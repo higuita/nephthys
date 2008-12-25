@@ -5,7 +5,7 @@
   <div id="box">
 
    <div id="header">
-    <a href="javascript:menutabs.expandit('main');"><img src="images/nephthys.png" />&nbsp;{ $product } { $version }</a><br>
+    <a href="#" onclick="menutabs.expandit('main');"><img src="images/nephthys.png" />&nbsp;{ $product } { $version }</a><br>
    </div>
 
    <div id="menu">
