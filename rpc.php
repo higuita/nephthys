@@ -54,10 +54,10 @@ class NEPHTHYS_RPC {
 
       switch($action) {
          case 'get_content':
-            $nephthys->get_content();
+            print $nephthys->get_content();
             break;
          case 'get_menu':
-            $nephthys->get_menu();
+            print $nephthys->get_menu();
             break;
          case 'store':
             print $nephthys->store();

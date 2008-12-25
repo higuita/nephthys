@@ -80,12 +80,6 @@ class NEPHTHYS_TMPL extends Smarty {
 
    } // __construct()
 
-   public function show($template)
-   {
-      $this->display($template);
-
-   } // show()
-
    public function smarty_page_start($params, &$smarty)
    {
       if(isset($params['header']))
@@ -93,7 +87,7 @@ class NEPHTHYS_TMPL extends Smarty {
       if(isset($params['subheader']))
          $this->assign('subheader', $params['subheader']);
 
-      $this->show('page_start.tpl');
+      return $this->fetch('page_start.tpl');
 
    } // smarty_function_page_start()
 
@@ -103,7 +97,7 @@ class NEPHTHYS_TMPL extends Smarty {
          $this->assign('focus_to', $params['focus_to']);
       }
 
-      $this->show('page_end.tpl');
+      return $this->fetch('page_end.tpl');
 
    } // smarty_function_startTable()
 
@@ -113,7 +107,7 @@ class NEPHTHYS_TMPL extends Smarty {
          $this->assign('text', $params['text']);
       }
 
-      $this->show('save_button.tpl');
+      return $this->fetch('save_button.tpl');
 
    } // smarty_function_startTable()
 
@@ -186,14 +180,14 @@ class NEPHTHYS_TMPL extends Smarty {
 
       $string.= "\" /></a>";
 
-      print $string;
+      return $string;
 
    } // smarty_sort_link()
 
    public function smarty_import_bucket_list()
    {
       $bucket = new NEPHTHYS_BUCKETS();
-      $bucket->showList();
+      return $bucket->showList();
 
    } // smarty_import_bucket_list()
 
@@ -237,7 +231,7 @@ class NEPHTHYS_TMPL extends Smarty {
       }
 
       $select.= "</select>\n";
-      print $select;
+      return $select;
 
    } //smarty_expiration_list()
 
@@ -261,7 +255,7 @@ class NEPHTHYS_TMPL extends Smarty {
       }
 
       $select.= "</select>\n";
-      print $select;
+      return $select;
 
    } //smarty_owner_list()
 
@@ -279,7 +273,7 @@ class NEPHTHYS_TMPL extends Smarty {
       }
 
       $select.= "</select>\n";
-      print $select;
+      return $select;
 
    } //smarty_language_list()
 

@@ -59,11 +59,11 @@ class NEPHTHYS_USERS {
       switch($_GET['mode']) {
          default:
          case 'show':
-            $this->showList();
+            return $this->showList();
             break;
          case 'new':
          case 'edit':
-            $this->showEdit($_GET['idx']);
+            return $this->showEdit($_GET['idx']);
             break;
       }
 
@@ -92,7 +92,7 @@ class NEPHTHYS_USERS {
       }
 
       $this->tmpl->register_block("user_list", array(&$this, "smarty_user_list"));
-      $this->tmpl->show("users_list.tpl"); 
+      return $this->tmpl->fetch("users_list.tpl");
 
    } // showList()
 
@@ -131,7 +131,7 @@ class NEPHTHYS_USERS {
          $this->tmpl->assign('user_active', 'Y');
       }
    
-      $this->tmpl->show("users_edit.tpl");
+      return $this->tmpl->fetch("users_edit.tpl");
 
    } // showEdit()
      

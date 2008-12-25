@@ -110,10 +110,10 @@ class NEPHTHYS_ADDRESSBOOK {
       switch($_GET['mode']) {
          default:
          case 'show':
-            $this->showList();
+            return $this->showList();
             break;
          case 'edit':
-            $this->showEdit($_GET['idx']);
+            return $this->showEdit($_GET['idx']);
             break;
       }
 
@@ -181,7 +181,7 @@ class NEPHTHYS_ADDRESSBOOK {
 
    public function showList()
    {
-      $this->tmpl->show("addressbook_list.tpl");
+      return $this->tmpl->fetch("addressbook_list.tpl");
 
    } // showList()
 
@@ -276,7 +276,7 @@ class NEPHTHYS_ADDRESSBOOK {
 
       }
 
-      $this->tmpl->show("addressbook_edit.tpl");
+      return $this->tmpl->fetch("addressbook_edit.tpl");
 
    } // showEdit()
 

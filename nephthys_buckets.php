@@ -136,13 +136,13 @@ class NEPHTHYS_BUCKETS {
          case 'receive':
             $this->tmpl->assign('bucket_owner', $_SESSION['login_idx']);
             $this->tmpl->assign('bucket_expire', $this->parent->get_user_expire($_SESSION['login_idx']));
-            return $this->tmpl->show('receive_form.tpl');
+            return $this->tmpl->fetch('receive_form.tpl');
          case 'send':
             $this->tmpl->assign('bucket_owner', $_SESSION['login_idx']);
             $this->tmpl->assign('bucket_expire', $this->parent->get_user_expire($_SESSION['login_idx']));
-            return $this->tmpl->show('send_form.tpl');
+            return $this->tmpl->fetch('send_form.tpl');
          case 'edit':
-            $this->showEdit($_GET['idx']);
+            return $this->showEdit($_GET['idx']);
             break;
          case 'notify':
             return $this->notify();
@@ -196,7 +196,7 @@ class NEPHTHYS_BUCKETS {
          $this->tmpl->assign('bucket_webdav_path', $bucket_webdav);
          $this->tmpl->assign('bucket_ftp_path', $bucket_ftp);
 
-         return $this->tmpl->show('saved_bucket.tpl');
+         return $this->tmpl->fetch('saved_bucket.tpl');
 
       }
 
@@ -560,7 +560,7 @@ class NEPHTHYS_BUCKETS {
 
    public function showList()
    {
-      $this->tmpl->show("bucket_list.tpl");
+      return $this->tmpl->fetch("bucket_list.tpl");
 
    } // showList()
 
@@ -783,7 +783,7 @@ class NEPHTHYS_BUCKETS {
 
       }
 
-      $this->tmpl->show("bucket_edit.tpl");
+      return $this->tmpl->fetch("bucket_edit.tpl");
 
    } // showEdit()
 

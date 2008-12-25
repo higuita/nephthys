@@ -56,7 +56,7 @@ class NEPHTHYS_PROFILE {
       switch($_GET['mode']) {
          default:
          case 'edit':
-            $this->showEdit();
+            return $this->showEdit();
             break;
       }
 
@@ -89,7 +89,7 @@ class NEPHTHYS_PROFILE {
       $this->tmpl->assign('user_deny_chpwd', $user->user_deny_chpwd);
       $this->tmpl->assign('user_language', $user->user_language);
 
-      $this->tmpl->show("profile.tpl");
+      return $this->tmpl->fetch("profile.tpl");
 
    } // showEdit()
      

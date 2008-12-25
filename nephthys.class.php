@@ -254,15 +254,14 @@ class NEPHTHYS {
    /**
     * init - generate html output
     *
-    * this function can be called after the constructor has
-    * prepared everyhing. it will load the index.tpl smarty
-    * template. if necessary it will registere pre-selects
-    * (photo index, photo, tag search, date search) into
-    * users session.
+    * this function can be called after the constructor has prepared
+    * everyhing. it will load the index.tpl Smarty template and exit
+    * successfully.
     */
    public function init()
    {
-      $this->tmpl->show("index.tpl");
+      print $this->tmpl->fetch("index.tpl");
+      exit(0);
 
    } // init()
 
@@ -271,7 +270,7 @@ class NEPHTHYS {
     */
    public function show()
    {
-      $this->tmpl->show("main.tpl");
+      return $this->tmpl->fetch("main.tpl");
 
    } // show()
 
@@ -280,7 +279,7 @@ class NEPHTHYS {
     */
    public function get_menu()
    {
-      $this->tmpl->show("menu.tpl");
+      return $this->tmpl->fetch("menu.tpl");
 
    } // get_menu()
 
@@ -291,8 +290,7 @@ class NEPHTHYS {
    {
       /* if no user-login yet, show the login box */
       if(!$this->is_logged_in()) {
-         $this->tmpl->show("login_box.tpl");
-         return;
+         return $this->tmpl->fetch("login_box.tpl");
       }
       else {
          /* if the user has been auto-created, but its email address has not
@@ -338,10 +336,10 @@ class NEPHTHYS {
             $obj = new NEPHTHYS_ADDRESSBOOK();
             break;
          case 'about':
-            return $this->tmpl->show("about.tpl");
+            return $this->tmpl->fetch("about.tpl");
             break;
          case 'help':
-            return $this->tmpl->show("help.tpl");
+            return $this->tmpl->fetch("help.tpl");
             break;
          case 'savedbucket':
             $obj = new NEPHTHYS_BUCKETS();
