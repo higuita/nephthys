@@ -41,11 +41,12 @@ class NEPHTHYS_RPC {
 
       $nephthys = new NEPHTHYS();
 
-      /* if no action is specified, no need to further process this
-       * function here.
-       */
-      if(!isset($_GET['action']) && !isset($_POST['action']))
+      // if no action has been specified we are going to redirect
+      // this request to Nephthys start page.
+      if(!isset($_GET['action']) && !isset($_POST['action'])) {
+         Header("Location: ". $nephthys->cfg->web_path);
          return;
+      }
 
       if(isset($_GET['action']))
          $action = $_GET['action'];
