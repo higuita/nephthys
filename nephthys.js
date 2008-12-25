@@ -62,7 +62,7 @@ function ajax_notify_bucket(id)
    var retval = retobj.split(';');
 
    if(retval[0] != "ok") {
-      window.alert("Server message: "+ retval[0]);
+      raise_error('ajax_notify_bucket()', retval[0]);
       return;
    }
 
@@ -122,20 +122,12 @@ function js_submit_form(obj, target)
 {
    var retval = ajax_save_form(obj)
 
-   if(retval == "ok") {
-      menutabs.expandit(target);
-      //aun, 2008-07-10, use menutabs.epandit() instead
-      //ajax_show_content(target);
-   }
-   else {
-      window.alert(retval);
-      /*var errortext = document.getElementById('generalerror');
-      errortext.style.visibility = 'visible';
-      errortext.innerHTML = retval;
-      */
+   if(retval != "ok") {
+      raise_error('js_submit_form()', retval);
       return false;
    }
 
+   menutabs.expandit(target);
    return true;
 
 } // js_submit_form()
@@ -148,12 +140,14 @@ function js_delete_obj(module, target, idx)
    objTemp['mode'] = 'delete';
    objTemp['idx'] = idx;
    var retr = HTML_AJAX.post('rpc.php?action=store', objTemp);
-   if(retr == "ok") {
-      ajax_show_content(target);
+
+   if(retr != "ok") {
+      raise_error('js_delete_obj()', retr);
+      return;
    }
-   else {
-      window.alert("Server returned: " + retr);
-   }
+
+   ajax_show_content(target);
+
 } // js_delete_obj()
 
 function js_toggle_status(module, target, idx, to)
@@ -165,12 +159,14 @@ function js_toggle_status(module, target, idx, to)
    objTemp['idx'] = idx;
    objTemp['to'] = to;
    var retr = HTML_AJAX.post('rpc.php?action=store', objTemp);
-   if(retr == "ok") {
-      ajax_show_content(target);
+
+   if(retr != "ok") {
+      raise_error('js_toggle_status()', retr);
+      return;
    }
-   else {
-      window.alert(retr);
-   }
+
+   ajax_show_content(target);
+
 } // js_toggle_status()
 
 function ajax_save_form(obj)
@@ -181,6 +177,9 @@ function ajax_save_form(obj)
 
 function ajax_show_content(req_content, options)
 {
+   // clear the current view
+   clear_screen();
+
    if(req_content == undefined)
       req_content = "";
 
@@ -361,14 +360,14 @@ function js_login()
 
    var retr = HTML_AJAX.post('rpc.php?action=login', objTemp);
 
-   if(retr == "ok") {
-      refreshMenu();
-      ajax_show_content('main');
-      init_ajaxtabs();
+   if(retr != "ok") {
+      raise_error('js_login()', retr);
+      return;
    }
-   else {
-      window.alert(retr);
-   }
+
+   refreshMenu();
+   ajax_show_content('main');
+   init_ajaxtabs();
 
 } // js_login()
 
@@ -376,14 +375,18 @@ function js_logout()
 {
    var retr = HTML_AJAX.grab(encodeURI('rpc.php?action=logout'));
 
-   if(retr == "ok") {
-      refreshMenu();
-      menutabs.expandit('main');
-      init_ajaxtabs();
+   if(retr != "ok") {
+      raise_error('js_logout()', retr);
+      return;
    }
-   else {
-      window.alert(retr);
-   }
+
+   // cleanup
+   clear_screen();
+   // redraw the menu and switch to 'Start Page'
+   refreshMenu();
+   menutabs.expandit('main');
+   // reinitialize ajaxtabs
+   init_ajaxtabs();
 
 } // js_logout()
 
@@ -494,16 +497,15 @@ function update_sort_order(module, column, order, reload)
 
    var retr = HTML_AJAX.post('rpc.php?action=sortorder', objTemp);
 
-   if(retr == "ok") {
+   if(retr != "ok") {
+      raise_error('update_sort_order()', retr);
+      return;
+   }
 
-      if(reload == undefined)
-         reload = 'main';
-         
-      ajax_show_content(reload);
-   }
-   else {
-      window.alert(retr);
-   }
+   if(reload == undefined)
+      reload = 'main';
+
+   ajax_show_content(reload);
 
 } // update_sort_order()
 
@@ -530,10 +532,7 @@ function ajax_get_bucket_info(id)
 function show_balloon(id, title, text)
 {
    /* if there is any balloon shown currently... */
-   if(balloon != undefined) {
-      balloon.hide();
-      balloon = null; /* destroy */
-   }
+   hide_balloon();
 
    /* initalize */
    balloon = new HelpBalloon({
@@ -547,6 +546,43 @@ function show_balloon(id, title, text)
    balloon.show()
 
 } // show_balloon()
+
+/**
+ * if a balloon is currently shown, hide it
+ * and destroy the object.
+ */
+function hide_balloon()
+{
+   if(balloon != undefined) {
+      balloon.hide();
+      balloon = null; /* destroy */
+   }
+
+} // hide_balloon()
+
+/**
+ * just a helper function to generally clear up the
+ * screen from any left over stuff...
+ */
+function clear_screen()
+{
+   // when the user is going to quickly switch between
+   // some views we should take care, that the balloon
+   // does not get left...
+   hide_balloon();
+
+} // clear_screen()
+
+function raise_error(calling_function, text)
+{
+   var error_str;
+
+   error_str = calling_function + ": ";
+   error_str+= text;
+
+   window.alert(error_str);
+
+} // raise_error()
 
 var as = undefined;
 var menutabs = undefined;
