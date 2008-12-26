@@ -1,8 +1,11 @@
 nephthys (1.6)
 
-  * (empty)
+  * bug, HelpBalloon now immediately disappears as soon as the content is
+      changing (#139)
+  * feature, dutch translation, some additional updates and missing phrases
+      (#138), contributed by Andre Jeanmaire
 
- -- Andreas Unterkircher <unki@netshadow.at>  Tue, 23 Dec 2008 09:59:42 +0100
+ -- Andreas Unterkircher <unki@netshadow.at>  Fri, 26 Dec 2008 09:59:42 +0100
 
 nephthys (1.5)
 
