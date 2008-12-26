@@ -65,6 +65,11 @@
    { if $bucket_via_ftp }
    <a href="{ $bucket_ftp_path }" target="_blank" title="##OPEN_VIA_FTP##"><img src="{ $theme_root }/images/ftp.png" />&nbsp;FTP</a>
    { /if }
+
+   <!-- HTTP upload support is enabled -->
+   { if $bucket_via_http_upload }
+   <a href="#" onclick="filemgr_open('{ $bucket_idx }');" title="##OPEN_VIA_FILEMGR##"><img src="{ $theme_root }/images/ftp.png" />&nbsp;FileManager</a>
+   { /if }
   </td>
 
   { if $login_priv == "manager" || $login_priv == "admin" }

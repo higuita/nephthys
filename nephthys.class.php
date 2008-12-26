@@ -27,6 +27,7 @@ require_once "nephthys_buckets.php";
 require_once "nephthys_addressbook.php";
 require_once "nephthys_users.php";
 require_once "nephthys_profile.php";
+require_once "nephthys_upload.php";
 
 class NEPHTHYS {
 
@@ -74,14 +75,19 @@ class NEPHTHYS {
 
       $this->browser_info = new Net_UserAgent_Detect();
 
-      if(!$this->is_cmdline() && (!isset($this->cfg->ignore_js) || empty($this->cfg->ignore_js))) {
+      /* verify if browser supports javascript
+           ... if not called from command line
+           ... if not called via RPC handler
+           ... and ignore Javascript check is not set
+      */
+      if(!$this->is_cmdline() && !defined('RPC_CALL') && (!isset($this->cfg->ignore_js) || empty($this->cfg->ignore_js))) {
 
          if(!$this->browser_info->hasFeature('javascript')) {
             $this->_error("It seems your browser is not capable of supporting JavaScript or it has been disabled.");
             $this->_error("Nephthys will not work without JavaScript!");
             exit;
          }
-     }
+      }
 
       /* if database type is set to sqlite, database exists
          but is not readable ...
@@ -2318,13 +2324,13 @@ class NEPHTHYS {
     */
    public function get_unit($bytes)
    {
-      $symbols = array('b', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+      $symbols = array('B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
 
       /* if $bytes = 0, return 0b */
       if(empty($bytes))
          return '0'. $symbols[0];
 
-      /* if something went wrong and no value was supplied, return */
+      /* if a non-numeric value has been provided, return */
       if(!is_numeric($bytes))
          return "n/a";
 
@@ -2740,6 +2746,58 @@ class NEPHTHYS {
 
    } // is_valid_file()
 
+   public function load_filemgr()
+   {
+      $upload = new NEPHTHYS_UPLOAD;
+      return $upload->filemgr();
+
+   } // load_filemgr()
+
+   /**
+    * deltree similar function
+    *
+    * this function deletes the given $directory recursivley
+    * @param string $directory
+    * @return bool
+    */
+   public function deltree($directory)
+   {  
+      /* verify that $directory is really a directory */
+      if (!is_dir($directory))
+         return false;
+
+      if(!is_readable($directory))
+         return false;
+
+      /* open the directory and start reading all entries within */
+      $handle = opendir($directory);
+      while (false !== ($obj = readdir($handle))) {
+
+         if ($obj == "." || $obj == "..")
+            continue;
+
+         $fq_obj = $directory ."/". $obj;
+
+         /* if object is a directory, call deltree for this directory. */
+         if (is_dir($fq_obj) && !is_link($fq_obj)) {
+            $this->deltree($fq_obj);
+         } else {
+            /* ordinary file will be deleted here */
+            if(!unlink($fq_obj))
+               return false;
+         }
+      }
+
+      closedir($handle);
+
+      /* now remove the - hopefully empty - directory */
+      if(!rmdir($directory))
+         return false;
+
+      return true;
+
+   } // deltree()
+
 } // class NEPHTHYS
 
 /***************************************************************************
@@ -2773,6 +2831,7 @@ class NEPHTHYS_DEFAULT_CFG {
 
    var $bucket_via_dav = true;
    var $bucket_via_ftp = true;
+   var $bucket_via_http_upload = true;
 
    var $allow_server_auth = false;
    var $user_auto_create  = false;

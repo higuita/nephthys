@@ -150,6 +150,9 @@ USER_SAVE=Gebruikersgegevens opslaan en terug naar de lijst van gebruikers
 USER_HEADER=Gebruikersbeheer
 USER_SUBHEADER=Manage Nephthys users
 
+// bucket_filemgr.tpl
+FILE_MANAGER_TITLE=File Manager
+
 // from PHP source
 NOT_ALLOWED=Je hebt onvoldoende permissie om deze module te gebruiken!
 FAILURE_ENTER_EMAIL=Vul het emailadres van dit contact in!

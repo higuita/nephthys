@@ -152,6 +152,7 @@ class NEPHTHYS_CFG extends NEPHTHYS_DEFAULT_CFG {
    // Default:
    //   var $bucket_via_dav = true;
    //   var $bucket_via_ftp = true;
+   //   var $bucket_via_http_upload = true;
 
 } // class NEPHTHYS_CFG
 

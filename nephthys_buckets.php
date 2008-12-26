@@ -303,7 +303,6 @@ class NEPHTHYS_BUCKETS {
       else
          $text->assign('bucket_sender_name', $this->parent->get_user_name($bucket->bucket_owner));
 
-      $text->assign('bucket_hash', $bucket->bucket_hash);
       $text->assign('bucket_ftp_url', $ftp_url);
       $text->assign('bucket_http_url', $http_url);
       $text->assign('bucket_servername', $this->parent->cfg->servername);
@@ -605,6 +604,7 @@ class NEPHTHYS_BUCKETS {
          $this->tmpl->assign('bucket_webdav_path_vista', $bucket_webdav_vista);
          $this->tmpl->assign('bucket_ftp_path', $bucket_ftp);
          $this->tmpl->assign('bucket_notified', $bucket->bucket_notified);
+         $this->tmpl->assign('bucket_hash', $bucket->bucket_hash);
 
          $index++;
          $this->tmpl->assign('smarty.IB.bucket_list.index', $index);
@@ -688,55 +688,11 @@ class NEPHTHYS_BUCKETS {
          return false;
 
       if($this->data_directory_exists($hash))
-         return $this->deltree($this->parent->cfg->data_path ."/". $hash);
+         return $this->parent->deltree($this->parent->cfg->data_path ."/". $hash);
 
       return false;
 
    } // del_data_directory()
-
-   /**
-    * deltree similar function
-    *
-    * this function deletes the given $directory recursivley
-    * @param string $directory
-    * @return bool
-    */
-   private function deltree($directory)
-   {
-      /* verify that $directory is really a directory */
-      if (is_dir($directory)) {
-
-         /* open the directory and start reading all entries within */
-         $handle = opendir($directory);
-         while (false !== ($obj = readdir($handle))) {
-
-            $fq_obj = $directory ."/". $obj;
-
-            /* check if valid object */
-            if ($obj != "." && $obj != "..") {
-
-               /* if object is a directory, call deltree for this directory. */
-               if (is_dir($fq_obj) && !is_link($fq_obj)) {
-                  $this->deltree($fq_obj);
-               } else {
-                  /* ordinary file will be deleted here */
-                  if(!unlink($fq_obj))
-                     return false;
-               }
-            }
-         }
-         closedir($handle);
-
-         /* now remove the - hopefully empty - directory */
-         if(!rmdir($directory))
-            return false;
-
-         return true;
-      }
-
-      return false;
-
-   } // deltree()
 
    /**
     * check if data directory exists

@@ -39,6 +39,8 @@ class NEPHTHYS_RPC {
       $server = new HTML_AJAX_Server();
       $server->handleRequest();
 
+      define("RPC_CALL", uniqid());
+
       $nephthys = new NEPHTHYS();
 
       // if no action has been specified we are going to redirect
@@ -89,6 +91,9 @@ class NEPHTHYS_RPC {
             break;
          case 'get_bucket_info':
             print $nephthys->get_bucket_info();
+            break;
+         case 'filemgr':
+            print $nephthys->load_filemgr();
             break;
          default:
             print "unkown action ". $action;

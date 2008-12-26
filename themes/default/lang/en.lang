@@ -148,6 +148,9 @@ USER_SAVE=Save user and return to user-list
 USER_HEADER=User - Management
 USER_SUBHEADER=Manage Nephthys users
 
+// bucket_filemgr.tpl
+FILE_MANAGER_TITLE=File Manager
+
 // from PHP source
 NOT_ALLOWED=You do not have enough permissions to access this module!
 FAILURE_ENTER_EMAIL=Please enter a email address for this contact!

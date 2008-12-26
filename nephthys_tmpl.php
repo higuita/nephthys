@@ -66,6 +66,7 @@ class NEPHTHYS_TMPL extends Smarty {
       $this->assign('db_version', $nephthys->cfg->db_version);
       $this->assign('bucket_via_dav', $nephthys->cfg->bucket_via_dav);
       $this->assign('bucket_via_ftp', $nephthys->cfg->bucket_via_ftp);
+      $this->assign('bucket_via_http_upload', $nephthys->cfg->bucket_via_http_upload);
       $this->assign('template_path', 'themes/'. $nephthys->cfg->theme_name);
       $this->register_function("page_start", array(&$this, "smarty_page_start"), false);
       $this->register_function("page_end", array(&$this, "smarty_page_end"), false);
