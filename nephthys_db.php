@@ -477,9 +477,9 @@ class NEPHTHYS_DB {
    } // db_alter_table()
 
    /**
-    * NEPHTHYS_DB get MasterShaper Version
+    * NEPHTHYS_DB get database version
     *
-    * This functions returns the current MasterShaper (DB) version
+    * This functions returns the current database version
     */
    public function getVersion()
    {
@@ -499,7 +499,7 @@ class NEPHTHYS_DB {
    /**
     * NEPHTHYS_DB set version
     *
-    * This function sets the version name of MasterShaper (DB)
+    * This function sets the version of database
     */
    public function setVersion($version)
    {
