@@ -2664,10 +2664,10 @@ class NEPHTHYS {
 
             $info['dirs']++;
 
-            $sub_info = $this->get_dir_info($type, $path."/".$file);
+            $sub_info = $this->get_dir_info($path."/".$file);
 
-            $info['dirs']+= $sub_info['dirs'];
-            $info['files']+= $sub_info['files'];
+            $info['dirs']    += $sub_info['dirs'];
+            $info['files']   += $sub_info['files'];
             $info['last_mod'] = $info['last_mod'] > $sub_info['last_mod'] ? $info['last_mod'] : $sub_info['last_mod'];
 
          }
