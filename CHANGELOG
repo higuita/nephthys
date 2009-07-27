@@ -2,8 +2,11 @@ nephthys (1.6)
 
   * bug, HelpBalloon now immediately disappears as soon as the content is
       changing (#139)
+  * bug, bucket-details reported wrong infos when bucket contained sub-
+      directories (#140)
   * feature, dutch translation, some additional updates and missing phrases
       (#138), contributed by Andre Jeanmaire
+  * feature, ESC key now closes floating windows (#185)
 
  -- Andreas Unterkircher <unki@netshadow.at>  Fri, 26 Dec 2008 09:59:42 +0100
 
