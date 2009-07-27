@@ -23,6 +23,7 @@
   <!-- windows_js -->
   <script type="text/javascript" src="windows_js/javascripts/effects.js"> </script>
   <script type="text/javascript" src="windows_js/javascripts/window.js"> </script>
+  <script type="text/javascript" src="windows_js/javascripts/window_ext.js"> </script>
   <link href="windows_js/themes/default.css" rel="stylesheet" type="text/css"/>
   <link href="windows_js/themes/alphacube.css" rel="stylesheet" type="text/css"/>
   <!-- help balloon -->

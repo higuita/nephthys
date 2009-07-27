@@ -67,6 +67,7 @@ function ajax_notify_bucket(id)
    }
 
    show_box(retval[1]);
+   WindowCloseKey.init();
 
 } // ajax_notify_bucket()
 
