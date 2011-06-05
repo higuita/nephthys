@@ -44,11 +44,14 @@
    <!-- WebDAV support is enabled -->
    { if $bucket_via_dav }
 
-    <!-- Browser is Internet Explorer -->
-    { if $is_ie }
+    <!-- Browser is Internet Explorer, but not on Vista or newer -->
+    { if $is_ie and !$is_vista }
      <span class="ie_davlink" style="behavior: url(#default#httpFolder);" onclick="this.navigateFrame('{ $bucket_webdav_path }', '_blank');">
       <a href="{ $bucket_webdav_path }" onclick="return false;" title="##OPEN_VIA_WEBDAV##"><img src="{ $theme_root }/images/webdav.png" />&nbsp;WebDAV</a>
      </span>
+    <!-- Browser is Internet Explorer, on Vista or newer -->
+    { elseif $is_ie and $is_vista }
+      <a href="{ $bucket_webdav_path_vista }" onclick="return false;" title="##OPEN_VIA_WEBDAV##"><img src="{ $theme_root }/images/webdav.png" />&nbsp;WebDAV</a>
     <!-- Every other browser -->
     { else }
       <a href="{ $bucket_webdav_path }" onclick="return false;" title="##OPEN_VIA_WEBDAV##"><img src="{ $theme_root }/images/webdav.png" />&nbsp;WebDAV</a>

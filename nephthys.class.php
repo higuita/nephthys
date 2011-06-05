@@ -78,10 +78,9 @@ class NEPHTHYS {
 
          if(!$this->browser_info->hasFeature('javascript')) {
             $this->_error("It seems your browser is not capable of supporting JavaScript or it has been disabled.");
-            $this->_error("Nephthys will not correctly work without JavaScript!");
+            $this->_error("Nephthys will not work without JavaScript!");
             exit;
          }
-
      }
 
       /* if database type is set to sqlite, database exists
@@ -222,6 +221,10 @@ class NEPHTHYS {
       */
       if(isset($this->browser_info) && $this->browser_info->isIE())
          $this->tmpl->assign('is_ie', true);
+
+      if($this->browser_info->getOS(array("vista", "win7"))) {
+         $this->tmpl->assign('is_vista', true);
+      }
 
       $this->tmpl->assign('hide_logout', $this->cfg->hide_logout);
       $this->tmpl->assign('disk_used', $this->get_unit($this->get_used_diskspace()));
@@ -1103,7 +1106,7 @@ class NEPHTHYS {
    {
       switch($type) {
          case 'ftp':
-            $url = "ftp://";
+            $url = "ftp://". $this->cfg->servername;
             break;
          case 'dav':
             /* should a HTTPS URL be generated? */
@@ -1111,21 +1114,29 @@ class NEPHTHYS {
                $url = "https://";
             else
                $url = "http://";
+            $url.= $this->cfg->servername;
+            break;
+         case 'dav_vista':
+             /* should a HTTPS URL be generated? */
+            if(isset($this->cfg->use_https) && !empty($this->cfg->use_https))
+               $url = "\\\\". $this->cfg->servername ."@SSL\DavWWWRoot";
+            else
+               $url = "\\\\". $this->cfg->servername ."\DavWWWRoot";
             break;
       }
-
-      $url.= $this->cfg->servername;
 
       switch($type) {
          case 'ftp':
-            $url.= $this->cfg->ftp_path;
+            $url.= $this->cfg->ftp_path ."/". $hash ."/";
             break;
          case 'dav':
-            $url.= $this->cfg->dav_path;
+            $url.= $this->cfg->dav_path ."/". $hash ."/";
+            break;
+         case 'dav_vista';
+            $url = str_replace("/", "\\", $url);
+            $url.= "\\". $hash ."\\";
             break;
       }
-
-      $url.= "/". $hash ."/";
 
       return $url;
 

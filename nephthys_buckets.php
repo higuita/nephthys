@@ -186,6 +186,7 @@ class NEPHTHYS_BUCKETS {
 
          $bucket_ftp = $this->parent->get_url('ftp', $bucket->bucket_hash);
          $bucket_webdav = $this->parent->get_url('dav', $bucket->bucket_hash);
+         $bucket_webdav_vista = $this->parent->get_url('dav_vista', $bucket->bucket_hash);
 
          if($bucket->bucket_expire != "-1")
             $this->tmpl->assign('bucket_expire', strftime("%Y-%m-%d", $bucket_expire));
@@ -194,6 +195,7 @@ class NEPHTHYS_BUCKETS {
 
          $this->tmpl->assign('bucket_receiver', $this->parent->unescape($bucket->bucket_receiver));
          $this->tmpl->assign('bucket_webdav_path', $bucket_webdav);
+         $this->tmpl->assign('bucket_webdav_path_vista', $bucket_webdav_vista);
          $this->tmpl->assign('bucket_ftp_path', $bucket_ftp);
 
          return $this->tmpl->fetch('saved_bucket.tpl');
@@ -587,6 +589,7 @@ class NEPHTHYS_BUCKETS {
 
          $bucket_ftp = $this->parent->get_url('ftp', $bucket->bucket_hash);
          $bucket_webdav = $this->parent->get_url('dav', $bucket->bucket_hash);
+         $bucket_webdav_vista = $this->parent->get_url('dav_vista', $bucket->bucket_hash);
 
          $this->tmpl->assign('bucket_idx', $bucket_idx);
          $this->tmpl->assign('bucket_name', $this->parent->unescape($bucket->bucket_name));
@@ -599,6 +602,7 @@ class NEPHTHYS_BUCKETS {
          $this->tmpl->assign('bucket_owner_idx', $bucket->bucket_owner);
          $this->tmpl->assign('bucket_receiver', $this->parent->unescape($bucket->bucket_receiver));
          $this->tmpl->assign('bucket_webdav_path', $bucket_webdav);
+         $this->tmpl->assign('bucket_webdav_path_vista', $bucket_webdav_vista);
          $this->tmpl->assign('bucket_ftp_path', $bucket_ftp);
          $this->tmpl->assign('bucket_notified', $bucket->bucket_notified);
 
