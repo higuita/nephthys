@@ -2259,15 +2259,15 @@ class NEPHTHYS {
     */
    public function get_used_diskspace($path = NULL)
    {
-      /* this function will be recursive. if no path is provided
-         as parameter, use the $data_path to start from.
+      /* this function will be called recursive. if no path is
+         provided as parameter, use $data_path to start from.
       */
       if(!isset($path))
          $path = $this->cfg->data_path;
 
       $bytes = 0;
-      $dirhandle = opendir($path);
 
+      $dirhandle = opendir($path);
       while($file = readdir($dirhandle)) {
 
          if(!$this->is_valid_file($path, $file))
@@ -2277,7 +2277,16 @@ class NEPHTHYS {
             $bytes = $bytes + $this->get_used_diskspace($path."/".$file);
          }
          else {
-            $bytes = $bytes + filesize($path."/".$file);
+            /* On 32bit plattforms filesize() can returns unexptected
+               and negative results when files are larger then 2GB.
+               Let's try to caputre this here and get the filesize by
+               invoking stat on the command line instead.
+            */
+            if(($size = @filesize($path."/".$file)) === false)
+               $size = exec ('stat -c %s '. escapeshellarg ($path."/".$file));
+
+            if($size > 0)
+               $bytes+= $size;
          }
       }
 
