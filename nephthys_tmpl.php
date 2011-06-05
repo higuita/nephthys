@@ -197,7 +197,7 @@ class NEPHTHYS_TMPL extends Smarty {
 
       foreach($this->parent->cfg->expirations as $expire) {
 
-         list($days, $name, $require_priv) = split(";", $expire);
+         list($days, $name, $require_priv) = preg_split("/;/", $expire);
 
          /* "user" privileged users are not allowed to create long-time
             existing buckets. Only if the got the right assigned by an

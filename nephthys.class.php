@@ -773,7 +773,11 @@ class NEPHTHYS {
          return $this->validate_email($email);
 
       /* multiple email addresses */
-      $emails = split(",", $email);
+      $emails = preg_split("/,/", $email);
+
+      if(!is_array($emails) || empty($emails))
+         return false;
+
       foreach($emails as $email_addr) {
 
          $email_addr = trim($email_addr);
@@ -803,7 +807,7 @@ class NEPHTHYS {
       //if php version < 5.2
       if ( version_compare( phpversion(), "5.2","<" ) ) {
          // First, we check that there's one @ symbol, and that the lengths are right
-         if (!ereg("^[^@]{1,64}@[^@]{1,255}$", $email)) {
+         if (!preg_match("/^[^@]{1,64}@[^@]{1,255}$/", $email)) {
             // Email invalid because wrong number of characters in one section, or wrong number of @ symbols.
             return false;
          }
@@ -811,23 +815,23 @@ class NEPHTHYS {
          $email_array = explode("@", $email);
          $local_array = explode(".", $email_array[0]);
          for ($i = 0; $i < sizeof($local_array); $i++) {
-            if (!ereg("^(([A-Za-z0-9!#$%&'*+/=?^_`{|}~-][A-Za-z0-9!#$%&'*+/=?^_`{|}~\.-]{0,63})|(\"[^(\\|\")]{0,62}\"))$", $local_array[$i])) {
+            if (!preg_match("/^(([A-Za-z0-9!#$%&'*+/=?^_`{|}~-][A-Za-z0-9!#$%&'*+/=?^_`{|}~\.-]{0,63})|(\"[^(\\|\")]{0,62}\"))$/", $local_array[$i])) {
                return false;
             }
          }
-         if (!ereg("^\[?[0-9\.]+\]?$", $email_array[1])) { // Check if domain is IP. If not, it should be valid domain name
+         if (!preg_match("/^\[?[0-9\.]+\]?$/", $email_array[1])) { // Check if domain is IP. If not, it should be valid domain name
             $domain_array = explode(".", trim($email_array[1]));
             if (sizeof($domain_array) < 2) {
                return false; // Not enough parts to domain
             }
             for ($i = 0; $i < sizeof($domain_array); $i++) {
-               if (!ereg("^(([A-Za-z0-9][A-Za-z0-9-]{0,61}[A-Za-z0-9])|([A-Za-z0-9]+))$", $domain_array[$i])) {
+               if (!preg_match("/^(([A-Za-z0-9][A-Za-z0-9-]{0,61}[A-Za-z0-9])|([A-Za-z0-9]+))$/", $domain_array[$i])) {
                   return false;
                }
             }
          } else {
             //regular expression verifies that each component is a number from 1 to 3 characters in length
-            if (!ereg("^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$", $email_array[1])){
+            if (!preg_match("/^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$/", $email_array[1])){
                return false;
             }
          }
@@ -2077,7 +2081,8 @@ class NEPHTHYS {
          array_push($to_ab, $email);
 
       /* multiple email addresses */
-      $emails = split(",", $email);
+      $emails = preg_split("/,/", $email);
+
       foreach($emails as $email_addr) {
          $email_addr = trim($email_addr);
          array_push($to_ab, $email_addr);
