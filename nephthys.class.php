@@ -1001,6 +1001,9 @@ class NEPHTHYS {
     */
    public function is_bucket_owner($bucket_idx)
    {
+      if($this->get_user_priv($_SESSION['login_idx']) == "admin")
+         return true;
+
       if($bucket = $this->db->db_fetchSingleRow("
             SELECT *
             FROM nephthys_buckets
