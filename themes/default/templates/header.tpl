@@ -43,6 +43,6 @@
   </script>
 
   <!-- finally include our own stuff -->
-  <script type="text/javascript" src="rpc.php?mode=init&amp;client=all"></script>
+  <script type="text/javascript" src="rpc.php?mode=init&client=all"></script>
   <script type="text/javascript" src="nephthys.js"></script>
  </head>
