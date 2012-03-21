@@ -39,6 +39,10 @@ class NEPHTHYS_RPC {
       $server = new HTML_AJAX_Server();
       $server->handleRequest();
 
+      /* was there only an init call, then stop */
+      if($_GET['mode'] == 'init' && $_GET['client'] == 'all')
+         return true;
+
       define("RPC_CALL", uniqid());
 
       $nephthys = new NEPHTHYS();
