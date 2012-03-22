@@ -615,7 +615,7 @@ function filemgr_open(bucket_id)
          options: {
             method: 'post',
             parameters: objTemp
-         },
+         }
       },
       {
          className: "alphacube",
