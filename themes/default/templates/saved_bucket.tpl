@@ -77,6 +77,15 @@
   </td>
  </tr>
  { /if }
+
+ <!-- HTTP upload support is enabled -->
+ { if $bucket_via_http_upload }
+ <tr>
+  <td style="padding-left: 15px;">
+   <a href="#" onclick="filemgr_open('{ $bucket_idx }');" title="##OPEN_VIA_FILEMGR##"><img src="{ $theme_root }/images/ftp.png" />&nbsp;FileManager</a>
+  </td>
+ </tr>
+ { /if }
  <tr>
   <td>&nbsp;</td>
  </tr>
