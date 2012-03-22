@@ -44,14 +44,15 @@ class NEPHTHYS_UPLOAD {
       $buckets  = new NEPHTHYS_BUCKETS;
 
       /* uploadifys flash object has no access to the browsers cookie.
-         check if session has been started already. otherwise look for
-         a provided sessionid in the $_POST variable.
+         so it will not send session informations (PHPSEЅSID in cookie)
+         with HTTP headers.
+         so we check here if the session has been started already,
+         otherwise we are going to look for a provided sessionid
+         in $_POST.
       */
       if(session_id() == "" || (session_id() != "" && !isset($_SESSION['login_idx']))) {
 
          // destroy current session.
-         // If it's desired to kill the session, also delete the session cookie.
-         // Note: This will destroy the session, and not just the session data!
          if(ini_get("session.use_cookies")) {
             $params = session_get_cookie_params();
             setcookie(session_name(), '', time() - 42000,
@@ -67,11 +68,11 @@ class NEPHTHYS_UPLOAD {
             return false;
          }
          session_id($_POST['sessionid']);
-         session_start($_POST['sessionid']);
+         session_start();
       }
 
       /* user logged in? */
-      if(!$nephthys->is_logged_in() || $nephthys->check_privileges('user')) {
+      if(!$nephthys->is_logged_in()) {
          print "not enough permissions!";
          return false;
       }
