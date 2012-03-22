@@ -1004,6 +1004,9 @@ class NEPHTHYS {
       if($this->get_user_priv($_SESSION['login_idx']) == "admin")
          return true;
 
+      if($this->get_user_priv($_SESSION['login_idx']) == "manager")
+         return true;
+
       if($bucket = $this->db->db_fetchSingleRow("
             SELECT *
             FROM nephthys_buckets
